@@ -1,0 +1,26 @@
+<p>{{ 'Choose an event:'|trans }}</p>
+
+<div class="btn-toolbar" role="toolbar">
+
+    <div class="btn-group me-2" role="group">
+        {% for event_item in events %}
+            <a
+                class="btn btn-{{ event is defined and event is not empty and event.id == event_item.id ? 'primary' : 'secondary' }}"
+                href="{{ path('admin_calendar_event', {event_id: event_item.id}) }}"
+            >
+                {{ event_item.name }}
+            </a>
+        {% else %}
+            <button class="btn btn-danger" disabled>
+                {{ 'calendar.modal.no_upcoming_event'|trans }}
+            </button>
+        {% endfor %}
+    </div>
+
+    <div class="btn-group" role="group" aria-label="Second group">
+        <a href="{{ path('admin_event_new') }}" class="btn btn-info">
+            <i class="fas fa-plus"></i> {{ 'Create new' }}
+        </a>
+    </div>
+
+</div>

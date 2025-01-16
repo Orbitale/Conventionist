@@ -1,0 +1,164 @@
+
+<script defer>
+    /** @var {HTMLElement} eventModalElement */
+    const eventModalElement = document.getElementById('event_modal');
+    const eventModal = new bootstrap.Modal(eventModalElement);
+
+    /** @var {HTMLElement} calendarElement */
+    const calendarElement = document.getElementById('admin_event_calendar');
+
+    if (!calendarElement) {
+        throw new Error('No calendar element.');
+    }
+
+    const newSlotContainer = eventModalElement.querySelector('#new_slot');
+
+    let currentTimeSlot;
+
+    function resetModalContents () {
+        eventModalElement.querySelector('#event_modal_label').style.display = 'none';
+        eventModalElement.querySelector('#slot_modal_label').style.display = 'none';
+        eventModalElement.querySelector('#empty_slot').style.display = 'none';
+        eventModalElement.querySelector('#event_form').style.display = 'none';
+        newSlotContainer.style.display = 'none';
+        newSlotContainer.querySelector('input[name="start"]').value = "";
+        newSlotContainer.querySelector('input[name="end"]').value = "";
+        newSlotContainer.querySelector('input[name="table_id"]').value = "";
+        eventModalElement.querySelectorAll('[data-formaction-template]').forEach(btn => btn.setAttribute('formaction', ''));
+    }
+
+    function resizeCalendar() {
+        calendarElement.style.width = '0';
+        calendarElement.style.width = getComputedStyle(calendarElement.parentElement).width.replace('px', '') - 25 + 'px'
+    }
+
+    const events = {{ json_schedules|json_encode|raw }};
+
+    window.addEventListener('resize', resizeCalendar);
+
+    const ec = new EventCalendar(calendarElement, {
+        initialView: 'resourceTimelineDay',
+        view: 'resourceTimelineDay',
+        height: 'auto',
+        locale: '{{ app.user.locale|replace({'_': '-'}) }}',
+        eventTimeFormat: {
+            timeStyle: 'short',
+            timeZone: '{{ app.user.timezone }}'
+        },
+        slotLabelFormat: {
+            timeStyle: 'short',
+            timeZone: '{{ app.user.timezone }}'
+        },
+        nowIndicator: false,
+        selectable: {{ is_granted('CAN_CREATE_TIME_SLOTS_FOR_EVENT', {event: event}) ? 'true' : 'false' }},
+        editable: false,
+        eventStartEditable: false,
+        eventDurationEditable: false,
+        eventResizableFromStart: false,
+        pointer: true,
+        flexibleSlotTimeLimits: false,
+        resources: {{ json_resources|json_encode|raw }},
+        eventSources: [{events: () => events}],
+        date: '{{ event.startsAt|date('Y-m-d H:i:s') }}',
+        highlightedDates: [
+            '{{ event.startsAt|date('Y-m-d H:i:s') }}',
+            '{{ event.endsAt|date('Y-m-d H:i:s') }}'
+        ],
+        validRange: {
+            start: '{{ event.startsAt|date('Y-m-d H:i:s') }}',
+            end: '{{ event.endsAt|date('Y-m-d H:i:s') }}',
+        },
+        headerToolbar: {
+            start: 'title',
+            center: '',
+            end: 'prev,next',
+        },
+        eventDidMount: () => {
+            resizeCalendar();
+        },
+        select: function (info) {
+            if (info.allDay) {
+                return;
+            }
+            if (info.resource.extendedProps?.slot_type !== 'table') {
+                ec.unselect();
+                return;
+            }
+            const slot = ec.addEvent({
+                start: info.start,
+                end: info.end,
+                resourceIds: [info.resource.id],
+                title: "⚠ {{ 'calendar.modal.unconfigured_timeslot'|trans|raw }}",
+                extendedProps: {
+                    type: 'empty_slot'
+                },
+            });
+            events.push(slot);
+            ec.unselect();
+        },
+        unselect: function () {
+            const latest = events[events.length - 1];
+            if (!latest || !latest.id) {
+                return;
+            }
+            if (latest.id.match(/\{generated-/gi)) {
+                if (latest.resourceIds.length > 1) {
+                    throw new Error('Error: more than one resource.');
+                }
+                const resourceId = latest.resourceIds[0];
+                const resources = ec.getOption('resources').filter(r => r.id === resourceId);
+                if (!resources.length) {
+                    throw new Error(`No resource with id "${resourceId}".`);
+                }
+            } else {
+                console.error('Apparently, ID is not a generated one and you created an event anyway: are your sure you did not hack the project? ;)');
+            }
+            currentTimeSlot = null;
+        },
+        eventClick: function (info) {
+            resetModalContents();
+
+            eventModalElement.querySelector('#event_title').innerHTML = info.event.title;
+            eventModalElement.querySelector('#event_start').innerHTML = info.event.start;
+            eventModalElement.querySelector('#event_end').innerHTML = info.event.end;
+
+            if (info.event.extendedProps?.type === 'animation') {
+                eventModalElement.querySelector('#event_modal_label').style.display = 'block';
+                if (info.event.extendedProps?.can_be_validated) {
+                    eventModalElement.querySelector('#event_form').style.display = 'block';
+                    eventModalElement.querySelectorAll('[data-formaction-template]')
+                        .forEach(btn => btn.setAttribute('formaction', btn.getAttribute('data-formaction-template').replace(/__ENTITY_ID__/, info.event.id)));
+                }
+            }
+
+            if (info.event.extendedProps?.type === 'empty_slot') {
+                if (info.event.id.match(/\{generated-/gi)) {
+                    currentTimeSlot = info.event;
+                    // Time slot being created
+                    newSlotContainer.style.display = 'block';
+                    newSlotContainer.querySelector('input[name="start"]').value = new Date(Date.parse(info.event.start)).toISOString();
+                    newSlotContainer.querySelector('input[name="end"]').value = new Date(Date.parse(info.event.end)).toISOString();
+                    newSlotContainer.querySelector('input[name="table_id"]').value = info.event.resourceIds[0];
+                } else {
+                    // Existing time slot
+                    eventModalElement.querySelector('#slot_modal_label').style.display = 'block';
+                    eventModalElement.querySelector('#empty_slot').style.display = 'block';
+                    eventModalElement.querySelectorAll('[data-basehref]')
+                        .forEach(btn => btn.setAttribute('href', btn.getAttribute('data-basehref').replace(/__SLOT_ID__/, info.event.id)));
+                }
+            }
+
+            eventModal.show();
+        }
+    });
+
+    newSlotContainer.querySelector('button[data-remove]').addEventListener('click', function () {
+        if (!currentTimeSlot) {
+            throw new Error('Clicked "remove" on time slot, but no time slot is selected.');
+        }
+
+        eventModal.hide();
+        ec.removeEventById(currentTimeSlot.id);
+    });
+
+</script>

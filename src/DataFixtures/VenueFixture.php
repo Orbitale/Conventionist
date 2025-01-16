@@ -2,12 +2,15 @@
 
 namespace App\DataFixtures;
 
+use App\DataFixtures\Tools\GetObjectsFromData;
 use App\Entity\Venue;
 use Doctrine\Bundle\FixturesBundle\ORMFixtureInterface;
 use Orbitale\Component\ArrayFixture\ArrayFixture;
 
 class VenueFixture extends ArrayFixture implements ORMFixtureInterface
 {
+    use GetObjectsFromData;
+
     protected function getEntityClass(): string
     {
         return Venue::class;
@@ -23,11 +26,10 @@ class VenueFixture extends ArrayFixture implements ORMFixtureInterface
         return 'getName';
     }
 
-    protected function getObjects(): iterable
+    public static function getStaticData(): array
     {
         return [
-            [
-                'id' => 'ae58fc80-cf97-49b4-a7ec-6fba881dd1db',
+            'ae58fc80-cf97-49b4-a7ec-6fba881dd1db' => [
                 'name' => 'CPC',
                 'address' => 'Puy',
             ],

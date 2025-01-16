@@ -3,14 +3,12 @@
 namespace App\Form;
 
 use App\Entity\User;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
@@ -21,6 +19,7 @@ class RegistrationFormType extends AbstractType
         $builder
             ->add('username')
             ->add('email', EmailType::class)
+            /*
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
                 'label' => 'I agree to terms and conditions',
@@ -30,6 +29,7 @@ class RegistrationFormType extends AbstractType
                     ]),
                 ],
             ])
+            */
             ->add('plainPassword', PasswordType::class, [
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
@@ -47,6 +47,17 @@ class RegistrationFormType extends AbstractType
                         'max' => 4096,
                     ]),
                 ],
+            ])
+            ->add('roles', ChoiceType::class, [
+                'label' => 'registration.roles.label',
+                'help' => 'ℹ You can always update this later if you need.',
+                'choices' => [
+                    'Visitor' => 'ROLE_VISITOR',
+                    'Conference organizer' => 'ROLE_CONFERENCE_ORGANIZER',
+                    'Venue manager' => 'ROLE_EVENT_VENUE_MANAGER',
+                ],
+                'multiple' => true,
+                'expanded' => true,
             ])
         ;
     }

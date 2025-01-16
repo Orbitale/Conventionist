@@ -33,7 +33,7 @@ class ResetPasswordController extends AbstractController
     /**
      * Display & process form to request a password reset.
      */
-    #[Route('/reset-password', name: 'resetting_forgot_password_request')]
+    #[Route('/reset-password', name: 'resetting_forgot_password_request', methods: ['GET', 'POST'])]
     public function request(Request $request, MailerInterface $mailer, TranslatorInterface $translator): Response
     {
         $form = $this->createForm(ResetPasswordRequestFormType::class);
@@ -55,7 +55,7 @@ class ResetPasswordController extends AbstractController
     /**
      * Confirmation page after a user has requested a password reset.
      */
-    #[Route('/reset-password/check-email', name: 'resetting_confirm')]
+    #[Route('/reset-password/check-email', name: 'resetting_confirm', methods: ['GET'])]
     public function resettingConfirm(): Response
     {
         // Generate a fake token if the user does not exist or someone hit this page directly.
@@ -72,7 +72,7 @@ class ResetPasswordController extends AbstractController
     /**
      * Validates and process the reset URL that the user clicked in their email.
      */
-    #[Route('/reset-password/reset/{token}', name: 'reset_password_from_token')]
+    #[Route('/reset-password/reset/{token}', name: 'reset_password_from_token', methods: ['GET'])]
     public function reset(Request $request, UserPasswordHasherInterface $passwordHasher, TranslatorInterface $translator, ?string $token = null): Response
     {
         if ($token) {

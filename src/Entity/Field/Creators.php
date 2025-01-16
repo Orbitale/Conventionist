@@ -9,9 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 trait Creators
 {
-    /**
-     * @var Collection<User>
-     */
+    /** @var Collection<User> */
     #[ORM\ManyToMany(targetEntity: User::class)]
     private Collection $creators;
 
@@ -20,6 +18,9 @@ trait Creators
         $this->creators = new ArrayCollection();
     }
 
+    /**
+     * @return Collection<User>
+     */
     public function getCreators(): Collection
     {
         return $this->creators;

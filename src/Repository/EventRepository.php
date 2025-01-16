@@ -16,28 +16,40 @@ class EventRepository extends ServiceEntityRepository
         parent::__construct($registry, Event::class);
     }
 
-//    /**
-//     * @return Event[] Returns an array of Event objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('e')
-//            ->andWhere('e.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('e.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    public function findUpcoming()
+    {
+        return $this->getEntityManager()->createQuery(<<<DQL
+            SELECT event
+            FROM {$this->getEntityName()} event
+            WHERE event.startsAt >= :start
+        DQL
+        )
+            ->setParameter('start', (new \DateTimeImmutable('yesterday'))->setTime(0, 0))
+            ->getResult();
+    }
 
-//    public function findOneBySomeField($value): ?Event
-//    {
-//        return $this->createQueryBuilder('e')
-//            ->andWhere('e.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    public function findForCalendar(string $eventId): ?Event
+    {
+        return $this->getEntityManager()->createQuery(<<<DQL
+            SELECT event,
+                venue,
+                floor,
+                room,
+                table,
+                time_slot
+            FROM {$this->getEntityName()} event
+            INNER JOIN event.venue venue
+            LEFT JOIN venue.floors floor
+            LEFT JOIN floor.rooms room
+            LEFT JOIN room.tables table
+            LEFT JOIN table.timeSlots time_slot
+            WHERE event.id = :id
+            ORDER BY table.name ASC,
+                room.name ASC,
+                floor.name ASC
+        DQL
+        )
+            ->setParameter('id', $eventId)
+            ->getOneOrNullResult();
+    }
 }

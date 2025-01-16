@@ -2,38 +2,60 @@
 
 namespace App\Entity;
 
-use App\Entity\Field\Id;
-use App\Entity\Field\Name;
-use App\Repository\EventVenueRepository;
+use App\Repository\VenueRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
-#[ORM\Entity(repositoryClass: EventVenueRepository::class)]
-class Venue
+#[ORM\Entity(repositoryClass: VenueRepository::class)]
+class Venue implements HasNestedRelations
 {
-    use Id { __construct as generateId; }
-    use Name;
+    use Field\Id { Field\Id::__construct as private generateId; }
+    use Field\Creators { Field\Creators::__construct as generateCreators; }
+
+    #[ORM\Column(name: 'name', type: Types::STRING, length: 255, nullable: false)]
+    #[Assert\NotBlank(message: 'Please enter a name')]
+    private ?string $name = '';
+
 
     #[ORM\Column(type: Types::TEXT)]
     private string $address = '';
 
-    /**
-     * @var Collection<Floor>
-     */
-    #[ORM\OneToMany(targetEntity: Floor::class, mappedBy: 'venue')]
+    /** @var Collection<Floor> */
+    #[ORM\OneToMany(targetEntity: Floor::class, mappedBy: 'venue', cascade: ['persist', 'refresh'])]
+    #[Assert\Valid]
     private Collection $floors;
 
     public function __construct()
     {
         $this->generateId();
+        $this->generateCreators();
         $this->floors = new ArrayCollection();
     }
 
     public function __toString(): string
     {
+        return $this->name ?: '';
+    }
+
+    public function refreshNestedRelations(): void
+    {
+        foreach ($this->floors as $floor) {
+            $floor->setVenue($this);
+            $floor->refreshNestedRelations();
+        }
+    }
+
+    public function getName(): string
+    {
         return $this->name;
+    }
+
+    public function setName(?string $name): void
+    {
+        $this->name = $name ?: '';
     }
 
     public function getAddress(): string
@@ -45,31 +67,35 @@ class Venue
     {
         $this->address = $address ?: '';
     }
+
+    /**
+     * @return Collection<Floor>
+     */
     public function getFloors(): Collection
     {
         return $this->floors;
     }
 
-    public function addSpace(Floor $space): void
+    public function addFloor(Floor $floor): void
     {
-        if ($this->floors->contains($space)) {
+        if ($this->floors->contains($floor)) {
             return;
         }
 
-        $this->floors->add($space);
+        $this->floors->add($floor);
     }
 
-    public function removeSpace(Floor $space): void
+    public function removeFloor(Floor $floor): void
     {
-        if (!$this->floors->contains($space)) {
+        if (!$this->floors->contains($floor)) {
             return;
         }
 
-        $this->floors->removeElement($space);
+        $this->floors->removeElement($floor);
     }
 
-    public function hasSpace(Floor $space): bool
+    public function hasFloor(Floor $floor): bool
     {
-        return $this->floors->contains($space);
+        return $this->floors->contains($floor);
     }
 }

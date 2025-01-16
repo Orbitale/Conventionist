@@ -1,0 +1,15 @@
+{% extends '@EasyAdmin/page/content.html.twig' %}
+
+{% block content_title %}
+    {{ 'Calendar'|trans }}
+{% endblock %}
+
+{% block main %}
+    {{ include('admin/calendar/_choose_event_list.html.twig', {events: events, event: event ?? null}, with_context = false) }}
+
+    <hr>
+
+    <div class="alert alert-info">
+        <i class="fas fa-arrow-up"></i> {{ 'calendar.modal.choose_an_event'|trans }}
+    </div>
+{% endblock %}

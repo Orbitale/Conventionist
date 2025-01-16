@@ -38,6 +38,10 @@ class UserFixture extends ArrayFixture implements ORMFixtureInterface
                 'email' => 'admin@test.localhost',
                 'password' => $this->hasher->getPasswordHasher(User::class)->hash('admin'),
                 'roles' => ['ROLE_ADMIN'],
+                'timezone' => 'Europe/Paris',
+                'isVerified' => true,
+                'isEmailConfirmed' => true,
+                'locale' => 'fr_FR',
             ],
             [
                 'id' => 'a50196ec-0571-4cef-9f12-3bfaef3d094e',
@@ -45,6 +49,10 @@ class UserFixture extends ArrayFixture implements ORMFixtureInterface
                 'email' => 'other_admin@test.localhost',
                 'password' => $this->hasher->getPasswordHasher(User::class)->hash('other_admin'),
                 'roles' => ['ROLE_ADMIN'],
+                'timezone' => 'Europe/Paris',
+                'isVerified' => true,
+                'isEmailConfirmed' => true,
+                'locale' => 'en_GB',
             ],
             [
                 'id' => '9a857dfd-814a-4c8e-b767-91897c69e51e',
@@ -52,6 +60,10 @@ class UserFixture extends ArrayFixture implements ORMFixtureInterface
                 'email' => 'visitor@test.localhost',
                 'password' => $this->hasher->getPasswordHasher(User::class)->hash('visitor'),
                 'roles' => [],
+                'timezone' => 'Europe/Paris',
+                'isVerified' => true,
+                'isEmailConfirmed' => true,
+                'locale' => 'fr-FR',
             ],
         ];
     }

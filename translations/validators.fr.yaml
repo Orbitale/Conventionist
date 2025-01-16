@@ -1,0 +1,11 @@
+'Please enter a password': 'Veuillez entrer un mot de passe'
+'Your password should be at least {{ limit }} characters': 'Votre mot de passe doit contenir au moins {{ limit }} caractères'
+'Please enter your email': 'Veuillez entrer votre adresse e-mail'
+'You should agree to our terms.': "Vous devez accepter les termes d'utilisation."
+'Please enter a name': 'Veuillez entrer un nom'
+'Time slot start and end date must be included in start and end date from the associated Event.': "Les dates de début et de fin du créneau horaire doivent être incluses dans les dates de l'événement."
+'There is already an account with this username': "Il existe déjà un compte avec ce nom d'utilisateur"
+'Please enter a username': "Veuillez entrer un nom d'utilisateur"
+'Please enter an email': 'Veuillez entrer une adresse e-mail'
+'This schedule overlaps with another animation at the same time and place.': 'Ce programme se chevauche avec une autre animation au même moment et au même endroit.'
+'This time slot overlaps with another at the same time and place.': 'Ce créneau horaire fait double emploi avec un autre créneau au même moment et au même endroit.'

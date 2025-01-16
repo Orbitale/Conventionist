@@ -1,0 +1,48 @@
+{% extends '@EasyAdmin/page/content.html.twig' %}
+
+{% block page_title %}
+    {{ 'Calendar'|trans }}
+{% endblock %}
+{% block content_title %}
+    {{ 'Calendar'|trans }}
+{% endblock %}
+
+{% block head_stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@event-calendar/build@3.8.0/event-calendar.min.css">
+{% endblock %}
+
+{% block main %}
+    {{ include('admin/calendar/_choose_event_list.html.twig', {events: events, event: event ?? null}, with_context = false) }}
+
+    <hr>
+
+    <h4>{{ 'Event:'|trans }} {{ event }}</h4>
+
+    {{ include('admin/calendar/event/filters.html.twig', {
+        event: event,
+        filter_states: filter_states,
+    }, with_context = false) }}
+
+    {% set cols_sizes = 10 / (event.venue.floors|length) %}
+
+    <div class="container mb-4">
+
+        <div id="admin_event_calendar" style="max-width: 100%; min-height: 500px;"></div>
+
+    </div>
+
+    {{ include('admin/calendar/event/modal.html.twig', {
+        event: event,
+    }, with_context=false) }}
+{% endblock %}
+
+{% block body_javascript %}
+    {{ parent() }}
+    <script src="https://cdn.jsdelivr.net/npm/@event-calendar/build@3.10.0/event-calendar.min.js"></script>
+    {{ include('admin/calendar/event/js_script.html.twig', {
+        json_schedules: json_schedules,
+        json_resources: json_resources,
+        event: event,
+    }, with_context=false) }}
+{% endblock %}

@@ -4,27 +4,90 @@ namespace App\Entity;
 
 use App\Enum\ScheduleAnimationState;
 use App\Repository\ScheduledAnimationRepository;
+use App\Validator\NoOverlappingSchedules;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ScheduledAnimationRepository::class)]
+#[NoOverlappingSchedules]
 class ScheduledAnimation
 {
     use Field\Id;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(type: 'string', length: 255, enumType: ScheduleAnimationState::class)]
+    #[Assert\NotBlank]
     private ScheduleAnimationState $state = ScheduleAnimationState::CREATED;
 
-    #[ORM\ManyToOne]
+    #[ORM\ManyToOne(inversedBy: 'scheduledAnimations')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Assert\NotBlank]
     private ?Animation $animation = null;
 
-    #[ORM\ManyToOne]
+    #[ORM\ManyToOne(inversedBy: 'scheduledAnimations')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Table $animationTable = null;
+    #[Assert\NotBlank]
+    private TimeSlot $timeSlot;
 
-    #[ORM\ManyToOne()]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?TimeSlot $slot = null;
+    public function __toString(): string
+    {
+        return sprintf("%s (⏲ %s ➡ %s)", $this->animation, $this->timeSlot?->getStartsAt()->format('Y-m-d H:i:s'), $this->timeSlot?->getEndsAt()->format('Y-m-d H:i:s'));
+    }
+
+    public function accept(): void
+    {
+        if (!$this->canChangeState()) {
+            return;
+        }
+
+        $this->state = ScheduleAnimationState::ACCEPTED;
+    }
+
+    public function reject(): void
+    {
+        if (!$this->canChangeState()) {
+            return;
+        }
+
+        $this->state = ScheduleAnimationState::REJECTED;
+    }
+
+    public function stateCssClass(): string
+    {
+        return $this->state->getCssClass();
+    }
+
+    public function getStateColor(): string
+    {
+        return $this->state->getColor();
+    }
+
+    public function getStateString(): string
+    {
+        return $this->state->value;
+    }
+
+    public function isPendingReview(): bool
+    {
+        return $this->state === ScheduleAnimationState::PENDING_REVIEW;
+    }
+
+    public function isAccepted(): bool
+    {
+        return $this->state === ScheduleAnimationState::ACCEPTED;
+    }
+
+    public function canChangeState(): bool
+    {
+        return $this->state === ScheduleAnimationState::CREATED
+            || $this->state === ScheduleAnimationState::PENDING_REVIEW;
+    }
+
+    public function getEvent(): Event
+    {
+        return $this->timeSlot->getEvent();
+    }
+
+    //
 
     public function getState(): ScheduleAnimationState
     {
@@ -41,28 +104,18 @@ class ScheduledAnimation
         return $this->animation;
     }
 
-    public function setAnimation(?Animation $animation): void
+    public function setAnimation(Animation $animation): void
     {
         $this->animation = $animation;
     }
 
-    public function getAnimationTable(): ?Table
+    public function getTimeSlot(): TimeSlot
     {
-        return $this->animationTable;
+        return $this->timeSlot;
     }
 
-    public function setAnimationTable(?Table $animationTable): void
+    public function setTimeSlot(TimeSlot $timeSlot): void
     {
-        $this->animationTable = $animationTable;
-    }
-
-    public function getSlot(): ?TimeSlot
-    {
-        return $this->slot;
-    }
-
-    public function setSlot(?TimeSlot $slot): void
-    {
-        $this->slot = $slot;
+        $this->timeSlot = $timeSlot;
     }
 }

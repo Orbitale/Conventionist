@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\ScheduledAnimation;
+use App\Enum\ScheduleAnimationState;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -16,28 +17,33 @@ class ScheduledAnimationRepository extends ServiceEntityRepository
         parent::__construct($registry, ScheduledAnimation::class);
     }
 
-//    /**
-//     * @return ScheduledAnimation[] Returns an array of ScheduledAnimation objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('s')
-//            ->andWhere('s.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('s.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    public function hasSimilar(ScheduledAnimation $scheduledAnimation): int
+    {
+        return $this->getEntityManager()->createQuery(<<<DQL
+            SELECT count(scheduled_animation) amount
+            FROM {$this->getEntityName()} scheduled_animation
+            WHERE scheduled_animation.id != :id
+            AND scheduled_animation.timeSlot = :time_slot
+            AND scheduled_animation.state = :accepted
+        DQL
+        )
+            ->setParameter('id', $scheduledAnimation->getId())
+            ->setParameter('time_slot', $scheduledAnimation->getTimeSlot())
+            ->setParameter('accepted', ScheduleAnimationState::ACCEPTED)
+            ->getSingleScalarResult() > 0;
+    }
 
-//    public function findOneBySomeField($value): ?ScheduledAnimation
-//    {
-//        return $this->createQueryBuilder('s')
-//            ->andWhere('s.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    public function findAtSameTimeSlot(ScheduledAnimation $animation): array
+    {
+        return $this->getEntityManager()->createQuery(<<<DQL
+            SELECT scheduled_animation
+            FROM {$this->getEntityName()} scheduled_animation
+            WHERE scheduled_animation.id != :id
+            AND scheduled_animation.timeSlot = :time_slot
+        DQL
+            )
+                ->setParameter('id', $animation->getId())
+                ->setParameter('time_slot', $animation->getTimeSlot())
+                ->getResult();
+    }
 }

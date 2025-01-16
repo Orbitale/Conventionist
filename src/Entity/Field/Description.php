@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 trait Description
 {
     #[ORM\Column(name: 'description', type: Types::TEXT, nullable: false)]
-    private string $description;
+    private string $description = '';
 
     public function getDescription(): string
     {

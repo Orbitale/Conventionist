@@ -1,0 +1,89 @@
+
+<div class="modal fade" id="event_modal" tabindex="-1" aria-labelledby="event_modal_label" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title fs-5" id="event_modal_label">{{ 'Animation'|trans }}</h2>
+                <h2 class="modal-title fs-5" id="slot_modal_label">{{ 'Time Slot'|trans }}</h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ 'Close'|trans }}"></button>
+            </div>
+            <div class="modal-body">
+                <h4 id="event_title"></h4>
+
+                <p id="event_start_end">
+                    {{ 'event.startsAt.colon'|trans }} <span id="event_start"></span>
+                    <br>
+                    {{ 'event.endsAt.colon'|trans }} <span id="event_end"></span>
+                </p>
+
+                <form method="post" id="event_form">
+                    <input type="hidden" name="_csrf" value="{{ csrf_token('accept_or_reject_schedule') }}">
+                    <button
+                            data-accept
+                            data-confirm="{{ 'schedule.list.confirm_accept'|trans }}"
+                            type="submit"
+                            class="mx-0 my-2 btn btn-small btn-success card-link"
+                            data-formaction-template="{{ path('admin_scheduled_animation_accept', {id: '__ENTITY_ID__'}) }}"
+                            formaction=""
+                    >
+                        <i class="fa fa-check"></i> {{ 'schedule.list.confirm_accept_short'|trans }}
+                    </button>
+                    <button
+                            data-reject
+                            data-confirm="{{ 'schedule.list.confirm_reject'|trans }}"
+                            type="submit"
+                            class="mx-0 my-2 btn btn-small btn-danger card-link"
+                            data-formaction-template="{{ path('admin_scheduled_animation_reject', {id: '__ENTITY_ID__'}) }}"
+                            formaction=""
+                    >
+                        <i class="fa fa-xmark"></i> {{ 'schedule.list.confirm_reject_short'|trans }}
+                    </button>
+                </form>
+
+            </div>
+            <div class="modal-footer">
+
+                <div id="empty_slot">
+                    <p>
+                        {{ 'calendar.modal.empty_slot_add'|trans }}
+                    </p>
+                    <a
+                        data-basehref="{{ path('admin_scheduled_animation_new', {slot_id: '__SLOT_ID__'}) }}"
+                        href="#"
+                        class="btn btn-primary"
+                    >
+                        <i class="fa fa-plus"></i> {{ 'calendar.modal.add_schedule_to_timeslot'|trans }}
+                    </a>
+                </div>
+
+                <div id="new_slot">
+                    <form method="post" id="timeslot_form">
+                        <input type="hidden" name="_csrf" value="{{ csrf_token('create_timeslot_from_calendar') }}">
+                        <input type="hidden" name="event_id" value="{{ event.id }}">
+                        <input type="hidden" name="start" value="">
+                        <input type="hidden" name="end" value="">
+                        <input type="hidden" name="table_id" value="">
+                        <button
+                            data-accept
+                            data-confirm="{{ 'calendar.modal.add_timeslot.confirm'|trans }}"
+                            type="submit"
+                            class="mx-0 my-2 btn btn-small btn-success card-link"
+                            formaction="{{ path('admin_timeslot_create_from_calendar') }}"
+                        >
+                            <i class="fa fa-check"></i> {{ 'Save'|trans }}
+                        </button>
+                    </form>
+                    <button
+                        data-confirm="{{ 'calendar.modal.delete_timeslot.confirm'|trans }}"
+                        data-remove
+                        type="button"
+                        class="mx-0 my-2 btn btn-small btn-danger card-link"
+                        formaction="{{ path('admin_timeslot_create_from_calendar') }}"
+                    >
+                        <i class="fa fa-trash"></i> {{ 'Remove'|trans }}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
