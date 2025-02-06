@@ -7,44 +7,51 @@ Animation: Animation
 Animations: Animations
 apply_filters: 'Appliquer les filtres'
 calendar.modal.add_schedule_to_timeslot: 'Programmer une animation'
-calendar.modal.delete_timeslot.confirm: 'Supprimer this time slot?'
 calendar.modal.add_timeslot.confirm: 'Sauvegarder ce créneau horaire ?'
 calendar.modal.add_timeslot: 'Ajouter un nouveau créneau horaire'
 calendar.modal.choose_an_event: 'Choisissez un évènement dans la liste ci-dessus'
+calendar.modal.delete_timeslot.confirm: 'Supprimer this time slot?'
+calendar.modal.empty_slot_add: 'Ce créneau est actuellement vide. Voulez-vous y programmer une animation ?'
 calendar.modal.no_timeslot_configured: 'Aucun créneau horaire n''est configuré pour cette salle.'
 calendar.modal.no_upcoming_event: 'Aucun événement à venir'
-calendar.modal.empty_slot_add: 'Ce créneau est actuellement vide. Voulez-vous y programmer une animation ?'
 calendar.modal.unconfigured_timeslot: 'Ce créneau n''est pas encore sauvegardé !'
 Calendar: Calendrier
 Close: Fermer
 Convention organisation: 'Organisation de convention'
 Creators: Créateurs/créatrices
 Dashboard: 'Tableau de bord'
-Remove: Supprimer
 Edit: Modifier
+email_address: Adresse e-mail
 Event Venues: 'Lieux d''accueil'
 event.endsAt.colon: 'Fin :'
 event.startsAt.colon: 'Début :'
 Event: Évènement
 Events: Évènements
+forgot_password.request.title: Réinitialiser votre mot de passe
+forgot_password.request.email: Veuillez entrer une adresse e-mail
+forgot_password.request.help: Entrez votre adresse e-mail et nous vous enverrons un lien pour réinitialiser votre mot de passe.
+forgot_password_text: 'Mot de passe oublié ?'
+have_account_login: Vous avez déjà un compte ? <a href="%path%">Connectez-vous</a>.
 Hours: Heures
 index.jumbotron.message: L'organisateur de conventions et d'évènements aux petits oignons 🧅
+login.password: Votre mot de passe
+login.remember_me: Se souvenir de moi
+login.username_or_email: Nom d'utilisateur ou adresse e-mail
+login: Se connecter
 Name: Nom
 nav.link.admin: Administration
+no_account_register: 'Vous n''avez pas de compte ? <a href="%path%">Créez un compte</a> à la place.'
+password_reset.submit: Demander à réinitialiser le mot de passe
 register: Créer un compte
+registration.email.body: '<p>Veuillez confirmer votre adresse e-mail en cliquant sur le lien suivant :<br><br><a href="%signedUrl%">Confirmer mon adresse e-mail</a>. Ce lien expire dans %expiration%.</p><p>À bientôt !</p>'
 registration.email.title: Bonjour, veuillez confirmer votre adresse e-mail
-registration.email.body: |
-  <p>
-      Veuillez confirmer votre adresse email en cliquant sur le lien suivant :<br><br>
-      <a href="%signedUrl%">Confirmer mon adresse e-mail</a>.
-      Ce lien expire dans %expiration%.
-  </p>
-  
-  <p>
-      À bientôt !
-  </p>
-
-login: Se connecter
+registration.password.error.blank: Veuillez entrer un mot de passe
+registration.password.error.min_chars: Votre mot de passe doit contenir au moins {{ limit }} caractères
+registration.password: Entrez un mot de passe
+registration.roles.help: Vous pouvez changer ces paramètres plus tard si besoin.
+registration.roles.label: Les fonctionnalités auxquelles vous voulez accéder.
+registration.username: Nom d'utilisateur
+Remove: Supprimer
 Save: Sauvegarder
 schedule.list.confirm_accept: 'Accepter ce programme?'
 schedule.list.confirm_accept_short: Accepter
@@ -63,6 +70,6 @@ TimeSlot: Créneau horaire
 Venue configurations: 'Configuration des lieux d''accueil'
 └─ Scheduled Animations: '└─ Programmation'
 └─ Time Slot Categories: '└─ Catégories de créneaux'
-└─── Tables: '└─── Tabless'
+└─── Tables: '└─── Tables'
 ├─ Floors: '├─ Étages'
 ├── Rooms: '├── Salles'

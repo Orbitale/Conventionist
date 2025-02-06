@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Length;
@@ -17,8 +18,12 @@ class RegistrationFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('username')
-            ->add('email', EmailType::class)
+            ->add('username', TextType::class, [
+                'label' => 'registration.username',
+            ])
+            ->add('email', EmailType::class, [
+                'label' => 'email_address',
+            ])
             /*
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
@@ -34,15 +39,15 @@ class RegistrationFormType extends AbstractType
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
                 'mapped' => false,
-                'label' => 'Password',
+                'label' => 'registration.password',
                 'attr' => ['autocomplete' => 'new-password'],
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Please enter a password',
+                        'message' => 'registration.password.error.blank',
                     ]),
                     new Length([
                         'min' => 6,
-                        'minMessage' => 'Your password should be at least {{ limit }} characters',
+                        'minMessage' => 'registration.password.error.min_chars',
                         // max length allowed by Symfony for security reasons
                         'max' => 4096,
                     ]),
@@ -50,7 +55,7 @@ class RegistrationFormType extends AbstractType
             ])
             ->add('roles', ChoiceType::class, [
                 'label' => 'registration.roles.label',
-                'help' => 'ℹ You can always update this later if you need.',
+                'help' => 'registration.roles.help',
                 'choices' => [
                     'Visitor' => 'ROLE_VISITOR',
                     'Conference organizer' => 'ROLE_CONFERENCE_ORGANIZER',

@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\ChangePasswordFormType;
 use App\Form\ResetPasswordRequestFormType;
+use App\Locales;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -30,10 +31,7 @@ class ResetPasswordController extends AbstractController
     ) {
     }
 
-    /**
-     * Display & process form to request a password reset.
-     */
-    #[Route('/reset-password', name: 'resetting_forgot_password_request', methods: ['GET', 'POST'])]
+    #[Route('/{_locale}/reset-password', name: 'resetting_forgot_password_request', requirements: ['_locale' => Locales::REGEX], methods: ['GET', 'POST'])]
     public function request(Request $request, MailerInterface $mailer, TranslatorInterface $translator): Response
     {
         $form = $this->createForm(ResetPasswordRequestFormType::class);
@@ -43,8 +41,7 @@ class ResetPasswordController extends AbstractController
             /** @var string $email */
             $email = $form->get('email')->getData();
 
-            return $this->processSendingPasswordResetEmail($email, $mailer, $translator
-            );
+            return $this->processSendingPasswordResetEmail($email, $mailer, $translator);
         }
 
         return $this->render('reset_password/request.html.twig', [
@@ -55,7 +52,7 @@ class ResetPasswordController extends AbstractController
     /**
      * Confirmation page after a user has requested a password reset.
      */
-    #[Route('/reset-password/check-email', name: 'resetting_confirm', methods: ['GET'])]
+    #[Route('/{_locale}/reset-password/check-email', name: 'resetting_confirm', requirements: ['_locale' => Locales::REGEX], methods: ['GET'])]
     public function resettingConfirm(): Response
     {
         // Generate a fake token if the user does not exist or someone hit this page directly.
@@ -72,7 +69,7 @@ class ResetPasswordController extends AbstractController
     /**
      * Validates and process the reset URL that the user clicked in their email.
      */
-    #[Route('/reset-password/reset/{token}', name: 'reset_password_from_token', methods: ['GET'])]
+    #[Route('/{_locale}/reset-password/reset/{token}', name: 'reset_password_from_token', requirements: ['_locale' => Locales::REGEX], methods: ['GET'])]
     public function reset(Request $request, UserPasswordHasherInterface $passwordHasher, TranslatorInterface $translator, ?string $token = null): Response
     {
         if ($token) {
@@ -140,21 +137,11 @@ class ResetPasswordController extends AbstractController
 
         try {
             $resetToken = $this->resetPasswordHelper->generateResetToken($user);
-        } catch (ResetPasswordExceptionInterface $e) {
-            // If you want to tell the user why a reset email was not sent, uncomment
-            // the lines below and change the redirect to 'resetting_forgot_password_request'.
-            // Caution: This may reveal if a user is registered or not.
-            //
-            // $this->addFlash('reset_password_error', sprintf(
-            //     '%s - %s',
-            //     $translator->trans(ResetPasswordExceptionInterface::MESSAGE_PROBLEM_HANDLE, [], 'ResetPasswordBundle'),
-            //     $translator->trans($e->getReason(), [], 'ResetPasswordBundle')
-            // ));
-
+        } catch (ResetPasswordExceptionInterface) {
             return $this->redirectToRoute('resetting_confirm');
         }
 
-        $email = (new TemplatedEmail())
+        $email = new TemplatedEmail()
             ->from(new Address('mailer@test.localhost', 'Mailer'))
             ->to($user->getEmail())
             ->subject('Your password reset request')
