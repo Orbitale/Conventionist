@@ -58,7 +58,7 @@ class RegistrationFormType extends AbstractType
                 'help' => 'registration.roles.help',
                 'choices' => [
                     'Visitor' => 'ROLE_VISITOR',
-                    'Conference organizer' => 'ROLE_CONFERENCE_ORGANIZER',
+                    'Event organizer' => 'ROLE_CONFERENCE_ORGANIZER',
                     'Venue manager' => 'ROLE_EVENT_VENUE_MANAGER',
                 ],
                 'multiple' => true,

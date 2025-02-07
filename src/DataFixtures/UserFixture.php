@@ -41,7 +41,7 @@ class UserFixture extends ArrayFixture implements ORMFixtureInterface
                 'timezone' => 'Europe/Paris',
                 'isVerified' => true,
                 'isEmailConfirmed' => true,
-                'locale' => 'fr_FR',
+                'locale' => 'fr',
             ],
             [
                 'id' => 'a50196ec-0571-4cef-9f12-3bfaef3d094e',
@@ -52,7 +52,7 @@ class UserFixture extends ArrayFixture implements ORMFixtureInterface
                 'timezone' => 'Europe/Paris',
                 'isVerified' => true,
                 'isEmailConfirmed' => true,
-                'locale' => 'en_GB',
+                'locale' => 'en',
             ],
             [
                 'id' => '9a857dfd-814a-4c8e-b767-91897c69e51e',
@@ -63,7 +63,7 @@ class UserFixture extends ArrayFixture implements ORMFixtureInterface
                 'timezone' => 'Europe/Paris',
                 'isVerified' => true,
                 'isEmailConfirmed' => true,
-                'locale' => 'fr-FR',
+                'locale' => 'fr',
             ],
         ];
     }

@@ -5,6 +5,5 @@ framework:
         default_path: '%kernel.project_dir%/translations'
         fallbacks:
             - fr
-            - en_US
             - en
         providers:

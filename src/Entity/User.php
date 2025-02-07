@@ -46,8 +46,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(name: 'timezone', type: 'string', nullable: false, options: ['default' => 'Europe/Paris'])]
     private string $timezone = 'Europe/Paris';
 
-    #[ORM\Column(name: 'locale', type: 'string', nullable: false, options: ['default' => 'fr_FR'])]
-    private string $locale = 'fr_FR';
+    #[ORM\Column(name: 'locale', type: 'string', nullable: false, options: ['default' => 'fr'])]
+    private string $locale = 'fr';
 
     /** Used in forms, mostly, because, you know, DTOs in EasyAdmin are super annoying to do. */
     public array $formNewRoles = [];

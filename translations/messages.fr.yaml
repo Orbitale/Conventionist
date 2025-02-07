@@ -40,11 +40,16 @@ login.username_or_email: Nom d'utilisateur ou adresse e-mail
 login: Se connecter
 Name: Nom
 nav.link.admin: Administration
+Visitor: Visiteur
+Event organizer: Organisateur d'évènements
+Venue manager: Gestionnaire de lieux d'accueils
 no_account_register: 'Vous n''avez pas de compte ? <a href="%path%">Créez un compte</a> à la place.'
 password_reset.submit: Demander à réinitialiser le mot de passe
+password_reset.success: Si un compte existe avec cette adresse, un e-mail lui sera envoyé, contenant un lien sur lequel vous pouvez cliquer pour réinitialiser votre mot de passe. Ce lien expirera dans %expires_in%.<br>Si vous n'avez pas reçu d'e-mail, vérifiez le dossier des spams, ou <a href="%path%">réessayez</a>.
 register: Créer un compte
 registration.email.body: '<p>Veuillez confirmer votre adresse e-mail en cliquant sur le lien suivant :<br><br><a href="%signedUrl%">Confirmer mon adresse e-mail</a>. Ce lien expire dans %expiration%.</p><p>À bientôt !</p>'
 registration.email.title: Bonjour, veuillez confirmer votre adresse e-mail
+registration.locale.label: Langue
 registration.password.error.blank: Veuillez entrer un mot de passe
 registration.password.error.min_chars: Votre mot de passe doit contenir au moins {{ limit }} caractères
 registration.password: Entrez un mot de passe

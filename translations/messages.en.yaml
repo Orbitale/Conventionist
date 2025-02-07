@@ -40,11 +40,16 @@ login.username_or_email: Username or e-mail
 login: Log in
 Name: Name
 nav.link.admin: Administration
+Visitor: Visitor
+Event organizer: Event organizer
+Venue manager: Venue manager
 no_account_register: 'Don''t have an account? <a href="%path%">Register</a> instead.'
 password_reset.submit: Send reset password request
+password_reset.success: If an account matching your e-mail exists, then an email was just sent that contains a link that you can use to reset your password. This link will expire in %expires_in%.<br>If you don't receive an e-mail please check your spam folder or <a href="%path%">try again</a>.
 register: Create an account
 registration.email.body: '<p>Please confirm your e-mail address by clicking the following link:<br><br><a href="%signedUrl%">Confirm my e-mail</a>. This link will expire in %expiration%.</p><p>Cheers!</p>'
 registration.email.title: Hi! Please confirm your e-mail
+registration.locale.label: Language
 registration.password.error.blank: Please enter a password
 registration.password.error.min_chars: Your password should be at least {{ limit }} characters
 registration.password: Enter a password
