@@ -2,10 +2,12 @@
 
 namespace App\Tests\Controller;
 
+use App\Controller\AuthController;
 use App\Tests\GetUser;
 use App\Tests\ProvidesLocales;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class AuthControllerTest extends WebTestCase
 {
@@ -16,7 +18,7 @@ class AuthControllerTest extends WebTestCase
     public function testLogin(string $locale): void
     {
         $client = self::createClient();
-        $crawler = $client->request('GET', \sprintf("/%s/login", $locale));
+        $crawler = $client->request('GET', AuthController::LOGIN_PATHS[$locale]);
         $form = $crawler->filter('.login-wrapper form')->form();
         $client->submit($form, [
             'username' => 'admin',
@@ -31,15 +33,15 @@ class AuthControllerTest extends WebTestCase
     public function testFailedLogin(string $locale): void
     {
         $client = self::createClient();
-        $crawler = $client->request('GET', \sprintf("/%s/login", $locale));
+        $crawler = $client->request('GET', AuthController::LOGIN_PATHS[$locale]);
         $form = $crawler->filter('.login-wrapper form')->form();
         $client->submit($form, [
             'username' => 'inexistent_data',
             'password' => 'inexistent_data',
         ]);
-        self::assertResponseRedirects(\sprintf("/%s/login", $locale));
+        self::assertResponseRedirects(AuthController::LOGIN_PATHS[$locale]);
         $crawler = $client->followRedirect();
-        self::assertSame('Invalid credentials.', $crawler->filter('.alert.alert-danger')->text());
+        self::assertSame($client->getContainer()->get(TranslatorInterface::class)->trans('Invalid credentials.', domain: 'security', locale: $locale), $crawler->filter('.alert.alert-danger')->text());
     }
 
     #[DataProvider('provideLocales')]
@@ -54,11 +56,11 @@ class AuthControllerTest extends WebTestCase
         self::assertSame('admin (admin@test.localhost)', $crawler->filter('.navbar-custom-menu .user-name')->text());
 
         // Perform logout
-        $client->request('GET', \sprintf("/%s/logout", $locale));
+        $client->request('GET', AuthController::LOGOUT_PATHS[$locale]);
         self::assertResponseRedirects('/');
 
         // Make sure logout prevents access to logged-in-only page
-        $client->request('GET', '/admin');
-        self::assertResponseRedirects(\sprintf("/%s/login", $locale));
+        $client->request('GET', '/admin', server: ['HTTP_ACCEPT_LANGUAGE' => $locale]);
+        self::assertResponseRedirects(AuthController::LOGIN_PATHS[$locale]);
     }
 }

@@ -25,13 +25,28 @@ class ResetPasswordController extends AbstractController
 {
     use ResetPasswordControllerTrait;
 
+    public const array RESET_PASSWORD_REQUEST_PATHS = [
+        'fr' => '/mot-de-passe/demande-reinitialisation',
+        'en' => '/password/request-reset',
+    ];
+
+    public const array RESET_PASSWORD_CONFIRM_PATHS = [
+        'fr' => '/mot-de-passe/verifier-email',
+        'en' => '/password/check-email',
+    ];
+
+    public const array RESET_PASSWORD_RESET_PATHS = [
+        'fr' => '/mot-de-passe/reinitialiser/{token}',
+        'en' => '/password/reset/{token}',
+    ];
+
     public function __construct(
-        private ResetPasswordHelperInterface $resetPasswordHelper,
-        private EntityManagerInterface $entityManager,
+        private readonly ResetPasswordHelperInterface $resetPasswordHelper,
+        private readonly EntityManagerInterface $entityManager,
     ) {
     }
 
-    #[Route('/{_locale}/reset-password', name: 'resetting_forgot_password_request', requirements: ['_locale' => Locales::REGEX], methods: ['GET', 'POST'])]
+    #[Route(self::RESET_PASSWORD_REQUEST_PATHS, name: 'resetting_forgot_password_request', methods: ['GET', 'POST'])]
     public function request(Request $request, MailerInterface $mailer, TranslatorInterface $translator): Response
     {
         $form = $this->createForm(ResetPasswordRequestFormType::class);
@@ -52,7 +67,7 @@ class ResetPasswordController extends AbstractController
     /**
      * Confirmation page after a user has requested a password reset.
      */
-    #[Route('/{_locale}/reset-password/check-email', name: 'resetting_confirm', requirements: ['_locale' => Locales::REGEX], methods: ['GET'])]
+    #[Route(self::RESET_PASSWORD_CONFIRM_PATHS, name: 'resetting_confirm', methods: ['GET'])]
     public function resettingConfirm(): Response
     {
         // Generate a fake token if the user does not exist or someone hit this page directly.
@@ -69,7 +84,7 @@ class ResetPasswordController extends AbstractController
     /**
      * Validates and process the reset URL that the user clicked in their email.
      */
-    #[Route('/{_locale}/reset-password/reset/{token}', name: 'reset_password_from_token', requirements: ['_locale' => Locales::REGEX], methods: ['GET'])]
+    #[Route(self::RESET_PASSWORD_RESET_PATHS, name: 'reset_password_from_token', methods: ['GET'])]
     public function reset(Request $request, UserPasswordHasherInterface $passwordHasher, TranslatorInterface $translator, ?string $token = null): Response
     {
         if ($token) {

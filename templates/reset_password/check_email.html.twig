@@ -5,14 +5,14 @@
 {% block body %}
     <p>
         {{ 'password_reset.success'|trans({
-            '%path%': path('resetting_forgot_password_request')
-            '%expires_in%': resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, 'ResetPasswordBundle')
+            '%path%': path('resetting_forgot_password_request'),
+            '%expires_in%': resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, 'ResetPasswordBundle'),
         })|raw }}
     </p>
     <p>
         <a href="{{ path('index') }}">
             <i class="fa fa-left-arrow"></i> 
-            {{ 'back_home'|trans }}
+            {{ 'link.back_home'|trans }}
         </a>
     </p>
 {% endblock %}

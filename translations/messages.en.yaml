@@ -34,6 +34,7 @@ forgot_password_text: 'Forgot your password?'
 have_account_login: Already have an account? <a href="%path%">Login</a> instead.
 Hours: Hours
 index.jumbotron.message: The perfect organiser of conventions and events
+link.back_home: Go back to homepage
 login.password: Your password
 login.remember_me: Remember me
 login.username_or_email: Username or e-mail

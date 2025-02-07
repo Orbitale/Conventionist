@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\RegistrationFormType;
+use App\Locales;
 use App\Security\EmailVerifier;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
@@ -18,11 +19,21 @@ use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 
 class RegistrationController extends AbstractController
 {
+    public const array REGISTER_PATHS = [
+        'fr' => '/inscription',
+        'en' => '/register',
+    ];
+
+    public const array VERIFY_EMAIL_PATHS = [
+        'fr' => '/verification-email',
+        'en' => '/verify-email',
+    ];
+
     public function __construct(private readonly EmailVerifier $emailVerifier, private readonly TranslatorInterface $translator)
     {
     }
 
-    #[Route('/{_locale}/register', name: 'register', methods: ['GET', 'POST'])]
+    #[Route(self::REGISTER_PATHS, name: 'register', methods: ['GET', 'POST'])]
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
     {
         $user = new User();
@@ -59,7 +70,7 @@ class RegistrationController extends AbstractController
         ]);
     }
 
-    #[Route('/verify/email', name: 'app_verify_email', methods: ['GET'])]
+    #[Route(self::VERIFY_EMAIL_PATHS, name: 'app_verify_email', methods: ['GET'])]
     public function verifyUserEmail(Request $request, TranslatorInterface $translator): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');

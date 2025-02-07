@@ -34,6 +34,7 @@ forgot_password_text: 'Mot de passe oublié ?'
 have_account_login: Vous avez déjà un compte ? <a href="%path%">Connectez-vous</a>.
 Hours: Heures
 index.jumbotron.message: L'organisateur de conventions et d'évènements aux petits oignons 🧅
+link.back_home: Retour à l'accueil
 login.password: Votre mot de passe
 login.remember_me: Se souvenir de moi
 login.username_or_email: Nom d'utilisateur ou adresse e-mail
