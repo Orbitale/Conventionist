@@ -8,6 +8,9 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;
 use EasyCorp\Bundle\EasyAdminBundle\Collection\FieldCollection;
 use EasyCorp\Bundle\EasyAdminBundle\Collection\FilterCollection;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Dto\EntityDto;
 use EasyCorp\Bundle\EasyAdminBundle\Dto\SearchDto;
@@ -20,6 +23,19 @@ class EventCrudController extends AbstractCrudController
     public static function getEntityFqcn(): string
     {
         return Event::class;
+    }
+
+    public function configureActions(Actions $actions): Actions
+    {
+        $this->checkParent();
+
+        $actions
+            ->add(Crud::PAGE_INDEX, Action::DETAIL)
+            ->setPermission(Action::DETAIL, 'CAN_VIEW_EVENT')
+            ->setPermission(Action::EDIT, 'CAN_EDIT_EVENT')
+            ->setPermission(Action::DELETE, 'CAN_DELETE_EVENT');
+
+        return $actions;
     }
 
     public function createIndexQueryBuilder(SearchDto $searchDto, EntityDto $entityDto, FieldCollection $fields, FilterCollection $filters): QueryBuilder

@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity;
+use App\Security\Voter\EventVoter;
 use EasyCorp\Bundle\EasyAdminBundle\Attribute\AdminDashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Assets;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
@@ -38,9 +39,9 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::section('Administration');
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
 
-        yield MenuItem::section('Convention organisation');
-        yield MenuItem::linkToCrud('Events', 'fas fa-list', Entity\Event::class);
-        yield MenuItem::linkToRoute('Calendar', 'fas fa-calendar', 'admin_calendar');
+        yield MenuItem::section('Convention organisation')->setPermission(EventVoter::CAN_VIEW_EVENTS);
+        yield MenuItem::linkToCrud('Events', 'fas fa-list', Entity\Event::class)->setPermission(EventVoter::CAN_VIEW_EVENTS);
+        yield MenuItem::linkToRoute('Calendar', 'fas fa-calendar', 'admin_calendar')->setPermission(EventVoter::CAN_VIEW_EVENTS);
 
         yield MenuItem::section('Venue configurations');
         yield MenuItem::linkToCrud('Event Venues', 'fas fa-list', Entity\Venue::class);

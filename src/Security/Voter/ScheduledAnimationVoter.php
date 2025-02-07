@@ -10,7 +10,7 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 final class ScheduledAnimationVoter extends Voter
 {
-    public const CAN_VALIDATE_SCHEDULE = 'CAN_VALIDATE_SCHEDULE';
+    public const string CAN_VALIDATE_SCHEDULE = 'CAN_VALIDATE_SCHEDULE';
 
     public function __construct(private readonly AuthorizationCheckerInterface $authChecker)
     {
@@ -41,12 +41,10 @@ final class ScheduledAnimationVoter extends Voter
             return false;
         }
 
-        foreach ($subject->getTimeSlot()->getEvent()->getCreators() as $creator) {
-            if ($creator->getId() === $user->getId()) {
-                return true;
-            }
-        }
+        return array_any(
+            $subject->getTimeSlot()->getEvent()->getCreators()->toArray(),
+            static fn(User $creator) => $creator->getId() === $user->getId()
+        );
 
-        return false;
     }
 }

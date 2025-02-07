@@ -58,6 +58,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->username.' ('.$this->email.')';
     }
 
+    public function isOwnerOf(HasCreators $subject): bool
+    {
+        return array_any($subject->getCreators()->toArray(), fn($creator) => $creator->getId() === $this->id);
+    }
+
     public function getUsername(): string
     {
         return $this->username;
