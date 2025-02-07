@@ -93,6 +93,10 @@ test: ## Run PHPUnit tests
 	@symfony php bin/phpunit
 .PHONY: test
 
+coverage: ## Run PHPUnit tests, but with code coverage
+	@XDEBUG_MODE=coverage symfony php bin/phpunit --coverage-text --coverage-html=.phpunit.cache/coverage/
+.PHONY: test
+
 test-db: ## Recreate automated testing database with default data
 	@symfony console --env=test doctrine:database:drop --no-interaction --if-exists --force
 	@symfony console --env=test doctrine:database:create --no-interaction --if-not-exists

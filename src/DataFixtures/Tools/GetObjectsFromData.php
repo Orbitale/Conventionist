@@ -29,6 +29,10 @@ trait GetObjectsFromData
             foreach ($properties as $property => $value) {
                 $properties['id'] = $id;
 
+                if ($value instanceof \Closure) {
+                    $value = $value();
+                }
+
                 if ($value instanceof Ref) {
                     $value = $this->getReference($value->name, $value->class);
 
