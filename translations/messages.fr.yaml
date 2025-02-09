@@ -1,7 +1,7 @@
-ID: Id
 'Choose an event:': 'Choisissez un évènement :'
 'Event:': 'Évènement :'
 'Filters:': 'Filtres :'
+ACCEPTED: Acceptée
 Activities: Activités
 Administration: Administration
 Animation: Animation
@@ -19,21 +19,25 @@ calendar.modal.unconfigured_timeslot: 'Ce créneau n''est pas encore sauvegardé
 Calendar: Calendrier
 Close: Fermer
 Convention organisation: 'Organisation de convention'
+CREATED: Créée
 Creators: Créateurs/créatrices
 Dashboard: 'Tableau de bord'
 Edit: Modifier
 email_address: Adresse e-mail
+Event organizer: Organisateur d'évènements
 Event Venues: 'Lieux d''accueil'
 event.endsAt.colon: 'Fin :'
 event.startsAt.colon: 'Début :'
 Event: Évènement
 Events: Évènements
-forgot_password.request.title: Réinitialiser votre mot de passe
+Floors: 'Étages'
 forgot_password.request.email: Veuillez entrer une adresse e-mail
 forgot_password.request.help: Entrez votre adresse e-mail et nous vous enverrons un lien pour réinitialiser votre mot de passe.
+forgot_password.request.title: Réinitialiser votre mot de passe
 forgot_password_text: 'Mot de passe oublié ?'
 have_account_login: Vous avez déjà un compte ? <a href="%path%">Connectez-vous</a>.
 Hours: Heures
+ID: Id
 index.jumbotron.message: L'organisateur de conventions et d'évènements aux petits oignons 🧅
 link.back_home: Retour à l'accueil
 login.password: Votre mot de passe
@@ -42,12 +46,10 @@ login.username_or_email: Nom d'utilisateur ou adresse e-mail
 login: Se connecter
 Name: Nom
 nav.link.admin: Administration
-Visitor: Visiteur
-Event organizer: Organisateur d'évènements
-Venue manager: Gestionnaire de lieux d'accueils
 no_account_register: 'Vous n''avez pas de compte ? <a href="%path%">Créez un compte</a> à la place.'
 password_reset.submit: Demander à réinitialiser le mot de passe
 password_reset.success: Si un compte existe avec cette adresse, un e-mail lui sera envoyé, contenant un lien sur lequel vous pouvez cliquer pour réinitialiser votre mot de passe. Ce lien expirera dans %expires_in%.<br>Si vous n'avez pas reçu d'e-mail, vérifiez le dossier des spams, ou <a href="%path%">réessayez</a>.
+PENDING_REVIEW: En attente de validation
 register: Créer un compte
 registration.email.body: '<p>Veuillez confirmer votre adresse e-mail en cliquant sur le lien suivant :<br><br><a href="%signedUrl%">Confirmer mon adresse e-mail</a>. Ce lien expire dans %expiration%.</p><p>À bientôt !</p>'
 registration.email.title: Bonjour, veuillez confirmer votre adresse e-mail
@@ -58,28 +60,26 @@ registration.password: Entrez un mot de passe
 registration.roles.help: Vous pouvez changer ces paramètres plus tard si besoin.
 registration.roles.label: Les fonctionnalités auxquelles vous voulez accéder.
 registration.username: Nom d'utilisateur
+REJECTED: Rejetée
 Remove: Supprimer
+Rooms: 'Salles'
 Save: Sauvegarder
 schedule.list.confirm_accept: 'Accepter ce programme?'
 schedule.list.confirm_accept_short: Accepter
 schedule.list.confirm_reject: 'Rejeter ce programme?'
 schedule.list.confirm_reject_short: Rejeter
+Scheduled Animations: 'Programmation'
 scheduled_animation.state.accepted: 'Accepté et programmé'
 scheduled_animation.state.created: 'Fraîchement créé, pas encore soumis à validation'
 scheduled_animation.state.pending_review: 'En attente de validation'
 scheduled_animation.state.rejected: Rejetée
-REJECTED: Rejetée
-ACCEPTED: Acceptée
-CREATED: Créée
-PENDING_REVIEW: En attente de validation
 ScheduledAnimation: 'Animation programmée'
 State: État
 Submit: Envoyer
+Tables: 'Tables'
 Time Slot: 'Créneau horaire'
 Time Slots: 'Créneaux horaires'
 TimeSlot: Créneau horaire
 Venue configurations: 'Configuration des lieux d''accueil'
-└─ Scheduled Animations: '└─ Programmation'
-└─── Tables: '└─── Tables'
-├─ Floors: '├─ Étages'
-├── Rooms: '├── Salles'
+Venue manager: Gestionnaire de lieux d'accueils
+Visitor: Visiteur

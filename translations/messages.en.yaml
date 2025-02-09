@@ -1,7 +1,7 @@
-ID: ID
 'Choose an event:': 'Choose an event:'
 'Event:': 'Event:'
 'Filters:': 'Filters:'
+ACCEPTED: Accepted
 Activities: 'Activities'
 Administration: 'Administration'
 Animation: 'Animation'
@@ -19,21 +19,25 @@ calendar.modal.unconfigured_timeslot: 'Time slot is not yet saved!'
 Calendar: Calendar
 Close: Close
 Convention organisation: 'Convention organisation'
+CREATED: Created
 Creators: Creators
 Dashboard: 'Dashboard'
 Edit: Edit
 email_address: E-mail address
+Event organizer: Event organizer
 Event Venues: 'Event Venues'
 event.endsAt.colon: 'Ends at:'
 event.startsAt.colon: 'Starts at:'
 Event: 'Event'
 Events: 'Events'
-forgot_password.request.title: Reset your password
+Floors: 'Floors'
 forgot_password.request.email: Please enter your e-mail
 forgot_password.request.help: Enter your e-mail address, and we will send you a link to reset your password.
+forgot_password.request.title: Reset your password
 forgot_password_text: 'Forgot your password?'
 have_account_login: Already have an account? <a href="%path%">Login</a> instead.
 Hours: Hours
+ID: ID
 index.jumbotron.message: The perfect organiser of conventions and events
 link.back_home: Go back to homepage
 login.password: Your password
@@ -42,12 +46,10 @@ login.username_or_email: Username or e-mail
 login: Log in
 Name: Name
 nav.link.admin: Administration
-Visitor: Visitor
-Event organizer: Event organizer
-Venue manager: Venue manager
 no_account_register: 'Don''t have an account? <a href="%path%">Register</a> instead.'
 password_reset.submit: Send reset password request
 password_reset.success: If an account matching your e-mail exists, then an email was just sent that contains a link that you can use to reset your password. This link will expire in %expires_in%.<br>If you don't receive an e-mail please check your spam folder or <a href="%path%">try again</a>.
+PENDING_REVIEW: Pending review
 register: Create an account
 registration.email.body: '<p>Please confirm your e-mail address by clicking the following link:<br><br><a href="%signedUrl%">Confirm my e-mail</a>. This link will expire in %expiration%.</p><p>Cheers!</p>'
 registration.email.title: Hi! Please confirm your e-mail
@@ -58,28 +60,26 @@ registration.password: Enter a password
 registration.roles.help: You can always update this later if you need.
 registration.roles.label: Roles you want in the application
 registration.username: Username
+REJECTED: Rejected
 Remove: Remove
+Rooms: 'Rooms'
 Save: Save
 schedule.list.confirm_accept: 'Accept this schedule?'
 schedule.list.confirm_accept_short: 'Accept'
 schedule.list.confirm_reject: 'Reject this schedule?'
 schedule.list.confirm_reject_short: 'Reject'
+Scheduled Animations: 'Scheduled Animations'
 scheduled_animation.state.accepted: 'Accepted and scheduled'
 scheduled_animation.state.created: 'Freshly created, not yet submitted for review'
 scheduled_animation.state.pending_review: 'Pending review'
 scheduled_animation.state.rejected: 'Rejected'
-REJECTED: Rejected
-ACCEPTED: Accepted
-CREATED: Created
-PENDING_REVIEW: Pending review
 ScheduledAnimation: 'ScheduledAnimation'
 State: 'State'
 Submit: 'Submit'
+Tables: 'Tables'
 Time Slot: 'Time Slot'
 Time Slots: 'Time Slots'
 TimeSlot: Time Slot
 Venue configurations: 'Venue configurations'
-└─ Scheduled Animations: '└─ Scheduled Animations'
-└─── Tables: '└─── Tables'
-├─ Floors: '├─ Floors'
-├── Rooms: '├── Rooms'
+Venue manager: Venue manager
+Visitor: Visitor

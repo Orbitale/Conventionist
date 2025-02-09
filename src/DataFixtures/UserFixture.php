@@ -51,7 +51,7 @@ class UserFixture extends ArrayFixture implements ORMFixtureInterface
                 'username' => 'venue_manager',
                 'email' => 'venue_manager@test.localhost',
                 'password' => fn () => self::$hasher->getPasswordHasher(User::class)->hash('venue_manager'),
-                'roles' => ['ROLE_EVENT_VENUE_MANAGER'],
+                'roles' => ['ROLE_VENUE_MANAGER'],
                 'timezone' => 'Europe/Paris',
                 'isVerified' => true,
                 'isEmailConfirmed' => true,

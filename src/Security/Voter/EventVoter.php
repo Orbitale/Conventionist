@@ -6,10 +6,10 @@ use App\Entity\Event;
 use App\Entity\HasCreators;
 use App\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
-use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
+use Symfony\Component\Security\Core\Role\RoleHierarchyInterface;
 
-class EventVoter extends Voter
+final class EventVoter extends Voter
 {
     public const array PERMISSIONS = [
         self::CAN_VIEW_EVENTS,
@@ -23,8 +23,9 @@ class EventVoter extends Voter
     public const string CAN_EDIT_EVENT = 'CAN_EDIT_EVENT';
     public const string CAN_DELETE_EVENT = 'CAN_DELETE_EVENT';
 
-    public function __construct(private readonly AuthorizationCheckerInterface $authChecker)
-    {
+    public function __construct(
+        private readonly RoleHierarchyInterface $roleHierarchy,
+    ) {
     }
 
     protected function supports(string $attribute, mixed $subject): bool
@@ -41,7 +42,9 @@ class EventVoter extends Voter
             return false;
         }
 
-        if ($this->authChecker->isGranted('ROLE_ADMIN')) {
+        $roles = $this->roleHierarchy->getReachableRoleNames(\array_merge($token->getRoleNames(), $user->getRoles()));
+
+        if (\in_array('ROLE_ADMIN', $roles, true)) {
             return true;
         }
 
@@ -56,9 +59,6 @@ class EventVoter extends Voter
             return $user->isOwnerOf($subject);
         }
 
-        return $this->authChecker->isGranted([
-            'ROLE_VISITOR',
-            'ROLE_CONFERENCE_ORGANIZER',
-        ]);
+        return \in_array('ROLE_VISITOR', $roles, true) || \in_array('ROLE_CONFERENCE_ORGANIZER', $roles, true);
     }
 }

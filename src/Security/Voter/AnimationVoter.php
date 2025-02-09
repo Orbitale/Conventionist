@@ -2,23 +2,19 @@
 
 namespace App\Security\Voter;
 
-use App\Entity\User;
-use App\Entity\Venue;
+use App\Entity\Animation;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use Symfony\Component\Security\Core\Role\RoleHierarchyInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
-final class VenueVoter extends Voter
+final class AnimationVoter extends Voter
 {
     public const array PERMISSIONS = [
-        self::CAN_VIEW_VENUES,
-        self::CAN_EDIT_VENUE,
-        self::CAN_DELETE_VENUE,
+        self::CAN_VIEW_ANIMATIONS,
     ];
 
-    public const string CAN_VIEW_VENUES = 'CAN_VIEW_VENUES';
-    public const string CAN_EDIT_VENUE = 'CAN_EDIT_VENUE';
-    public const string CAN_DELETE_VENUE = 'CAN_DELETE_VENUE';
+    public const string CAN_VIEW_ANIMATIONS = 'CAN_VIEW_ANIMATIONS';
 
     public function __construct(
         private readonly RoleHierarchyInterface $roleHierarchy,
@@ -35,7 +31,7 @@ final class VenueVoter extends Voter
         $user = $token->getUser();
 
         // if the user is anonymous, do not grant access
-        if (!$user instanceof User) {
+        if (!$user instanceof UserInterface) {
             return false;
         }
 
@@ -45,11 +41,14 @@ final class VenueVoter extends Voter
             return true;
         }
 
-        if ($subject instanceof Venue && \in_array($attribute, [self::CAN_DELETE_VENUE, self::CAN_EDIT_VENUE], true)) {
+        if ($subject instanceof Animation) {
             return $user->isOwnerOf($subject);
         }
 
-        if (\in_array('ROLE_VENUE_MANAGER', $roles, true)) {
+        if (
+            \in_array('ROLE_VISITOR', $roles, true)
+            || \in_array('ROLE_CONFERENCE_ORGANIZER', $roles, true)
+        ) {
             return true;
         }
 

@@ -59,7 +59,7 @@ class RegistrationFormType extends AbstractType
                 'choices' => [
                     'Visitor' => 'ROLE_VISITOR',
                     'Event organizer' => 'ROLE_CONFERENCE_ORGANIZER',
-                    'Venue manager' => 'ROLE_EVENT_VENUE_MANAGER',
+                    'Venue manager' => 'ROLE_VENUE_MANAGER',
                 ],
                 'multiple' => true,
                 'expanded' => true,
