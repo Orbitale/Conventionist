@@ -6,7 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 trait GetObjectsFromData
 {
-    abstract public static function getStaticData(): array;
+    abstract public static function getStaticData(): iterable;
 
     public static function getIdFromName(string $name): string
     {
@@ -51,6 +51,14 @@ trait GetObjectsFromData
                 }
 
                 $properties[$property] = $value;
+            }
+
+            $class = $this->getEntityClass();
+            if (\property_exists($class, 'createdAt')) {
+                $properties['createdAt'] = new \DateTime();
+            }
+            if (\property_exists($class, 'updatedAt')) {
+                $properties['updatedAt'] = new \DateTime();
             }
 
             yield $id => $properties;

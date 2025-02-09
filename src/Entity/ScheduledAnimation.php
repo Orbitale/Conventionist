@@ -6,13 +6,16 @@ use App\Enum\ScheduleAnimationState;
 use App\Repository\ScheduledAnimationRepository;
 use App\Validator\NoOverlappingSchedules;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ScheduledAnimationRepository::class)]
 #[NoOverlappingSchedules]
 class ScheduledAnimation
 {
-    use Field\Id;
+    use Field\Id { Field\Id::__construct as private generateId; }
+    use Field\Timestampable;
+    use TimestampableEntity;
 
     #[ORM\Column(type: 'string', length: 255, enumType: ScheduleAnimationState::class)]
     #[Assert\NotBlank]
@@ -27,6 +30,12 @@ class ScheduledAnimation
     #[ORM\JoinColumn(nullable: false)]
     #[Assert\NotBlank]
     private TimeSlot $timeSlot;
+
+    public function __construct()
+    {
+        $this->generateId();
+        $this->generateTimestamps();
+    }
 
     public function __toString(): string
     {
@@ -59,11 +68,6 @@ class ScheduledAnimation
     public function getStateColor(): string
     {
         return $this->state->getColor();
-    }
-
-    public function getStateString(): string
-    {
-        return $this->state->value;
     }
 
     public function isPendingReview(): bool

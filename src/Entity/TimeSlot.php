@@ -7,6 +7,7 @@ use App\Validator\NoOverlappingTimeSlot;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: TimeSlotRepository::class)]
@@ -15,10 +16,8 @@ class TimeSlot
 {
     use Field\Id { __construct as generateId; }
     use Field\StartEndDates;
-
-    #[ORM\ManyToOne(targetEntity: TimeSlotCategory::class)]
-    #[ORM\JoinColumn(name: 'category_id', nullable: true)]
-    private ?TimeSlotCategory $category = null;
+    use Field\Timestampable;
+    use TimestampableEntity;
 
     #[ORM\ManyToOne(targetEntity: Event::class)]
     #[ORM\JoinColumn(name: 'event_id', nullable: false)]
@@ -35,6 +34,7 @@ class TimeSlot
     public function __construct()
     {
         $this->generateId();
+        $this->generateTimestamps();
         $this->scheduledAnimations = new ArrayCollection();
     }
 
@@ -72,16 +72,6 @@ class TimeSlot
     }
 
     //
-
-    public function getCategory(): ?TimeSlotCategory
-    {
-        return $this->category;
-    }
-
-    public function setCategory(?TimeSlotCategory $category): void
-    {
-        $this->category = $category;
-    }
 
     public function getEvent(): Event
     {

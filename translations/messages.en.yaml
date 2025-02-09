@@ -1,3 +1,4 @@
+ID: ID
 'Choose an event:': 'Choose an event:'
 'Event:': 'Event:'
 'Filters:': 'Filters:'
@@ -67,15 +68,18 @@ scheduled_animation.state.accepted: 'Accepted and scheduled'
 scheduled_animation.state.created: 'Freshly created, not yet submitted for review'
 scheduled_animation.state.pending_review: 'Pending review'
 scheduled_animation.state.rejected: 'Rejected'
+REJECTED: Rejected
+ACCEPTED: Accepted
+CREATED: Created
+PENDING_REVIEW: Pending review
 ScheduledAnimation: 'ScheduledAnimation'
-State String: 'State'
+State: 'State'
 Submit: 'Submit'
 Time Slot: 'Time Slot'
 Time Slots: 'Time Slots'
 TimeSlot: Time Slot
 Venue configurations: 'Venue configurations'
 └─ Scheduled Animations: '└─ Scheduled Animations'
-└─ Time Slot Categories: '└─ Time Slot Categories'
 └─── Tables: '└─── Tables'
 ├─ Floors: '├─ Floors'
 ├── Rooms: '├── Rooms'

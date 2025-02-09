@@ -23,7 +23,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Attribute\Route;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -169,7 +168,7 @@ class ScheduledAnimationCrudController extends AbstractCrudController
         $request = $this->requestStack->getCurrentRequest();
 
         yield Field\TextField::new('id')->hideOnForm();
-        yield Field\TextField::new('stateString')->setDisabled()->hideWhenCreating();
+        yield Field\ChoiceField::new('state')->setDisabled()->hideWhenCreating();
         yield Field\AssociationField::new('animation')->setRequired(true);
         yield Field\AssociationField::new('timeSlot')->setRequired(true)->setDisabled($request?->query->has('slot_id') ?: false);
     }

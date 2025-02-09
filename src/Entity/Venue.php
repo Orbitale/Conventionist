@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: VenueRepository::class)]
@@ -14,6 +15,8 @@ class Venue implements HasNestedRelations, HasCreators
 {
     use Field\Id { Field\Id::__construct as private generateId; }
     use Field\Creators { Field\Creators::__construct as generateCreators; }
+    use Field\Timestampable;
+    use TimestampableEntity;
 
     #[ORM\Column(name: 'name', type: Types::STRING, length: 255, nullable: false)]
     #[Assert\NotBlank(message: 'Please enter a name')]
@@ -32,6 +35,7 @@ class Venue implements HasNestedRelations, HasCreators
     {
         $this->generateId();
         $this->generateCreators();
+        $this->generateTimestamps();
         $this->floors = new ArrayCollection();
     }
 

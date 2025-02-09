@@ -9,7 +9,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Test\AbstractCrudTestCase;
 
 trait TestAdminNew
 {
-    protected function runNewFormSubmit(array $newData, string $username = 'admin'): void
+    protected function runNewFormSubmit(array $newData, string $username = 'admin', array $fieldsToMatch = ['name']): void
     {
         if (!$this instanceof AbstractCrudTestCase) {
             throw new \RuntimeException(\sprintf('Trait "%s" used by class "%s" can only be used in an instance of "%s".', self::class, static::class, AbstractCrudTestCase::class));
@@ -42,9 +42,13 @@ trait TestAdminNew
         self::assertStringStartsWith('Successfully created ', $flashText);
         self::assertStringEndsWith(sprintf("%s\"!", $newData['name']), $flashText);
 
+        $search = [];
+        foreach ($fieldsToMatch as $key) {
+            $search[$key] = $newData[$key];
+        }
+
         $repo = $this->client->getContainer()->get(EntityManagerInterface::class)->getRepository($entityClass);
-        $element = $repo->findOneBy(['name' => $newData['name']]);
+        $element = $repo->findOneBy($search);
         self::assertInstanceOf($entityClass, $element);
     }
-
 }

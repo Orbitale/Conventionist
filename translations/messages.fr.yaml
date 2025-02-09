@@ -1,3 +1,4 @@
+ID: Id
 'Choose an event:': 'Choisissez un évènement :'
 'Event:': 'Évènement :'
 'Filters:': 'Filtres :'
@@ -67,15 +68,18 @@ scheduled_animation.state.accepted: 'Accepté et programmé'
 scheduled_animation.state.created: 'Fraîchement créé, pas encore soumis à validation'
 scheduled_animation.state.pending_review: 'En attente de validation'
 scheduled_animation.state.rejected: Rejetée
+REJECTED: Rejetée
+ACCEPTED: Acceptée
+CREATED: Créée
+PENDING_REVIEW: En attente de validation
 ScheduledAnimation: 'Animation programmée'
-State String: État
+State: État
 Submit: Envoyer
 Time Slot: 'Créneau horaire'
 Time Slots: 'Créneaux horaires'
 TimeSlot: Créneau horaire
 Venue configurations: 'Configuration des lieux d''accueil'
 └─ Scheduled Animations: '└─ Programmation'
-└─ Time Slot Categories: '└─ Catégories de créneaux'
 └─── Tables: '└─── Tables'
 ├─ Floors: '├─ Étages'
 ├── Rooms: '├── Salles'

@@ -84,7 +84,6 @@ class TimeSlotCrudController extends AbstractCrudController
     {
         yield Field\AssociationField::new('event')->setRequired(true);
         yield Field\AssociationField::new('table')->setRequired(true);
-        yield Field\AssociationField::new('category')->setRequired(true)->setHelp('Mostly informational');
         yield Field\DateTimeField::new('startsAt')->setTimezone('UTC');
         yield Field\DateTimeField::new('endsAt')->setTimezone('UTC');
     }

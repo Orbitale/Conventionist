@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -16,7 +17,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[UniqueEntity(fields: ['username'], message: 'There is already an account with this username')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
-    use Field\Id;
+    use Field\Id { __construct as generateId; }
+    use Field\Timestampable;
+    use TimestampableEntity;
 
     #[ORM\Column(name: 'username', type: 'string', length: 180, unique: true, nullable: false)]
     #[Assert\NotBlank(message: 'Please enter a username')]
@@ -52,6 +55,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /** Used in forms, mostly, because, you know, DTOs in EasyAdmin are super annoying to do. */
     public array $formNewRoles = [];
     public ?string $formNewPassword = '';
+
+    public function __construct()
+    {
+        $this->generateId();
+        $this->generateTimestamps();
+    }
 
     public function __toString(): string
     {

@@ -35,6 +35,12 @@ trait TestAdminIndex
                     // Don't check references: they come from another Crud and might be formatted
                     continue;
                 }
+                if ($value instanceof \BackedEnum) {
+                    $value = $value->value;
+                }
+                if ($value instanceof \UnitEnum) {
+                    $value = $value->name;
+                }
 
                 if (null === $value) {
                     $value = 'Null';

@@ -28,8 +28,6 @@ class CalendarController extends AbstractController
     #[Route('/admin/calendar', name: 'admin_calendar', defaults: [EA::DASHBOARD_CONTROLLER_FQCN => DashboardController::class], methods: ['GET'])]
     public function calendarIndex(Request $request): Response
     {
-        $this->denyAccessUnlessGranted('CAN_VIEW_CALENDAR');
-
         $this->adminContextProvider->getContext();
 
         $events = $this->eventRepository->findUpcoming();
@@ -46,8 +44,6 @@ class CalendarController extends AbstractController
     #[Route('/admin/calendar/{event_id}', name: 'admin_calendar_event', defaults: [EA::DASHBOARD_CONTROLLER_FQCN => DashboardController::class])]
     public function viewCalendar(Request $request, string $event_id): Response
     {
-        $this->denyAccessUnlessGranted('CAN_VIEW_CALENDAR');
-
         $currentUser = $this->getUser();
         if (!$currentUser instanceof User) {
             throw new AccessDeniedHttpException();

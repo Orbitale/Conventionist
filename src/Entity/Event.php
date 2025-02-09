@@ -6,6 +6,8 @@ use App\Enum\ScheduleAnimationState;
 use App\Repository\EventRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: EventRepository::class)]
@@ -16,10 +18,16 @@ class Event implements HasCreators
     use Field\Description;
     use Field\StartEndDates;
     use Field\Enabled;
+    use Field\Timestampable;
+    use TimestampableEntity;
 
     #[ORM\Column(name: 'name', type: Types::STRING, length: 255, nullable: false)]
     #[Assert\NotBlank(message: 'Please enter a name')]
     private ?string $name = '';
+
+    #[ORM\Column(name: 'slug', type: Types::STRING, length: 255, nullable: false)]
+    #[Gedmo\Slug(fields: ['name'])]
+    private ?string $slug = '';
 
     #[ORM\Column(name: 'address', type: Types::TEXT, nullable: false)]
     private string $address = '';
@@ -38,6 +46,7 @@ class Event implements HasCreators
     {
         $this->generateId();
         $this->generateCreators();
+        $this->generateTimestamps();
     }
 
     public function __toString(): string
@@ -149,6 +158,16 @@ class Event implements HasCreators
     public function setName(?string $name): void
     {
         $this->name = $name ?: '';
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(?string $slug): void
+    {
+        $this->slug = $slug;
     }
 
     public function getAddress(): ?string
