@@ -2,6 +2,8 @@
 
 namespace App\DataFixtures;
 
+use App\DataFixtures\Tools\GetObjectsFromData;
+use App\DataFixtures\Tools\Ref;
 use App\Entity\Event;
 use App\Entity\User;
 use App\Entity\Venue;
@@ -12,6 +14,8 @@ use Orbitale\Component\ArrayFixture\ArrayFixture;
 
 class EventFixture extends ArrayFixture implements ORMFixtureInterface, DependentFixtureInterface
 {
+    use GetObjectsFromData;
+
     protected function getEntityClass(): string
     {
         return Event::class;
@@ -35,19 +39,18 @@ class EventFixture extends ArrayFixture implements ORMFixtureInterface, Dependen
         ];
     }
 
-    protected function getObjects(): iterable
+    public static function getStaticData(): array
     {
         return [
-            [
-                'id' => 'b715276f-f7df-42ee-82f8-c21b05d2da2d',
+            'b715276f-f7df-42ee-82f8-c21b05d2da2d' => [
                 'name' => 'TDC 2025',
                 'startsAt' => new \DateTimeImmutable('10 days')->setTime(0, 0, 0, 0),
                 'endsAt' => new \DateTimeImmutable('12 days')->setTime(0, 0, 0, 0),
                 'address' => 'CPC',
                 'description' => 'Hello world',
-                'creators' => new ArrayCollection([$this->getReference('user-admin', User::class)]),
+                'creators' => [new Ref(User::class, 'user-admin'), new Ref(User::class, 'user-conference_organizer')],
                 'enabled' => true,
-                'venue' => $this->getReference('venue-CPC', Venue::class),
+                'venue' => new Ref(Venue::class, 'venue-CPC'),
             ],
         ];
     }

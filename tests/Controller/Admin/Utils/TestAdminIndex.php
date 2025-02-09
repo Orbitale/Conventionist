@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Controller\Admin;
+namespace App\Tests\Controller\Admin\Utils;
 
 use App\DataFixtures\Tools\Ref;
 use App\Tests\GetUser;
@@ -10,7 +10,7 @@ trait TestAdminIndex
 {
     abstract protected static function getIndexColumnNames(): array;
 
-    protected function runIndexPage(array $indexData): void
+    protected function runIndexPage(array $indexData, string $username = 'admin'): void
     {
         if (!$this instanceof AbstractCrudTestCase) {
             throw new \RuntimeException(\sprintf('Trait "%s" used by class "%s" can only be used in an instance of "%s".', self::class, static::class, AbstractCrudTestCase::class));
@@ -19,7 +19,7 @@ trait TestAdminIndex
             throw new \RuntimeException(\sprintf('Trait "%s" used by class "%s" can only be used when using the "%s" trait.', self::class, static::class, GetUser::class));
         }
 
-        $this->client->loginUser($this->getUser());
+        $this->client->loginUser($this->getUser($username));
         $this->client->request("GET", $this->generateIndexUrl());
 
         static::assertResponseIsSuccessful();

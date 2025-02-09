@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Tests\Controller\Admin;
+namespace App\Tests\Controller\Admin\Utils;
 
 use App\Tests\GetUser;
 use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Test\AbstractCrudTestCase;
 
-trait TestAdminNew
+trait TestAdminEdit
 {
-    protected function runNewFormSubmit(array $newData): void
+    protected function runEditFormSubmit(string|int $id, array $newData): void
     {
         if (!$this instanceof AbstractCrudTestCase) {
             throw new \RuntimeException(\sprintf('Trait "%s" used by class "%s" can only be used in an instance of "%s".', self::class, static::class, AbstractCrudTestCase::class));
@@ -19,7 +19,7 @@ trait TestAdminNew
         }
 
         $this->client->loginUser($this->getUser());
-        $this->client->request('GET', $this->generateNewFormUrl());
+        $this->client->request('GET', $this->generateEditFormUrl($id));
 
         /** @var class-string<AbstractCrudController> $controllerClass */
         $controllerClass = $this->getControllerFqcn();
@@ -38,11 +38,11 @@ trait TestAdminNew
         self::assertResponseStatusCodeSame(200);
         $flashText = $crawler->filter('#flash-messages')?->text();
         self::assertNotEmpty($flashText, 'There are apparently no flash message confirming object creation.');
-        self::assertStringStartsWith('Successfully created ', $flashText);
+        self::assertStringStartsWith('Successfully updated ', $flashText);
         self::assertStringEndsWith(sprintf("%s\"!", $newData['name']), $flashText);
 
         $repo = $this->client->getContainer()->get(EntityManagerInterface::class)->getRepository($entityClass);
-        $element = $repo->findOneBy(['name' => $newData['name']]);
+        $element = $repo->find($id);
         self::assertInstanceOf($entityClass, $element);
     }
 

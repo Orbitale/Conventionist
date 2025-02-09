@@ -54,24 +54,11 @@ class AnimationCrudController extends AbstractCrudController
         parent::persistEntity($entityManager, $entityInstance);
     }
 
-    /**
-     * @param Animation $entityInstance
-     */
-    public function updateEntity(EntityManagerInterface $entityManager, $entityInstance): void
-    {
-        if (!$this->isGranted('ROLE_ADMIN')) {
-            /** @var User $user */
-            $user = $this->getUser();
-            $entityInstance->addCreator($user);
-        }
-
-        parent::updateEntity($entityManager, $entityInstance);
-    }
-
     public function configureFields(string $pageName): iterable
     {
         return [
             Field\TextField::new('name'),
+            Field\TextEditorField::new('maxNumberOfParticipants')->setRequired(false)->hideOnIndex(),
             Field\TextEditorField::new('description')->setRequired(false)->hideOnIndex(),
             Field\AssociationField::new('creators')->setHelp('The users that are allowed to manage this animation. Note: you will always be included in this list, even if you remove yourself from it.'),
         ];

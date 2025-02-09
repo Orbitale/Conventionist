@@ -4,18 +4,20 @@ namespace App\Tests\Controller\Admin;
 
 use App\Controller\Admin\DashboardController;
 use App\Controller\Admin\EventCrudController;
+use App\DataFixtures\EventFixture;
 use App\DataFixtures\VenueFixture;
 use App\Tests\GetUser;
 use EasyCorp\Bundle\EasyAdminBundle\Test\AbstractCrudTestCase;
 use EasyCorp\Bundle\EasyAdminBundle\Test\Trait\CrudTestFormAsserts;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 class EventCrudControllerTest extends AbstractCrudTestCase
 {
     use CrudTestFormAsserts;
     use GetUser;
-    use TestAdminIndex;
-    use TestAdminNew;
-    use TestAdminEdit;
+    use Utils\TestAdminIndex;
+    use Utils\TestAdminNew;
+    use Utils\TestAdminEdit;
 
     protected static function getIndexColumnNames(): array
     {
@@ -32,16 +34,19 @@ class EventCrudControllerTest extends AbstractCrudTestCase
         return EventCrudController::class;
     }
 
-    public function testIndex(): void
+    #[DataProvider('provideUsernames')]
+    public function testIndex(string $username): void
     {
-        $this->runIndexPage([
-            'b715276f-f7df-42ee-82f8-c21b05d2da2d' => [
-                'name' => 'TDC 2025',
-            ],
-        ]);
+        $this->runIndexPage(EventFixture::getStaticData(), $username);
     }
 
-    public function testNew(): void
+    public static function provideUsernames(): iterable
+    {
+        yield 'admin' => ['admin'];
+        yield 'conference_organizer' => ['conference_organizer'];
+    }
+
+    public function testNewAsAdmin(): void
     {
         $this->runNewFormSubmit([
             'name' => 'Test event name',
@@ -53,9 +58,21 @@ class EventCrudControllerTest extends AbstractCrudTestCase
         ]);
     }
 
+    public function testNewAsNonAdmin(): void
+    {
+        $this->runNewFormSubmit([
+            'name' => 'Test event name',
+            'address' => 'CPC',
+            'description' => 'Hello world',
+            'startsAt' => '2055-01-01T00:00',
+            'endsAt' => '2055-01-05T00:00',
+            'venue' => VenueFixture::getIdFromName('CPC'),
+        ], 'conference_organizer');
+    }
+
     public function testEdit(): void
     {
-        $this->runEditFormSubmit('b715276f-f7df-42ee-82f8-c21b05d2da2d', [
+        $this->runEditFormSubmit(EventFixture::getIdFromName('TDC 2025'), [
             'name' => 'TDC 2055',
             'address' => 'CPC',
             'description' => 'Hello world',

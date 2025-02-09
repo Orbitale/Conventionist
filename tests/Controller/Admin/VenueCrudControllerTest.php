@@ -3,15 +3,14 @@
 namespace App\Tests\Controller\Admin;
 
 use App\Controller\Admin\DashboardController;
-use App\Controller\Admin\TableCrudController;
-use App\DataFixtures\RoomFixture;
-use App\DataFixtures\TableFixture;
+use App\Controller\Admin\VenueCrudController;
+use App\DataFixtures\VenueFixture;
 use App\Tests\GetUser;
 use EasyCorp\Bundle\EasyAdminBundle\Test\AbstractCrudTestCase;
 use EasyCorp\Bundle\EasyAdminBundle\Test\Trait\CrudTestFormAsserts;
 use PHPUnit\Framework\Attributes\DataProvider;
 
-class TableCrudControllerTest extends AbstractCrudTestCase
+class VenueCrudControllerTest extends AbstractCrudTestCase
 {
     use CrudTestFormAsserts;
     use GetUser;
@@ -21,7 +20,7 @@ class TableCrudControllerTest extends AbstractCrudTestCase
 
     protected static function getIndexColumnNames(): array
     {
-        return ['name', 'maxNumberOfParticipants'];
+        return ['name'];
     }
 
     protected function getDashboardFqcn(): string
@@ -31,13 +30,13 @@ class TableCrudControllerTest extends AbstractCrudTestCase
 
     protected function getControllerFqcn(): string
     {
-        return TableCrudController::class;
+        return VenueCrudController::class;
     }
 
     #[DataProvider('provideUsernames')]
     public function testIndex(string $username): void
     {
-        $this->runIndexPage(TableFixture::getStaticData(), $username);
+        $this->runIndexPage(VenueFixture::getStaticData(), $username);
     }
 
     public static function provideUsernames(): iterable
@@ -48,23 +47,17 @@ class TableCrudControllerTest extends AbstractCrudTestCase
 
     public function testNew(): void
     {
-        $newData = [
-            'name' => 'Test table name',
-            'room' => RoomFixture::getIdFromName('Hall jeux'),
-            'maxNumberOfParticipants' => 10,
-        ];
-
-        $this->runNewFormSubmit($newData);
+        $this->runNewFormSubmit([
+            'name' => 'Test venue name',
+            'address' => 'Somewhere',
+        ]);
     }
 
     public function testEdit(): void
     {
-        $newData = [
-            'name' => 'Test new table name',
-            'room' => RoomFixture::getIdFromName('Hall jeux'),
-            'maxNumberOfParticipants' => 10,
-        ];
-
-        $this->runEditFormSubmit(TableFixture::getIdFromName('Table face pôle JdR 1'), $newData);
+        $this->runEditFormSubmit(VenueFixture::getIdFromName('CPC'), [
+            'name' => 'Test new floor name',
+            'address' => 'Le Puy, quelque part',
+        ]);
     }
 }

@@ -17,8 +17,7 @@ class UserFixture extends ArrayFixture implements ORMFixtureInterface
     public static function getStaticData(): array
     {
         return [
-            [
-                'id' => 'dd45dfe9-1526-4c60-b9e7-d4d306627acb',
+            'dd45dfe9-1526-4c60-b9e7-d4d306627acb' => [
                 'username' => 'admin',
                 'email' => 'admin@test.localhost',
                 'password' => fn () => self::$hasher->getPasswordHasher(User::class)->hash('admin'),
@@ -28,8 +27,7 @@ class UserFixture extends ArrayFixture implements ORMFixtureInterface
                 'isEmailConfirmed' => true,
                 'locale' => 'fr',
             ],
-            [
-                'id' => 'a50196ec-0571-4cef-9f12-3bfaef3d094e',
+            'a50196ec-0571-4cef-9f12-3bfaef3d094e' => [
                 'username' => 'conference_organizer',
                 'email' => 'conference_organizer@test.localhost',
                 'password' => fn () => self::$hasher->getPasswordHasher(User::class)->hash('conference_organizer'),
@@ -39,8 +37,7 @@ class UserFixture extends ArrayFixture implements ORMFixtureInterface
                 'isEmailConfirmed' => true,
                 'locale' => 'fr',
             ],
-            [
-                'id' => '9a857dfd-814a-4c8e-b767-91897c69e51e',
+            '9a857dfd-814a-4c8e-b767-91897c69e51e' => [
                 'username' => 'visitor',
                 'email' => 'visitor@test.localhost',
                 'password' => fn () => self::$hasher->getPasswordHasher(User::class)->hash('visitor'),
@@ -50,8 +47,7 @@ class UserFixture extends ArrayFixture implements ORMFixtureInterface
                 'isEmailConfirmed' => true,
                 'locale' => 'fr',
             ],
-            [
-                'id' => 'b4500766-0d41-4004-9922-c78f92e22c3a',
+            'b4500766-0d41-4004-9922-c78f92e22c3a' => [
                 'username' => 'venue_manager',
                 'email' => 'venue_manager@test.localhost',
                 'password' => fn () => self::$hasher->getPasswordHasher(User::class)->hash('venue_manager'),

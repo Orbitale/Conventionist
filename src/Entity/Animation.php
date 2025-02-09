@@ -20,8 +20,8 @@ class Animation implements HasNestedRelations, HasCreators
     #[Assert\NotBlank(message: 'Please enter a name')]
     private ?string $name = '';
 
-    #[ORM\Column]
-    private int $maxNumberOfParticipants = 1;
+    #[ORM\Column(name: 'max_number_of_participants', type: Types::INTEGER, nullable: true)]
+    private ?int $maxNumberOfParticipants = null;
 
     /** @var Collection<ScheduledAnimation> */
     #[ORM\OneToMany(targetEntity: ScheduledAnimation::class, mappedBy: 'animation')]
@@ -57,7 +57,7 @@ class Animation implements HasNestedRelations, HasCreators
 
     public function setMaxNumberOfParticipants(?int $maxNumberOfParticipants): void
     {
-        $this->maxNumberOfParticipants = $maxNumberOfParticipants ?: 1;
+        $this->maxNumberOfParticipants = $maxNumberOfParticipants;
     }
 
     public function getScheduledAnimations(): Collection

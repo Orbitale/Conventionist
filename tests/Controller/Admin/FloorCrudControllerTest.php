@@ -9,14 +9,15 @@ use App\DataFixtures\VenueFixture;
 use App\Tests\GetUser;
 use EasyCorp\Bundle\EasyAdminBundle\Test\AbstractCrudTestCase;
 use EasyCorp\Bundle\EasyAdminBundle\Test\Trait\CrudTestFormAsserts;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 class FloorCrudControllerTest extends AbstractCrudTestCase
 {
     use CrudTestFormAsserts;
     use GetUser;
-    use TestAdminIndex;
-    use TestAdminNew;
-    use TestAdminEdit;
+    use Utils\TestAdminIndex;
+    use Utils\TestAdminNew;
+    use Utils\TestAdminEdit;
 
     protected static function getIndexColumnNames(): array
     {
@@ -33,9 +34,16 @@ class FloorCrudControllerTest extends AbstractCrudTestCase
         return FloorCrudController::class;
     }
 
-    public function testIndex(): void
+    #[DataProvider('provideUsernames')]
+    public function testIndex(string $username): void
     {
-        $this->runIndexPage(FloorFixture::getStaticData());
+        $this->runIndexPage(FloorFixture::getStaticData(), $username);
+    }
+
+    public static function provideUsernames(): iterable
+    {
+        yield 'admin' => ['admin'];
+        yield 'conference_organizer' => ['conference_organizer'];
     }
 
     public function testNew(): void
