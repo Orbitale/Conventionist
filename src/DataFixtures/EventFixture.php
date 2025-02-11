@@ -10,6 +10,7 @@ use App\Entity\Venue;
 use Doctrine\Bundle\FixturesBundle\ORMFixtureInterface;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Orbitale\Component\ArrayFixture\ArrayFixture;
+use Symfony\Component\Uid\Uuid;
 
 class EventFixture extends ArrayFixture implements ORMFixtureInterface, DependentFixtureInterface
 {
@@ -41,7 +42,7 @@ class EventFixture extends ArrayFixture implements ORMFixtureInterface, Dependen
     public static function getStaticData(): array
     {
         return [
-            'b715276f-f7df-42ee-82f8-c21b05d2da2d' => [
+            Uuid::v7()->toString() => [
                 'name' => 'TDC 2025',
                 'startsAt' => new \DateTimeImmutable('10 days')->setTime(0, 0, 0, 0),
                 'endsAt' => new \DateTimeImmutable('12 days')->setTime(0, 0, 0, 0),

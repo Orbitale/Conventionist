@@ -34,7 +34,12 @@ class VenueFixture extends ArrayFixture implements ORMFixtureInterface
             'ae58fc80-cf97-49b4-a7ec-6fba881dd1db' => [
                 'name' => 'CPC',
                 'address' => 'Puy',
-                'creators' => [new Ref(User::class, 'user-admin'), new Ref(User::class, 'user-conference_organizer')],
+                'creators' => [new Ref(User::class, 'user-conference_organizer')],
+            ],
+            '5bf81d94-dcec-49cb-a1d4-485b05d0c2d7' => [
+                'name' => 'Custom',
+                'address' => 'Paris',
+                'creators' => [new Ref(User::class, 'user-venue_manager')],
             ],
         ];
     }

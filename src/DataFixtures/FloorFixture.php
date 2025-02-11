@@ -9,6 +9,7 @@ use App\Entity\Venue;
 use Doctrine\Bundle\FixturesBundle\ORMFixtureInterface;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Orbitale\Component\ArrayFixture\ArrayFixture;
+use Symfony\Component\Uid\Uuid;
 
 class FloorFixture extends ArrayFixture implements ORMFixtureInterface, DependentFixtureInterface
 {
@@ -17,13 +18,37 @@ class FloorFixture extends ArrayFixture implements ORMFixtureInterface, Dependen
     public static function getStaticData(): array
     {
         return [
-            '82038d5d-165e-44b3-9938-f286b6544298' => [
+            Uuid::v7()->toString() => [
                 'name' => 'RDC',
                 'venue' => new Ref(Venue::class, 'venue-CPC'),
             ],
-            'c97f718d-fd46-4d5d-80eb-7e52dee9b470' => [
+            Uuid::v7()->toString() => [
                 'name' => 'Entresol',
                 'venue' => new Ref(Venue::class, 'venue-CPC'),
+            ],
+            Uuid::v7()->toString() => [
+                'name' => '1e étage',
+                'venue' => new Ref(Venue::class, 'venue-CPC'),
+            ],
+            Uuid::v7()->toString() => [
+                'name' => '2e étage',
+                'venue' => new Ref(Venue::class, 'venue-CPC'),
+            ],
+            Uuid::v7()->toString() => [
+                'name' => 'Ground floor',
+                'venue' => new Ref(Venue::class, 'venue-Custom'),
+            ],
+            Uuid::v7()->toString() => [
+                'name' => 'Exterior tent',
+                'venue' => new Ref(Venue::class, 'venue-Custom'),
+            ],
+            Uuid::v7()->toString() => [
+                'name' => '1st floor',
+                'venue' => new Ref(Venue::class, 'venue-Custom'),
+            ],
+            Uuid::v7()->toString() => [
+                'name' => '2nd floor',
+                'venue' => new Ref(Venue::class, 'venue-Custom'),
             ],
         ];
     }

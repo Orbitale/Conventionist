@@ -7,6 +7,7 @@ use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\ORMFixtureInterface;
 use Orbitale\Component\ArrayFixture\ArrayFixture;
 use Symfony\Component\PasswordHasher\Hasher\PasswordHasherFactoryInterface;
+use Symfony\Component\Uid\Uuid;
 
 class UserFixture extends ArrayFixture implements ORMFixtureInterface
 {
@@ -17,7 +18,7 @@ class UserFixture extends ArrayFixture implements ORMFixtureInterface
     public static function getStaticData(): array
     {
         return [
-            'dd45dfe9-1526-4c60-b9e7-d4d306627acb' => [
+            Uuid::v7()->toString() => [
                 'username' => 'admin',
                 'email' => 'admin@test.localhost',
                 'password' => fn () => self::$hasher->getPasswordHasher(User::class)->hash('admin'),
@@ -27,7 +28,7 @@ class UserFixture extends ArrayFixture implements ORMFixtureInterface
                 'isEmailConfirmed' => true,
                 'locale' => 'fr',
             ],
-            'a50196ec-0571-4cef-9f12-3bfaef3d094e' => [
+            Uuid::v7()->toString() => [
                 'username' => 'conference_organizer',
                 'email' => 'conference_organizer@test.localhost',
                 'password' => fn () => self::$hasher->getPasswordHasher(User::class)->hash('conference_organizer'),
@@ -37,7 +38,7 @@ class UserFixture extends ArrayFixture implements ORMFixtureInterface
                 'isEmailConfirmed' => true,
                 'locale' => 'fr',
             ],
-            '9a857dfd-814a-4c8e-b767-91897c69e51e' => [
+            Uuid::v7()->toString() => [
                 'username' => 'visitor',
                 'email' => 'visitor@test.localhost',
                 'password' => fn () => self::$hasher->getPasswordHasher(User::class)->hash('visitor'),
@@ -47,7 +48,7 @@ class UserFixture extends ArrayFixture implements ORMFixtureInterface
                 'isEmailConfirmed' => true,
                 'locale' => 'fr',
             ],
-            'b4500766-0d41-4004-9922-c78f92e22c3a' => [
+            Uuid::v7()->toString() => [
                 'username' => 'venue_manager',
                 'email' => 'venue_manager@test.localhost',
                 'password' => fn () => self::$hasher->getPasswordHasher(User::class)->hash('venue_manager'),

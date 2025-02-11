@@ -9,6 +9,7 @@ use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\ORMFixtureInterface;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Orbitale\Component\ArrayFixture\ArrayFixture;
+use Symfony\Component\Uid\Uuid;
 
 class AnimationFixture extends ArrayFixture implements ORMFixtureInterface, DependentFixtureInterface
 {
@@ -17,19 +18,19 @@ class AnimationFixture extends ArrayFixture implements ORMFixtureInterface, Depe
     public static function getStaticData(): array
     {
         return [
-            '7645788c-edde-4b51-9cb8-1c6f641ceffe' => [
+            Uuid::v7()->toString() => [
                 'name' => 'Animation de jeu',
                 'description' => 'Lorem ipsum',
                 'maxNumberOfParticipants' => 5,
                 'creators' => [new Ref(User::class, 'user-admin')],
             ],
-            '173be12f-228a-4da2-8d4c-29d096ef7c0a' => [
+            Uuid::v7()->toString() => [
                 'name' => 'Visitor animation',
                 'description' => 'Lorem ipsum',
                 'maxNumberOfParticipants' => 5,
                 'creators' => [new Ref(User::class, 'user-visitor')],
             ],
-            '75df22c8-567b-4e12-b1cf-ed77b7ac00f4' => [
+            Uuid::v7()->toString() => [
                 'name' => 'Concert',
                 'description' => 'Lorem ipsum',
                 'maxNumberOfParticipants' => 180,

@@ -9,6 +9,7 @@ use App\Entity\Room;
 use Doctrine\Bundle\FixturesBundle\ORMFixtureInterface;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Orbitale\Component\ArrayFixture\ArrayFixture;
+use Symfony\Component\Uid\Uuid;
 
 class RoomFixture extends ArrayFixture implements ORMFixtureInterface, DependentFixtureInterface
 {
@@ -17,25 +18,73 @@ class RoomFixture extends ArrayFixture implements ORMFixtureInterface, Dependent
     public static function getStaticData(): array
     {
         return [
-            '7645788c-edde-4b51-9cb8-1c6f641ceffe' => [
+            Uuid::v7()->toString() => [
                 'name' => 'Hall principal',
                 'floor' => new Ref(Floor::class, 'floor-RDC'),
             ],
-            '69d2d1b9-622e-4bb7-b3e7-7bd613b48fac' => [
+            Uuid::v7()->toString() => [
                 'name' => 'Hall jeux',
                 'floor' => new Ref(Floor::class, 'floor-RDC'),
             ],
-            '33eeb3c9-d1ea-4a12-b8de-3f91ae3af16f' => [
+            Uuid::v7()->toString() => [
                 'name' => 'Salle musique',
                 'floor' => new Ref(Floor::class, 'floor-RDC'),
             ],
-            'b305a315-da12-400d-bbb7-b3376b37e05e' => [
+            Uuid::v7()->toString() => [
                 'name' => 'Salle entresol',
                 'floor' => new Ref(Floor::class, 'floor-Entresol'),
             ],
-            'a255036d-6bcf-4032-af64-be31d1cee7e0' => [
+            Uuid::v7()->toString() => [
                 'name' => 'Scène',
                 'floor' => new Ref(Floor::class, 'floor-Entresol'),
+            ],
+            Uuid::v7()->toString() => [
+                'name' => 'Entry hall',
+                'floor' => new Ref(Floor::class, 'floor-Ground floor'),
+            ],
+            Uuid::v7()->toString() => [
+                'name' => 'Hall 1',
+                'floor' => new Ref(Floor::class, 'floor-Ground floor'),
+            ],
+            Uuid::v7()->toString() => [
+                'name' => 'Hall 2',
+                'floor' => new Ref(Floor::class, 'floor-Ground floor'),
+            ],
+            Uuid::v7()->toString() => [
+                'name' => 'Tent',
+                'floor' => new Ref(Floor::class, 'floor-Exterior tent'),
+            ],
+            Uuid::v7()->toString() => [
+                'name' => 'Room 10',
+                'floor' => new Ref(Floor::class, 'floor-1st floor'),
+            ],
+            Uuid::v7()->toString() => [
+                'name' => 'Room 11',
+                'floor' => new Ref(Floor::class, 'floor-1st floor'),
+            ],
+            Uuid::v7()->toString() => [
+                'name' => 'Room 12',
+                'floor' => new Ref(Floor::class, 'floor-1st floor'),
+            ],
+            Uuid::v7()->toString() => [
+                'name' => 'Room 13',
+                'floor' => new Ref(Floor::class, 'floor-1st floor'),
+            ],
+            Uuid::v7()->toString() => [
+                'name' => 'Room 20',
+                'floor' => new Ref(Floor::class, 'floor-2nd floor'),
+            ],
+            Uuid::v7()->toString() => [
+                'name' => 'Room 21',
+                'floor' => new Ref(Floor::class, 'floor-2nd floor'),
+            ],
+            Uuid::v7()->toString() => [
+                'name' => 'Room 22',
+                'floor' => new Ref(Floor::class, 'floor-2nd floor'),
+            ],
+            Uuid::v7()->toString() => [
+                'name' => 'Room 23',
+                'floor' => new Ref(Floor::class, 'floor-2nd floor'),
             ],
         ];
     }
