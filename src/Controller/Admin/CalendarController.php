@@ -108,7 +108,8 @@ class CalendarController extends AbstractController
     }
 
     /**
-     * @param array<TimeSlot> $scheduledAnimations
+     * @param array<TimeSlot> $timeSlots
+     *
      * @return array<int>
      */
     private function getHours(array $timeSlots): array
