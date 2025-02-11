@@ -10,9 +10,8 @@ use Symfony\Component\Validator\ConstraintValidator;
 final class NoOverlappingSchedulesValidator extends ConstraintValidator
 {
     public function __construct(
-        private readonly ScheduledAnimationRepository $scheduledAnimationRepository
-    )
-    {
+        private readonly ScheduledAnimationRepository $scheduledAnimationRepository,
+    ) {
     }
 
     public function validate(mixed $value, Constraint $constraint): void
@@ -24,10 +23,7 @@ final class NoOverlappingSchedulesValidator extends ConstraintValidator
         }
 
         if (!$value instanceof ScheduledAnimation) {
-            throw new \RuntimeException(\sprintf(
-                'The "%s" validation constraint can only be used on the "%s" class.',
-                NoOverlappingSchedules::class, ScheduledAnimation::class,
-            ));
+            throw new \RuntimeException(\sprintf('The "%s" validation constraint can only be used on the "%s" class.', NoOverlappingSchedules::class, ScheduledAnimation::class));
         }
 
         $hasSimilarSchedules = $this->scheduledAnimationRepository->hasSimilar($value);

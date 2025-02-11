@@ -16,11 +16,7 @@ trait GetObjectsFromData
             }
         }
 
-        throw new \RuntimeException(\sprintf(
-            'No fixture object with name "%s" in class "%s".',
-            $name,
-            static::class
-        ));
+        throw new \RuntimeException(\sprintf('No fixture object with name "%s" in class "%s".', $name, static::class));
     }
 
     protected function getObjects(): iterable
@@ -35,14 +31,13 @@ trait GetObjectsFromData
 
                 if ($value instanceof Ref) {
                     $value = $this->getReference($value->name, $value->class);
-
                 } elseif (\is_array($value)) {
                     $arrayData = $value;
                     $hasRef = false;
 
                     foreach ($arrayData as $key => $arrayValue) {
                         if ($arrayValue instanceof Ref) {
-                            $arrayData[$key] =  $this->getReference($arrayValue->name, $arrayValue->class);
+                            $arrayData[$key] = $this->getReference($arrayValue->name, $arrayValue->class);
                             $hasRef = true;
                         }
                     }

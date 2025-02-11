@@ -64,8 +64,6 @@ class Room implements HasNestedRelations
         return $json;
     }
 
-    //
-
     public function getName(): string
     {
         return $this->name;

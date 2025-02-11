@@ -101,7 +101,6 @@ class Event implements HasCreators
 
     /**
      * @param array<ScheduleAnimationState> $states
-     * @return array
      */
     public function getCalendarSchedulesJson(array $states): array
     {
@@ -147,8 +146,6 @@ class Event implements HasCreators
 
         return $json;
     }
-
-    //
 
     public function getName(): string
     {

@@ -10,7 +10,7 @@ use Symfony\Component\Validator\ConstraintValidator;
 final class NoOverlappingTimeSlotValidator extends ConstraintValidator
 {
     public function __construct(
-        private readonly TimeSlotRepository $timeSlotRepository
+        private readonly TimeSlotRepository $timeSlotRepository,
     ) {
     }
 
@@ -23,10 +23,7 @@ final class NoOverlappingTimeSlotValidator extends ConstraintValidator
         }
 
         if (!$value instanceof TimeSlot) {
-            throw new \RuntimeException(\sprintf(
-                'The "%s" validation constraint can only be used on the "%s" class.',
-                NoOverlappingTimeSlot::class, TimeSlot::class,
-            ));
+            throw new \RuntimeException(\sprintf('The "%s" validation constraint can only be used on the "%s" class.', NoOverlappingTimeSlot::class, TimeSlot::class));
         }
 
         $hasOverlap = $this->timeSlotRepository->hasOverlap($value);

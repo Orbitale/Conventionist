@@ -4,7 +4,6 @@ namespace App\Controller\Admin;
 
 use App\Entity\Animation;
 use App\Entity\User;
-use App\Enum\ScheduleAnimationState;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;
 use EasyCorp\Bundle\EasyAdminBundle\Collection\FieldCollection;

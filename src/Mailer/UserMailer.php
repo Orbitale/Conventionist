@@ -8,6 +8,5 @@ class UserMailer
 {
     public function sendResettingEmailMessage(User $user): void
     {
-
     }
 }

@@ -3,8 +3,8 @@
 namespace App\Entity\Field;
 
 use Doctrine\DBAL\Types\Types;
-use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 trait StartEndDates
 {

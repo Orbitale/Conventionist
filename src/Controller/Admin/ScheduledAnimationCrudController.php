@@ -40,7 +40,7 @@ class ScheduledAnimationCrudController extends AbstractCrudController
     ) {
     }
 
-    #[Route("/admin/scheduled-animation/accept/{id}", name: "admin_scheduled_animation_accept", methods: ['POST'])]
+    #[Route('/admin/scheduled-animation/accept/{id}', name: 'admin_scheduled_animation_accept', methods: ['POST'])]
     public function acceptSchedule(Request $request, string $id): Response
     {
         $scheduledAnimation = $this->scheduledAnimationRepository->find($id);
@@ -73,7 +73,7 @@ class ScheduledAnimationCrudController extends AbstractCrudController
         return $this->redirectToRoute('admin_calendar_event', ['event_id' => $scheduledAnimation->getEvent()->getId()]);
     }
 
-    #[Route("/admin/scheduled-animation/reject/{id}", name: "admin_scheduled_animation_reject", methods: ['POST'])]
+    #[Route('/admin/scheduled-animation/reject/{id}', name: 'admin_scheduled_animation_reject', methods: ['POST'])]
     public function rejectSchedule(Request $request, string $id): Response
     {
         $scheduledAnimation = $this->scheduledAnimationRepository->find($id);
@@ -137,7 +137,6 @@ class ScheduledAnimationCrudController extends AbstractCrudController
 
         return parent::getRedirectResponseAfterSave($context, $action);
     }
-
 
     public function configureActions(Actions $actions): Actions
     {

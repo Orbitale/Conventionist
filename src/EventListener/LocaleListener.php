@@ -13,7 +13,7 @@ readonly class LocaleListener implements EventSubscriberInterface
 {
     public function __construct(
         private TokenStorageInterface $tokenStorage,
-        private LocaleAwareInterface  $translator,
+        private LocaleAwareInterface $translator,
     ) {
     }
 

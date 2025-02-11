@@ -22,7 +22,6 @@ class Venue implements HasNestedRelations, HasCreators
     #[Assert\NotBlank(message: 'Please enter a name')]
     private ?string $name = '';
 
-
     #[ORM\Column(type: Types::TEXT)]
     private string $address = '';
 

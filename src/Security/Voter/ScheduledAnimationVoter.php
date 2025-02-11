@@ -50,7 +50,7 @@ final class ScheduledAnimationVoter extends Voter
             if (!$subject->canChangeState()) {
                 return false;
             }
-            
+
             return $user->isOwnerOf($subject->getEvent());
         }
 

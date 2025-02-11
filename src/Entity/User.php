@@ -69,7 +69,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function isOwnerOf(HasCreators $subject): bool
     {
-        return array_any($subject->getCreators()->toArray(), fn($creator) => $creator->getId() === $this->id);
+        return array_any($subject->getCreators()->toArray(), fn ($creator) => $creator->getId() === $this->id);
     }
 
     public function getUsername(): string
