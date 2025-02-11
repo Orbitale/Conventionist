@@ -8,6 +8,16 @@ trait GetObjectsFromData
 {
     abstract public static function getStaticData(): iterable;
 
+    public static function filterByKeyAndValue(string $key, mixed $value): array
+    {
+        return \array_filter(self::getStaticData(), static fn (array $data) => $data[$key] === $value);
+    }
+
+    public static function filterData(\Closure $callback): array
+    {
+        return \array_filter(self::getStaticData(), $callback);
+    }
+
     public static function getIdFromName(string $name): string
     {
         foreach (static::getStaticData() as $id => $values) {

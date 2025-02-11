@@ -20,6 +20,10 @@ class RegistrationControllerTest extends WebTestCase
         $client = static::createClient(server: ['HTTP_ACCEPT_LANGUAGE' => $locale]);
         $client->request('GET', RegistrationController::REGISTER_PATHS[$locale]);
 
+        $repo = $client->getContainer()->get(UserRepository::class);
+
+        $users = $repo->findAll();
+
         $translator = $client->getContainer()->get(TranslatorInterface::class);
 
         $registerText = $translator->trans('register', locale: $locale);
@@ -37,11 +41,12 @@ class RegistrationControllerTest extends WebTestCase
 
         /** @var UserRepository $repo */
         $repo = $client->getContainer()->get(UserRepository::class);
-        $users = $repo->findAll();
+        $newUsers = $repo->findAll();
 
-        self::assertCount(\count(UserFixture::getStaticData()) + 1, $users);
+        $created = \array_values(\array_diff($newUsers, $users));
+        self::assertCount(1, $created);
 
-        $created = reset($users);
+        $created = $created[0];
         self::assertSame('new-user', $created->getUserIdentifier());
         self::assertSame('new-user', $created->getUsername());
         self::assertSame('new-user@test.localhost', $created->getEmail());

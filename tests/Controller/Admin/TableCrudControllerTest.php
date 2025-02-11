@@ -34,16 +34,20 @@ class TableCrudControllerTest extends AbstractCrudTestCase
         return TableCrudController::class;
     }
 
-    #[DataProvider('provideUsernames')]
-    public function testIndex(string $username): void
+    public function testIndexAdmin(): void
     {
-        $this->runIndexPage(TableFixture::getStaticData(), $username);
+        $this->runIndexPage(TableFixture::getStaticData());
+    }
+
+    public function testIndexVenueManager(): void
+    {
+        $this->runIndexPage(TableFixture::filterByKeyAndValue('name', 'Custom'), 'venue_manager');
     }
 
     public static function provideUsernames(): iterable
     {
         yield 'admin' => ['admin'];
-        yield 'conference_organizer' => ['conference_organizer'];
+        yield 'venue_manager' => ['venue_manager'];
     }
 
     public function testNew(): void

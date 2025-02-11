@@ -34,16 +34,14 @@ class FloorCrudControllerTest extends AbstractCrudTestCase
         return FloorCrudController::class;
     }
 
-    #[DataProvider('provideUsernames')]
-    public function testIndex(string $username): void
+    public function testIndexAdmin(): void
     {
-        $this->runIndexPage(FloorFixture::getStaticData(), $username);
+        $this->runIndexPage(FloorFixture::getStaticData());
     }
 
-    public static function provideUsernames(): iterable
+    public function testIndexVenueManager(): void
     {
-        yield 'admin' => ['admin'];
-        yield 'conference_organizer' => ['conference_organizer'];
+        $this->runIndexPage(FloorFixture::filterByKeyAndValue('name', 'Custom'), 'venue_manager');
     }
 
     public function testNew(): void

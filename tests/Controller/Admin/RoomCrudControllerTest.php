@@ -34,16 +34,14 @@ class RoomCrudControllerTest extends AbstractCrudTestCase
         return RoomCrudController::class;
     }
 
-    #[DataProvider('provideUsernames')]
-    public function testIndex(string $username): void
+    public function testIndexAdmin(): void
     {
-        $this->runIndexPage(RoomFixture::getStaticData(), $username);
+        $this->runIndexPage(RoomFixture::getStaticData());
     }
 
-    public static function provideUsernames(): iterable
+    public function testIndexVenueManager(): void
     {
-        yield 'admin' => ['admin'];
-        yield 'conference_organizer' => ['conference_organizer'];
+        $this->runIndexPage(RoomFixture::filterByKeyAndValue('name', 'Custom'), 'venue_manager');
     }
 
     public function testNew(): void

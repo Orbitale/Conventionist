@@ -33,16 +33,14 @@ class VenueCrudControllerTest extends AbstractCrudTestCase
         return VenueCrudController::class;
     }
 
-    #[DataProvider('provideUsernames')]
-    public function testIndex(string $username): void
+    public function testIndexAdmin(): void
     {
-        $this->runIndexPage(VenueFixture::getStaticData(), $username);
+        $this->runIndexPage(VenueFixture::getStaticData(), 'admin');
     }
 
-    public static function provideUsernames(): iterable
+    public function testIndexVenueManager(): void
     {
-        yield 'admin' => ['admin'];
-        yield 'conference_organizer' => ['conference_organizer'];
+        $this->runIndexPage(VenueFixture::filterByKeyAndValue('name', 'Custom'), 'venue_manager');
     }
 
     public function testNew(): void
