@@ -4,9 +4,12 @@ namespace App\Controller\Admin;
 
 use App\Controller\Admin\NestedControllers\NestedTableCrudController;
 use App\Entity\Room;
+use App\Security\Voter\VenueVoter;
 use Doctrine\ORM\QueryBuilder;
 use EasyCorp\Bundle\EasyAdminBundle\Collection\FieldCollection;
 use EasyCorp\Bundle\EasyAdminBundle\Collection\FilterCollection;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Dto\EntityDto;
@@ -20,6 +23,17 @@ class RoomCrudController extends AbstractCrudController
     public static function getEntityFqcn(): string
     {
         return Room::class;
+    }
+
+    public function configureActions(Actions $actions): Actions
+    {
+        $this->checkParent();
+
+        $actions
+            ->add(Crud::PAGE_INDEX, Action::DETAIL)
+            ->setPermission(Action::DELETE, VenueVoter::CAN_DELETE_VENUE);
+
+        return $actions;
     }
 
     public function createIndexQueryBuilder(SearchDto $searchDto, EntityDto $entityDto, FieldCollection $fields, FilterCollection $filters): QueryBuilder

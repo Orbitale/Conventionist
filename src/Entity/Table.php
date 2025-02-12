@@ -11,7 +11,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: TableRepository::class)]
 #[ORM\Table(name: '`table`')]
-class Table
+class Table implements HasCreators
 {
     use Field\Id { Field\Id::__construct as private generateId; }
 
@@ -50,6 +50,11 @@ class Table
                 'slot_type' => 'table',
             ],
         ];
+    }
+
+    public function getCreators(): Collection
+    {
+        return $this->room->getCreators();
     }
 
     public function getName(): string

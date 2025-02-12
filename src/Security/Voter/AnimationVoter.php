@@ -3,18 +3,20 @@
 namespace App\Security\Voter;
 
 use App\Entity\Animation;
+use App\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use Symfony\Component\Security\Core\Role\RoleHierarchyInterface;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 final class AnimationVoter extends Voter
 {
     public const array PERMISSIONS = [
-        self::CAN_VIEW_ANIMATIONS,
+        self::CAN_EDIT_ANIMATION,
+        self::CAN_DELETE_ANIMATION,
     ];
 
-    public const string CAN_VIEW_ANIMATIONS = 'CAN_VIEW_ANIMATIONS';
+    public const string CAN_EDIT_ANIMATION = 'CAN_EDIT_ANIMATION';
+    public const string CAN_DELETE_ANIMATION = 'CAN_DELETE_ANIMATION';
 
     public function __construct(
         private readonly RoleHierarchyInterface $roleHierarchy,
@@ -30,26 +32,16 @@ final class AnimationVoter extends Voter
     {
         $user = $token->getUser();
 
-        // if the user is anonymous, do not grant access
-        if (!$user instanceof UserInterface) {
+        if (!$user instanceof User) {
             return false;
         }
 
-        $roles = $this->roleHierarchy->getReachableRoleNames(\array_merge($token->getRoleNames(), $user->getRoles()));
-
-        if (\in_array('ROLE_ADMIN', $roles, true)) {
+        if (\in_array('ROLE_ADMIN', $this->roleHierarchy->getReachableRoleNames(\array_merge($token->getRoleNames(), $user->getRoles())), true)) {
             return true;
         }
 
-        if ($subject instanceof Animation) {
+        if ($subject instanceof Animation && $attribute !== self::CAN_DELETE_ANIMATION) {
             return $user->isOwnerOf($subject);
-        }
-
-        if (
-            \in_array('ROLE_VISITOR', $roles, true)
-            || \in_array('ROLE_CONFERENCE_ORGANIZER', $roles, true)
-        ) {
-            return true;
         }
 
         return false;

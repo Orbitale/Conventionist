@@ -2,6 +2,9 @@
 
 namespace App\Security\Voter;
 
+use App\Entity\Floor;
+use App\Entity\Room;
+use App\Entity\Table;
 use App\Entity\User;
 use App\Entity\Venue;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
@@ -12,12 +15,10 @@ final class VenueVoter extends Voter
 {
     public const array PERMISSIONS = [
         self::CAN_VIEW_VENUES,
-        self::CAN_EDIT_VENUE,
         self::CAN_DELETE_VENUE,
     ];
 
     public const string CAN_VIEW_VENUES = 'CAN_VIEW_VENUES';
-    public const string CAN_EDIT_VENUE = 'CAN_EDIT_VENUE';
     public const string CAN_DELETE_VENUE = 'CAN_DELETE_VENUE';
 
     public function __construct(
@@ -34,7 +35,6 @@ final class VenueVoter extends Voter
     {
         $user = $token->getUser();
 
-        // if the user is anonymous, do not grant access
         if (!$user instanceof User) {
             return false;
         }
@@ -45,12 +45,16 @@ final class VenueVoter extends Voter
             return true;
         }
 
-        if ($subject instanceof Venue && \in_array($attribute, [self::CAN_DELETE_VENUE, self::CAN_EDIT_VENUE], true)) {
+        if (
+            $attribute !== self::CAN_DELETE_VENUE
+            && (
+                $subject instanceof Venue
+                || $subject instanceof Floor
+                || $subject instanceof Room
+                || $subject instanceof Table
+            )
+        ) {
             return $user->isOwnerOf($subject);
-        }
-
-        if (\in_array('ROLE_VENUE_MANAGER', $roles, true)) {
-            return true;
         }
 
         return false;

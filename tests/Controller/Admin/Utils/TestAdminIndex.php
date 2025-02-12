@@ -46,7 +46,10 @@ trait TestAdminIndex
                     $value = 'Null';
                 }
 
-                static::assertSame((string) $value, $row->filter($this->getIndexColumnSelector($column, 'data'))->text());
+                $cell = $row->filter($this->getIndexColumnSelector($column, 'data'));
+
+                static::assertNotEmpty($cell, \sprintf('Could not find key "%s" for admin index with expected value "%s".', $column, $value));
+                static::assertSame((string) $value, $cell->text());
             }
         }
     }

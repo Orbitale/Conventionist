@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: FloorRepository::class)]
-class Floor implements HasNestedRelations
+class Floor implements HasNestedRelations, HasCreators
 {
     use Field\Id { __construct as generateId; }
 
@@ -63,6 +63,11 @@ class Floor implements HasNestedRelations
         }
 
         return $json;
+    }
+
+    public function getCreators(): Collection
+    {
+        return $this->venue->getCreators();
     }
 
     public function getName(): string

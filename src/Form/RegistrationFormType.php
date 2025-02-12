@@ -24,17 +24,6 @@ class RegistrationFormType extends AbstractType
             ->add('email', EmailType::class, [
                 'label' => 'email_address',
             ])
-            /*
-            ->add('agreeTerms', CheckboxType::class, [
-                'mapped' => false,
-                'label' => 'I agree to terms and conditions',
-                'constraints' => [
-                    new IsTrue([
-                        'message' => 'You should agree to our terms.',
-                    ]),
-                ],
-            ])
-            */
             ->add('plainPassword', PasswordType::class, [
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
@@ -52,17 +41,6 @@ class RegistrationFormType extends AbstractType
                         'max' => 4096,
                     ]),
                 ],
-            ])
-            ->add('roles', ChoiceType::class, [
-                'label' => 'registration.roles.label',
-                'help' => 'registration.roles.help',
-                'choices' => [
-                    'Visitor' => 'ROLE_VISITOR',
-                    'Event organizer' => 'ROLE_CONFERENCE_ORGANIZER',
-                    'Venue manager' => 'ROLE_VENUE_MANAGER',
-                ],
-                'multiple' => true,
-                'expanded' => true,
             ])
         ;
     }

@@ -6,10 +6,11 @@ use App\Controller\Admin\DashboardController;
 use App\Controller\Admin\TableCrudController;
 use App\DataFixtures\RoomFixture;
 use App\DataFixtures\TableFixture;
+use App\DataFixtures\Tools\Ref;
+use App\Entity\Room;
 use App\Tests\GetUser;
 use EasyCorp\Bundle\EasyAdminBundle\Test\AbstractCrudTestCase;
 use EasyCorp\Bundle\EasyAdminBundle\Test\Trait\CrudTestFormAsserts;
-use PHPUnit\Framework\Attributes\DataProvider;
 
 class TableCrudControllerTest extends AbstractCrudTestCase
 {
@@ -39,15 +40,10 @@ class TableCrudControllerTest extends AbstractCrudTestCase
         $this->runIndexPage(TableFixture::getStaticData());
     }
 
-    public function testIndexVenueManager(): void
+    public function testIndexVisitor(): void
     {
-        $this->runIndexPage(TableFixture::filterByKeyAndValue('name', 'Custom'), 'venue_manager');
-    }
-
-    public static function provideUsernames(): iterable
-    {
-        yield 'admin' => ['admin'];
-        yield 'venue_manager' => ['venue_manager'];
+        $this->runIndexPage(TableFixture::filterByKeyAndValue('room', new Ref(Room::class, 'room-Custom Entry hall')), 'visitor');
+        $this->runIndexPage(TableFixture::filterData(static fn (array $data) => \str_starts_with($data['name'], 'Custom ')), 'visitor');
     }
 
     public function testNew(): void

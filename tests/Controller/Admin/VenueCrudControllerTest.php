@@ -35,12 +35,12 @@ class VenueCrudControllerTest extends AbstractCrudTestCase
 
     public function testIndexAdmin(): void
     {
-        $this->runIndexPage(VenueFixture::getStaticData(), 'admin');
+        $this->runIndexPage(VenueFixture::getStaticData());
     }
 
-    public function testIndexVenueManager(): void
+    public function testIndexVisitor(): void
     {
-        $this->runIndexPage(VenueFixture::filterByKeyAndValue('name', 'Custom'), 'venue_manager');
+        $this->runIndexPage(VenueFixture::filterByKeyAndValue('name', 'Custom'), 'visitor');
     }
 
     public function testNew(): void

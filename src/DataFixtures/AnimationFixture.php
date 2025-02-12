@@ -7,9 +7,9 @@ use App\DataFixtures\Tools\Ref;
 use App\Entity\Animation;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\ORMFixtureInterface;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Orbitale\Component\ArrayFixture\ArrayFixture;
-use Symfony\Component\Uid\Uuid;
 
 class AnimationFixture extends ArrayFixture implements ORMFixtureInterface, DependentFixtureInterface
 {
@@ -18,23 +18,23 @@ class AnimationFixture extends ArrayFixture implements ORMFixtureInterface, Depe
     public static function getStaticData(): array
     {
         return [
-            Uuid::v7()->toString() => [
+            '5b555f8d-3fbd-4ba4-97c1-dd673b5109d6' => [
                 'name' => 'Animation de jeu',
                 'description' => 'Lorem ipsum',
                 'maxNumberOfParticipants' => 5,
-                'creators' => [new Ref(User::class, 'user-admin')],
+                'creators' => new ArrayCollection(),
             ],
-            Uuid::v7()->toString() => [
+            '6d443a40-6c42-4ced-bb1c-a285e415a768' => [
                 'name' => 'Visitor animation',
                 'description' => 'Lorem ipsum',
                 'maxNumberOfParticipants' => 5,
                 'creators' => [new Ref(User::class, 'user-visitor')],
             ],
-            Uuid::v7()->toString() => [
+            'd5ca41b2-72ac-4b48-b999-4689bee45d5f' => [
                 'name' => 'Concert',
                 'description' => 'Lorem ipsum',
                 'maxNumberOfParticipants' => 180,
-                'creators' => [new Ref(User::class, 'user-admin')],
+                'creators' => new ArrayCollection(),
             ],
         ];
     }

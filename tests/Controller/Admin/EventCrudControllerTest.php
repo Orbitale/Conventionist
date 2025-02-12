@@ -34,16 +34,14 @@ class EventCrudControllerTest extends AbstractCrudTestCase
         return EventCrudController::class;
     }
 
-    #[DataProvider('provideUsernames')]
-    public function testIndex(string $username): void
+    public function testIndexAdmin(): void
     {
-        $this->runIndexPage(EventFixture::getStaticData(), $username);
+        $this->runIndexPage(EventFixture::getStaticData());
     }
 
-    public static function provideUsernames(): iterable
+    public function testIndexVisitor(): void
     {
-        yield 'admin' => ['admin'];
-        yield 'conference_organizer' => ['conference_organizer'];
+        $this->runIndexPage(EventFixture::filterByKeyAndValue('name', 'Custom event'), 'visitor');
     }
 
     public function testNewAsAdmin(): void
@@ -67,7 +65,7 @@ class EventCrudControllerTest extends AbstractCrudTestCase
             'startsAt' => '2055-01-01T00:00',
             'endsAt' => '2055-01-05T00:00',
             'venue' => VenueFixture::getIdFromName('CPC'),
-        ], 'conference_organizer');
+        ], 'visitor');
     }
 
     public function testEdit(): void

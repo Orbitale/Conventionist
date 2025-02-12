@@ -10,6 +10,7 @@ use App\Tests\GetUser;
 use EasyCorp\Bundle\EasyAdminBundle\Test\AbstractCrudTestCase;
 use EasyCorp\Bundle\EasyAdminBundle\Test\Trait\CrudTestFormAsserts;
 use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\TestWith;
 
 class AnimationCrudControllerTest extends AbstractCrudTestCase
 {
@@ -39,22 +40,17 @@ class AnimationCrudControllerTest extends AbstractCrudTestCase
         $this->runIndexPage(AnimationFixture::getStaticData());
     }
 
-    #[DataProvider('provideNonAdminUsernames')]
+    #[TestWith(['visitor'])]
     public function testIndexNonAdmin(string $username): void
     {
         $data = \array_filter(
             AnimationFixture::getStaticData(),
             static fn($data) => \array_any(
-                $data['creators'],
+                \iterator_to_array($data['creators']),
                 static fn(Ref $creator) => $creator->name === 'user-' . $username
             )
         );
         $this->runIndexPage($data, $username);
-    }
-
-    public static function provideNonAdminUsernames(): iterable
-    {
-        yield 'visitor' => ['visitor'];
     }
 
     public function testNewAsAdmin(): void

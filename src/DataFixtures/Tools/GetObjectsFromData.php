@@ -10,7 +10,12 @@ trait GetObjectsFromData
 
     public static function filterByKeyAndValue(string $key, mixed $value): array
     {
-        return \array_filter(self::getStaticData(), static fn (array $data) => $data[$key] === $value);
+        return \array_filter(
+            self::getStaticData(),
+            static fn(array $data) => $value instanceof Ref && $data[$key] instanceof Ref
+                ? $value->name === $data[$key]->name
+                : $data[$key] === $value
+        );
     }
 
     public static function filterData(\Closure $callback): array

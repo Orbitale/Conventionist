@@ -6,10 +6,7 @@ use App\Controller\Admin\DashboardController;
 use App\Controller\Admin\ScheduledAnimationCrudController;
 use App\DataFixtures\AnimationFixture;
 use App\DataFixtures\ScheduledAnimationFixture;
-use App\DataFixtures\Tools\Ref;
 use App\Tests\GetUser;
-use Doctrine\ORM\EntityManagerInterface;
-use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Test\AbstractCrudTestCase;
 use EasyCorp\Bundle\EasyAdminBundle\Test\Trait\CrudTestFormAsserts;
 
@@ -49,11 +46,6 @@ class ScheduledAnimationCrudControllerTest extends AbstractCrudTestCase
         );
 
         $this->runIndexPage($data, 'visitor');
-    }
-
-    public static function provideNonAdminUsernames(): iterable
-    {
-        yield 'visitor' => ['visitor'];
     }
 
     public function testNewAsAdmin(): void

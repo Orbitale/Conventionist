@@ -9,7 +9,6 @@ use App\Entity\Table;
 use Doctrine\Bundle\FixturesBundle\ORMFixtureInterface;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Orbitale\Component\ArrayFixture\ArrayFixture;
-use Symfony\Component\Uid\Uuid;
 
 class TableFixture extends ArrayFixture implements ORMFixtureInterface, DependentFixtureInterface
 {
@@ -18,90 +17,95 @@ class TableFixture extends ArrayFixture implements ORMFixtureInterface, Dependen
     public static function getStaticData(): array
     {
         return [
-            Uuid::v7()->toString() => [
+            '89bda66f-5a81-46c5-af15-554107fc8766' => [
                 'name' => 'Table face pôle JdR 1',
                 'maxNumberOfParticipants' => 5,
                 'room' => new Ref(Room::class, 'room-Hall principal'),
             ],
-            Uuid::v7()->toString() => [
+            'c38cf5f3-a003-42f0-ba95-90160aee52c7' => [
                 'name' => 'Table face pôle JdR 2',
                 'maxNumberOfParticipants' => 5,
                 'room' => new Ref(Room::class, 'room-Hall principal'),
             ],
-            Uuid::v7()->toString() => [
+            'c63002e0-1443-4834-ba48-df10ba6ad513' => [
                 'name' => 'Table proto 1',
                 'maxNumberOfParticipants' => 4,
                 'room' => new Ref(Room::class, 'room-Salle entresol'),
             ],
-            Uuid::v7()->toString() => [
+            '8f78c289-66e8-4fc7-be7f-f0580bf5dcba' => [
                 'name' => 'Table proto 2',
                 'maxNumberOfParticipants' => 4,
                 'room' => new Ref(Room::class, 'room-Salle entresol'),
             ],
-            Uuid::v7()->toString() => [
+            'fdba95d8-ab0f-43d2-b6a9-474376ea3023' => [
                 'name' => 'Salle musique',
                 'maxNumberOfParticipants' => 250,
                 'room' => new Ref(Room::class, 'room-Salle musique'),
             ],
-            Uuid::v7()->toString() => [
+            '51c6cc9c-f4e4-4a49-9869-50309106cf44' => [
                 'name' => 'Public',
                 'maxNumberOfParticipants' => 280,
                 'room' => new Ref(Room::class, 'room-Scène'),
             ],
-            Uuid::v7()->toString() => [
+            '8270020d-8d7e-4021-943d-3cb49b6da7a9' => [
                 'name' => 'Participants scène',
                 'maxNumberOfParticipants' => 6,
                 'room' => new Ref(Room::class, 'room-Scène'),
             ],
-            Uuid::v7()->toString() => [
+            '957ce373-a181-481a-819c-e5ecd30faa24' => [
                 'name' => 'Hall jeux 01',
                 'maxNumberOfParticipants' => 6,
                 'room' => new Ref(Room::class, 'room-Hall jeux'),
             ],
-            Uuid::v7()->toString() => [
+            '87a53b82-cb3c-455f-8c5b-3763f4b150fa' => [
                 'name' => 'Hall jeux 02',
                 'maxNumberOfParticipants' => 6,
                 'room' => new Ref(Room::class, 'room-Hall jeux'),
             ],
-            Uuid::v7()->toString() => [
+            '16770e01-f7bc-43c6-926c-0b6cca46e397' => [
                 'name' => 'Hall jeux 03',
                 'maxNumberOfParticipants' => 6,
                 'room' => new Ref(Room::class, 'room-Hall jeux'),
             ],
-            Uuid::v7()->toString() => [
+            'aef45ceb-2683-4f3c-a7e1-5b161bace7c8' => [
                 'name' => 'Hall jeux 04',
                 'maxNumberOfParticipants' => 6,
                 'room' => new Ref(Room::class, 'room-Hall jeux'),
             ],
-            Uuid::v7()->toString() => [
+            '71737597-5249-4b8c-8db9-e5d8f2c02340' => [
                 'name' => 'Hall jeux 05',
                 'maxNumberOfParticipants' => 6,
                 'room' => new Ref(Room::class, 'room-Hall jeux'),
             ],
-            Uuid::v7()->toString() => [
+            '80b71287-1f87-4478-857d-d0c74d6950b0' => [
                 'name' => 'Hall jeux 06',
                 'maxNumberOfParticipants' => 6,
                 'room' => new Ref(Room::class, 'room-Hall jeux'),
             ],
-            Uuid::v7()->toString() => [
+            '9a866a49-ebbd-431a-89d9-e2140116949f' => [
                 'name' => 'Hall jeux 07',
                 'maxNumberOfParticipants' => 6,
                 'room' => new Ref(Room::class, 'room-Hall jeux'),
             ],
-            Uuid::v7()->toString() => [
+            '363bdda4-2255-4a6b-a6de-ecdeef5858aa' => [
                 'name' => 'Hall jeux 08',
                 'maxNumberOfParticipants' => 6,
                 'room' => new Ref(Room::class, 'room-Hall jeux'),
             ],
-            Uuid::v7()->toString() => [
+            'd35bed41-dfec-479c-bcd1-6fc8f92257b8' => [
                 'name' => 'Hall jeux 09',
                 'maxNumberOfParticipants' => 6,
                 'room' => new Ref(Room::class, 'room-Hall jeux'),
             ],
-            Uuid::v7()->toString() => [
+            '3aeb2407-c753-4ec5-acfb-e6f0caac14af' => [
                 'name' => 'Hall jeux 10',
                 'maxNumberOfParticipants' => 6,
                 'room' => new Ref(Room::class, 'room-Hall jeux'),
+            ],
+            'c04a5f37-84e8-4dd6-9a87-f504ff79b0a8' => [
+                'name' => 'Custom Main hall table 1',
+                'maxNumberOfParticipants' => 6,
+                'room' => new Ref(Room::class, 'room-Custom Entry hall'),
             ],
         ];
     }

@@ -6,6 +6,7 @@ use App\Entity\TimeSlot;
 use App\Entity\User;
 use App\Enum\ScheduleAnimationState;
 use App\Repository\EventRepository;
+use App\Security\Voter\ScheduledAnimationVoter;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Option\EA;
 use EasyCorp\Bundle\EasyAdminBundle\Provider\AdminContextProvider;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -89,7 +90,7 @@ class CalendarController extends AbstractController
                 if (!$animationObject->canChangeState()) {
                     continue;
                 }
-                $canBeValidated = $this->isGranted('CAN_VALIDATE_SCHEDULE', $animationObject);
+                $canBeValidated = $this->isGranted(ScheduledAnimationVoter::CAN_VALIDATE_SCHEDULE, $animationObject);
                 if (!$canBeValidated) {
                     continue;
                 }

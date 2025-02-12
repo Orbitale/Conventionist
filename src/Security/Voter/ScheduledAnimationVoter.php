@@ -12,11 +12,11 @@ final class ScheduledAnimationVoter extends Voter
 {
     public const array PERMISSIONS = [
         self::CAN_VALIDATE_SCHEDULE,
-        self::CAN_VIEW_SCHEDULES,
+        self::CAN_DELETE_SCHEDULED_ANIMATION,
     ];
 
     public const string CAN_VALIDATE_SCHEDULE = 'CAN_VALIDATE_SCHEDULE';
-    public const string CAN_VIEW_SCHEDULES = 'CAN_VIEW_SCHEDULES';
+    public const string CAN_DELETE_SCHEDULED_ANIMATION = 'CAN_DELETE_SCHEDULED_ANIMATION';
 
     public function __construct(
         private readonly RoleHierarchyInterface $roleHierarchy,
@@ -35,30 +35,20 @@ final class ScheduledAnimationVoter extends Voter
     {
         $user = $token->getUser();
 
-        // if the user is anonymous, do not grant access
         if (!$user instanceof User) {
             return false;
         }
 
-        $roles = $this->roleHierarchy->getReachableRoleNames(\array_merge($token->getRoleNames(), $user->getRoles()));
-
-        if (\in_array('ROLE_ADMIN', $roles, true)) {
+        if (\in_array('ROLE_ADMIN', $this->roleHierarchy->getReachableRoleNames(\array_merge($token->getRoleNames(), $user->getRoles())), true)) {
             return true;
         }
 
-        if ($subject instanceof ScheduledAnimation) {
-            if (!$subject->canChangeState()) {
+        if ($subject instanceof ScheduledAnimation && $attribute !== self::CAN_DELETE_SCHEDULED_ANIMATION) {
+            if ($attribute === self::CAN_VALIDATE_SCHEDULE && !$subject->canChangeState()) {
                 return false;
             }
 
             return $user->isOwnerOf($subject->getEvent());
-        }
-
-        if (
-            \in_array('ROLE_VISITOR', $roles, true)
-            || \in_array('ROLE_CONFERENCE_ORGANIZER', $roles, true)
-        ) {
-            return true;
         }
 
         return false;

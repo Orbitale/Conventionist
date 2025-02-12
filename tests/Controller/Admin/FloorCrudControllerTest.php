@@ -5,7 +5,9 @@ namespace App\Tests\Controller\Admin;
 use App\Controller\Admin\DashboardController;
 use App\Controller\Admin\FloorCrudController;
 use App\DataFixtures\FloorFixture;
+use App\DataFixtures\Tools\Ref;
 use App\DataFixtures\VenueFixture;
+use App\Entity\Venue;
 use App\Tests\GetUser;
 use EasyCorp\Bundle\EasyAdminBundle\Test\AbstractCrudTestCase;
 use EasyCorp\Bundle\EasyAdminBundle\Test\Trait\CrudTestFormAsserts;
@@ -39,9 +41,9 @@ class FloorCrudControllerTest extends AbstractCrudTestCase
         $this->runIndexPage(FloorFixture::getStaticData());
     }
 
-    public function testIndexVenueManager(): void
+    public function testIndexVisitor(): void
     {
-        $this->runIndexPage(FloorFixture::filterByKeyAndValue('name', 'Custom'), 'venue_manager');
+        $this->runIndexPage(FloorFixture::filterByKeyAndValue('venue', new Ref(Venue::class, 'venue-Custom')), 'visitor');
     }
 
     public function testNew(): void

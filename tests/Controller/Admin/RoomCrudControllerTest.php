@@ -6,10 +6,11 @@ use App\Controller\Admin\DashboardController;
 use App\Controller\Admin\RoomCrudController;
 use App\DataFixtures\FloorFixture;
 use App\DataFixtures\RoomFixture;
+use App\DataFixtures\Tools\Ref;
+use App\Entity\Floor;
 use App\Tests\GetUser;
 use EasyCorp\Bundle\EasyAdminBundle\Test\AbstractCrudTestCase;
 use EasyCorp\Bundle\EasyAdminBundle\Test\Trait\CrudTestFormAsserts;
-use PHPUnit\Framework\Attributes\DataProvider;
 
 class RoomCrudControllerTest extends AbstractCrudTestCase
 {
@@ -39,9 +40,9 @@ class RoomCrudControllerTest extends AbstractCrudTestCase
         $this->runIndexPage(RoomFixture::getStaticData());
     }
 
-    public function testIndexVenueManager(): void
+    public function testIndexVisitor(): void
     {
-        $this->runIndexPage(RoomFixture::filterByKeyAndValue('name', 'Custom'), 'venue_manager');
+        $this->runIndexPage(RoomFixture::filterData(static fn (array $data) => \str_starts_with($data['name'], 'Custom ')), 'visitor');
     }
 
     public function testNew(): void

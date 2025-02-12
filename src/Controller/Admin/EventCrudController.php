@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Event;
 use App\Entity\User;
+use App\Security\Voter\EventVoter;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;
 use EasyCorp\Bundle\EasyAdminBundle\Collection\FieldCollection;
@@ -31,9 +32,7 @@ class EventCrudController extends AbstractCrudController
 
         $actions
             ->add(Crud::PAGE_INDEX, Action::DETAIL)
-            ->setPermission(Action::DETAIL, 'CAN_VIEW_EVENT')
-            ->setPermission(Action::EDIT, 'CAN_EDIT_EVENT')
-            ->setPermission(Action::DELETE, 'CAN_DELETE_EVENT');
+            ->setPermission(Action::DELETE, EventVoter::CAN_DELETE_EVENT);
 
         return $actions;
     }

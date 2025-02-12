@@ -12,7 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: TimeSlotRepository::class)]
 #[NoOverlappingTimeSlot]
-class TimeSlot
+class TimeSlot implements HasCreators
 {
     use Field\Id { __construct as generateId; }
     use Field\StartEndDates;
@@ -69,6 +69,11 @@ class TimeSlot
     {
         return $this->getStartsAt()->format('H') <= $hour
             && $this->getEndsAt()->format('H') > $hour;
+    }
+
+    public function getCreators(): Collection
+    {
+        return $this->event->getCreators();
     }
 
     public function getEvent(): Event
