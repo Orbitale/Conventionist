@@ -6,6 +6,7 @@ use App\Repository\TimeSlotRepository;
 use App\Validator\NoOverlappingTimeSlot;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -27,6 +28,11 @@ class TimeSlot implements HasCreators
     #[ORM\JoinColumn(nullable: false)]
     #[Assert\NotBlank]
     private Booth $booth;
+
+    #[ORM\Column(name: 'is_open', type: Types::BOOLEAN, nullable: false, options: ['default' => 1])]
+    #[Assert\Type('bool')]
+    #[Assert\NotNull]
+    private bool $open = true;
 
     #[ORM\OneToMany(targetEntity: ScheduledAnimation::class, mappedBy: 'timeSlot')]
     private Collection $scheduledAnimations;
@@ -71,6 +77,15 @@ class TimeSlot implements HasCreators
             && $this->getEndsAt()->format('H') > $hour;
     }
 
+    private function isOpenForPlanning(): bool
+    {
+        if (!$this->open) {
+            return false;
+        }
+
+        return \array_any($this->scheduledAnimations->toArray(), static fn (ScheduledAnimation $animation) => $animation->isAccepted());
+    }
+
     public function getCreators(): Collection
     {
         return $this->event->getCreators();
@@ -94,6 +109,16 @@ class TimeSlot implements HasCreators
     public function setBooth(Booth $booth): void
     {
         $this->booth = $booth;
+    }
+
+    public function isOpen(): bool
+    {
+        return $this->open;
+    }
+
+    public function setOpen(bool $open): void
+    {
+        $this->open = $open;
     }
 
     /**
