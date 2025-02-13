@@ -4,7 +4,7 @@ namespace App\Security\Voter;
 
 use App\Entity\Floor;
 use App\Entity\Room;
-use App\Entity\Table;
+use App\Entity\Booth;
 use App\Entity\User;
 use App\Entity\Venue;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
@@ -51,7 +51,7 @@ final class VenueVoter extends Voter
                 $subject instanceof Venue
                 || $subject instanceof Floor
                 || $subject instanceof Room
-                || $subject instanceof Table
+                || $subject instanceof Booth
             )
         ) {
             return $user->isOwnerOf($subject);

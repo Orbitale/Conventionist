@@ -76,7 +76,7 @@ scheduled_animation.state.rejected: 'Rejected'
 ScheduledAnimation: 'ScheduledAnimation'
 State: 'State'
 Submit: 'Submit'
-Tables: 'Tables'
+Booth: 'Booths'
 Time Slot: 'Time Slot'
 Time Slots: 'Time Slots'
 TimeSlot: Time Slot

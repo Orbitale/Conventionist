@@ -35,16 +35,16 @@ class EventRepository extends ServiceEntityRepository
                 venue,
                 floor,
                 room,
-                table,
+                booth,
                 time_slot
             FROM {$this->getEntityName()} event
             INNER JOIN event.venue venue
             LEFT JOIN venue.floors floor
             LEFT JOIN floor.rooms room
-            LEFT JOIN room.tables table
-            LEFT JOIN table.timeSlots time_slot
+            LEFT JOIN room.booths booth
+            LEFT JOIN booth.timeSlots time_slot
             WHERE event.id = :id
-            ORDER BY table.name ASC,
+            ORDER BY booth.name ASC,
                 room.name ASC,
                 floor.name ASC
         DQL

@@ -58,8 +58,8 @@ class Event implements HasCreators
     {
         foreach ($this->getVenue()->getFloors() as $floor) {
             foreach ($floor->getRooms() as $room) {
-                foreach ($room->getTables() as $table) {
-                    foreach ($table->getTimeSlots() as $slot) {
+                foreach ($room->getBooths() as $booth) {
+                    foreach ($booth->getTimeSlots() as $slot) {
                         foreach ($slot->getScheduledAnimations() as $scheduledAnimation) {
                             if ($scheduledAnimation->getId() === $id) {
                                 return $scheduledAnimation;
@@ -108,8 +108,8 @@ class Event implements HasCreators
 
         foreach ($this->getVenue()->getFloors() as $floor) {
             foreach ($floor->getRooms() as $room) {
-                foreach ($room->getTables() as $table) {
-                    foreach ($table->getTimeSlots() as $slot) {
+                foreach ($room->getBooths() as $booth) {
+                    foreach ($booth->getTimeSlots() as $slot) {
                         $animations = $slot->getScheduledAnimations();
                         foreach ($animations as $scheduledAnimation) {
                             if (!\in_array($scheduledAnimation->getState(), $states)) {
@@ -120,7 +120,7 @@ class Event implements HasCreators
                                 'title' => $scheduledAnimation->getAnimation()?->getName(),
                                 'start' => $slot->getStartsAt(),
                                 'end' => $slot->getEndsAt(),
-                                'resourceId' => $table->getId(),
+                                'resourceId' => $booth->getId(),
                                 'extendedProps' => [
                                     'type' => 'animation',
                                     'description' => $scheduledAnimation->getAnimation()?->getDescription(),
@@ -134,7 +134,7 @@ class Event implements HasCreators
                                 'title' => '',
                                 'start' => $slot->getStartsAt(),
                                 'end' => $slot->getEndsAt(),
-                                'resourceId' => $table->getId(),
+                                'resourceId' => $booth->getId(),
                                 'extendedProps' => ['type' => 'empty_slot'],
                                 'color' => '#000',
                             ];

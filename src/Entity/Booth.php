@@ -2,16 +2,16 @@
 
 namespace App\Entity;
 
-use App\Repository\TableRepository;
+use App\Repository\BoothRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
-#[ORM\Entity(repositoryClass: TableRepository::class)]
-#[ORM\Table(name: '`table`')]
-class Table implements HasCreators
+#[ORM\Entity(repositoryClass: BoothRepository::class)]
+#[ORM\Table(name: '`booth`')]
+class Booth implements HasCreators
 {
     use Field\Id { Field\Id::__construct as private generateId; }
 
@@ -23,11 +23,11 @@ class Table implements HasCreators
     #[Assert\Type('int')]
     private ?int $maxNumberOfParticipants = null;
 
-    #[ORM\ManyToOne(inversedBy: 'tables')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\ManyToOne(targetEntity: Room::class, inversedBy: 'booths')]
+    #[ORM\JoinColumn(name: 'room_id', nullable: false)]
     private ?Room $room = null;
 
-    #[ORM\OneToMany(targetEntity: TimeSlot::class, mappedBy: 'table')]
+    #[ORM\OneToMany(targetEntity: TimeSlot::class, mappedBy: 'booth')]
     private Collection $timeSlots;
 
     public function __construct()
@@ -47,7 +47,7 @@ class Table implements HasCreators
             'id' => $this->id,
             'title' => $this->name,
             'extendedProps' => [
-                'slot_type' => 'table',
+                'slot_type' => 'booth',
             ],
         ];
     }

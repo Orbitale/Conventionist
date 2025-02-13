@@ -3,16 +3,16 @@
 namespace App\Tests\Controller\Admin;
 
 use App\Controller\Admin\DashboardController;
-use App\Controller\Admin\TableCrudController;
+use App\Controller\Admin\BoothCrudController;
 use App\DataFixtures\RoomFixture;
-use App\DataFixtures\TableFixture;
+use App\DataFixtures\BoothFixture;
 use App\DataFixtures\Tools\Ref;
 use App\Entity\Room;
 use App\Tests\GetUser;
 use EasyCorp\Bundle\EasyAdminBundle\Test\AbstractCrudTestCase;
 use EasyCorp\Bundle\EasyAdminBundle\Test\Trait\CrudTestFormAsserts;
 
-class TableCrudControllerTest extends AbstractCrudTestCase
+class BoothCrudControllerTest extends AbstractCrudTestCase
 {
     use CrudTestFormAsserts;
     use GetUser;
@@ -32,24 +32,24 @@ class TableCrudControllerTest extends AbstractCrudTestCase
 
     protected function getControllerFqcn(): string
     {
-        return TableCrudController::class;
+        return BoothCrudController::class;
     }
 
     public function testIndexAdmin(): void
     {
-        $this->runIndexPage(TableFixture::getStaticData());
+        $this->runIndexPage(BoothFixture::getStaticData());
     }
 
     public function testIndexVisitor(): void
     {
-        $this->runIndexPage(TableFixture::filterByKeyAndValue('room', new Ref(Room::class, 'room-Custom Entry hall')), 'visitor');
-        $this->runIndexPage(TableFixture::filterData(static fn (array $data) => \str_starts_with($data['name'], 'Custom ')), 'visitor');
+        $this->runIndexPage(BoothFixture::filterByKeyAndValue('room', new Ref(Room::class, 'room-Custom Entry hall')), 'visitor');
+        $this->runIndexPage(BoothFixture::filterData(static fn (array $data) => \str_starts_with($data['name'], 'Custom ')), 'visitor');
     }
 
     public function testNew(): void
     {
         $newData = [
-            'name' => 'Test table name',
+            'name' => 'Test booth name',
             'room' => RoomFixture::getIdFromName('Hall jeux'),
             'maxNumberOfParticipants' => 10,
         ];
@@ -60,11 +60,11 @@ class TableCrudControllerTest extends AbstractCrudTestCase
     public function testEdit(): void
     {
         $newData = [
-            'name' => 'Test new table name',
+            'name' => 'Test new booth name',
             'room' => RoomFixture::getIdFromName('Hall jeux'),
             'maxNumberOfParticipants' => 10,
         ];
 
-        $this->runEditFormSubmit(TableFixture::getIdFromName('Table face pôle JdR 1'), $newData);
+        $this->runEditFormSubmit(BoothFixture::getIdFromName('Table face pôle JdR 1'), $newData);
     }
 }

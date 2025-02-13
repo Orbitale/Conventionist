@@ -20,7 +20,7 @@ class NestedRoomCrudController extends AbstractCrudController
     {
         return [
             Field\TextField::new('name', 'Room name'),
-            Field\CollectionField::new('tables')->useEntryCrudForm(NestedTableCrudController::class),
+            Field\CollectionField::new('booths')->useEntryCrudForm(NestedBoothCrudController::class),
         ];
     }
 }

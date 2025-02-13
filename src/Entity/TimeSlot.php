@@ -23,10 +23,10 @@ class TimeSlot implements HasCreators
     #[ORM\JoinColumn(name: 'event_id', nullable: false)]
     private Event $event;
 
-    #[ORM\ManyToOne(targetEntity: Table::class, inversedBy: 'timeSlots')]
+    #[ORM\ManyToOne(targetEntity: Booth::class, inversedBy: 'timeSlots')]
     #[ORM\JoinColumn(nullable: false)]
     #[Assert\NotBlank]
-    private Table $table;
+    private Booth $booth;
 
     #[ORM\OneToMany(targetEntity: ScheduledAnimation::class, mappedBy: 'timeSlot')]
     private Collection $scheduledAnimations;
@@ -38,21 +38,21 @@ class TimeSlot implements HasCreators
         $this->scheduledAnimations = new ArrayCollection();
     }
 
-    public static function create(Event $event, Table $table, \DateTimeImmutable $startsAt, \DateTimeImmutable $endsAt): self
+    public static function create(Event $event, Booth $booth, \DateTimeImmutable $startsAt, \DateTimeImmutable $endsAt): self
     {
         $item = new self();
 
         $item->startsAt = $startsAt;
         $item->endsAt = $endsAt;
         $item->event = $event;
-        $item->table = $table;
+        $item->booth = $booth;
 
         return $item;
     }
 
     public function __toString(): string
     {
-        return sprintf('%s (⏲ %s ➡ %s)', $this->table, $this->startsAt?->format('Y-m-d H:i:s'), $this->endsAt?->format('Y-m-d H:i:s'));
+        return sprintf('%s (⏲ %s ➡ %s)', $this->booth, $this->startsAt?->format('Y-m-d H:i:s'), $this->endsAt?->format('Y-m-d H:i:s'));
     }
 
     #[Assert\IsTrue(message: 'Time slot start and end date must be included in start and end date from the associated Event.')]
@@ -86,14 +86,14 @@ class TimeSlot implements HasCreators
         $this->event = $event;
     }
 
-    public function getTable(): Table
+    public function getBooth(): Booth
     {
-        return $this->table;
+        return $this->booth;
     }
 
-    public function setTable(Table $table): void
+    public function setBooth(Booth $booth): void
     {
-        $this->table = $table;
+        $this->booth = $booth;
     }
 
     /**

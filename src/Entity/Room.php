@@ -23,15 +23,15 @@ class Room implements HasNestedRelations, HasCreators
     #[Assert\NotBlank]
     private ?Floor $floor = null;
 
-    /** @var Collection<Table> */
-    #[ORM\OneToMany(targetEntity: Table::class, mappedBy: 'room', cascade: ['persist', 'refresh'])]
+    /** @var Collection<Booth> */
+    #[ORM\OneToMany(targetEntity: Booth::class, mappedBy: 'room', cascade: ['persist', 'refresh'])]
     #[Assert\Valid]
-    private Collection $tables;
+    private Collection $booths;
 
     public function __construct()
     {
         $this->generateId();
-        $this->tables = new ArrayCollection();
+        $this->booths = new ArrayCollection();
     }
 
     public function __toString(): string
@@ -41,8 +41,8 @@ class Room implements HasNestedRelations, HasCreators
 
     public function refreshNestedRelations(): void
     {
-        foreach ($this->tables as $table) {
-            $table->setRoom($this);
+        foreach ($this->booths as $booth) {
+            $booth->setRoom($this);
         }
     }
 
@@ -57,8 +57,8 @@ class Room implements HasNestedRelations, HasCreators
             ],
         ];
 
-        foreach ($this->tables as $table) {
-            $json['children'][] = $table->getCalendarResourceJson();
+        foreach ($this->booths as $booth) {
+            $json['children'][] = $booth->getCalendarResourceJson();
         }
 
         return $json;
@@ -90,34 +90,34 @@ class Room implements HasNestedRelations, HasCreators
     }
 
     /**
-     * @return Collection<Table>
+     * @return Collection<Booth>
      */
-    public function getTables(): Collection
+    public function getBooths(): Collection
     {
-        return $this->tables;
+        return $this->booths;
     }
 
-    public function addTable(Table $table): void
+    public function addBooth(Booth $booth): void
     {
-        if ($this->tables->contains($table)) {
+        if ($this->booths->contains($booth)) {
             return;
         }
 
-        $this->tables->add($table);
+        $this->booths->add($booth);
     }
 
-    public function removeTable(Table $table): void
+    public function removeBooth(Booth $booth): void
     {
-        if (!$this->tables->contains($table)) {
+        if (!$this->booths->contains($booth)) {
             return;
         }
 
-        $this->tables->removeElement($table);
+        $this->booths->removeElement($booth);
     }
 
-    public function hasTable(Table $table): bool
+    public function hasBooth(Booth $booth): bool
     {
-        return $this->tables->contains($table);
+        return $this->booths->contains($booth);
     }
 
     /**
@@ -127,8 +127,8 @@ class Room implements HasNestedRelations, HasCreators
     {
         $slots = [];
 
-        foreach ($this->tables as $table) {
-            foreach ($table->getTimeSlots() as $slot) {
+        foreach ($this->booths as $booth) {
+            foreach ($booth->getTimeSlots() as $slot) {
                 $slots[$slot->getId()] = $slot;
             }
         }

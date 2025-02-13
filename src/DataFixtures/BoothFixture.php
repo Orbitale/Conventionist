@@ -5,12 +5,12 @@ namespace App\DataFixtures;
 use App\DataFixtures\Tools\GetObjectsFromData;
 use App\DataFixtures\Tools\Ref;
 use App\Entity\Room;
-use App\Entity\Table;
+use App\Entity\Booth;
 use Doctrine\Bundle\FixturesBundle\ORMFixtureInterface;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Orbitale\Component\ArrayFixture\ArrayFixture;
 
-class TableFixture extends ArrayFixture implements ORMFixtureInterface, DependentFixtureInterface
+class BoothFixture extends ArrayFixture implements ORMFixtureInterface, DependentFixtureInterface
 {
     use GetObjectsFromData;
 
@@ -112,12 +112,12 @@ class TableFixture extends ArrayFixture implements ORMFixtureInterface, Dependen
 
     protected function getEntityClass(): string
     {
-        return Table::class;
+        return Booth::class;
     }
 
     protected function getReferencePrefix(): ?string
     {
-        return 'table-';
+        return 'booth-';
     }
 
     protected function getMethodNameForReference(): string

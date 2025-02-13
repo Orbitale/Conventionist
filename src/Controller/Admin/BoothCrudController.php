@@ -2,7 +2,7 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\Table;
+use App\Entity\Booth;
 use App\Security\Voter\VenueVoter;
 use Doctrine\ORM\QueryBuilder;
 use EasyCorp\Bundle\EasyAdminBundle\Collection\FieldCollection;
@@ -15,13 +15,13 @@ use EasyCorp\Bundle\EasyAdminBundle\Dto\EntityDto;
 use EasyCorp\Bundle\EasyAdminBundle\Dto\SearchDto;
 use EasyCorp\Bundle\EasyAdminBundle\Field;
 
-class TableCrudController extends AbstractCrudController
+class BoothCrudController extends AbstractCrudController
 {
     use GenericCrudMethods;
 
     public static function getEntityFqcn(): string
     {
-        return Table::class;
+        return Booth::class;
     }
 
     public function configureActions(Actions $actions): Actions
@@ -57,7 +57,7 @@ class TableCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            Field\TextField::new('name', 'Table name or number'),
+            Field\TextField::new('name', 'Booth name or number'),
             Field\AssociationField::new('room')->setDisabled($pageName === Crud::PAGE_EDIT),
             Field\NumberField::new('maxNumberOfParticipants'),
         ];

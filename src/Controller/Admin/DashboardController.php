@@ -46,7 +46,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Event Venues', 'fas fa-list', Entity\Venue::class);
         yield MenuItem::linkToCrud('Floors', 'fas fa-list', Entity\Floor::class)->setController(FloorCrudController::class);
         yield MenuItem::linkToCrud('Rooms', 'fas fa-list', Entity\Room::class);
-        yield MenuItem::linkToCrud('Tables', 'fas fa-list', Entity\Table::class);
+        yield MenuItem::linkToCrud('Booths', 'fas fa-list', Entity\Booth::class);
 
         yield MenuItem::section('Activities');
         yield MenuItem::linkToCrud('Animations', 'fas fa-list', Entity\Animation::class);

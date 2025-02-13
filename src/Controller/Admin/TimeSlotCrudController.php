@@ -4,7 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\TimeSlot;
 use App\Repository\EventRepository;
-use App\Repository\TableRepository;
+use App\Repository\BoothRepository;
 use App\Repository\TimeSlotRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
@@ -23,7 +23,7 @@ class TimeSlotCrudController extends AbstractCrudController
     public function __construct(
         private readonly EntityManagerInterface $em,
         private readonly EventRepository $eventRepository,
-        private readonly TableRepository $tableRepository,
+        private readonly BoothRepository $boothRepository,
         private readonly TimeSlotRepository $scheduledAnimationRepository,
         private readonly TranslatorInterface $translator,
         private readonly CsrfTokenManagerInterface $csrfTokenManager,
@@ -40,10 +40,10 @@ class TimeSlotCrudController extends AbstractCrudController
 
         $start = $request->request->get('start');
         $end = $request->request->get('end');
-        $table = $request->request->get('table_id');
+        $booth = $request->request->get('booth_id');
         $event = $request->request->get('event_id');
 
-        if (!$start || !$end || !$table || !$event) {
+        if (!$start || !$end || !$booth || !$event) {
             throw new BadRequestHttpException('Missing required parameters.');
         }
         try {
@@ -53,9 +53,9 @@ class TimeSlotCrudController extends AbstractCrudController
             $start = null;
             $end = null;
         }
-        $table = $this->tableRepository->find($table);
+        $booth = $this->boothRepository->find($booth);
         $event = $this->eventRepository->find($event);
-        if (!$start || !$end || !$table || !$event) {
+        if (!$start || !$end || !$booth || !$event) {
             throw new BadRequestHttpException('Missing required parameters.');
         }
 
@@ -83,7 +83,7 @@ class TimeSlotCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         yield Field\AssociationField::new('event')->setRequired(true);
-        yield Field\AssociationField::new('table')->setRequired(true);
+        yield Field\AssociationField::new('booth')->setRequired(true);
         yield Field\DateTimeField::new('startsAt')->setTimezone('UTC');
         yield Field\DateTimeField::new('endsAt')->setTimezone('UTC');
     }

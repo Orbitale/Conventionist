@@ -68,7 +68,6 @@ db: ## Recreate development database and its schema
 	@symfony console --env=dev doctrine:database:drop --no-interaction --if-exists --force
 	@symfony console --env=dev doctrine:database:create --no-interaction --if-not-exists
 	@symfony console --env=dev doctrine:migrations:migrate --no-interaction
-	@symfony console --env=dev doctrine:migration:diff --no-interaction --formatted 2>/dev/null || true
 .PHONY: db
 
 fixtures: ## Add default data to the development database

@@ -2,7 +2,7 @@
 
 namespace App\Controller\Admin;
 
-use App\Controller\Admin\NestedControllers\NestedTableCrudController;
+use App\Controller\Admin\NestedControllers\NestedBoothCrudController;
 use App\Entity\Room;
 use App\Security\Voter\VenueVoter;
 use Doctrine\ORM\QueryBuilder;
@@ -59,7 +59,7 @@ class RoomCrudController extends AbstractCrudController
         return [
             Field\TextField::new('name', 'Room name'),
             Field\AssociationField::new('floor')->setDisabled($pageName === Crud::PAGE_EDIT),
-            Field\CollectionField::new('tables')->useEntryCrudForm(NestedTableCrudController::class),
+            Field\CollectionField::new('booths')->useEntryCrudForm(NestedBoothCrudController::class),
         ];
     }
 }

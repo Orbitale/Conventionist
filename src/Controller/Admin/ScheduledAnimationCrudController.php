@@ -58,7 +58,7 @@ class ScheduledAnimationCrudController extends AbstractCrudController
 
         foreach ($animationsAtSameTimeSlot as $otherSchedule) {
             if ($otherSchedule->isAccepted()) {
-                $this->addFlash('error', 'Cannot accept schedule: it conflicts with another schedule at the same time and table.');
+                $this->addFlash('error', 'Cannot accept schedule: it conflicts with another schedule at the same time and booth.');
 
                 return $this->redirectToRoute('admin_calendar_event', ['event_id' => $scheduledAnimation->getEvent()->getId()]);
             }

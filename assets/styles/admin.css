@@ -7,7 +7,7 @@
 }
 [data-form-type-name-placeholder="__floorsname__"] .form-widget,
 [data-form-type-name-placeholder="__roomsname__"] .form-widget,
-[data-form-type-name-placeholder="__tablesname__"] .form-widget
+[data-form-type-name-placeholder="__boothsname__"] .form-widget
 {
     background-color: rgba(128, 128, 128, 0.16);
 }

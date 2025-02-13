@@ -27,7 +27,7 @@ class DashboardControllerTest extends WebTestCase
             'Lieux d\'accueil',
             'Étages',
             'Salles',
-            'Tables',
+            'Booths',
             'Animations',
             'Programmation',
             'Créneaux horaires',
