@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Event;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -16,16 +17,21 @@ class EventRepository extends ServiceEntityRepository
         parent::__construct($registry, Event::class);
     }
 
-    public function findUpcoming()
+    public function findUpcoming(?User $user)
     {
-        return $this->getEntityManager()->createQuery(<<<DQL
-            SELECT event
-            FROM {$this->getEntityName()} event
-            WHERE event.startsAt >= :start
-        DQL
-        )
-            ->setParameter('start', (new \DateTimeImmutable('yesterday'))->setTime(0, 0))
-            ->getResult();
+        $qb = $this->createQueryBuilder('event')
+            ->where('event.startsAt >= :start')
+            ->setParameter('start', (new \DateTimeImmutable('yesterday'))->setTime(0, 0));
+
+        if ($user) {
+            $qb->innerJoin('event.creators', 'creators')
+                ->addSelect('creators')
+                ->andWhere('creators IN (:creator)')
+                ->setParameter('creator', $user)
+            ;
+        }
+
+        return $qb->getQuery()->getResult();
     }
 
     public function findForCalendar(string $eventId): ?Event

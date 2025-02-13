@@ -48,8 +48,8 @@ class EventFixture extends ArrayFixture implements ORMFixtureInterface, Dependen
                 'endsAt' => new \DateTimeImmutable('12 days')->setTime(0, 0, 0, 0),
                 'address' => 'CPC',
                 'description' => 'Hello world',
-                'creators' => new ArrayCollection(),
-                'enabled' => true,
+                'creators' => [new Ref(User::class, 'user-ash')],
+                'published' => true,
                 'venue' => new Ref(Venue::class, 'venue-CPC'),
             ],
             '36b1b285-ec34-49e4-b462-93a313995cc9' => [
@@ -59,7 +59,7 @@ class EventFixture extends ArrayFixture implements ORMFixtureInterface, Dependen
                 'address' => 'Paris',
                 'description' => 'Hello world',
                 'creators' => [new Ref(User::class, 'user-visitor')],
-                'enabled' => true,
+                'published' => true,
                 'venue' => new Ref(Venue::class, 'venue-Custom'),
             ],
         ];

@@ -17,7 +17,7 @@ class Event implements HasCreators
     use Field\Creators { Field\Creators::__construct as generateCreators; }
     use Field\Description;
     use Field\StartEndDates;
-    use Field\Enabled;
+    use Field\Published;
     use Field\Timestampable;
     use TimestampableEntity;
 
@@ -185,16 +185,6 @@ class Event implements HasCreators
     public function setIsOnlineEvent(bool $isOnlineEvent): void
     {
         $this->isOnlineEvent = $isOnlineEvent;
-    }
-
-    public function isEnabled(): bool
-    {
-        return $this->enabled;
-    }
-
-    public function setEnabled(bool $enabled): void
-    {
-        $this->enabled = $enabled;
     }
 
     public function getVenue(): Venue

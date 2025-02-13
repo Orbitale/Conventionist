@@ -31,7 +31,8 @@ class CalendarController extends AbstractController
     {
         $this->adminContextProvider->getContext();
 
-        $events = $this->eventRepository->findUpcoming();
+        $user = $this->isGranted('ROLE_ADMIN') ? null : $this->getUser();
+        $events = $this->eventRepository->findUpcoming($user);
 
         if ($request->query->has('event')) {
             return $this->viewCalendar($request, $events);
@@ -50,9 +51,11 @@ class CalendarController extends AbstractController
             throw new AccessDeniedHttpException();
         }
 
+        $isAdmin = $this->isGranted('ROLE_ADMIN');
+
         $event = $this->eventRepository->findForCalendar($event_id);
 
-        if (!$event) {
+        if (!$event || (!$isAdmin && !$currentUser->isOwnerOf($event))) {
             $this->addFlash('warning', 'Event not found.');
 
             return $this->redirectToRoute('admin_calendar');
@@ -75,7 +78,7 @@ class CalendarController extends AbstractController
 
         $timeSlots = $event->getTimeSlots();
         $hours = $this->getHours($timeSlots);
-        $events = $this->eventRepository->findUpcoming(); // For choices
+        $events = $this->eventRepository->findUpcoming($isAdmin ? null : $currentUser); // For choices
 
         // Calendar js data
         $jsonResources = $event->getCalendarResourceJson();

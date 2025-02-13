@@ -27,6 +27,16 @@ class UserFixture extends ArrayFixture implements ORMFixtureInterface
                 'isEmailConfirmed' => true,
                 'locale' => 'fr',
             ],
+            '071cca41-faf6-4e7a-bc0f-a9d07d9bdb0e' => [
+                'username' => 'ash',
+                'email' => 'ash@test.localhost',
+                'password' => fn () => self::$hasher->getPasswordHasher(User::class)->hash('ash'),
+                'roles' => [],
+                'timezone' => 'Europe/Paris',
+                'isVerified' => true,
+                'isEmailConfirmed' => true,
+                'locale' => 'fr',
+            ],
             '1042e551-2d75-4ff4-bdfa-4f3046041d36' => [
                 'username' => 'visitor',
                 'email' => 'visitor@test.localhost',
