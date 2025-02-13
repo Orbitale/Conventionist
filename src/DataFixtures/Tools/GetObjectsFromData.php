@@ -12,7 +12,7 @@ trait GetObjectsFromData
     {
         return \array_filter(
             self::getStaticData(),
-            static fn(array $data) => $value instanceof Ref && $data[$key] instanceof Ref
+            static fn (array $data) => $value instanceof Ref && $data[$key] instanceof Ref
                 ? $value->name === $data[$key]->name
                 : $data[$key] === $value
         );

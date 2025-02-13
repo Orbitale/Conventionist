@@ -4,8 +4,8 @@ namespace App\DataFixtures;
 
 use App\DataFixtures\Tools\GetObjectsFromData;
 use App\DataFixtures\Tools\Ref;
-use App\Entity\Room;
 use App\Entity\Booth;
+use App\Entity\Room;
 use Doctrine\Bundle\FixturesBundle\ORMFixtureInterface;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Orbitale\Component\ArrayFixture\ArrayFixture;

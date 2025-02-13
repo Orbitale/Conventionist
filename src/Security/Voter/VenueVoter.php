@@ -2,9 +2,9 @@
 
 namespace App\Security\Voter;
 
+use App\Entity\Booth;
 use App\Entity\Floor;
 use App\Entity\Room;
-use App\Entity\Booth;
 use App\Entity\User;
 use App\Entity\Venue;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
