@@ -27,16 +27,12 @@ class CalendarController extends AbstractController
     }
 
     #[Route('/admin/calendar', name: 'admin_calendar', defaults: [EA::DASHBOARD_CONTROLLER_FQCN => DashboardController::class], methods: ['GET'])]
-    public function calendarIndex(Request $request): Response
+    public function calendarIndex(): Response
     {
         $this->adminContextProvider->getContext();
 
         $user = $this->isGranted('ROLE_ADMIN') ? null : $this->getUser();
         $events = $this->eventRepository->findUpcoming($user);
-
-        if ($request->query->has('event')) {
-            return $this->viewCalendar($request, $events);
-        }
 
         return $this->render('admin/calendar/calendar.html.twig', [
             'events' => $events,
