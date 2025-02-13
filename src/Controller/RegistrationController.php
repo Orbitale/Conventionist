@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\RegistrationFormType;
-use App\Locales;
 use App\Security\EmailVerifier;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
@@ -53,7 +52,7 @@ class RegistrationController extends AbstractController
 
             // generate a signed url and email it to the user
             $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
-                new TemplatedEmail()
+                (new TemplatedEmail())
                     ->from(new Address('mailer@test.localhost', 'Mailer'))
                     ->to($user->getEmail())
                     ->subject($this->translator->trans('registration.email.title'))

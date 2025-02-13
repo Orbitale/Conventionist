@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\ChangePasswordFormType;
 use App\Form\ResetPasswordRequestFormType;
-use App\Locales;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -156,7 +155,7 @@ class ResetPasswordController extends AbstractController
             return $this->redirectToRoute('resetting_confirm');
         }
 
-        $email = new TemplatedEmail()
+        $email = (new TemplatedEmail())
             ->from(new Address('mailer@test.localhost', 'Mailer'))
             ->to($user->getEmail())
             ->subject('Your password reset request')

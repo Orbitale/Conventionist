@@ -3,8 +3,8 @@
 namespace App\Controller\Admin;
 
 use App\Entity\TimeSlot;
-use App\Repository\EventRepository;
 use App\Repository\BoothRepository;
+use App\Repository\EventRepository;
 use App\Repository\TimeSlotRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
@@ -30,7 +30,7 @@ class TimeSlotCrudController extends AbstractCrudController
     ) {
     }
 
-    #[Route("/admin/timeslot/create-from-calendar", name: "admin_timeslot_create_from_calendar", methods: ['POST'])]
+    #[Route('/admin/timeslot/create-from-calendar', name: 'admin_timeslot_create_from_calendar', methods: ['POST'])]
     public function createFromCalendar(Request $request): Response
     {
         $csrfToken = $request->request->get('_csrf');
@@ -47,8 +47,8 @@ class TimeSlotCrudController extends AbstractCrudController
             throw new BadRequestHttpException('Missing required parameters.');
         }
         try {
-            $start = new \DateTimeImmutable($start)->setTimezone(new \DateTimeZone('UTC'));
-            $end = new \DateTimeImmutable($end)->setTimezone(new \DateTimeZone('UTC'));
+            $start = (new \DateTimeImmutable($start))->setTimezone(new \DateTimeZone('UTC'));
+            $end = (new \DateTimeImmutable($end))->setTimezone(new \DateTimeZone('UTC'));
         } catch (\DateMalformedStringException) {
             $start = null;
             $end = null;
@@ -77,8 +77,6 @@ class TimeSlotCrudController extends AbstractCrudController
     {
         return TimeSlot::class;
     }
-
-    //
 
     public function configureFields(string $pageName): iterable
     {
