@@ -35,7 +35,6 @@ final class DashboardController extends AbstractDashboardController
 
     public function configureMenuItems(): iterable
     {
-        yield MenuItem::section('Administration');
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
 
         yield MenuItem::section('Convention organisation');
@@ -52,5 +51,8 @@ final class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Activities', 'fas fa-list', Entity\Activity::class);
         yield MenuItem::linkToCrud('Scheduled Activities', 'fas fa-list', Entity\ScheduledActivity::class);
         yield MenuItem::linkToCrud('Time Slots', 'fas fa-list', Entity\TimeSlot::class);
+
+        yield MenuItem::section('Administration')->setPermission('ROLE_ADMIN');
+        yield MenuItem::linkToCrud('Users', 'fas fa-user', Entity\User::class)->setPermission('ROLE_ADMIN');
     }
 }

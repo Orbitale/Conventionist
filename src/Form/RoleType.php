@@ -13,8 +13,10 @@ final class RoleType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefault('allow_delete', false);
+        $resolver->setDefault('expanded', true);
+        $resolver->setDefault('required', true);
         $resolver->setDefault('choices', [
-            'admin' => 'ROLE_ADMIN',
+            'ROLE_ADMIN' => 'ROLE_ADMIN',
         ]);
     }
 

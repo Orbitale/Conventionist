@@ -24,7 +24,7 @@ final class UserFixture extends ArrayFixture implements ORMFixtureInterface
                 'roles' => ['ROLE_ADMIN'],
                 'timezone' => 'Europe/Paris',
                 'isVerified' => true,
-                'isEmailConfirmed' => true,
+                'emailConfirmed' => new \DateTimeImmutable(),
                 'locale' => 'fr',
             ],
             '071cca41-faf6-4e7a-bc0f-a9d07d9bdb0e' => [
@@ -34,7 +34,7 @@ final class UserFixture extends ArrayFixture implements ORMFixtureInterface
                 'roles' => [],
                 'timezone' => 'Europe/Paris',
                 'isVerified' => true,
-                'isEmailConfirmed' => true,
+                'emailConfirmed' => new \DateTimeImmutable(),
                 'locale' => 'fr',
             ],
             '1042e551-2d75-4ff4-bdfa-4f3046041d36' => [
@@ -44,7 +44,7 @@ final class UserFixture extends ArrayFixture implements ORMFixtureInterface
                 'roles' => [],
                 'timezone' => 'Europe/Paris',
                 'isVerified' => true,
-                'isEmailConfirmed' => true,
+                'emailConfirmed' => new \DateTimeImmutable(),
                 'locale' => 'fr',
             ],
         ];

@@ -5,11 +5,13 @@ ACCEPTED: Acceptée
 Activities: Activités
 Activity: Activité
 Address: Adresse
+admin.roles.new: Ajouter des rôles
 Administration: Administration
 apply_filters: Appliquer les filtres
 Booth name or number: Nom ou numéro du stand
 Booth: Stand
 Booths: Stands
+button.create_new: Créer
 calendar.modal.add_schedule_to_timeslot: Programmer une activité
 calendar.modal.add_timeslot.confirm: 'Sauvegarder ce créneau horaire ?'
 calendar.modal.add_timeslot: Ajouter un nouveau créneau horaire
@@ -22,19 +24,23 @@ calendar.modal.unconfigured_timeslot: 'Ce créneau n''est pas encore sauvegardé
 Calendar: Calendrier
 Close: Fermer
 Convention organisation: Organisation de convention
+Created At: Créé(e) le
 CREATED: Créée
 Creators: 'Créateurs/créatrices'
 Dashboard: Tableau de bord
 Edit: Modifier
+Email Confirmed: E-mail confirmé
+Email: Adresse e-mail
 email_address: Adresse e-mail
+Ends At: Date de fin
 Event organizer: 'Organisateur d''évènements'
 Event Venues: 'Lieux d''accueil'
 event.endsAt.colon: 'Fin :'
 event.startsAt.colon: 'Début :'
 Event: Évènement
 Events: Évènements
-Floor: Étage
 Floor name: 'Nom de l''étage'
+Floor: Étage
 Floors: Étages
 forgot_password.request.email: Veuillez entrer une adresse e-mail
 forgot_password.request.help: Entrez votre adresse e-mail et nous vous enverrons un lien pour réinitialiser votre mot de passe.
@@ -44,6 +50,8 @@ have_account_login: Vous avez déjà un compte ? <a href="%path%">Connectez-vou
 Hours: Heures
 ID: Id
 index.jumbotron.message: 'L''organisateur de conventions et d''évènements aux petits oignons 🧅'
+Is Online Event: En ligne
+Is Verified: Vérifié
 link.back_home: 'Retour à l''accueil'
 login.password: Votre mot de passe
 login.remember_me: Se souvenir de moi
@@ -68,6 +76,7 @@ registration.roles.label: Les fonctionnalités auxquelles vous voulez accéder.
 registration.username: 'Nom d''utilisateur'
 REJECTED: Rejetée
 Remove: Supprimer
+Roles: Rôles
 Room name: Nom de la salle
 Room: Salle
 Rooms: Salles
@@ -82,16 +91,19 @@ scheduled_activity.state.created: 'Fraîchement créé, pas encore soumis à val
 scheduled_activity.state.pending_review: En attente de validation
 scheduled_activity.state.rejected: Rejetée
 ScheduledActivity: Activité programmée
-State: État
 Starts At: Date de début
-Ends At: Date de fin
-Is Online Event: En ligne
-button.create_new: Créer
+State: État
 Submit: Envoyer
 Time Slot: Créneau horaire
 Time Slots: Créneaux horaires
 TimeSlot: Créneau horaire
-Venue: 'Lieu d''accueil'
+Updated At: Mis(e) à jour le
+User: 'Utilisateur/utilisatrice'
+Username: 'Nom'
+Users: 'Utilisateurs/utilisatrices'
 Venue configurations: 'Configuration des lieux d''accueil'
 Venue manager: 'Gestionnaire de lieux d''accueils'
+Venue: 'Lieu d''accueil'
 Visitor: Visiteur
+ROLE_USER: Utilisateur
+ROLE_ADMIN: Administrateur

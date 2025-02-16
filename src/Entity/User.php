@@ -40,8 +40,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(name: 'password_confirmation_token', type: 'string', nullable: true)]
     private ?string $passwordConfirmationToken = null;
 
-    #[ORM\Column(name: 'is_email_confirmed', type: 'boolean', nullable: false, options: ['default' => 0])]
-    private bool $isEmailConfirmed = false;
+    #[ORM\Column(name: 'email_confirmed_at', type: 'datetime_immutable', nullable: true)]
+    private ?\DateTimeImmutable $emailConfirmed = null;
 
     #[ORM\Column(name: 'is_verified', type: 'boolean', nullable: false, options: ['default' => 0])]
     private bool $isVerified = false;
@@ -150,12 +150,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function isEmailConfirmed(): bool
     {
-        return $this->isEmailConfirmed;
+        return $this->emailConfirmed !== null;
     }
 
     public function setEmailConfirmed(bool $confirmed): void
     {
-        $this->isEmailConfirmed = $confirmed;
+        $this->emailConfirmed = $confirmed ? new \DateTimeImmutable() : null;
     }
 
     public function isVerified(): bool

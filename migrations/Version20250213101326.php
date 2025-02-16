@@ -9,11 +9,6 @@ use Doctrine\Migrations\AbstractMigration;
 
 final class Version20250213101326 extends AbstractMigration
 {
-    public function getDescription(): string
-    {
-        return '';
-    }
-
     public function up(Schema $schema): void
     {
         $this->addSql('ALTER TABLE `table` RENAME booth');

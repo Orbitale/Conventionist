@@ -9,6 +9,7 @@ use App\Form\RoleType;
 use App\Mailer\UserMailer;
 use App\Util\Urlizer;
 use Doctrine\ORM\EntityManagerInterface;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\KeyValueStore;
@@ -20,8 +21,6 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\Field;
-use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
@@ -49,9 +48,15 @@ final class UsersCrudController extends AbstractCrudController
         return $crud
             ->setEntityPermission('ROLE_ADMIN')
             ->showEntityActionsInlined()
-            ->setSearchFields(['id', 'username', 'usernameCanonical', 'email', 'emailCanonical', 'confirmationToken', 'roles'])
-            ->setPaginatorPageSize(50)
-            ->overrideTemplate('layout', 'easy_admin/layout.html.twig')
+            ->setSearchFields(['id', 'username', 'email', 'roles'])
+        ;
+    }
+
+    public function configureActions(Actions $actions): Actions
+    {
+        return $actions
+            ->disable('delete')
+            ->add(Crud::PAGE_INDEX, Action::DETAIL)
         ;
     }
 
@@ -124,39 +129,30 @@ final class UsersCrudController extends AbstractCrudController
         ;
     }
 
-    public function configureActions(Actions $actions): Actions
-    {
-        return $actions
-            ->disable('delete')
-        ;
-    }
-
     public function configureFields(string $pageName): iterable
     {
+        $id = TextField::new('id', 'ID')->setDisabled()->hideOnForm();
         $username = TextField::new('username');
         $email = TextField::new('email');
-        $plainPassword = Field::new('plainPassword')->setHelp('admin.entities.users.password_help');
-        $newRoles = CollectionField::new('newRoles', 'admin.roles.new')->setEntryType(RoleType::class);
-        $id = IntegerField::new('id', 'ID');
-        $usernameCanonical = TextField::new('usernameCanonical');
-        $emailCanonical = TextField::new('emailCanonical');
-        $roles = ArrayField::new('roles');
+        $plainPassword = Field::new('formNewPassword')->setHelp('admin.entities.users.password_help');
+        $newRoles = CollectionField::new('formNewRoles', 'admin.roles.new')->setEntryType(RoleType::class);
+        $roles = ArrayField::new('roles')->setTemplatePath('admin/fields/field.roles.html.twig');
         $emailConfirmed = BooleanField::new('emailConfirmed');
-        $ululeUsername = TextareaField::new('ululeUsername');
+        $isVerified = BooleanField::new('isVerified');
         $createdAt = DateTimeField::new('createdAt');
         $updatedAt = DateTimeField::new('updatedAt');
 
         if (Crud::PAGE_INDEX === $pageName) {
-            return [$id, $username, $email, $roles, $emailConfirmed, $createdAt];
+            return [$username, $email, $roles, $emailConfirmed, $isVerified, $createdAt];
         }
         if (Crud::PAGE_DETAIL === $pageName) {
-            return [$id, $username, $usernameCanonical, $email, $emailCanonical, $roles, $emailConfirmed, $ululeUsername, $createdAt, $updatedAt];
+            return [$id, $username, $email, $roles, $emailConfirmed, $isVerified, $createdAt, $updatedAt];
         }
         if (Crud::PAGE_NEW === $pageName) {
             return [$username, $email, $plainPassword, $newRoles];
         }
         if (Crud::PAGE_EDIT === $pageName) {
-            return [$username->setDisabled(), $email->setDisabled(), $newRoles];
+            return [$username->setDisabled(), $email->setDisabled(), $emailConfirmed, $isVerified, $newRoles];
         }
 
         throw new \RuntimeException(\sprintf('Unsupported CRUD action "%s".', $pageName));

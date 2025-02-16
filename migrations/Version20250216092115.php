@@ -9,11 +9,6 @@ use Doctrine\Migrations\AbstractMigration;
 
 final class Version20250216092115 extends AbstractMigration
 {
-    public function getDescription(): string
-    {
-        return '';
-    }
-
     public function up(Schema $schema): void
     {
         $this->addSql('ALTER TABLE activities ADD needed_equipment JSON NOT NULL COMMENT "(DC2Type:json)"');

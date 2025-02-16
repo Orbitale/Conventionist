@@ -11,9 +11,6 @@ final class UserChecker implements UserCheckerInterface
 {
     public function checkPreAuth(UserInterface $user): void
     {
-        if (!$user instanceof User) {
-            return;
-        }
     }
 
     public function checkPostAuth(UserInterface $user): void
@@ -26,7 +23,7 @@ final class UserChecker implements UserCheckerInterface
             throw new CustomUserMessageAccountStatusException('authentication.error.user_not_verified');
         }
         if (!$user->isEmailConfirmed()) {
-            throw new CustomUserMessageAccountStatusException('authentication.error.user_not_verified');
+            throw new CustomUserMessageAccountStatusException('authentication.error.user_email_not_confirmed');
         }
     }
 }

@@ -5,11 +5,13 @@ ACCEPTED: Accepted
 Activities: Activities
 Activity: Activity
 Address: Address
+admin.roles.new: Add new roles
 Administration: Administration
 apply_filters: Apply filters
 Booth name or number: Booth name or number
 Booth: Booth
 Booths: Booths
+button.create_new: Create new
 calendar.modal.add_schedule_to_timeslot: Schedule an activity
 calendar.modal.add_timeslot.confirm: 'Save this time slot?'
 calendar.modal.add_timeslot: Add a new timeslot
@@ -22,19 +24,23 @@ calendar.modal.unconfigured_timeslot: 'Time slot is not yet saved!'
 Calendar: Calendar
 Close: Close
 Convention organisation: Convention organisation
+Created At: Created At
 CREATED: Created
 Creators: Creators
 Dashboard: Dashboard
 Edit: Edit
+Email Confirmed: Email Confirmed
+Email: Email
 email_address: E-mail address
+Ends At: Ends at
 Event organizer: Event organizer
 Event Venues: Event Venues
 event.endsAt.colon: 'Ends at:'
 event.startsAt.colon: 'Starts at:'
 Event: Event
 Events: Events
-Floor: Floor
 Floor name: Floor name
+Floor: Floor
 Floors: Floors
 forgot_password.request.email: Please enter your e-mail
 forgot_password.request.help: Enter your e-mail address, and we will send you a link to reset your password.
@@ -44,6 +50,8 @@ have_account_login: 'Already have an account? <a href="%path%">Login</a> instead
 Hours: Hours
 ID: ID
 index.jumbotron.message: The perfect organiser of conventions and events
+Is Online Event: Is online event
+Is Verified: Is Verified
 link.back_home: Go back to homepage
 login.password: Your password
 login.remember_me: Remember me
@@ -68,6 +76,7 @@ registration.roles.label: Roles you want in the application
 registration.username: Username
 REJECTED: Rejected
 Remove: Remove
+Roles: Roles
 Room name: Room name
 Room: Room
 Rooms: Rooms
@@ -82,16 +91,19 @@ scheduled_activity.state.created: Freshly created, not yet submitted for review
 scheduled_activity.state.pending_review: Pending review
 scheduled_activity.state.rejected: Rejected
 ScheduledActivity: Scheduled Activity
-State: State
 Starts At: Starts at
-Ends At: Ends at
-Is Online Event: Is online event
-button.create_new: Create new
+State: State
 Submit: Submit
 Time Slot: Time Slot
 Time Slots: Time Slots
 TimeSlot: Time Slot
-Venue: Venue
+Updated At: Updated At
+User: User
+Username: Username
+Users: Users
 Venue configurations: Venue configurations
 Venue manager: Venue manager
+Venue: Venue
 Visitor: Visitor
+ROLE_USER: User
+ROLE_ADMIN: Admin

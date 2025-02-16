@@ -20,7 +20,7 @@ final class DashboardControllerTest extends WebTestCase
         $client->request('GET', '/admin');
         self::assertResponseIsSuccessful();
         $links = $client->getCrawler()->filter('#main-menu a')->each(fn ($node) => $node->text());
-        self::assertSame([
+        $expectedLinks = [
             'Tableau de bord',
             'Évènements',
             'Calendrier',
@@ -31,6 +31,10 @@ final class DashboardControllerTest extends WebTestCase
             'Activités',
             'Programmation',
             'Créneaux horaires',
-        ], $links);
+        ];
+        if ($username === 'admin') {
+            $expectedLinks[] = 'Utilisateurs/utilisatrices';
+        }
+        self::assertSame($expectedLinks, $links);
     }
 }
