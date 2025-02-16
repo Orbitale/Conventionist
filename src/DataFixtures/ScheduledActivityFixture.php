@@ -20,12 +20,12 @@ class ScheduledActivityFixture extends ArrayFixture implements ORMFixtureInterfa
     {
         return [
             '5d079782-f013-4a81-9223-45670d4e102b' => [
-                'activity' => new Ref(Activity::class, 'activity-Activity de jeu'),
+                'activity' => new Ref(Activity::class, 'activity-Activité de jeu'),
                 'timeSlot' => new Ref(TimeSlot::class, 'timeslot-28b98eb2-4fef-4587-9749-25af666c25e0'),
                 'state' => ScheduleActivityState::CREATED,
             ],
             '449c8f33-1dc8-44d6-a9f3-d90aa2e06740' => [
-                'activity' => new Ref(Activity::class, 'activity-Activity de jeu'),
+                'activity' => new Ref(Activity::class, 'activity-Activité de jeu'),
                 'timeSlot' => new Ref(TimeSlot::class, 'timeslot-11cca5a1-57f5-408c-bb2d-27cd0631fc5c'),
                 'state' => ScheduleActivityState::PENDING_REVIEW,
             ],

@@ -78,7 +78,7 @@ class EventCrudController extends AbstractCrudController
             Field\TextEditorField::new('description')->setRequired(false)->hideOnIndex(),
             Field\AssociationField::new('venue')->setRequired(true),
             Field\AssociationField::new('creators')->setHelp('The users that are allowed to manage this event. Note: you will always be included in this list, even if you remove yourself from it.'),
-            Field\BooleanField::new('isOnlineEvent'),
+            Field\BooleanField::new('isOnlineEvent')->renderAsSwitch(false),
         ];
     }
 }

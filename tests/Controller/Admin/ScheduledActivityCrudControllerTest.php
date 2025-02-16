@@ -51,7 +51,7 @@ class ScheduledActivityCrudControllerTest extends AbstractCrudTestCase
     public function testNewAsAdmin(): void
     {
         $this->runNewFormSubmit([
-            'activity' => ActivityFixture::getIdFromName('Activity de jeu'),
+            'activity' => ActivityFixture::getIdFromName('Activité de jeu'),
             'timeSlot' => 'ed52861f-3cfd-47df-ac1d-ffaedf6910e8',
         ], 'admin', ['activity', 'timeSlot']);
     }

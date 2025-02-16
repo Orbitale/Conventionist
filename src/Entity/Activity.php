@@ -27,6 +27,9 @@ class Activity implements HasNestedRelations, HasCreators
     #[ORM\Column(name: 'max_number_of_participants', type: Types::INTEGER, nullable: true)]
     private ?int $maxNumberOfParticipants = null;
 
+    #[ORM\Column(name: 'needed_equipment', type: Types::JSON, nullable: false)]
+    private array $neededEquipment = [];
+
     /** @var Collection<ScheduledActivity> */
     #[ORM\OneToMany(targetEntity: ScheduledActivity::class, mappedBy: 'activity')]
     #[Assert\Valid]
@@ -89,5 +92,15 @@ class Activity implements HasNestedRelations, HasCreators
         foreach ($this->scheduledActivities as $activity) {
             $activity->setActivity($this);
         }
+    }
+
+    public function getNeededEquipment(): array
+    {
+        return $this->neededEquipment;
+    }
+
+    public function setNeededEquipment(array $neededEquipment): void
+    {
+        $this->neededEquipment = $neededEquipment;
     }
 }

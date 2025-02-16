@@ -71,7 +71,7 @@ class ActivityCrudControllerTest extends AbstractCrudTestCase
 
     public function testEdit(): void
     {
-        $this->runEditFormSubmit(ActivityFixture::getIdFromName('Activity de jeu'), [
+        $this->runEditFormSubmit(ActivityFixture::getIdFromName('Activité de jeu'), [
             'name' => 'New Activity name',
             'maxNumberOfParticipants' => 20,
         ]);

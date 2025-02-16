@@ -2,39 +2,45 @@
 'Event:': 'Event:'
 'Filters:': 'Filters:'
 ACCEPTED: Accepted
-Administration: 'Administration'
-Activity: 'Activity'
-Activities: 'Activities'
-apply_filters: 'Apply filters'
-calendar.modal.add_schedule_to_timeslot: 'Schedule an activity'
+Activities: Activities
+Activity: Activity
+Address: Address
+Administration: Administration
+apply_filters: Apply filters
+Booth name or number: Booth name or number
+Booth: Booth
+Booths: Booths
+calendar.modal.add_schedule_to_timeslot: Schedule an activity
 calendar.modal.add_timeslot.confirm: 'Save this time slot?'
-calendar.modal.add_timeslot: 'Add a new timeslot'
-calendar.modal.choose_an_event: 'Please choose an event in the list above'
+calendar.modal.add_timeslot: Add a new timeslot
+calendar.modal.choose_an_event: Please choose an event in the list above
 calendar.modal.delete_timeslot.confirm: 'Remove this time slot?'
 calendar.modal.empty_slot_add: 'This slot is currently empty. Do you want to schedule a specific activity to it?'
-calendar.modal.no_timeslot_configured: 'No time slot configured in this room.'
-calendar.modal.no_upcoming_event: 'No upcoming event to check'
+calendar.modal.no_timeslot_configured: No time slot configured in this room.
+calendar.modal.no_upcoming_event: No upcoming event to check
 calendar.modal.unconfigured_timeslot: 'Time slot is not yet saved!'
 Calendar: Calendar
 Close: Close
-Convention organisation: 'Convention organisation'
+Convention organisation: Convention organisation
 CREATED: Created
 Creators: Creators
-Dashboard: 'Dashboard'
+Dashboard: Dashboard
 Edit: Edit
 email_address: E-mail address
 Event organizer: Event organizer
-Event Venues: 'Event Venues'
+Event Venues: Event Venues
 event.endsAt.colon: 'Ends at:'
 event.startsAt.colon: 'Starts at:'
-Event: 'Event'
-Events: 'Events'
-Floors: 'Floors'
+Event: Event
+Events: Events
+Floor: Floor
+Floor name: Floor name
+Floors: Floors
 forgot_password.request.email: Please enter your e-mail
 forgot_password.request.help: Enter your e-mail address, and we will send you a link to reset your password.
 forgot_password.request.title: Reset your password
 forgot_password_text: 'Forgot your password?'
-have_account_login: Already have an account? <a href="%path%">Login</a> instead.
+have_account_login: 'Already have an account? <a href="%path%">Login</a> instead.'
 Hours: Hours
 ID: ID
 index.jumbotron.message: The perfect organiser of conventions and events
@@ -43,42 +49,49 @@ login.password: Your password
 login.remember_me: Remember me
 login.username_or_email: Username or e-mail
 login: Log in
+Max Number Of Participants: Max Number Of Participants
 Name: Name
 nav.link.admin: Administration
 no_account_register: 'Don''t have an account? <a href="%path%">Register</a> instead.'
 password_reset.submit: Send reset password request
-password_reset.success: If an account matching your e-mail exists, then an email was just sent that contains a link that you can use to reset your password. This link will expire in %expires_in%.<br>If you don't receive an e-mail please check your spam folder or <a href="%path%">try again</a>.
+password_reset.success: 'If an account matching your e-mail exists, then an email was just sent that contains a link that you can use to reset your password. This link will expire in %expires_in%.<br>If you don''t receive an e-mail please check your spam folder or <a href="%path%">try again</a>.'
 PENDING_REVIEW: Pending review
 register: Create an account
 registration.email.body: '<p>Please confirm your e-mail address by clicking the following link:<br><br><a href="%signedUrl%">Confirm my e-mail</a>. This link will expire in %expiration%.</p><p>Cheers!</p>'
-registration.email.title: Hi! Please confirm your e-mail
+registration.email.title: 'Hi! Please confirm your e-mail'
 registration.locale.label: Language
 registration.password.error.blank: Please enter a password
-registration.password.error.min_chars: Your password should be at least {{ limit }} characters
+registration.password.error.min_chars: 'Your password should be at least {{ limit }} characters'
 registration.password: Enter a password
 registration.roles.help: You can always update this later if you need.
 registration.roles.label: Roles you want in the application
 registration.username: Username
 REJECTED: Rejected
 Remove: Remove
-Rooms: 'Rooms'
+Room name: Room name
+Room: Room
+Rooms: Rooms
 Save: Save
 schedule.list.confirm_accept: 'Accept this schedule?'
-schedule.list.confirm_accept_short: 'Accept'
+schedule.list.confirm_accept_short: Accept
 schedule.list.confirm_reject: 'Reject this schedule?'
-schedule.list.confirm_reject_short: 'Reject'
-Scheduled Activities: 'Scheduled Activities'
-scheduled_activity.state.accepted: 'Accepted and scheduled'
-scheduled_activity.state.created: 'Freshly created, not yet submitted for review'
-scheduled_activity.state.pending_review: 'Pending review'
-scheduled_activity.state.rejected: 'Rejected'
-ScheduledActivity: 'ScheduledActivity'
-State: 'State'
-Submit: 'Submit'
-Booth: 'Booths'
-Time Slot: 'Time Slot'
-Time Slots: 'Time Slots'
+schedule.list.confirm_reject_short: Reject
+Scheduled Activities: Scheduled Activities
+scheduled_activity.state.accepted: Accepted and scheduled
+scheduled_activity.state.created: Freshly created, not yet submitted for review
+scheduled_activity.state.pending_review: Pending review
+scheduled_activity.state.rejected: Rejected
+ScheduledActivity: Scheduled Activity
+State: State
+Starts At: Starts at
+Ends At: Ends at
+Is Online Event: Is online event
+button.create_new: Create new
+Submit: Submit
+Time Slot: Time Slot
+Time Slots: Time Slots
 TimeSlot: Time Slot
-Venue configurations: 'Venue configurations'
+Venue: Venue
+Venue configurations: Venue configurations
 Venue manager: Venue manager
 Visitor: Visitor

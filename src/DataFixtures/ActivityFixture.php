@@ -19,7 +19,7 @@ class ActivityFixture extends ArrayFixture implements ORMFixtureInterface, Depen
     {
         return [
             '5b555f8d-3fbd-4ba4-97c1-dd673b5109d6' => [
-                'name' => 'Activity de jeu',
+                'name' => 'Activité de jeu',
                 'description' => 'Lorem ipsum',
                 'maxNumberOfParticipants' => 5,
                 'creators' => new ArrayCollection(),

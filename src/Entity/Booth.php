@@ -27,6 +27,9 @@ class Booth implements HasCreators
     #[ORM\JoinColumn(name: 'room_id', nullable: false)]
     private ?Room $room = null;
 
+    #[ORM\Column(name: 'available_equipment', type: Types::JSON, nullable: false)]
+    private array $availableEquipment = [];
+
     #[ORM\OneToMany(targetEntity: TimeSlot::class, mappedBy: 'booth')]
     private Collection $timeSlots;
 
@@ -85,6 +88,16 @@ class Booth implements HasCreators
     public function setRoom(Room $room): void
     {
         $this->room = $room;
+    }
+
+    public function getAvailableEquipment(): array
+    {
+        return $this->availableEquipment;
+    }
+
+    public function setAvailableEquipment(array $availableEquipment): void
+    {
+        $this->availableEquipment = $availableEquipment;
     }
 
     /**
