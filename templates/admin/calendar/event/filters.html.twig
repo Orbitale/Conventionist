@@ -5,10 +5,10 @@
         <form method="get" action="{{ path('admin_calendar_event', {event_id: event.id}) }}">
             <div class="btn-group" role="group" aria-label="Filters">
                 {% set filters_display = {
-                    'hourglass-half': constant('App\\Enum\\ScheduleAnimationState::CREATED'),
-                    'clock': constant('App\\Enum\\ScheduleAnimationState::PENDING_REVIEW'),
-                    'xmark': constant('App\\Enum\\ScheduleAnimationState::REJECTED'),
-                    'check': constant('App\\Enum\\ScheduleAnimationState::ACCEPTED'),
+                    'hourglass-half': constant('App\\Enum\\ScheduleActivityState::CREATED'),
+                    'clock': constant('App\\Enum\\ScheduleActivityState::PENDING_REVIEW'),
+                    'xmark': constant('App\\Enum\\ScheduleActivityState::REJECTED'),
+                    'check': constant('App\\Enum\\ScheduleActivityState::ACCEPTED'),
                 } %}
 
                 {% for icon, filter in filters_display %}
@@ -24,7 +24,7 @@
                     <label class="btn btn-outline-primary" for="filter-state-{{ filter.value }}">
                         <span class="badge text-bg-{{ filter.cssClass}}">
                             <i class=" fa fa-{{ icon }}"></i>
-                        </span> {{ ('scheduled_animation.state.' ~ filter.value)|trans }}
+                        </span> {{ ('scheduled_activity.state.' ~ filter.value)|trans }}
                     </label>
                 {% endfor %}
             </div>

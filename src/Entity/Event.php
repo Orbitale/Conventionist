@@ -2,7 +2,7 @@
 
 namespace App\Entity;
 
-use App\Enum\ScheduleAnimationState;
+use App\Enum\ScheduleActivityState;
 use App\Repository\EventRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
@@ -54,15 +54,15 @@ class Event implements HasCreators
         return $this->name ?: '';
     }
 
-    public function getScheduledAnimationById(string $id): ScheduledAnimation
+    public function getScheduledActivityById(string $id): ScheduledActivity
     {
         foreach ($this->getVenue()->getFloors() as $floor) {
             foreach ($floor->getRooms() as $room) {
                 foreach ($room->getBooths() as $booth) {
                     foreach ($booth->getTimeSlots() as $slot) {
-                        foreach ($slot->getScheduledAnimations() as $scheduledAnimation) {
-                            if ($scheduledAnimation->getId() === $id) {
-                                return $scheduledAnimation;
+                        foreach ($slot->getScheduledActivities() as $scheduledActivity) {
+                            if ($scheduledActivity->getId() === $id) {
+                                return $scheduledActivity;
                             }
                         }
                     }
@@ -100,7 +100,7 @@ class Event implements HasCreators
     }
 
     /**
-     * @param array<ScheduleAnimationState> $states
+     * @param array<ScheduleActivityState> $states
      */
     public function getCalendarSchedulesJson(array $states): array
     {
@@ -110,25 +110,25 @@ class Event implements HasCreators
             foreach ($floor->getRooms() as $room) {
                 foreach ($room->getBooths() as $booth) {
                     foreach ($booth->getTimeSlots() as $slot) {
-                        $animations = $slot->getScheduledAnimations();
-                        foreach ($animations as $scheduledAnimation) {
-                            if (!\in_array($scheduledAnimation->getState(), $states)) {
+                        $activities = $slot->getScheduledActivities();
+                        foreach ($activities as $scheduledActivity) {
+                            if (!\in_array($scheduledActivity->getState(), $states)) {
                                 continue;
                             }
                             $json[] = [
-                                'id' => $scheduledAnimation->getId(),
-                                'title' => $scheduledAnimation->getAnimation()?->getName(),
+                                'id' => $scheduledActivity->getId(),
+                                'title' => $scheduledActivity->getActivity()?->getName(),
                                 'start' => $slot->getStartsAt(),
                                 'end' => $slot->getEndsAt(),
                                 'resourceId' => $booth->getId(),
                                 'extendedProps' => [
-                                    'type' => 'animation',
-                                    'description' => $scheduledAnimation->getAnimation()?->getDescription(),
+                                    'type' => 'activity',
+                                    'description' => $scheduledActivity->getActivity()?->getDescription(),
                                 ],
-                                'color' => $scheduledAnimation->getStateColor(),
+                                'color' => $scheduledActivity->getStateColor(),
                             ];
                         }
-                        if (!$animations->count()) {
+                        if (!$activities->count()) {
                             $json[] = [
                                 'id' => $slot->getId(),
                                 'title' => '',

@@ -2,8 +2,8 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\ScheduledAnimation;
-use App\Repository\ScheduledAnimationRepository;
+use App\Entity\ScheduledActivity;
+use App\Repository\ScheduledActivityRepository;
 use App\Repository\TimeSlotRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;
@@ -26,13 +26,13 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-class ScheduledAnimationCrudController extends AbstractCrudController
+class ScheduledActivityCrudController extends AbstractCrudController
 {
     use GenericCrudMethods;
 
     public function __construct(
         private readonly EntityManagerInterface $em,
-        private readonly ScheduledAnimationRepository $scheduledAnimationRepository,
+        private readonly ScheduledActivityRepository $scheduledActivityRepository,
         private readonly TranslatorInterface $translator,
         private readonly CsrfTokenManagerInterface $csrfTokenManager,
         private readonly RequestStack $requestStack,
@@ -40,12 +40,12 @@ class ScheduledAnimationCrudController extends AbstractCrudController
     ) {
     }
 
-    #[Route('/admin/scheduled-animation/accept/{id}', name: 'admin_scheduled_animation_accept', methods: ['POST'])]
+    #[Route('/admin/scheduled-activity/accept/{id}', name: 'admin_scheduled_activity_accept', methods: ['POST'])]
     public function acceptSchedule(Request $request, string $id): Response
     {
-        $scheduledAnimation = $this->scheduledAnimationRepository->find($id);
-        if (!$scheduledAnimation) {
-            throw new NotFoundHttpException('Scheduled animation not found with this ID.');
+        $scheduledActivity = $this->scheduledActivityRepository->find($id);
+        if (!$scheduledActivity) {
+            throw new NotFoundHttpException('Scheduled activity not found with this ID.');
         }
 
         $csrfToken = $request->request->get('_csrf');
@@ -53,32 +53,32 @@ class ScheduledAnimationCrudController extends AbstractCrudController
             throw new BadRequestHttpException('Invalid CSRF token.');
         }
 
-        /** @var array<ScheduledAnimation> $animationsAtSameTimeSlot */
-        $animationsAtSameTimeSlot = $this->scheduledAnimationRepository->findAtSameTimeSlot($scheduledAnimation);
+        /** @var array<ScheduledActivity> $activitiesAtSameTimeSlot */
+        $activitiesAtSameTimeSlot = $this->scheduledActivityRepository->findAtSameTimeSlot($scheduledActivity);
 
-        foreach ($animationsAtSameTimeSlot as $otherSchedule) {
+        foreach ($activitiesAtSameTimeSlot as $otherSchedule) {
             if ($otherSchedule->isAccepted()) {
                 $this->addFlash('error', 'Cannot accept schedule: it conflicts with another schedule at the same time and booth.');
 
-                return $this->redirectToRoute('admin_calendar_event', ['event_id' => $scheduledAnimation->getEvent()->getId()]);
+                return $this->redirectToRoute('admin_calendar_event', ['event_id' => $scheduledActivity->getEvent()->getId()]);
             }
             $otherSchedule->reject();
             $this->em->persist($otherSchedule);
         }
-        $scheduledAnimation->accept();
+        $scheduledActivity->accept();
 
-        $this->em->persist($scheduledAnimation);
+        $this->em->persist($scheduledActivity);
         $this->em->flush();
 
-        return $this->redirectToRoute('admin_calendar_event', ['event_id' => $scheduledAnimation->getEvent()->getId()]);
+        return $this->redirectToRoute('admin_calendar_event', ['event_id' => $scheduledActivity->getEvent()->getId()]);
     }
 
-    #[Route('/admin/scheduled-animation/reject/{id}', name: 'admin_scheduled_animation_reject', methods: ['POST'])]
+    #[Route('/admin/scheduled-activity/reject/{id}', name: 'admin_scheduled_activity_reject', methods: ['POST'])]
     public function rejectSchedule(Request $request, string $id): Response
     {
-        $scheduledAnimation = $this->scheduledAnimationRepository->find($id);
-        if (!$scheduledAnimation) {
-            throw new NotFoundHttpException('Scheduled animation not found with this ID.');
+        $scheduledActivity = $this->scheduledActivityRepository->find($id);
+        if (!$scheduledActivity) {
+            throw new NotFoundHttpException('Scheduled activity not found with this ID.');
         }
 
         $csrfToken = $request->request->get('_csrf');
@@ -86,47 +86,47 @@ class ScheduledAnimationCrudController extends AbstractCrudController
             throw new BadRequestHttpException('Invalid CSRF token.');
         }
 
-        if ($scheduledAnimation->isAccepted()) {
+        if ($scheduledActivity->isAccepted()) {
             $this->addFlash('error', 'Cannot reject schedule: it was already accepted earlier.');
 
-            return $this->redirectToRoute('admin_calendar_event', ['event_id' => $scheduledAnimation->getEvent()->getId()]);
+            return $this->redirectToRoute('admin_calendar_event', ['event_id' => $scheduledActivity->getEvent()->getId()]);
         }
-        $scheduledAnimation->reject();
+        $scheduledActivity->reject();
 
-        $this->em->persist($scheduledAnimation);
+        $this->em->persist($scheduledActivity);
         $this->em->flush();
 
-        return $this->redirectToRoute('admin_calendar_event', ['event_id' => $scheduledAnimation->getEvent()->getId()]);
+        return $this->redirectToRoute('admin_calendar_event', ['event_id' => $scheduledActivity->getEvent()->getId()]);
     }
 
     public static function getEntityFqcn(): string
     {
-        return ScheduledAnimation::class;
+        return ScheduledActivity::class;
     }
 
-    public function createEntity(string $entityFqcn): ScheduledAnimation
+    public function createEntity(string $entityFqcn): ScheduledActivity
     {
-        /** @var ScheduledAnimation $scheduledAnimation */
-        $scheduledAnimation = parent::createEntity($entityFqcn);
+        /** @var ScheduledActivity $scheduledActivity */
+        $scheduledActivity = parent::createEntity($entityFqcn);
 
         $request = $this->requestStack->getCurrentRequest();
         if ($request && $request->query->has('slot_id')) {
             $slot = $this->timeSlotRepository->find($request->query->get('slot_id'));
             if ($slot) {
-                $scheduledAnimation->setTimeSlot($slot);
+                $scheduledActivity->setTimeSlot($slot);
             }
         }
 
-        return $scheduledAnimation;
+        return $scheduledActivity;
     }
 
     public function getRedirectResponseAfterSave(AdminContext $context, string $action): RedirectResponse
     {
         $this->addFlashAfterSave($context, $action);
 
-        /** @var ScheduledAnimation $scheduledAnimation */
-        $scheduledAnimation = $context->getEntity()->getInstance();
-        $event = $scheduledAnimation->getEvent()->getId();
+        /** @var ScheduledActivity $scheduledActivity */
+        $scheduledActivity = $context->getEntity()->getInstance();
+        $event = $scheduledActivity->getEvent()->getId();
 
         /** @var Request $request */
         $request = $this->requestStack->getCurrentRequest();
@@ -153,8 +153,8 @@ class ScheduledAnimationCrudController extends AbstractCrudController
             return $qb;
         }
 
-        $qb->innerJoin('entity.animation', 'animation')
-            ->innerJoin('animation.creators', 'creators')
+        $qb->innerJoin('entity.activity', 'activity')
+            ->innerJoin('activity.creators', 'creators')
             ->andWhere('creators IN (:creator)')
             ->setParameter('creator', $this->getUser())
         ;
@@ -168,7 +168,7 @@ class ScheduledAnimationCrudController extends AbstractCrudController
 
         yield Field\TextField::new('id')->hideOnForm();
         yield Field\ChoiceField::new('state')->setDisabled()->hideWhenCreating();
-        yield Field\AssociationField::new('animation')->setRequired(true);
+        yield Field\AssociationField::new('activity')->setRequired(true);
         yield Field\AssociationField::new('timeSlot')->setRequired(true)->setDisabled($request?->query->has('slot_id') ?: false);
     }
 }

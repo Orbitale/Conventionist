@@ -4,14 +4,14 @@ namespace App\DataFixtures;
 
 use App\DataFixtures\Tools\GetObjectsFromData;
 use App\DataFixtures\Tools\Ref;
-use App\Entity\Animation;
+use App\Entity\Activity;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\ORMFixtureInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Orbitale\Component\ArrayFixture\ArrayFixture;
 
-class AnimationFixture extends ArrayFixture implements ORMFixtureInterface, DependentFixtureInterface
+class ActivityFixture extends ArrayFixture implements ORMFixtureInterface, DependentFixtureInterface
 {
     use GetObjectsFromData;
 
@@ -19,13 +19,13 @@ class AnimationFixture extends ArrayFixture implements ORMFixtureInterface, Depe
     {
         return [
             '5b555f8d-3fbd-4ba4-97c1-dd673b5109d6' => [
-                'name' => 'Animation de jeu',
+                'name' => 'Activity de jeu',
                 'description' => 'Lorem ipsum',
                 'maxNumberOfParticipants' => 5,
                 'creators' => new ArrayCollection(),
             ],
             '6d443a40-6c42-4ced-bb1c-a285e415a768' => [
-                'name' => 'Visitor animation',
+                'name' => 'Visitor activity',
                 'description' => 'Lorem ipsum',
                 'maxNumberOfParticipants' => 5,
                 'creators' => [new Ref(User::class, 'user-visitor')],
@@ -41,12 +41,12 @@ class AnimationFixture extends ArrayFixture implements ORMFixtureInterface, Depe
 
     protected function getEntityClass(): string
     {
-        return Animation::class;
+        return Activity::class;
     }
 
     protected function getReferencePrefix(): ?string
     {
-        return 'animation-';
+        return 'activity-';
     }
 
     protected function getMethodNameForReference(): string

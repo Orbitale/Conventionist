@@ -2,21 +2,21 @@
 
 namespace App\Security\Voter;
 
-use App\Entity\ScheduledAnimation;
+use App\Entity\Activity;
 use App\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use Symfony\Component\Security\Core\Role\RoleHierarchyInterface;
 
-final class ScheduledAnimationVoter extends Voter
+final class ActivityVoter extends Voter
 {
     public const array PERMISSIONS = [
-        self::CAN_VALIDATE_SCHEDULE,
-        self::CAN_DELETE_SCHEDULED_ANIMATION,
+        self::CAN_EDIT_ACTIVITY,
+        self::CAN_DELETE_ACTIVITY,
     ];
 
-    public const string CAN_VALIDATE_SCHEDULE = 'CAN_VALIDATE_SCHEDULE';
-    public const string CAN_DELETE_SCHEDULED_ANIMATION = 'CAN_DELETE_SCHEDULED_ANIMATION';
+    public const string CAN_EDIT_ACTIVITY = 'CAN_EDIT_ACTIVITY';
+    public const string CAN_DELETE_ACTIVITY = 'CAN_DELETE_ACTIVITY';
 
     public function __construct(
         private readonly RoleHierarchyInterface $roleHierarchy,
@@ -28,9 +28,6 @@ final class ScheduledAnimationVoter extends Voter
         return \in_array($attribute, self::PERMISSIONS, true);
     }
 
-    /**
-     * @param mixed|ScheduledAnimation $subject
-     */
     protected function voteOnAttribute(string $attribute, mixed $subject, TokenInterface $token): bool
     {
         $user = $token->getUser();
@@ -43,12 +40,8 @@ final class ScheduledAnimationVoter extends Voter
             return true;
         }
 
-        if ($subject instanceof ScheduledAnimation && $attribute !== self::CAN_DELETE_SCHEDULED_ANIMATION) {
-            if ($attribute === self::CAN_VALIDATE_SCHEDULE && !$subject->canChangeState()) {
-                return false;
-            }
-
-            return $user->isOwnerOf($subject->getEvent());
+        if ($subject instanceof Activity && $attribute !== self::CAN_DELETE_ACTIVITY) {
+            return $user->isOwnerOf($subject);
         }
 
         return false;

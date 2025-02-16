@@ -49,8 +49,8 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Booths', 'fas fa-list', Entity\Booth::class);
 
         yield MenuItem::section('Activities');
-        yield MenuItem::linkToCrud('Animations', 'fas fa-list', Entity\Animation::class);
-        yield MenuItem::linkToCrud('Scheduled Animations', 'fas fa-list', Entity\ScheduledAnimation::class);
+        yield MenuItem::linkToCrud('Activities', 'fas fa-list', Entity\Activity::class);
+        yield MenuItem::linkToCrud('Scheduled Activities', 'fas fa-list', Entity\ScheduledActivity::class);
         yield MenuItem::linkToCrud('Time Slots', 'fas fa-list', Entity\TimeSlot::class);
     }
 }

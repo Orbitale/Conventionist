@@ -2,7 +2,7 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\Animation;
+use App\Entity\Activity;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;
@@ -13,13 +13,13 @@ use EasyCorp\Bundle\EasyAdminBundle\Dto\EntityDto;
 use EasyCorp\Bundle\EasyAdminBundle\Dto\SearchDto;
 use EasyCorp\Bundle\EasyAdminBundle\Field;
 
-class AnimationCrudController extends AbstractCrudController
+class ActivityCrudController extends AbstractCrudController
 {
     use GenericCrudMethods;
 
     public static function getEntityFqcn(): string
     {
-        return Animation::class;
+        return Activity::class;
     }
 
     public function createIndexQueryBuilder(SearchDto $searchDto, EntityDto $entityDto, FieldCollection $fields, FilterCollection $filters): QueryBuilder
@@ -40,7 +40,7 @@ class AnimationCrudController extends AbstractCrudController
     }
 
     /**
-     * @param Animation $entityInstance
+     * @param Activity $entityInstance
      */
     public function persistEntity(EntityManagerInterface $entityManager, $entityInstance): void
     {
@@ -59,7 +59,7 @@ class AnimationCrudController extends AbstractCrudController
             Field\TextField::new('name'),
             Field\TextEditorField::new('maxNumberOfParticipants')->setRequired(false)->hideOnIndex(),
             Field\TextEditorField::new('description')->setRequired(false)->hideOnIndex(),
-            Field\AssociationField::new('creators')->setHelp('The users that are allowed to manage this animation. Note: you will always be included in this list, even if you remove yourself from it.'),
+            Field\AssociationField::new('creators')->setHelp('The users that are allowed to manage this activity. Note: you will always be included in this list, even if you remove yourself from it.'),
         ];
     }
 }

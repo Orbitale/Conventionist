@@ -24,7 +24,7 @@ class TimeSlotCrudController extends AbstractCrudController
         private readonly EntityManagerInterface $em,
         private readonly EventRepository $eventRepository,
         private readonly BoothRepository $boothRepository,
-        private readonly TimeSlotRepository $scheduledAnimationRepository,
+        private readonly TimeSlotRepository $scheduledActivityRepository,
         private readonly TranslatorInterface $translator,
         private readonly CsrfTokenManagerInterface $csrfTokenManager,
     ) {

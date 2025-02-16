@@ -34,14 +34,14 @@ class TimeSlot implements HasCreators
     #[Assert\NotNull]
     private bool $open = true;
 
-    #[ORM\OneToMany(targetEntity: ScheduledAnimation::class, mappedBy: 'timeSlot')]
-    private Collection $scheduledAnimations;
+    #[ORM\OneToMany(targetEntity: ScheduledActivity::class, mappedBy: 'timeSlot')]
+    private Collection $scheduledActivities;
 
     public function __construct()
     {
         $this->generateId();
         $this->generateTimestamps();
-        $this->scheduledAnimations = new ArrayCollection();
+        $this->scheduledActivities = new ArrayCollection();
     }
 
     public static function create(Event $event, Booth $booth, \DateTimeImmutable $startsAt, \DateTimeImmutable $endsAt): self
@@ -83,7 +83,7 @@ class TimeSlot implements HasCreators
             return false;
         }
 
-        return \array_any($this->scheduledAnimations->toArray(), static fn (ScheduledAnimation $animation) => $animation->isAccepted());
+        return \array_any($this->scheduledActivities->toArray(), static fn (ScheduledActivity $activity) => $activity->isAccepted());
     }
 
     public function getCreators(): Collection
@@ -122,10 +122,10 @@ class TimeSlot implements HasCreators
     }
 
     /**
-     * @return Collection<ScheduledAnimation>
+     * @return Collection<ScheduledActivity>
      */
-    public function getScheduledAnimations(): Collection
+    public function getScheduledActivities(): Collection
     {
-        return $this->scheduledAnimations;
+        return $this->scheduledActivities;
     }
 }

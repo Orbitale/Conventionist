@@ -2,15 +2,15 @@
 
 namespace App\Validator;
 
-use App\Entity\ScheduledAnimation;
-use App\Repository\ScheduledAnimationRepository;
+use App\Entity\ScheduledActivity;
+use App\Repository\ScheduledActivityRepository;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
 final class NoOverlappingSchedulesValidator extends ConstraintValidator
 {
     public function __construct(
-        private readonly ScheduledAnimationRepository $scheduledAnimationRepository,
+        private readonly ScheduledActivityRepository $scheduledActivityRepository,
     ) {
     }
 
@@ -22,14 +22,14 @@ final class NoOverlappingSchedulesValidator extends ConstraintValidator
             return;
         }
 
-        if (!$value instanceof ScheduledAnimation) {
-            throw new \RuntimeException(\sprintf('The "%s" validation constraint can only be used on the "%s" class.', NoOverlappingSchedules::class, ScheduledAnimation::class));
+        if (!$value instanceof ScheduledActivity) {
+            throw new \RuntimeException(\sprintf('The "%s" validation constraint can only be used on the "%s" class.', NoOverlappingSchedules::class, ScheduledActivity::class));
         }
 
-        $hasSimilarSchedules = $this->scheduledAnimationRepository->hasSimilar($value);
+        $hasSimilarSchedules = $this->scheduledActivityRepository->hasSimilar($value);
         if ($hasSimilarSchedules) {
-            $this->context->buildViolation($constraint->sameAnimationAlreadyProposed)
-                ->atPath('animation')
+            $this->context->buildViolation($constraint->sameActivityAlreadyProposed)
+                ->atPath('activity')
                 ->addViolation()
             ;
             $this->context->buildViolation('')->atPath('timeSlot')->addViolation();

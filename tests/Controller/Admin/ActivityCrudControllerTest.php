@@ -3,8 +3,8 @@
 namespace App\Tests\Controller\Admin;
 
 use App\Controller\Admin\DashboardController;
-use App\Controller\Admin\AnimationCrudController;
-use App\DataFixtures\AnimationFixture;
+use App\Controller\Admin\ActivityCrudController;
+use App\DataFixtures\ActivityFixture;
 use App\DataFixtures\Tools\Ref;
 use App\Tests\GetUser;
 use EasyCorp\Bundle\EasyAdminBundle\Test\AbstractCrudTestCase;
@@ -12,7 +12,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Test\Trait\CrudTestFormAsserts;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\TestWith;
 
-class AnimationCrudControllerTest extends AbstractCrudTestCase
+class ActivityCrudControllerTest extends AbstractCrudTestCase
 {
     use CrudTestFormAsserts;
     use GetUser;
@@ -32,19 +32,19 @@ class AnimationCrudControllerTest extends AbstractCrudTestCase
 
     protected function getControllerFqcn(): string
     {
-        return AnimationCrudController::class;
+        return ActivityCrudController::class;
     }
 
     public function testIndexAdmin(): void
     {
-        $this->runIndexPage(AnimationFixture::getStaticData());
+        $this->runIndexPage(ActivityFixture::getStaticData());
     }
 
     #[TestWith(['visitor'])]
     public function testIndexNonAdmin(string $username): void
     {
         $data = \array_filter(
-            AnimationFixture::getStaticData(),
+            ActivityFixture::getStaticData(),
             static fn($data) => \array_any(
                 \iterator_to_array($data['creators']),
                 static fn(Ref $creator) => $creator->name === 'user-' . $username
@@ -56,7 +56,7 @@ class AnimationCrudControllerTest extends AbstractCrudTestCase
     public function testNewAsAdmin(): void
     {
         $this->runNewFormSubmit([
-            'name' => 'New Animation',
+            'name' => 'New Activity',
             'maxNumberOfParticipants' => 5,
         ]);
     }
@@ -64,15 +64,15 @@ class AnimationCrudControllerTest extends AbstractCrudTestCase
     public function testNewAsNonAdmin(): void
     {
         $this->runNewFormSubmit([
-            'name' => 'New Animation',
+            'name' => 'New Activity',
             'maxNumberOfParticipants' => 5,
         ], 'visitor');
     }
 
     public function testEdit(): void
     {
-        $this->runEditFormSubmit(AnimationFixture::getIdFromName('Animation de jeu'), [
-            'name' => 'New Animation name',
+        $this->runEditFormSubmit(ActivityFixture::getIdFromName('Activity de jeu'), [
+            'name' => 'New Activity name',
             'maxNumberOfParticipants' => 20,
         ]);
     }

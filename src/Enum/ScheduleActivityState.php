@@ -2,7 +2,7 @@
 
 namespace App\Enum;
 
-enum ScheduleAnimationState: string
+enum ScheduleActivityState: string
 {
     case CREATED = 'created';
     case PENDING_REVIEW = 'pending_review';

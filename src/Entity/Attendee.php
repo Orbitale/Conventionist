@@ -20,8 +20,8 @@ class Attendee
     private int $numberOfAttendees = 0;
 
     #[ORM\ManyToOne]
-    #[ORM\JoinColumn(name: 'scheduled_animation_id', referencedColumnName: 'id', nullable: false)]
-    private ScheduledAnimation $scheduledAnimation;
+    #[ORM\JoinColumn(name: 'scheduled_activity_id', referencedColumnName: 'id', nullable: false)]
+    private ScheduledActivity $scheduledActivity;
 
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(name: 'registered_by_id', referencedColumnName: 'id', nullable: false)]
@@ -52,14 +52,14 @@ class Attendee
         $this->numberOfAttendees = $numberOfAttendees ?: 0;
     }
 
-    public function getScheduledAnimation(): ScheduledAnimation
+    public function getScheduledActivity(): ScheduledActivity
     {
-        return $this->scheduledAnimation;
+        return $this->scheduledActivity;
     }
 
-    public function setScheduledAnimation(ScheduledAnimation $scheduledAnimation): void
+    public function setScheduledActivity(ScheduledActivity $scheduledActivity): void
     {
-        $this->scheduledAnimation = $scheduledAnimation;
+        $this->scheduledActivity = $scheduledActivity;
     }
 
     public function getRegisteredBy(): User

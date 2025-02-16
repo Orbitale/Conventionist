@@ -7,5 +7,5 @@
 'There is already an account with this username': "Il existe déjà un compte avec ce nom d'utilisateur"
 'Please enter a username': "Veuillez entrer un nom d'utilisateur"
 'Please enter an email': 'Veuillez entrer une adresse e-mail'
-'This schedule overlaps with another animation at the same time and place.': 'Ce programme se chevauche avec une autre animation au même moment et au même endroit.'
+'This schedule overlaps with another activity at the same time and place.': 'Ce programme se chevauche avec une autre activity au même moment et au même endroit.'
 'This time slot overlaps with another at the same time and place.': 'Ce créneau horaire fait double emploi avec un autre créneau au même moment et au même endroit.'

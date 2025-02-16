@@ -4,9 +4,9 @@ namespace App\Controller\Admin;
 
 use App\Entity\TimeSlot;
 use App\Entity\User;
-use App\Enum\ScheduleAnimationState;
+use App\Enum\ScheduleActivityState;
 use App\Repository\EventRepository;
-use App\Security\Voter\ScheduledAnimationVoter;
+use App\Security\Voter\ScheduledActivityVoter;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Option\EA;
 use EasyCorp\Bundle\EasyAdminBundle\Provider\AdminContextProvider;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -62,13 +62,13 @@ class CalendarController extends AbstractController
                 $filters = explode(',', $filters);
             }
             $stateStrings = \array_map('trim', $filters);
-            $states = \array_map(static fn (string $stateStr) => ScheduleAnimationState::from($stateStr), $stateStrings);
+            $states = \array_map(static fn (string $stateStr) => ScheduleActivityState::from($stateStr), $stateStrings);
         } else {
             $states = [
-                ScheduleAnimationState::CREATED,
-                ScheduleAnimationState::PENDING_REVIEW,
-                ScheduleAnimationState::REJECTED,
-                ScheduleAnimationState::ACCEPTED,
+                ScheduleActivityState::CREATED,
+                ScheduleActivityState::PENDING_REVIEW,
+                ScheduleActivityState::REJECTED,
+                ScheduleActivityState::ACCEPTED,
             ];
         }
 
@@ -84,12 +84,12 @@ class CalendarController extends AbstractController
             $jsonSchedules[$k]['start'] = $schedule['start']->setTimezone(new \DateTimeZone($currentUser->getTimezone()))->format(DATE_RFC3339);
             $jsonSchedules[$k]['end'] = $schedule['end']->setTimezone(new \DateTimeZone($currentUser->getTimezone()))->format(DATE_RFC3339);
 
-            if (($schedule['extendedProps']['type'] ?? '') === 'animation') {
-                $animationObject = $event->getScheduledAnimationById($schedule['id']);
-                if (!$animationObject->canChangeState()) {
+            if (($schedule['extendedProps']['type'] ?? '') === 'activity') {
+                $activityObject = $event->getScheduledActivityById($schedule['id']);
+                if (!$activityObject->canChangeState()) {
                     continue;
                 }
-                $canBeValidated = $this->isGranted(ScheduledAnimationVoter::CAN_VALIDATE_SCHEDULE, $animationObject);
+                $canBeValidated = $this->isGranted(ScheduledActivityVoter::CAN_VALIDATE_SCHEDULE, $activityObject);
                 if (!$canBeValidated) {
                     continue;
                 }
@@ -103,7 +103,7 @@ class CalendarController extends AbstractController
             'event' => $event,
             'json_resources' => $jsonResources,
             'json_schedules' => $jsonSchedules,
-            'filter_states' => \array_map(static fn (ScheduleAnimationState $state) => $state->value, $states),
+            'filter_states' => \array_map(static fn (ScheduleActivityState $state) => $state->value, $states),
         ]);
     }
 

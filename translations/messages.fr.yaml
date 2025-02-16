@@ -2,17 +2,16 @@
 'Event:': 'Évènement :'
 'Filters:': 'Filtres :'
 ACCEPTED: Acceptée
-Activities: Activités
 Administration: Administration
-Animation: Animation
-Animations: Animations
+Activity: Activity
+Activities: Activities
 apply_filters: 'Appliquer les filtres'
-calendar.modal.add_schedule_to_timeslot: 'Programmer une animation'
+calendar.modal.add_schedule_to_timeslot: 'Programmer une activity'
 calendar.modal.add_timeslot.confirm: 'Sauvegarder ce créneau horaire ?'
 calendar.modal.add_timeslot: 'Ajouter un nouveau créneau horaire'
 calendar.modal.choose_an_event: 'Choisissez un évènement dans la liste ci-dessus'
 calendar.modal.delete_timeslot.confirm: 'Supprimer this time slot?'
-calendar.modal.empty_slot_add: 'Ce créneau est actuellement vide. Voulez-vous y programmer une animation ?'
+calendar.modal.empty_slot_add: 'Ce créneau est actuellement vide. Voulez-vous y programmer une activity ?'
 calendar.modal.no_timeslot_configured: 'Aucun créneau horaire n''est configuré pour cette salle.'
 calendar.modal.no_upcoming_event: 'Aucun événement à venir'
 calendar.modal.unconfigured_timeslot: 'Ce créneau n''est pas encore sauvegardé !'
@@ -68,12 +67,12 @@ schedule.list.confirm_accept: 'Accepter ce programme?'
 schedule.list.confirm_accept_short: Accepter
 schedule.list.confirm_reject: 'Rejeter ce programme?'
 schedule.list.confirm_reject_short: Rejeter
-Scheduled Animations: 'Programmation'
-scheduled_animation.state.accepted: 'Accepté et programmé'
-scheduled_animation.state.created: 'Fraîchement créé, pas encore soumis à validation'
-scheduled_animation.state.pending_review: 'En attente de validation'
-scheduled_animation.state.rejected: Rejetée
-ScheduledAnimation: 'Animation programmée'
+Scheduled Activities: 'Programmation'
+scheduled_activity.state.accepted: 'Accepté et programmé'
+scheduled_activity.state.created: 'Fraîchement créé, pas encore soumis à validation'
+scheduled_activity.state.pending_review: 'En attente de validation'
+scheduled_activity.state.rejected: Rejetée
+ScheduledActivity: 'Activity programmée'
 State: État
 Submit: Envoyer
 Booth: 'Stands'

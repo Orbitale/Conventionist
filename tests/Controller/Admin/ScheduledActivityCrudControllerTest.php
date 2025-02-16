@@ -3,14 +3,14 @@
 namespace App\Tests\Controller\Admin;
 
 use App\Controller\Admin\DashboardController;
-use App\Controller\Admin\ScheduledAnimationCrudController;
-use App\DataFixtures\AnimationFixture;
-use App\DataFixtures\ScheduledAnimationFixture;
+use App\Controller\Admin\ScheduledActivityCrudController;
+use App\DataFixtures\ActivityFixture;
+use App\DataFixtures\ScheduledActivityFixture;
 use App\Tests\GetUser;
 use EasyCorp\Bundle\EasyAdminBundle\Test\AbstractCrudTestCase;
 use EasyCorp\Bundle\EasyAdminBundle\Test\Trait\CrudTestFormAsserts;
 
-class ScheduledAnimationCrudControllerTest extends AbstractCrudTestCase
+class ScheduledActivityCrudControllerTest extends AbstractCrudTestCase
 {
     use CrudTestFormAsserts;
     use GetUser;
@@ -20,7 +20,7 @@ class ScheduledAnimationCrudControllerTest extends AbstractCrudTestCase
 
     protected static function getIndexColumnNames(): array
     {
-        return ['animation', 'timeSlot'];
+        return ['activity', 'timeSlot'];
     }
 
     protected function getDashboardFqcn(): string
@@ -30,19 +30,19 @@ class ScheduledAnimationCrudControllerTest extends AbstractCrudTestCase
 
     protected function getControllerFqcn(): string
     {
-        return ScheduledAnimationCrudController::class;
+        return ScheduledActivityCrudController::class;
     }
 
     public function testIndexAdmin(): void
     {
-        $this->runIndexPage(ScheduledAnimationFixture::getStaticData());
+        $this->runIndexPage(ScheduledActivityFixture::getStaticData());
     }
 
     public function testIndexVisitor(): void
     {
         $data = \array_filter(
-            ScheduledAnimationFixture::getStaticData(),
-            static fn(array $data) => $data['animation']->name === 'animation-Visitor animation'
+            ScheduledActivityFixture::getStaticData(),
+            static fn(array $data) => $data['activity']->name === 'activity-Visitor activity'
         );
 
         $this->runIndexPage($data, 'visitor');
@@ -51,16 +51,16 @@ class ScheduledAnimationCrudControllerTest extends AbstractCrudTestCase
     public function testNewAsAdmin(): void
     {
         $this->runNewFormSubmit([
-            'animation' => AnimationFixture::getIdFromName('Animation de jeu'),
+            'activity' => ActivityFixture::getIdFromName('Activity de jeu'),
             'timeSlot' => 'ed52861f-3cfd-47df-ac1d-ffaedf6910e8',
-        ], 'admin', ['animation', 'timeSlot']);
+        ], 'admin', ['activity', 'timeSlot']);
     }
 
     public function testNewAsNonAdmin(): void
     {
         $this->runNewFormSubmit([
-            'animation' => AnimationFixture::getIdFromName('Visitor animation'),
+            'activity' => ActivityFixture::getIdFromName('Visitor activity'),
             'timeSlot' => 'ed52861f-3cfd-47df-ac1d-ffaedf6910e8',
-        ], 'visitor', ['animation', 'timeSlot']);
+        ], 'visitor', ['activity', 'timeSlot']);
     }
 }

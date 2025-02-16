@@ -122,7 +122,7 @@
             eventModalElement.querySelector('#event_start').innerHTML = info.event.start;
             eventModalElement.querySelector('#event_end').innerHTML = info.event.end;
 
-            if (info.event.extendedProps?.type === 'animation') {
+            if (info.event.extendedProps?.type === 'activity') {
                 eventModalElement.querySelector('#event_modal_label').style.display = 'block';
                 if (info.event.extendedProps?.can_be_validated) {
                     eventModalElement.querySelector('#event_form').style.display = 'block';

@@ -28,7 +28,7 @@ class DashboardControllerTest extends WebTestCase
             'Étages',
             'Salles',
             'Booths',
-            'Animations',
+            'Activities',
             'Programmation',
             'Créneaux horaires',
         ], $links);
