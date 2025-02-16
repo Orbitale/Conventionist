@@ -59,7 +59,7 @@ class TimeSlotCrudController extends AbstractCrudController
             throw new BadRequestHttpException('Missing required parameters.');
         }
 
-        $newSlot = TimeSlot::create($event, $table, $start, $end);
+        $newSlot = TimeSlot::create($event, $booth, $start, $end);
         $this->em->persist($newSlot);
         $this->em->flush();
 

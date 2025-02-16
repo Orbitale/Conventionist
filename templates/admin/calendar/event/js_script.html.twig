@@ -23,7 +23,7 @@
         newSlotContainer.style.display = 'none';
         newSlotContainer.querySelector('input[name="start"]').value = "";
         newSlotContainer.querySelector('input[name="end"]').value = "";
-        newSlotContainer.querySelector('input[name="table_id"]').value = "";
+        newSlotContainer.querySelector('input[name="booth_id"]').value = "";
         eventModalElement.querySelectorAll('[data-formaction-template]').forEach(btn => btn.setAttribute('formaction', ''));
     }
 
@@ -138,7 +138,7 @@
                     newSlotContainer.style.display = 'block';
                     newSlotContainer.querySelector('input[name="start"]').value = new Date(Date.parse(info.event.start)).toISOString();
                     newSlotContainer.querySelector('input[name="end"]').value = new Date(Date.parse(info.event.end)).toISOString();
-                    newSlotContainer.querySelector('input[name="table_id"]').value = info.event.resourceIds[0];
+                    newSlotContainer.querySelector('input[name="booth_id"]').value = info.event.resourceIds[0];
                 } else {
                     // Existing time slot
                     eventModalElement.querySelector('#slot_modal_label').style.display = 'block';
