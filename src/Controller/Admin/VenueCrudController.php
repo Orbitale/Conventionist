@@ -16,7 +16,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Dto\EntityDto;
 use EasyCorp\Bundle\EasyAdminBundle\Dto\SearchDto;
 use EasyCorp\Bundle\EasyAdminBundle\Field;
 
-class VenueCrudController extends AbstractCrudController
+final class VenueCrudController extends AbstractCrudController
 {
     use GenericCrudMethods;
 

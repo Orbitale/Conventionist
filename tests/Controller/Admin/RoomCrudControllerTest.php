@@ -6,13 +6,11 @@ use App\Controller\Admin\DashboardController;
 use App\Controller\Admin\RoomCrudController;
 use App\DataFixtures\FloorFixture;
 use App\DataFixtures\RoomFixture;
-use App\DataFixtures\Tools\Ref;
-use App\Entity\Floor;
 use App\Tests\GetUser;
 use EasyCorp\Bundle\EasyAdminBundle\Test\AbstractCrudTestCase;
 use EasyCorp\Bundle\EasyAdminBundle\Test\Trait\CrudTestFormAsserts;
 
-class RoomCrudControllerTest extends AbstractCrudTestCase
+final class RoomCrudControllerTest extends AbstractCrudTestCase
 {
     use CrudTestFormAsserts;
     use GetUser;

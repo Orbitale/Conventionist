@@ -9,7 +9,7 @@ use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Contracts\Translation\LocaleAwareInterface;
 
-readonly class LocaleListener implements EventSubscriberInterface
+final readonly class LocaleListener implements EventSubscriberInterface
 {
     public function __construct(
         private TokenStorageInterface $tokenStorage,

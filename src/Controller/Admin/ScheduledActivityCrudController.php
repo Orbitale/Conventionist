@@ -26,7 +26,7 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-class ScheduledActivityCrudController extends AbstractCrudController
+final class ScheduledActivityCrudController extends AbstractCrudController
 {
     use GenericCrudMethods;
 

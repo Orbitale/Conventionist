@@ -10,7 +10,7 @@ use Doctrine\Bundle\FixturesBundle\ORMFixtureInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Orbitale\Component\ArrayFixture\ArrayFixture;
 
-class VenueFixture extends ArrayFixture implements ORMFixtureInterface
+final class VenueFixture extends ArrayFixture implements ORMFixtureInterface
 {
     use GetObjectsFromData;
 

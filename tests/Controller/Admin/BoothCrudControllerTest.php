@@ -2,17 +2,17 @@
 
 namespace App\Tests\Controller\Admin;
 
-use App\Controller\Admin\DashboardController;
 use App\Controller\Admin\BoothCrudController;
-use App\DataFixtures\RoomFixture;
+use App\Controller\Admin\DashboardController;
 use App\DataFixtures\BoothFixture;
+use App\DataFixtures\RoomFixture;
 use App\DataFixtures\Tools\Ref;
 use App\Entity\Room;
 use App\Tests\GetUser;
 use EasyCorp\Bundle\EasyAdminBundle\Test\AbstractCrudTestCase;
 use EasyCorp\Bundle\EasyAdminBundle\Test\Trait\CrudTestFormAsserts;
 
-class BoothCrudControllerTest extends AbstractCrudTestCase
+final class BoothCrudControllerTest extends AbstractCrudTestCase
 {
     use CrudTestFormAsserts;
     use GetUser;

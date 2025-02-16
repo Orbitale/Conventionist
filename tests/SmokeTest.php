@@ -5,7 +5,7 @@ namespace App\Tests;
 use Pierstoval\SmokeTesting\SmokeTestStaticRoutes;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 
-class SmokeTest extends SmokeTestStaticRoutes
+final class SmokeTest extends SmokeTestStaticRoutes
 {
     use GetUser;
 

@@ -10,7 +10,7 @@ use Doctrine\Persistence\ManagerRegistry;
 /**
  * @extends ServiceEntityRepository<ScheduledActivity>
  */
-class ScheduledActivityRepository extends ServiceEntityRepository
+final class ScheduledActivityRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {

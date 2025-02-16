@@ -28,7 +28,7 @@ trait TestAdminEdit
 
         $data = [];
         foreach ($newData as $k => $v) {
-            $data[sprintf("%s[%s]", $entityName, $k)] = $v;
+            $data[sprintf('%s[%s]', $entityName, $k)] = $v;
         }
 
         $form = $this->client->getCrawler()->filter($this->getEntityFormSelector())->form($data);
@@ -39,11 +39,10 @@ trait TestAdminEdit
         $flashText = $crawler->filter('#flash-messages')?->text();
         self::assertNotEmpty($flashText, 'There are apparently no flash message confirming object creation.');
         self::assertStringStartsWith('Successfully updated ', $flashText);
-        self::assertStringEndsWith(sprintf("%s\"!", $newData['name']), $flashText);
+        self::assertStringEndsWith(sprintf('%s"!', $newData['name']), $flashText);
 
         $repo = $this->client->getContainer()->get(EntityManagerInterface::class)->getRepository($entityClass);
         $element = $repo->find($id);
         self::assertInstanceOf($entityClass, $element);
     }
-
 }

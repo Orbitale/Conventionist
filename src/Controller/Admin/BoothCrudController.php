@@ -15,7 +15,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Dto\EntityDto;
 use EasyCorp\Bundle\EasyAdminBundle\Dto\SearchDto;
 use EasyCorp\Bundle\EasyAdminBundle\Field;
 
-class BoothCrudController extends AbstractCrudController
+final class BoothCrudController extends AbstractCrudController
 {
     use GenericCrudMethods;
 

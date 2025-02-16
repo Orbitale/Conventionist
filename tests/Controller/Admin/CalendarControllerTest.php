@@ -6,7 +6,7 @@ use App\Tests\GetUser;
 use PHPUnit\Framework\Attributes\TestWith;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class CalendarControllerTest extends WebTestCase
+final class CalendarControllerTest extends WebTestCase
 {
     use GetUser;
 
@@ -18,7 +18,7 @@ class CalendarControllerTest extends WebTestCase
         $client = self::createClient();
 
         $client->loginUser($this->getUser($username));
-        $client->request("GET", '/admin/calendar');
+        $client->request('GET', '/admin/calendar');
         self::assertResponseIsSuccessful();
         $links = $client->getCrawler()->filter('#main .btn-group a')->each(fn ($node) => $node->text());
         \array_pop($links); // Remove "Create new"

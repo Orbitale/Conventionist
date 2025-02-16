@@ -11,9 +11,8 @@ use App\Entity\Venue;
 use App\Tests\GetUser;
 use EasyCorp\Bundle\EasyAdminBundle\Test\AbstractCrudTestCase;
 use EasyCorp\Bundle\EasyAdminBundle\Test\Trait\CrudTestFormAsserts;
-use PHPUnit\Framework\Attributes\DataProvider;
 
-class FloorCrudControllerTest extends AbstractCrudTestCase
+final class FloorCrudControllerTest extends AbstractCrudTestCase
 {
     use CrudTestFormAsserts;
     use GetUser;

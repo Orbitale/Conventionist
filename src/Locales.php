@@ -2,7 +2,7 @@
 
 namespace App;
 
-class Locales
+final class Locales
 {
     public const string REGEX = '^(?:en|fr)(?:[_-][a-z]{2})?$';
 

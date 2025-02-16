@@ -8,7 +8,7 @@ use Doctrine\Bundle\FixturesBundle\ORMFixtureInterface;
 use Orbitale\Component\ArrayFixture\ArrayFixture;
 use Symfony\Component\PasswordHasher\Hasher\PasswordHasherFactoryInterface;
 
-class UserFixture extends ArrayFixture implements ORMFixtureInterface
+final class UserFixture extends ArrayFixture implements ORMFixtureInterface
 {
     use GetObjectsFromData;
 

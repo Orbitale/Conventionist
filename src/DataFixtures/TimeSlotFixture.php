@@ -11,7 +11,7 @@ use Doctrine\Bundle\FixturesBundle\ORMFixtureInterface;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Orbitale\Component\ArrayFixture\ArrayFixture;
 
-class TimeSlotFixture extends ArrayFixture implements ORMFixtureInterface, DependentFixtureInterface
+final class TimeSlotFixture extends ArrayFixture implements ORMFixtureInterface, DependentFixtureInterface
 {
     use GetObjectsFromData;
 

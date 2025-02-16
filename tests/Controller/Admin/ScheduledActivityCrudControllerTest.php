@@ -10,7 +10,7 @@ use App\Tests\GetUser;
 use EasyCorp\Bundle\EasyAdminBundle\Test\AbstractCrudTestCase;
 use EasyCorp\Bundle\EasyAdminBundle\Test\Trait\CrudTestFormAsserts;
 
-class ScheduledActivityCrudControllerTest extends AbstractCrudTestCase
+final class ScheduledActivityCrudControllerTest extends AbstractCrudTestCase
 {
     use CrudTestFormAsserts;
     use GetUser;
@@ -42,7 +42,7 @@ class ScheduledActivityCrudControllerTest extends AbstractCrudTestCase
     {
         $data = \array_filter(
             ScheduledActivityFixture::getStaticData(),
-            static fn(array $data) => $data['activity']->name === 'activity-Visitor activity'
+            static fn (array $data) => $data['activity']->name === 'activity-Visitor activity'
         );
 
         $this->runIndexPage($data, 'visitor');

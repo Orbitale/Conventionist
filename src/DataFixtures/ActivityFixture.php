@@ -11,7 +11,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Orbitale\Component\ArrayFixture\ArrayFixture;
 
-class ActivityFixture extends ArrayFixture implements ORMFixtureInterface, DependentFixtureInterface
+final class ActivityFixture extends ArrayFixture implements ORMFixtureInterface, DependentFixtureInterface
 {
     use GetObjectsFromData;
 

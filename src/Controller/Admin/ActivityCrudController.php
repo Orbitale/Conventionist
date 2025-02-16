@@ -13,7 +13,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Dto\EntityDto;
 use EasyCorp\Bundle\EasyAdminBundle\Dto\SearchDto;
 use EasyCorp\Bundle\EasyAdminBundle\Field;
 
-class ActivityCrudController extends AbstractCrudController
+final class ActivityCrudController extends AbstractCrudController
 {
     use GenericCrudMethods;
 

@@ -9,9 +9,8 @@ use App\DataFixtures\VenueFixture;
 use App\Tests\GetUser;
 use EasyCorp\Bundle\EasyAdminBundle\Test\AbstractCrudTestCase;
 use EasyCorp\Bundle\EasyAdminBundle\Test\Trait\CrudTestFormAsserts;
-use PHPUnit\Framework\Attributes\DataProvider;
 
-class EventCrudControllerTest extends AbstractCrudTestCase
+final class EventCrudControllerTest extends AbstractCrudTestCase
 {
     use CrudTestFormAsserts;
     use GetUser;

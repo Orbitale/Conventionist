@@ -9,7 +9,7 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-class AuthControllerTest extends WebTestCase
+final class AuthControllerTest extends WebTestCase
 {
     use ProvidesLocales;
     use GetUser;

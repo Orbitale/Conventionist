@@ -20,7 +20,7 @@ trait TestAdminIndex
         }
 
         $this->client->loginUser($this->getUser($username));
-        $this->client->request("GET", $this->generateIndexUrl());
+        $this->client->request('GET', $this->generateIndexUrl());
 
         static::assertResponseIsSuccessful();
         static::assertIndexFullEntityCount(\count($indexData));

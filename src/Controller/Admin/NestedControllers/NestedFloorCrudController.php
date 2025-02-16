@@ -7,7 +7,7 @@ use App\Entity\Floor;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field;
 
-class NestedFloorCrudController extends AbstractCrudController
+final class NestedFloorCrudController extends AbstractCrudController
 {
     use DisableAllActions;
 

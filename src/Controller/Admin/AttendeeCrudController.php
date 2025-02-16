@@ -5,7 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\Attendee;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
-class AttendeeCrudController extends AbstractCrudController
+final class AttendeeCrudController extends AbstractCrudController
 {
     use GenericCrudMethods;
 

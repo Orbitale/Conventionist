@@ -6,7 +6,7 @@ use App\Tests\GetUser;
 use PHPUnit\Framework\Attributes\TestWith;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class DashboardControllerTest extends WebTestCase
+final class DashboardControllerTest extends WebTestCase
 {
     use GetUser;
 
@@ -17,7 +17,7 @@ class DashboardControllerTest extends WebTestCase
         $client = self::createClient();
 
         $client->loginUser($this->getUser($username));
-        $client->request("GET", '/admin');
+        $client->request('GET', '/admin');
         self::assertResponseIsSuccessful();
         $links = $client->getCrawler()->filter('#main-menu a')->each(fn ($node) => $node->text());
         self::assertSame([

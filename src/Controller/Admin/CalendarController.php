@@ -18,7 +18,7 @@ use Symfony\Component\Routing\Attribute\Route;
 /**
  * @see DashboardController::calendar
  */
-class CalendarController extends AbstractController
+final class CalendarController extends AbstractController
 {
     public function __construct(
         private readonly EventRepository $eventRepository,

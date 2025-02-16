@@ -3,14 +3,13 @@
 namespace App\Tests\Controller;
 
 use App\Controller\RegistrationController;
-use App\DataFixtures\UserFixture;
 use App\Repository\UserRepository;
 use App\Tests\ProvidesLocales;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-class RegistrationControllerTest extends WebTestCase
+final class RegistrationControllerTest extends WebTestCase
 {
     use ProvidesLocales;
 
@@ -32,9 +31,9 @@ class RegistrationControllerTest extends WebTestCase
         self::assertSelectorTextContains('h1', $registerText);
 
         $form = $client->getCrawler()->selectButton($registerText)->form([
-            "registration_form[username]" => "new-user",
-            "registration_form[email]" => "new-user@test.localhost",
-            "registration_form[plainPassword]" => "new-user-password",
+            'registration_form[username]' => 'new-user',
+            'registration_form[email]' => 'new-user@test.localhost',
+            'registration_form[plainPassword]' => 'new-user-password',
         ]);
         $client->submit($form);
         self::assertResponseStatusCodeSame(302);

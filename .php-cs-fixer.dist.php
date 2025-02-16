@@ -10,10 +10,13 @@ return $config
     ->setRules([
         '@Symfony' => true,
         'yoda_style' => false,
+        'final_class' => true,
+        'final_internal_class' => true,
     ])
     ->setFinder(PhpCsFixer\Finder::create()
         ->in([
             'src',
+            'tests',
             'config',
             'migrations',
         ])

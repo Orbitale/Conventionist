@@ -4,7 +4,7 @@ namespace App\Mailer;
 
 use App\Entity\User;
 
-class UserMailer
+final class UserMailer
 {
     public function sendResettingEmailMessage(User $user): void
     {

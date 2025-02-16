@@ -29,7 +29,7 @@ use Symfony\Component\Form\FormEvents;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Uid\Uuid;
 
-class UsersCrudController extends AbstractCrudController
+final class UsersCrudController extends AbstractCrudController
 {
     use GenericCrudMethods;
 
@@ -78,6 +78,7 @@ class UsersCrudController extends AbstractCrudController
         }
         $entityInstance->setPassword($this->passwordEncoder->hashPassword($entityInstance, $entityInstance->formNewPassword));
         $entityInstance->setEmailConfirmed(true);
+        $entityInstance->setIsVerified(true);
         $entityInstance->eraseCredentials();
 
         foreach ($entityInstance->formNewRoles as $role) {

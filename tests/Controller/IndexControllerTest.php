@@ -7,7 +7,7 @@ use App\Tests\ProvidesLocales;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class IndexControllerTest extends WebTestCase
+final class IndexControllerTest extends WebTestCase
 {
     use ProvidesLocales;
     use GetUser;
