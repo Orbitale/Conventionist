@@ -43,9 +43,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(name: 'email_confirmed_at', type: 'datetime_immutable', nullable: true)]
     private ?\DateTimeImmutable $emailConfirmed = null;
 
-    #[ORM\Column(name: 'is_verified', type: 'boolean', nullable: false, options: ['default' => 0])]
-    private bool $isVerified = false;
-
     #[ORM\Column(name: 'timezone', type: 'string', nullable: false, options: ['default' => 'Europe/Paris'])]
     private string $timezone = 'Europe/Paris';
 
@@ -148,6 +145,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->formNewPassword = null;
     }
 
+    public function emailConfirmedAt(): \DateTimeImmutable
+    {
+        return $this->emailConfirmed;
+    }
+
     public function isEmailConfirmed(): bool
     {
         return $this->emailConfirmed !== null;
@@ -156,16 +158,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setEmailConfirmed(bool $confirmed): void
     {
         $this->emailConfirmed = $confirmed ? new \DateTimeImmutable() : null;
-    }
-
-    public function isVerified(): bool
-    {
-        return $this->isVerified;
-    }
-
-    public function setIsVerified(bool $isVerified): void
-    {
-        $this->isVerified = $isVerified;
     }
 
     public function getTimezone(): string

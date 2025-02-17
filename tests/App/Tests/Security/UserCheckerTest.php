@@ -7,20 +7,11 @@ use App\Security\UserChecker;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Container\ContainerInterface;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Security\Core\Exception\CustomUserMessageAccountStatusException;
 
-class UserCheckerTest extends WebTestCase
+final class UserCheckerTest extends WebTestCase
 {
-    public function testPostAuthVerified(): void
-    {
-        $this->expectException(CustomUserMessageAccountStatusException::class);
-        $this->expectExceptionMessage('authentication.error.user_not_verified');
-
-        $class = new UserChecker();
-        $user = new User();
-        $class->checkPostAuth($user);
-    }
-
     public function testPostAuthEmailConfirmed(): void
     {
         $this->expectException(CustomUserMessageAccountStatusException::class);
@@ -28,7 +19,6 @@ class UserCheckerTest extends WebTestCase
 
         $class = new UserChecker();
         $user = new User();
-        $user->setIsVerified(true);
         $class->checkPostAuth($user);
     }
 
@@ -37,7 +27,6 @@ class UserCheckerTest extends WebTestCase
         try {
             $class = new UserChecker();
             $user = new User();
-            $user->setIsVerified(true);
             $user->setEmailConfirmed(true);
             $class->checkPostAuth($user);
             self::assertTrue(true);
@@ -46,26 +35,23 @@ class UserCheckerTest extends WebTestCase
         }
     }
 
-    public function testFunctionalVerified(): void
-    {
-        $client = self::createClient();
-        $user = $this->createUser($client->getContainer());
-
-        $client->loginUser($user);
-        $client->request('GET', '/admin');
-
-        self::assertResponseRedirects('/login');
-    }
-
     public function testFunctionalEmailConfirmed(): void
     {
         $client = self::createClient();
         $user = $this->createUser($client->getContainer());
 
-        $client->loginUser($user);
-        $client->request('GET', '/admin');
+        $crawler = $client->request('GET', '/login');
+        $form = $crawler->filter('.login-wrapper form')->form();
+        $client->submit($form, [
+            'username' => $user->getUsername(),
+            'password' => 'foo',
+        ]);
 
         self::assertResponseRedirects('/login');
+        $client->followRedirect();
+        $alert = $client->getCrawler()->filter('.alert.alert-danger');
+        self::assertSame(1, $alert->count());
+        self::assertSame('Your e-mail address is not validated', \trim($alert->html()));
     }
 
     public function createUser(ContainerInterface $container): User
@@ -74,7 +60,7 @@ class UserCheckerTest extends WebTestCase
         $user->setUsername('foo');
         $user->setEmail('foo@test.localhost');
 
-        $user->setPassword('');
+        $user->setPassword($container->get(UserPasswordHasherInterface::class)->hashPassword($user, 'foo'));
         $em = $container->get(EntityManagerInterface::class);
         $em->persist($user);
         $em->flush();

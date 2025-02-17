@@ -83,7 +83,6 @@ final class UsersCrudController extends AbstractCrudController
         }
         $entityInstance->setPassword($this->passwordEncoder->hashPassword($entityInstance, $entityInstance->formNewPassword));
         $entityInstance->setEmailConfirmed(true);
-        $entityInstance->setIsVerified(true);
         $entityInstance->eraseCredentials();
 
         foreach ($entityInstance->formNewRoles as $role) {
@@ -138,21 +137,20 @@ final class UsersCrudController extends AbstractCrudController
         $newRoles = CollectionField::new('formNewRoles', 'admin.roles.new')->setEntryType(RoleType::class);
         $roles = ArrayField::new('roles')->setTemplatePath('admin/fields/field.roles.html.twig');
         $emailConfirmed = BooleanField::new('emailConfirmed');
-        $isVerified = BooleanField::new('isVerified');
         $createdAt = DateTimeField::new('createdAt');
         $updatedAt = DateTimeField::new('updatedAt');
 
         if (Crud::PAGE_INDEX === $pageName) {
-            return [$username, $email, $roles, $emailConfirmed, $isVerified, $createdAt];
+            return [$username, $email, $roles, $emailConfirmed, $createdAt];
         }
         if (Crud::PAGE_DETAIL === $pageName) {
-            return [$id, $username, $email, $roles, $emailConfirmed, $isVerified, $createdAt, $updatedAt];
+            return [$id, $username, $email, $roles, $emailConfirmed, $createdAt, $updatedAt];
         }
         if (Crud::PAGE_NEW === $pageName) {
             return [$username, $email, $plainPassword, $newRoles];
         }
         if (Crud::PAGE_EDIT === $pageName) {
-            return [$username->setDisabled(), $email->setDisabled(), $emailConfirmed, $isVerified, $newRoles];
+            return [$username->setDisabled(), $email->setDisabled(), $emailConfirmed, $newRoles];
         }
 
         throw new \RuntimeException(\sprintf('Unsupported CRUD action "%s".', $pageName));

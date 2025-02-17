@@ -19,9 +19,6 @@ final class UserChecker implements UserCheckerInterface
             return;
         }
 
-        if (!$user->isVerified()) {
-            throw new CustomUserMessageAccountStatusException('authentication.error.user_not_verified');
-        }
         if (!$user->isEmailConfirmed()) {
             throw new CustomUserMessageAccountStatusException('authentication.error.user_email_not_confirmed');
         }
