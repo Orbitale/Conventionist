@@ -108,3 +108,4 @@ ROLE_USER: User
 ROLE_ADMIN: Admin
 equipment.name: Equipment
 equipment.quantity: Quantity
+Available Equipment: Available Equipment

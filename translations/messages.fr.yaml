@@ -108,3 +108,4 @@ ROLE_USER: Utilisateur
 ROLE_ADMIN: Administrateur
 equipment.name: Matériel
 equipment.quantity: Quantité
+Available Equipment: Matériel disponible
