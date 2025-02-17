@@ -4,7 +4,7 @@ _WARN := "\033[33m[%s]\033[0m %s\n"  # Yellow text for "printf"
 _TITLE := "\033[32m[%s]\033[0m %s\n" # Green text for "printf"
 _ERROR := "\033[31m[%s]\033[0m %s\n" # Red text for "printf"
 
-PHP_CS_FIXER := docker run -it --rm -v $$(pwd):/code ghcr.io/php-cs-fixer/php-cs-fixer:3-php8.3
+PHP_CS_FIXER := docker run --rm -v $$(pwd):/code ghcr.io/php-cs-fixer/php-cs-fixer:3-php8.3
 
 ##
 ## General
@@ -16,7 +16,7 @@ help: ## Show this help message
 	@grep -E '(^[a-zA-Z_-]+:.*?##.*$$)|(^##)' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[32m%-18s\033[0m %s\n", $$1, $$2}' | sed -e 's/\[32m##/[33m/'
 .PHONY: help
 
-install: start vendor db fixtures test-db assets cs-install. ## Install the project and start it
+install: start vendor db fixtures test-db assets cs-install ## Install the project and start it
 .PHONY: install
 
 start: ## Start the project
@@ -85,9 +85,9 @@ cc: ## Clear the cache (without warming it up)
 	@symfony console cache:clear --no-warmup
 .PHONY: cc
 
-cs-install.:
+cs-install:
 	@$(PHP_CS_FIXER) --version
-.PHONY: cs-install.
+.PHONY: cs-install
 
 cs: ## Runs php-cs-fixer
 	@$(PHP_CS_FIXER) fix
