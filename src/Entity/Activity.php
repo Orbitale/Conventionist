@@ -27,7 +27,7 @@ class Activity implements HasNestedRelations, HasCreators
     #[ORM\Column(name: 'max_number_of_participants', type: Types::INTEGER, nullable: true)]
     private ?int $maxNumberOfParticipants = null;
 
-    #[ORM\Column(name: 'needed_equipment', type: Types::JSON, nullable: false)]
+    #[ORM\Column(name: 'needed_equipment', type: Types::JSON, nullable: false, options: ['default' => '[]'])]
     private array $neededEquipment = [];
 
     /** @var Collection<ScheduledActivity> */

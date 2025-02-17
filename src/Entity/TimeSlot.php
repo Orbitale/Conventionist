@@ -34,7 +34,7 @@ class TimeSlot implements HasCreators
     #[Assert\NotNull]
     private bool $open = true;
 
-    #[ORM\Column(name: 'available_equipment', type: Types::JSON, nullable: false)]
+    #[ORM\Column(name: 'available_equipment', type: Types::JSON, nullable: false, options: ['default' => '[]'])]
     private array $availableEquipment = [];
 
     #[ORM\OneToMany(targetEntity: ScheduledActivity::class, mappedBy: 'timeSlot')]
