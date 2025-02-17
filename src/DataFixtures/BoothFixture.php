@@ -21,6 +21,10 @@ final class BoothFixture extends ArrayFixture implements ORMFixtureInterface, De
                 'name' => 'Table face pôle JdR 1',
                 'maxNumberOfParticipants' => 5,
                 'room' => new Ref(Room::class, 'room-Hall principal'),
+                'availableEquipment' => [
+                    'table' => 2,
+                    'chairs' => 6,
+                ],
             ],
             'c38cf5f3-a003-42f0-ba95-90160aee52c7' => [
                 'name' => 'Table face pôle JdR 2',

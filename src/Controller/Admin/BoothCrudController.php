@@ -3,6 +3,8 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Booth;
+use App\Form\AssociativeArrayItemType;
+use App\Form\AssociativeArrayType;
 use App\Security\Voter\VenueVoter;
 use Doctrine\ORM\QueryBuilder;
 use EasyCorp\Bundle\EasyAdminBundle\Collection\FieldCollection;
@@ -14,6 +16,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Dto\EntityDto;
 use EasyCorp\Bundle\EasyAdminBundle\Dto\SearchDto;
 use EasyCorp\Bundle\EasyAdminBundle\Field;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 
 final class BoothCrudController extends AbstractCrudController
 {
@@ -60,6 +63,25 @@ final class BoothCrudController extends AbstractCrudController
             Field\TextField::new('name', 'Booth name or number'),
             Field\AssociationField::new('room')->setDisabled($pageName === Crud::PAGE_EDIT),
             Field\NumberField::new('maxNumberOfParticipants'),
+            Field\CollectionField::new('availableEquipment')
+                ->setFormType(AssociativeArrayType::class)
+                ->setFormTypeOption('entry_options', [
+                    'label' => false,
+                    'key_options' => [
+                        'label' => 'equipment.name',
+                    ],
+                    'value_type' => NumberType::class,
+                    'value_options' => [
+                        'html5' => true,
+                        'label' => 'equipment.quantity',
+                        'attr' => ['min' => 0],
+                    ],
+                ])
+                ->setEntryToStringMethod(static function ($entry) {
+                    return $entry['item_key'] ?? '';
+                })
+                ->setEntryIsComplex()
+            ,
         ];
     }
 }

@@ -106,3 +106,5 @@ Venue: Venue
 Visitor: Visitor
 ROLE_USER: User
 ROLE_ADMIN: Admin
+equipment.name: Equipment
+equipment.quantity: Quantity

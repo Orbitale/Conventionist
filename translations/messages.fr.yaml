@@ -106,3 +106,5 @@ Venue: 'Lieu d''accueil'
 Visitor: Visiteur
 ROLE_USER: Utilisateur
 ROLE_ADMIN: Administrateur
+equipment.name: Matériel
+equipment.quantity: Quantité
