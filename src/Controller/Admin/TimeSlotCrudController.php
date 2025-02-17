@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Admin\Field\EquipmentField;
 use App\Entity\TimeSlot;
 use App\Repository\BoothRepository;
 use App\Repository\EventRepository;
@@ -84,5 +85,6 @@ final class TimeSlotCrudController extends AbstractCrudController
         yield Field\AssociationField::new('booth')->setRequired(true);
         yield Field\DateTimeField::new('startsAt')->setTimezone('UTC');
         yield Field\DateTimeField::new('endsAt')->setTimezone('UTC');
+        yield EquipmentField::new('availableEquipment');
     }
 }

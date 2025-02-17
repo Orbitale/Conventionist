@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Admin\Field\EquipmentField;
 use App\Entity\Booth;
 use App\Form\AssociativeArrayItemType;
 use App\Form\AssociativeArrayType;
@@ -59,29 +60,9 @@ final class BoothCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
-        return [
-            Field\TextField::new('name', 'Booth name or number'),
-            Field\AssociationField::new('room')->setDisabled($pageName === Crud::PAGE_EDIT),
-            Field\NumberField::new('maxNumberOfParticipants'),
-            Field\CollectionField::new('availableEquipment')
-                ->setFormType(AssociativeArrayType::class)
-                ->setFormTypeOption('entry_options', [
-                    'label' => false,
-                    'key_options' => [
-                        'label' => 'equipment.name',
-                    ],
-                    'value_type' => NumberType::class,
-                    'value_options' => [
-                        'html5' => true,
-                        'label' => 'equipment.quantity',
-                        'attr' => ['min' => 0],
-                    ],
-                ])
-                ->setEntryToStringMethod(static function ($entry) {
-                    return $entry['item_key'] ?? '';
-                })
-                ->setEntryIsComplex()
-            ,
-        ];
+        yield Field\TextField::new('name', 'Booth name or number');
+        yield Field\AssociationField::new('room')->setDisabled($pageName === Crud::PAGE_EDIT);
+        yield Field\NumberField::new('maxNumberOfParticipants');
+        yield EquipmentField::new('availableEquipment');
     }
 }

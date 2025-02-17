@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Admin\Field\EquipmentField;
 use App\Entity\Activity;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
@@ -55,11 +56,10 @@ final class ActivityCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
-        return [
-            Field\TextField::new('name'),
-            Field\NumberField::new('maxNumberOfParticipants')->setRequired(false)->hideOnIndex(),
-            Field\TextEditorField::new('description')->setRequired(false)->hideOnIndex(),
-            Field\AssociationField::new('creators')->setHelp('The users that are allowed to manage this activity. Note: you will always be included in this list, even if you remove yourself from it.'),
-        ];
+        yield Field\TextField::new('name');
+        yield Field\NumberField::new('maxNumberOfParticipants')->setRequired(false)->hideOnIndex();
+        yield Field\TextEditorField::new('description')->setRequired(false)->hideOnIndex();
+        yield Field\AssociationField::new('creators')->setHelp('The users that are allowed to manage this activity. Note: you will always be included in this list, even if you remove yourself from it.');
+        yield EquipmentField::new('neededEquipment');
     }
 }
