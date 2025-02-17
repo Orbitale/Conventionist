@@ -11,9 +11,9 @@ final class Version20250217222040 extends AbstractMigration
 {
     public function up(Schema $schema): void
     {
-        $this->addSql('UPDATE activities SET needed_equipment = "[]" WHERE needed_equipment IS NULL');
-        $this->addSql('UPDATE booth SET available_equipment = "[]" WHERE available_equipment IS NULL');
-        $this->addSql('UPDATE time_slot SET available_equipment = "[]" WHERE available_equipment IS NULL');
+        $this->addSql('UPDATE activities SET needed_equipment = "[]" WHERE needed_equipment IS NULL OR needed_equipment = "";');
+        $this->addSql('UPDATE booth SET available_equipment = "[]" WHERE available_equipment IS NULL OR available_equipment = "";');
+        $this->addSql('UPDATE time_slot SET available_equipment = "[]" WHERE available_equipment IS NULL OR available_equipment = "";');
     }
 
     public function down(Schema $schema): void
