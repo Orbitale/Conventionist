@@ -145,7 +145,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->formNewPassword = null;
     }
 
-    public function emailConfirmedAt(): \DateTimeImmutable
+    public function emailConfirmedAt(): ?\DateTimeImmutable
     {
         return $this->emailConfirmed;
     }
@@ -155,7 +155,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->emailConfirmed !== null;
     }
 
-    public function setEmailConfirmed(bool $confirmed): void
+    public function setEmailConfirmed(bool $confirmed = true): void
     {
         $this->emailConfirmed = $confirmed ? new \DateTimeImmutable() : null;
     }

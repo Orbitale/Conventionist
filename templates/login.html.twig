@@ -1,7 +1,7 @@
 {% extends '@EasyAdmin/page/login.html.twig' %}
 
 {% set translation_domain = 'messages' %}
-{% set target_path = path('admin') %}
+{% set target_path = target_path ?? path('admin') %}
 {% set csrf_token_intention = 'authenticate' %}
 {% set username_label = 'login.username_or_email' %}
 {% set password_label = 'login.password' %}
@@ -9,9 +9,9 @@
 {% set username_parameter = 'username' %}
 {% set password_parameter = 'password' %}
 {% set forgot_password_label = 'forgot_password_text' %}
-{% set forgot_password_enabled = true %}
+{% set forgot_password_enabled = forgot_password_enabled ?? true %}
 {% set forgot_password_path = path('resetting_forgot_password_request') %}
-{% set remember_me_enabled = true %}
+{% set remember_me_enabled = remember_me_enabled ?? true %}
 {% set remember_me_parameter = 'custom_remember_me_param' %}
 {% set remember_me_checked = true %}
 {% set remember_me_label = 'login.remember_me' %}

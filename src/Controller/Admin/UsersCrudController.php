@@ -82,7 +82,7 @@ final class UsersCrudController extends AbstractCrudController
             $entityInstance->formNewPassword = \uniqid('', true);
         }
         $entityInstance->setPassword($this->passwordEncoder->hashPassword($entityInstance, $entityInstance->formNewPassword));
-        $entityInstance->setEmailConfirmed(true);
+        $entityInstance->setEmailConfirmed();
         $entityInstance->eraseCredentials();
 
         foreach ($entityInstance->formNewRoles as $role) {

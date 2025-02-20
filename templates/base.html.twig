@@ -76,6 +76,8 @@
             </div>
         </nav>
 
+        {{ include('@EasyAdmin/flash_messages.html.twig') }}
+
         <div class="container my-5">
             {% block body %}
             {% endblock %}

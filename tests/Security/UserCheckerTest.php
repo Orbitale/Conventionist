@@ -4,14 +4,14 @@ namespace App\Tests\Security;
 
 use App\Entity\User;
 use App\Security\UserChecker;
-use Doctrine\ORM\EntityManagerInterface;
-use Psr\Container\ContainerInterface;
+use App\Tests\CreateUser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Security\Core\Exception\CustomUserMessageAccountStatusException;
 
 final class UserCheckerTest extends WebTestCase
 {
+    use CreateUser;
+
     public function testPostAuthEmailConfirmed(): void
     {
         $this->expectException(CustomUserMessageAccountStatusException::class);
@@ -38,7 +38,7 @@ final class UserCheckerTest extends WebTestCase
     public function testFunctionalEmailConfirmed(): void
     {
         $client = self::createClient();
-        $user = $this->createUser($client->getContainer());
+        $user = self::createUser($client->getContainer());
 
         $crawler = $client->request('GET', '/login');
         $form = $crawler->filter('.login-wrapper form')->form();
@@ -52,19 +52,5 @@ final class UserCheckerTest extends WebTestCase
         $alert = $client->getCrawler()->filter('.alert.alert-danger');
         self::assertSame(1, $alert->count());
         self::assertSame('Your e-mail address is not validated', \trim($alert->html()));
-    }
-
-    public function createUser(ContainerInterface $container): User
-    {
-        $user = new User();
-        $user->setUsername('foo');
-        $user->setEmail('foo@test.localhost');
-
-        $user->setPassword($container->get(UserPasswordHasherInterface::class)->hashPassword($user, 'foo'));
-        $em = $container->get(EntityManagerInterface::class);
-        $em->persist($user);
-        $em->flush();
-
-        return $user;
     }
 }

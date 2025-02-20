@@ -30,10 +30,4 @@ final class AuthController extends AbstractController
             'last_username' => $lastUsername,
         ]);
     }
-
-    #[Route(path: self::LOGOUT_PATHS, name: 'logout', methods: ['GET'])]
-    public function logout(): void
-    {
-        throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
-    }
 }
