@@ -19,6 +19,9 @@ help: ## Show this help message
 install: start vendor db fixtures test-db assets cs-install ## Install the project and start it
 .PHONY: install
 
+start: stop start ## Restart the project
+.PHONY: start
+
 start: ## Start the project
 	@symfony server:start --daemon
 	@docker compose up --detach --wait

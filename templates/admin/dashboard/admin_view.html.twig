@@ -1,0 +1,45 @@
+{% macro focus(icon, title, text, cta_path, cta_title) %}
+    <div class="feature col">
+        <div class="admin-view-icon">
+            <div class="badge bg-primary bg-gradient admin-view-icon">
+                <i class="fa fa-{{ icon }}"></i>
+            </div>
+        </div>
+        <h2>
+            {{ title|trans }}
+        </h2>
+        <p>
+            {{ text|trans|raw }}
+        </p>
+        <a href="{{ cta_path }}" class="btn btn-secondary">
+            <i class="fa fa-arrow-right"></i> {{ cta_title|trans }}
+        </a>
+    </div>
+{% endmacro %}
+
+<div class="container px-4 py-5" id="featured-3">
+
+    <h1 class="pb-2 border-bottom">
+        Dashboard
+    </h1>
+
+    <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
+
+        {{ _self.focus(
+            'building-circle-arrow-right',
+            'dashboard.view.manage_venues',
+            'dashboard.view.manage_venues.text',
+            path('admin_time_slot_index'),
+            'Venues'
+        ) }}
+
+        {{ _self.focus(
+            'timeline',
+            'dashboard.view.manage_time_slot',
+            'dashboard.view.manage_time_slot.text',
+            path('admin_time_slot_index'),
+            'Time Slots'
+        ) }}
+
+    </div>
+</div>

@@ -28,6 +28,10 @@ Created At: Créé(e) le
 CREATED: Créée
 Creators: 'Créateurs/créatrices'
 Dashboard: Tableau de bord
+dashboard.view.manage_time_slot: Gérez les créneaux horaires
+dashboard.view.manage_time_slot.text: Les céneaux horaires sont des périodes de temps durant lesquelles des activités peuvent être programmées.<br>Lorsqu'un évènement est configuré, vous pouvez ajouter des créneaux, soit directement dans l'administration, soit par le biais du calendrier, pour ouvrir des disponibilités pour que le public proposent des activités.
+dashboard.view.manage_venues: Gérez les lieux d'accueil
+dashboard.view.manage_venues.text: 'Les lieux d''accueil sont les endroits où se déroulent les évènements. Chaque lieu est organisé en 3 niveaux : les étages (ou les espaces d''accueil), les salles (ou tentes, sous-espaces) et les stands ou lieux précis d''activité.'
 Edit: Modifier
 Email Confirmed: E-mail confirmé
 Email: Adresse e-mail

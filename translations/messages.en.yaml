@@ -28,6 +28,10 @@ Created At: Created At
 CREATED: Created
 Creators: Creators
 Dashboard: Dashboard
+dashboard.view.manage_time_slot: Manage time slots
+dashboard.view.manage_time_slot.text: Time slots are periods of time during which activities can be scheduled.<br>When an event is set up, you can add slots, either directly in the administration or via the calendar, to open up availability for the public to propose activities.
+dashboard.view.manage_venues: Manage event venues
+dashboard.view.manage_venues.text: 'Venues are the places where events take place. Each venue is organised into 3 levels: the floors (or reception areas), the rooms (or tents, sub-areas) and the stands or specific activity areas.'
 Edit: Edit
 Email Confirmed: Email Confirmed
 Email: Email

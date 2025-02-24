@@ -1,2 +1,4 @@
 workers:
-    messenger_consume_async: ~
+    messenger_consume_async:
+        cmd: ['symfony', 'console', 'messenger:consume', '--all']
+        watch: ['config', 'src', 'templates', 'vendor']

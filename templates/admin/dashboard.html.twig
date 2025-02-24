@@ -1,5 +1,9 @@
 {% extends'@EasyAdmin/page/content.html.twig' %}
 
 {% block main %}
-    Dashboard
+    {% if is_granted('ROLE_ADMIN') %}
+        {{ include('admin/dashboard/admin_view.html.twig', with_context = false) }}
+    {% else %}
+        {{ include('admin/dashboard/user_view.html.twig', with_context = false) }}
+    {% endif %}
 {% endblock %}
