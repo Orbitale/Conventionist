@@ -2,6 +2,7 @@
 ## Development requirements 
 
 * [Symfony CLI](https://github.com/symfony-cli/symfony-cli)
+* PHP 8.4, ideally with these extensions: `mbstring` and `intl`
 * Docker Compose
 * Make
 
