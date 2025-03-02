@@ -14,10 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Booth implements HasCreators
 {
     use Field\Id { Field\Id::__construct as private generateId; }
-
-    #[ORM\Column(name: 'name', type: Types::STRING, length: 255, nullable: false)]
-    #[Assert\NotBlank(message: 'Please enter a name')]
-    private ?string $name = '';
+    use Field\Name;
 
     #[ORM\Column(nullable: true)]
     #[Assert\Type('int')]
@@ -60,16 +57,6 @@ class Booth implements HasCreators
         return $this->room->getCreators();
     }
 
-    public function getName(): string
-    {
-        return $this->name;
-    }
-
-    public function setName(?string $name): void
-    {
-        $this->name = $name ?: '';
-    }
-
     public function getMaxNumberOfParticipants(): ?int
     {
         return $this->maxNumberOfParticipants;
@@ -88,6 +75,7 @@ class Booth implements HasCreators
     public function setRoom(Room $room): void
     {
         $this->room = $room;
+        $room->addBooth($this);
     }
 
     public function getAvailableEquipment(): array
@@ -106,5 +94,14 @@ class Booth implements HasCreators
     public function getTimeSlots(): Collection
     {
         return $this->timeSlots;
+    }
+
+    public function addTimeSlot(TimeSlot $slot): void
+    {
+        if ($this->timeSlots->contains($slot)) {
+            return;
+        }
+
+        $this->timeSlots->add($slot);
     }
 }

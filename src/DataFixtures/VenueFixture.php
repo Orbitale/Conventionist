@@ -34,12 +34,12 @@ final class VenueFixture extends ArrayFixture implements ORMFixtureInterface
         return [
             'ae58fc80-cf97-49b4-a7ec-6fba881dd1db' => [
                 'name' => 'CPC',
-                'address' => 'Puy',
+                'city' => 'Le Puy',
                 'creators' => new ArrayCollection(),
             ],
             '5bf81d94-dcec-49cb-a1d4-485b05d0c2d7' => [
                 'name' => 'Custom',
-                'address' => 'Paris',
+                'city' => 'Paris',
                 'creators' => [new Ref(User::class, 'user-visitor')],
             ],
         ];

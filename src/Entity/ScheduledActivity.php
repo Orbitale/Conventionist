@@ -120,5 +120,6 @@ class ScheduledActivity
     public function setTimeSlot(TimeSlot $timeSlot): void
     {
         $this->timeSlot = $timeSlot;
+        $timeSlot->addScheduledActivity($this);
     }
 }

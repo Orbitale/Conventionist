@@ -16,15 +16,16 @@ help: ## Show this help message
 	@grep -E '(^[a-zA-Z_-]+:.*?##.*$$)|(^##)' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[32m%-18s\033[0m %s\n", $$1, $$2}' | sed -e 's/\[32m##/[33m/'
 .PHONY: help
 
-install: start vendor db fixtures test-db assets cs-install ## Install the project and start it
+install: start vendor db test-db assets cs-install ## Install the project and start it
 .PHONY: install
 
-start: stop start ## Restart the project
+restart: stop start ## Restart the project
 .PHONY: start
 
 start: ## Start the project
 	@symfony server:start --daemon
 	@docker compose up --detach --wait
+	@symfony local:run --daemon symfony console messenger:consume --all
 .PHONY: start
 
 stop: ## Stop the project
@@ -71,6 +72,7 @@ db: ## Recreate development database and its schema
 	@symfony console --env=dev doctrine:database:drop --no-interaction --if-exists --force
 	@symfony console --env=dev doctrine:database:create --no-interaction --if-not-exists
 	@symfony console --env=dev doctrine:migrations:migrate --no-interaction
+	@$(MAKE) fixtures
 .PHONY: db
 
 fixtures: ## Add default data to the development database

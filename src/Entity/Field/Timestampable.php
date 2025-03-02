@@ -2,8 +2,12 @@
 
 namespace App\Entity\Field;
 
+use Gedmo\Timestampable\Traits\TimestampableEntity;
+
 trait Timestampable
 {
+    use TimestampableEntity;
+
     public function generateTimestamps(): void
     {
         if (

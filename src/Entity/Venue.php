@@ -15,15 +15,14 @@ class Venue implements HasNestedRelations, HasCreators
 {
     use Field\Id { Field\Id::__construct as private generateId; }
     use Field\Creators { Field\Creators::__construct as generateCreators; }
+    use Field\Address;
+    use Field\GenericContact;
     use Field\Timestampable;
     use TimestampableEntity;
 
     #[ORM\Column(name: 'name', type: Types::STRING, length: 255, nullable: false)]
     #[Assert\NotBlank(message: 'Please enter a name')]
     private ?string $name = '';
-
-    #[ORM\Column(type: Types::TEXT)]
-    private string $address = '';
 
     /** @var Collection<Floor> */
     #[ORM\OneToMany(targetEntity: Floor::class, mappedBy: 'venue', cascade: ['persist', 'refresh'])]
@@ -61,16 +60,6 @@ class Venue implements HasNestedRelations, HasCreators
         $this->name = $name ?: '';
     }
 
-    public function getAddress(): string
-    {
-        return $this->address;
-    }
-
-    public function setAddress(?string $address): void
-    {
-        $this->address = $address ?: '';
-    }
-
     /**
      * @return Collection<Floor>
      */
@@ -100,5 +89,18 @@ class Venue implements HasNestedRelations, HasCreators
     public function hasFloor(Floor $floor): bool
     {
         return $this->floors->contains($floor);
+    }
+
+    /**
+     * @return array<TimeSlot>
+     */
+    public function getTimeSlots(): array
+    {
+        $slots = [];
+        foreach ($this->floors as $floor) {
+            $slots += $floor->getTimeSlots();
+        }
+
+        return $slots;
     }
 }

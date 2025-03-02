@@ -5,9 +5,12 @@ ACCEPTED: Accepted
 Activities: Activities
 Activity: Activity
 Address: Address
+admin.entities.users.password_help: Leave empty to generate a random password (recommended)
+admin.field.association.too_many: '{0}(… no more items)|{1}(… one more item)|[2,Inf](… %count% more items)'
 admin.roles.new: Add new roles
 Administration: Administration
 apply_filters: Apply filters
+Back to website: Back to website
 Booth name or number: Booth name or number
 Booth: Booth
 Booths: Booths
@@ -53,7 +56,9 @@ forgot_password_text: 'Forgot your password?'
 have_account_login: 'Already have an account? <a href="%path%">Login</a> instead.'
 Hours: Hours
 ID: ID
+index.jumbotron.links.authenticated_cta: Create an event
 index.jumbotron.message: The perfect organiser of conventions and events
+index.events.upcoming: Upcoming events
 Is Online Event: Is online event
 link.back_home: Go back to homepage
 login.password: Your password
@@ -64,6 +69,10 @@ Max Number Of Participants: Max Number Of Participants
 Name: Name
 nav.link.admin: Administration
 no_account_register: 'Don''t have an account? <a href="%path%">Register</a> instead.'
+password_reset.email.title: 'Hi! Please reset your password'
+password_reset.email.body: "<p>To reset your password, please visit the following link:</p>\n<a href=\"%signedUrl%\">%signedUrl%</a>\n<p>This link will expire in %expiration%.</p>\n<p>Cheers!</p>"
+password_reset.form.title: Reset your password
+password_reset.form.submit: Reset password
 password_reset.submit: Send reset password request
 password_reset.success: 'If an account matching your e-mail exists, then an email was just sent that contains a link that you can use to reset your password. This link will expire in %expires_in%.<br>If you don''t receive an e-mail please check your spam folder or <a href="%path%">try again</a>.'
 PENDING_REVIEW: Pending review
@@ -107,6 +116,7 @@ Users: Users
 Venue configurations: Venue configurations
 Venue manager: Venue manager
 Venue: Venue
+Venues: Venues
 Visitor: Visitor
 ROLE_USER: User
 ROLE_ADMIN: Admin

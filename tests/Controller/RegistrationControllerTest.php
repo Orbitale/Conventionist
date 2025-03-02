@@ -2,7 +2,6 @@
 
 namespace App\Tests\Controller;
 
-use App\Controller\AuthController;
 use App\Controller\RegistrationController;
 use App\Repository\UserRepository;
 use App\Tests\CreateUser;

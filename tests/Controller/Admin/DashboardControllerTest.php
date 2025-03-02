@@ -12,15 +12,17 @@ final class DashboardControllerTest extends WebTestCase
 
     #[TestWith(['admin'])]
     #[TestWith(['visitor'])]
+    #[TestWith(['ash'])]
     public function testAdminPermissions(string $username): void
     {
         $client = self::createClient();
 
         $client->loginUser($this->getUser($username));
-        $client->request('GET', '/admin');
+        $client->request('GET', '/fr/admin');
         self::assertResponseIsSuccessful();
         $links = $client->getCrawler()->filter('#main-menu a')->each(fn ($node) => $node->text());
         $expectedLinks = [
+            'Retour au site',
             'Tableau de bord',
             'Évènements',
             'Calendrier',
@@ -29,8 +31,8 @@ final class DashboardControllerTest extends WebTestCase
             'Salles',
             'Stands',
             'Activités',
-            'Programmation',
             'Créneaux horaires',
+            'Programmation',
         ];
         if ($username === 'admin') {
             $expectedLinks[] = 'Utilisateurs/utilisatrices';

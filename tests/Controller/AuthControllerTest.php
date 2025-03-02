@@ -2,6 +2,7 @@
 
 namespace App\Tests\Controller;
 
+use App\Controller\Admin\DashboardController;
 use App\Controller\AuthController;
 use App\Tests\GetUser;
 use App\Tests\ProvidesLocales;
@@ -24,7 +25,7 @@ final class AuthControllerTest extends WebTestCase
             'username' => 'admin',
             'password' => 'admin',
         ]);
-        self::assertResponseRedirects('/admin');
+        self::assertResponseRedirects('/'.$locale.'/admin');
         $crawler = $client->followRedirect();
         self::assertSame('Conventionist', $crawler->filter('#header-logo')->text());
     }
@@ -52,7 +53,7 @@ final class AuthControllerTest extends WebTestCase
         $client->loginUser($this->getUser());
 
         // Checked properly logged in
-        $crawler = $client->request('GET', '/admin');
+        $crawler = $client->request('GET', '/'.$locale.'/admin');
         self::assertSame('admin (admin@test.localhost)', $crawler->filter('.navbar-custom-menu .user-name')->text());
 
         // Perform logout
@@ -60,7 +61,7 @@ final class AuthControllerTest extends WebTestCase
         self::assertResponseRedirects('/');
 
         // Make sure logout prevents access to logged-in-only page
-        $client->request('GET', '/admin', server: ['HTTP_ACCEPT_LANGUAGE' => $locale]);
+        $client->request('GET', '/'.$locale.'/admin', server: ['HTTP_ACCEPT_LANGUAGE' => $locale]);
         self::assertResponseRedirects(AuthController::LOGIN_PATHS[$locale]);
     }
 }

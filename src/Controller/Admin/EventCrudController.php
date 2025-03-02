@@ -2,6 +2,8 @@
 
 namespace App\Controller\Admin;
 
+use App\Admin\Field\AssociationCollectionField;
+use App\Admin\Field\AssociationField;
 use App\Entity\Event;
 use App\Entity\User;
 use App\Security\Voter\EventVoter;
@@ -74,10 +76,10 @@ final class EventCrudController extends AbstractCrudController
             Field\TextField::new('name'),
             Field\DateTimeField::new('startsAt'),
             Field\DateTimeField::new('endsAt'),
-            Field\TextEditorField::new('address')->setRequired(false)->hideOnIndex(),
             Field\TextEditorField::new('description')->setRequired(false)->hideOnIndex(),
             Field\AssociationField::new('venue')->setRequired(true),
-            Field\AssociationField::new('creators')->setHelp('The users that are allowed to manage this event. Note: you will always be included in this list, even if you remove yourself from it.'),
+            AssociationField::new('creators')
+                ->setHelp('The users that are allowed to manage this event. Note: you will always be included in this list, even if you remove yourself from it.'),
             Field\BooleanField::new('isOnlineEvent')->renderAsSwitch(false),
         ];
     }

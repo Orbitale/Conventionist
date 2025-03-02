@@ -5,9 +5,12 @@ ACCEPTED: Acceptée
 Activities: Activités
 Activity: Activité
 Address: Adresse
+admin.entities.users.password_help: Laissez vide pour générer un mot de passe aléatoire (recommended)
+admin.field.association.too_many: '{0}(… aucun autre élément)|{1}(… un autre élément)|[2,Inf](… %count% autres éléments)'
 admin.roles.new: Ajouter des rôles
 Administration: Administration
 apply_filters: Appliquer les filtres
+Back to website: Retour au site
 Booth name or number: Nom ou numéro du stand
 Booth: Stand
 Booths: Stands
@@ -53,7 +56,9 @@ forgot_password_text: Mot de passe oublié ?
 have_account_login: Vous avez déjà un compte ? <a href="%path%">Connectez-vous</a>.
 Hours: Heures
 ID: Id
+index.jumbotron.links.authenticated_cta: Créer un évènement
 index.jumbotron.message: 'L''organisateur de conventions et d''évènements aux petits oignons 🧅'
+index.events.upcoming: Évènements à venir
 Is Online Event: En ligne
 link.back_home: 'Retour à l''accueil'
 login.password: Votre mot de passe
@@ -64,6 +69,10 @@ Max Number Of Participants: Nombre maximum de participants
 Name: Nom
 nav.link.admin: Administration
 no_account_register: 'Vous n''avez pas de compte ? <a href="%path%">Créez un compte</a> à la place.'
+password_reset.email.title: 'Veuillez réinitialiser votre mot de passe'
+password_reset.email.body: "<p>Pour réinitialiser votre mot de passe, veuillez cliquer sur le lien suivant :</p>\n<a href=\"%signedUrl%\">%signedUrl%</a>\n<p>Ce lien expire dans %expiration%.</p>\n<p>À bientôt !</p>"
+password_reset.form.title: Réinitialiser votre mot de passe
+password_reset.form.submit: Réinitialiser
 password_reset.submit: Demander à réinitialiser le mot de passe
 password_reset.success: 'Si un compte existe avec cette adresse, un e-mail lui sera envoyé, contenant un lien sur lequel vous pouvez cliquer pour réinitialiser votre mot de passe. Ce lien expirera dans %expires_in%.<br>Si vous n''avez pas reçu d''e-mail, vérifiez le dossier des spams, ou <a href="%path%">réessayez</a>.'
 PENDING_REVIEW: En attente de validation
@@ -107,6 +116,7 @@ Users: 'Utilisateurs/utilisatrices'
 Venue configurations: 'Configuration des lieux d''accueil'
 Venue manager: 'Gestionnaire de lieux d''accueils'
 Venue: 'Lieu d''accueil'
+Venues: 'Lieux d''accueil'
 Visitor: Visiteur
 ROLE_USER: Utilisateur
 ROLE_ADMIN: Administrateur

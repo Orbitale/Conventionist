@@ -21,8 +21,10 @@ final class NestedBoothCrudController extends AbstractCrudController
     {
         return [
             Field\TextField::new('name', 'Booth name'),
-            Field\NumberField::new('maxNumberOfParticipants'),
-            EquipmentField::new('availableEquipment'),
+            Field\NumberField::new('maxNumberOfParticipants')->setNumDecimals(0),
+            EquipmentField::new('availableEquipment')
+                ->setCustomOption('translateKey', true)
+                ->setTemplatePath('admin/fields/field.array.html.twig'),
         ];
     }
 }

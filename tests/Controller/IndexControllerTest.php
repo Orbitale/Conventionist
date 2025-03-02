@@ -14,7 +14,7 @@ final class IndexControllerTest extends WebTestCase
 
     public function testRoot(): void
     {
-        $client = static::createClient();
+        $client = self::createClient();
         $client->request('GET', '/');
 
         self::assertResponseRedirects('/en');
@@ -23,7 +23,7 @@ final class IndexControllerTest extends WebTestCase
     #[DataProvider('provideLocales')]
     public function testRootWithLocale(string $locale): void
     {
-        $client = static::createClient(server: ['HTTP_ACCEPT_LANGUAGE' => $locale]);
+        $client = self::createClient(server: ['HTTP_ACCEPT_LANGUAGE' => $locale]);
         $client->request('GET', '/');
 
         self::assertResponseRedirects('/'.$locale);
@@ -32,7 +32,7 @@ final class IndexControllerTest extends WebTestCase
     #[DataProvider('provideLocales')]
     public function testIndexWithLocale(string $locale): void
     {
-        $client = static::createClient(server: ['HTTP_ACCEPT_LANGUAGE' => $locale]);
+        $client = self::createClient(server: ['HTTP_ACCEPT_LANGUAGE' => $locale]);
         $client->request('GET', '/'.$locale);
 
         self::assertResponseIsSuccessful();
@@ -42,10 +42,11 @@ final class IndexControllerTest extends WebTestCase
     #[DataProvider('provideLocales')]
     public function testIndexLoggedIn(string $locale): void
     {
-        $client = static::createClient(server: ['HTTP_ACCEPT_LANGUAGE' => $locale]);
+        $client = self::createClient(server: ['HTTP_ACCEPT_LANGUAGE' => $locale]);
         $client->loginUser($this->getUser());
         $client->request('GET', '/'.$locale);
 
-        self::assertResponseRedirects('/admin');
+        self::assertResponseIsSuccessful();
+        self::assertSelectorTextContains('h1', 'Conventionist');
     }
 }

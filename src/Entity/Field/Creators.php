@@ -35,6 +35,13 @@ trait Creators
         $this->creators->add($user);
     }
 
+    public function removeCreator(User $user): void
+    {
+        if ($this->creators->contains($user)) {
+            $this->creators->removeElement($user);
+        }
+    }
+
     public function hasCreator(User $user): bool
     {
         return $this->creators->contains($user);

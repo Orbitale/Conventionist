@@ -9,6 +9,8 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 final class AuthController extends AbstractController
 {
+    public const string LOGIN_ROUTE_NAME = 'login';
+
     public const array LOGIN_PATHS = [
         'fr' => '/connexion',
         'en' => '/login',
@@ -19,7 +21,7 @@ final class AuthController extends AbstractController
         'en' => '/logout',
     ];
 
-    #[Route(path: self::LOGIN_PATHS, name: 'login', methods: ['GET', 'POST'])]
+    #[Route(path: self::LOGIN_PATHS, name: self::LOGIN_ROUTE_NAME, methods: ['GET', 'POST'])]
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
         $error = $authenticationUtils->getLastAuthenticationError();

@@ -85,6 +85,8 @@ final class TimeSlotCrudController extends AbstractCrudController
         yield Field\AssociationField::new('booth')->setRequired(true);
         yield Field\DateTimeField::new('startsAt')->setTimezone('UTC');
         yield Field\DateTimeField::new('endsAt')->setTimezone('UTC');
-        yield EquipmentField::new('availableEquipment');
+        yield EquipmentField::new('availableEquipment')
+            ->setCustomOption('translateKey', true)
+            ->setTemplatePath('admin/fields/field.array.html.twig');
     }
 }

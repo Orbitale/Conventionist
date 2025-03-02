@@ -4,15 +4,12 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\RegistrationFormType;
+use App\Mailer\RegistrationEmailVerifier;
 use App\Repository\UserRepository;
-use App\Security\EmailVerifier;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Mime\Address;
-use Symfony\Component\PasswordHasher\Hasher\PasswordHasherFactoryInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
@@ -21,6 +18,8 @@ use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 
 final class RegistrationController extends AbstractController
 {
+    public const string VERIFY_EMAIL_ROUTE_NAME = 'app_verify_email';
+
     public const array REGISTER_PATHS = [
         'fr' => '/inscription',
         'en' => '/register',
@@ -32,7 +31,7 @@ final class RegistrationController extends AbstractController
     ];
 
     public function __construct(
-        private readonly EmailVerifier $emailVerifier,
+        private readonly RegistrationEmailVerifier $emailVerifier,
         private readonly TranslatorInterface $translator,
         private readonly CsrfTokenManagerInterface $csrfTokenManager,
         private readonly UserPasswordHasherInterface $userPasswordHasher,
@@ -49,26 +48,13 @@ final class RegistrationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            /** @var string $plainPassword */
-            $plainPassword = $form->get('plainPassword')->getData();
-
-            // encode the plain password
-            $user->setPassword($this->userPasswordHasher->hashPassword($user, $plainPassword));
+            $user->setPassword($this->userPasswordHasher->hashPassword($user, $form->get('plainPassword')->getData()));
 
             $entityManager->persist($user);
             $entityManager->flush();
 
             // generate a signed url and email it to the user
-            $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
-                (new TemplatedEmail())
-                    ->from(new Address('mailer@test.localhost', 'Mailer'))
-                    ->to($user->getEmail())
-                    ->subject($this->translator->trans('registration.email.title'))
-                    ->htmlTemplate('registration/confirmation_email.html.twig')
-                    ->context([
-                        'locale' => $request->attributes->get('_locale') ?: $request->getLocale(),
-                    ])
-            );
+            $this->emailVerifier->sendRegistrationConfirmation($user, $request->attributes->get('_locale') ?: $request->getLocale());
 
             $this->addFlash('success', 'Registered!');
 
@@ -80,23 +66,15 @@ final class RegistrationController extends AbstractController
         ]);
     }
 
-    #[Route(self::VERIFY_EMAIL_PATHS, name: 'app_verify_email', methods: ['GET', 'POST'])]
+    #[Route(self::VERIFY_EMAIL_PATHS, name: self::VERIFY_EMAIL_ROUTE_NAME, methods: ['GET', 'POST'])]
     public function verifyUserEmail(Request $request): Response
     {
-        /** @var null|User $user */
+        /** @var User|null $user */
         $user = $this->getUser();
 
         if (!$user || !$this->isGranted('IS_AUTHENTICATED_FULLY')) {
             if ($request->isMethod('GET')) {
-                $request->getSession()->set('__email_verify_uri', $request->getRequestUri());
-
-                $this->addFlash('info', 'Please login in to validate your email address.');
-
-                return $this->render('login.html.twig', [
-                    'target_path' => $this->generateUrl('app_verify_email'),
-                    'remember_me_enabled' => false,
-                    'forgot_password_enabled' => false,
-                ]);
+                return $this->renderVerifiedLogin($request);
             }
 
             $csrf = $request->request->get('_csrf_token');
@@ -127,5 +105,18 @@ final class RegistrationController extends AbstractController
         $this->addFlash('success', 'Your email address has been verified.');
 
         return $this->redirectToRoute('login');
+    }
+
+    private function renderVerifiedLogin(Request $request): Response
+    {
+        $request->getSession()->set('__email_verify_uri', $request->getRequestUri());
+
+        $this->addFlash('info', 'Please login in to validate your email address.');
+
+        return $this->render('login.html.twig', [
+            'target_path' => $this->generateUrl(self::VERIFY_EMAIL_ROUTE_NAME),
+            'remember_me_enabled' => false,
+            'forgot_password_enabled' => false,
+        ]);
     }
 }

@@ -1,9 +1,8 @@
-<h1>Hi!</h1>
+<h1>Conventionist</h1>
 
-<p>To reset your password, please visit the following link</p>
+<h2>{{ 'password_reset.email.title'|trans(locale: locale) }}</h2>
 
-<a href="{{ url }}">{{ url }}</a>
-
-<p>This link will expire in {{ expiration_message }}.</p>
-
-<p>Cheers!</p>
+{{ 'password_reset.email.body'|trans({
+    "%signedUrl%": signedUrl,
+    "%expiration%": expiration,
+}, locale: locale)|raw }}

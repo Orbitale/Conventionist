@@ -20,7 +20,7 @@ final class UserFixture extends ArrayFixture implements ORMFixtureInterface
             '41f63479-09b0-41a6-b411-2ec5a5f98895' => [
                 'username' => 'admin',
                 'email' => 'admin@test.localhost',
-                'password' => fn () => self::$hasher->getPasswordHasher(User::class)->hash('admin'),
+                'password' => static fn () => self::$hasher->getPasswordHasher(User::class)->hash('admin'),
                 'roles' => ['ROLE_ADMIN'],
                 'timezone' => 'Europe/Paris',
                 'emailConfirmed' => new \DateTimeImmutable(),
@@ -29,7 +29,7 @@ final class UserFixture extends ArrayFixture implements ORMFixtureInterface
             '071cca41-faf6-4e7a-bc0f-a9d07d9bdb0e' => [
                 'username' => 'ash',
                 'email' => 'ash@test.localhost',
-                'password' => fn () => self::$hasher->getPasswordHasher(User::class)->hash('ash'),
+                'password' => static fn () => self::$hasher->getPasswordHasher(User::class)->hash('ash'),
                 'roles' => [],
                 'timezone' => 'Europe/Paris',
                 'emailConfirmed' => new \DateTimeImmutable(),
@@ -38,7 +38,7 @@ final class UserFixture extends ArrayFixture implements ORMFixtureInterface
             '1042e551-2d75-4ff4-bdfa-4f3046041d36' => [
                 'username' => 'visitor',
                 'email' => 'visitor@test.localhost',
-                'password' => fn () => self::$hasher->getPasswordHasher(User::class)->hash('visitor'),
+                'password' => static fn () => self::$hasher->getPasswordHasher(User::class)->hash('visitor'),
                 'roles' => [],
                 'timezone' => 'Europe/Paris',
                 'emailConfirmed' => new \DateTimeImmutable(),

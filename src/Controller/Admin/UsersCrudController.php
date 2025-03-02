@@ -6,27 +6,22 @@ namespace App\Controller\Admin;
 
 use App\Entity\User;
 use App\Form\RoleType;
-use App\Mailer\UserMailer;
-use App\Util\Urlizer;
+use App\Mailer\PasswordResetMailer;
 use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
-use EasyCorp\Bundle\EasyAdminBundle\Config\KeyValueStore;
-use EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
-use EasyCorp\Bundle\EasyAdminBundle\Dto\EntityDto;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ArrayField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\Field;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Uid\Uuid;
+use SymfonyCasts\Bundle\ResetPassword\ResetPasswordHelperInterface;
 
 final class UsersCrudController extends AbstractCrudController
 {
@@ -34,7 +29,9 @@ final class UsersCrudController extends AbstractCrudController
 
     public function __construct(
         private readonly UserPasswordHasherInterface $passwordEncoder,
-        private readonly UserMailer $mailer,
+        private readonly PasswordResetMailer $mailer,
+        private readonly ResetPasswordHelperInterface $resetPasswordHelper,
+        private readonly RequestStack $requestStack,
     ) {
     }
 
@@ -77,8 +74,8 @@ final class UsersCrudController extends AbstractCrudController
      */
     public function persistEntity(EntityManagerInterface $entityManager, $entityInstance): void
     {
-        if (!$hasPassword = $entityInstance->formNewPassword) {
-            $entityInstance->setConfirmationToken(\str_replace('-', '', Uuid::v4()));
+        if (!$entityInstance->formNewPassword) {
+            $entityInstance->setConfirmationToken(\str_replace('-', '', Uuid::v4()->toString()));
             $entityInstance->formNewPassword = \uniqid('', true);
         }
         $entityInstance->setPassword($this->passwordEncoder->hashPassword($entityInstance, $entityInstance->formNewPassword));
@@ -92,40 +89,11 @@ final class UsersCrudController extends AbstractCrudController
         // Causes the persist + flush
         parent::persistEntity($entityManager, $entityInstance);
 
-        if (!$hasPassword) {
+        if (!$entityInstance->formNewPassword) {
             // With no password, we send a "reset password" email to the user
-            $this->mailer->sendResettingEmailMessage($entityInstance);
+            $resetToken = $this->resetPasswordHelper->generateResetToken($entityInstance);
+            $this->mailer->sendResettingEmailMessage($entityInstance, $resetToken, $this->requestStack->getCurrentRequest()?->getLocale() ?? 'en');
         }
-    }
-
-    public function createNewFormBuilder(EntityDto $entityDto, KeyValueStore $formOptions, AdminContext $context): FormBuilderInterface
-    {
-        $builder = parent::createNewFormBuilder($entityDto, $formOptions, $context);
-
-        $this->addUrlizingFormListener($builder);
-
-        return $builder;
-    }
-
-    public function createEditFormBuilder(EntityDto $entityDto, KeyValueStore $formOptions, AdminContext $context): FormBuilderInterface
-    {
-        $builder = parent::createEditFormBuilder($entityDto, $formOptions, $context);
-
-        $this->addUrlizingFormListener($builder);
-
-        return $builder;
-    }
-
-    public function addUrlizingFormListener(FormBuilderInterface $builder): void
-    {
-        $builder
-            ->addEventListener(FormEvents::SUBMIT, function (FormEvent $event): void {
-                /** @var User $user */
-                $user = $event->getForm()->getData();
-                $user->setUsername(Urlizer::urlize($user->getUsername()));
-                $user->setEmail(Urlizer::urlize($user->getEmail()));
-            })
-        ;
     }
 
     public function configureFields(string $pageName): iterable

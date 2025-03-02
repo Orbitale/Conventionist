@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Admin\Field\AssociationCollectionField;
 use App\Controller\Admin\NestedControllers\NestedRoomCrudController;
 use App\Entity\Floor;
 use App\Security\Voter\VenueVoter;
@@ -64,7 +65,7 @@ final class FloorCrudController extends AbstractCrudController
         return [
             Field\TextField::new('name', 'Floor name'),
             Field\AssociationField::new('venue')->setDisabled($pageName === Crud::PAGE_EDIT),
-            Field\CollectionField::new('rooms')->useEntryCrudForm(NestedRoomCrudController::class),
+            AssociationCollectionField::new('rooms', null, NestedRoomCrudController::class, RoomCrudController::class),
         ];
     }
 }

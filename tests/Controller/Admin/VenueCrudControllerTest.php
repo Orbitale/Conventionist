@@ -46,7 +46,7 @@ final class VenueCrudControllerTest extends AbstractCrudTestCase
     {
         $this->runNewFormSubmit([
             'name' => 'Test venue name',
-            'address' => 'Somewhere',
+            'address1' => 'Somewhere',
         ]);
     }
 
@@ -54,7 +54,8 @@ final class VenueCrudControllerTest extends AbstractCrudTestCase
     {
         $this->runEditFormSubmit(VenueFixture::getIdFromName('CPC'), [
             'name' => 'Test new floor name',
-            'address' => 'Le Puy, quelque part',
+            'city' => 'Le Puy',
+            'address1' => 'Quelque part',
         ]);
     }
 }

@@ -8,13 +8,55 @@
                 {{ 'index.jumbotron.message'|trans }}
             </p>
             <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-                <a href="{{ path('register') }}" class="btn btn-primary btn-lg px-4 gap-3">
-                    {{ 'register'|trans }}
-                </a>
-                <a href="{{ path('login') }}" class="btn btn-outline-secondary btn-lg px-4">
-                    {{ 'login'|trans }}
-                </a>
+                {% if app.user %}
+                    <a href="{{ path('admin_event_new') }}" class="btn btn-primary btn-lg px-4 gap-3">
+                        {{ 'index.jumbotron.links.authenticated_cta'|trans }}
+                    </a>
+                {% else %}
+                    <a href="{{ path('register') }}" class="btn btn-primary btn-lg px-4 gap-3">
+                        {{ 'register'|trans }}
+                    </a>
+                    <a href="{{ path('login') }}" class="btn btn-outline-secondary btn-lg px-4">
+                        {{ 'login'|trans }}
+                    </a>
+                {% endif %}
             </div>
+        </div>
+    </div>
+
+    <div class="px-4 py-5 my-5">
+        <h2 class="pb-2 mb-0 text-center">{{ 'index.events.upcoming'|trans }}</h2>
+
+        <div class="col-lg-6 mx-auto">
+            {% if events|length == 0 %}
+            {% else %}
+                <div class="list-group">
+                    {% for event in events %}
+                        <a href="{{ path('event', {slug: event.slug}) }}" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
+                            <i class="fa fa-calendar-days fa-2x"></i>
+                            <div class="d-flex gap-2 w-100 justify-content-between">
+                                <div>
+                                    <h3 class="mb-0">{{ event.name }}</h3>
+                                    <p class="mb-0 opacity-75">
+                                        {{ event.description|striptags|slice(0, 150) -}}
+                                        {{- event.description|length > 150 ? '(…)' -}}
+                                    </p>
+                                </div>
+                                <small class="opacity-50 text-nowrap text-end">
+                                    {{ event.startsAt|format_datetime('medium', 'none') -}}
+                                     - 
+                                    {{- event.endsAt|format_datetime('medium', 'none') }}
+                                    {% set address = event.venue.address %}
+                                    {% if address %}
+                                        <br>{{ address }}
+                                    {% endif %}
+                                </small>
+                                <small class="opacity-50 text-nowrap"></small>
+                            </div>
+                        </a>
+                    {% endfor %}
+                </div>
+            {% endif %}
         </div>
     </div>
 {% endblock %}

@@ -8,6 +8,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: EventRepository::class)]
@@ -16,6 +17,7 @@ class Event implements HasCreators
     use Field\Id { Field\Id::__construct as private generateId; }
     use Field\Creators { Field\Creators::__construct as generateCreators; }
     use Field\Description;
+    use Field\GenericContact;
     use Field\StartEndDates;
     use Field\Published;
     use Field\Timestampable;
@@ -29,13 +31,29 @@ class Event implements HasCreators
     #[Gedmo\Slug(fields: ['name'])]
     private ?string $slug = '';
 
-    #[ORM\Column(name: 'address', type: Types::TEXT, nullable: false)]
-    private string $address = '';
-
     #[ORM\Column(name: 'is_online_event', type: Types::BOOLEAN, nullable: false)]
     #[Assert\Type('bool')]
     #[Assert\NotNull()]
     private bool $isOnlineEvent = false;
+
+    #[ORM\Column(name: "locale", type: "string", nullable: true)]
+    #[Assert\Locale]
+    private ?string $locale = null;
+
+    #[ORM\Column(name: "url", type: "string", nullable: true)]
+    private ?string $url = null;
+
+    /**
+     * @Assert\Image(
+     *     mimeTypes={"image/jpeg", "image/png"},
+     *     minWidth=1000,
+     *     minRatio="1.3",
+     *     allowPortrait=false,
+     *     allowSquare=false,
+     *     detectCorrupted=true
+     * )
+     */
+    private ?UploadedFile $image = null;
 
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
@@ -56,43 +74,28 @@ class Event implements HasCreators
 
     public function getScheduledActivityById(string $id): ScheduledActivity
     {
-        foreach ($this->getVenue()->getFloors() as $floor) {
-            foreach ($floor->getRooms() as $room) {
-                foreach ($room->getBooths() as $booth) {
-                    foreach ($booth->getTimeSlots() as $slot) {
-                        foreach ($slot->getScheduledActivities() as $scheduledActivity) {
-                            if ($scheduledActivity->getId() === $id) {
-                                return $scheduledActivity;
-                            }
-                        }
-                    }
-                }
+        foreach ($this->getTimeSlots() as $slot) {
+            if ($activity = $slot->findScheduledActivityById($id)) {
+                return $activity;
             }
         }
 
-        throw new \RuntimeException(\sprintf('Could not find schedule "%s" in Event "%s".', $id, $this->name));
+        throw new \RuntimeException(\sprintf('Could not find scheduled activity with id "%s" in Event "%s".', $id, $this->name));
     }
 
+    /**
+     * @return array<TimeSlot>
+     */
     public function getTimeSlots(): array
     {
-        $slots = [];
-
-        foreach ($this->venue->getFloors() as $floor) {
-            foreach ($floor->getRooms() as $room) {
-                foreach ($room->getTimeSlots() as $slot) {
-                    $slots[$slot->getId()] = $slot;
-                }
-            }
-        }
-
-        return \array_values($slots);
+        return $this->venue->getTimeSlots();
     }
 
     public function getCalendarResourceJson(): array
     {
         $json = [];
 
-        foreach ($this->getVenue()->getFloors() as $floor) {
+        foreach ($this->venue->getFloors() as $floor) {
             $json[] = $floor->getCalendarResourceJson();
         }
 
@@ -106,41 +109,35 @@ class Event implements HasCreators
     {
         $json = [];
 
-        foreach ($this->getVenue()->getFloors() as $floor) {
-            foreach ($floor->getRooms() as $room) {
-                foreach ($room->getBooths() as $booth) {
-                    foreach ($booth->getTimeSlots() as $slot) {
-                        $activities = $slot->getScheduledActivities();
-                        foreach ($activities as $scheduledActivity) {
-                            if (!\in_array($scheduledActivity->getState(), $states)) {
-                                continue;
-                            }
-                            $json[] = [
-                                'id' => $scheduledActivity->getId(),
-                                'title' => $scheduledActivity->getActivity()?->getName(),
-                                'start' => $slot->getStartsAt(),
-                                'end' => $slot->getEndsAt(),
-                                'resourceId' => $booth->getId(),
-                                'extendedProps' => [
-                                    'type' => 'activity',
-                                    'description' => $scheduledActivity->getActivity()?->getDescription(),
-                                ],
-                                'color' => $scheduledActivity->getStateColor(),
-                            ];
-                        }
-                        if (!$activities->count()) {
-                            $json[] = [
-                                'id' => $slot->getId(),
-                                'title' => '',
-                                'start' => $slot->getStartsAt(),
-                                'end' => $slot->getEndsAt(),
-                                'resourceId' => $booth->getId(),
-                                'extendedProps' => ['type' => 'empty_slot'],
-                                'color' => '#000',
-                            ];
-                        }
-                    }
+        foreach ($this->getTimeSlots() as $slot) {
+            $activities = $slot->getScheduledActivities();
+            foreach ($activities as $scheduledActivity) {
+                if (!\in_array($scheduledActivity->getState(), $states)) {
+                    continue;
                 }
+                $json[] = [
+                    'id' => $scheduledActivity->getId(),
+                    'title' => $scheduledActivity->getActivity()?->getName(),
+                    'start' => $slot->getStartsAt(),
+                    'end' => $slot->getEndsAt(),
+                    'resourceId' => $slot->getBooth()->getId(),
+                    'extendedProps' => [
+                        'type' => 'activity',
+                        'description' => $scheduledActivity->getActivity()?->getDescription(),
+                    ],
+                    'color' => $scheduledActivity->getStateColor(),
+                ];
+            }
+            if (!$activities->count()) {
+                $json[] = [
+                    'id' => $slot->getId(),
+                    'title' => '',
+                    'start' => $slot->getStartsAt(),
+                    'end' => $slot->getEndsAt(),
+                    'resourceId' => $slot->getBooth()->getId(),
+                    'extendedProps' => ['type' => 'empty_slot'],
+                    'color' => '#000',
+                ];
             }
         }
 
@@ -167,16 +164,6 @@ class Event implements HasCreators
         $this->slug = $slug;
     }
 
-    public function getAddress(): ?string
-    {
-        return $this->address;
-    }
-
-    public function setAddress(?string $address): void
-    {
-        $this->address = $address ?: '';
-    }
-
     public function isOnlineEvent(): bool
     {
         return $this->isOnlineEvent;
@@ -195,5 +182,25 @@ class Event implements HasCreators
     public function setVenue(Venue $venue): void
     {
         $this->venue = $venue;
+    }
+
+    public function getLocale(): ?string
+    {
+        return $this->locale;
+    }
+
+    public function setLocale(?string $locale): void
+    {
+        $this->locale = $locale;
+    }
+
+    public function getUrl(): ?string
+    {
+        return $this->url;
+    }
+
+    public function setUrl(?string $url): void
+    {
+        $this->url = $url;
     }
 }

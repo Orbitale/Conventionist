@@ -1,0 +1,26 @@
+{% set translate_key = field.customOptions.get('translateKey')|default(false) %}
+{% set translation_domain = field.customOptions.get('translationDomain')|default('messages') %}
+{% set max_number_of_items_displayed = field.customOptions.get('maxItems')|default(5) %}
+
+{{ field.value|length ? '<ul class="list-unstyled mb-0">' }}
+
+{% for key, element in field.value %}
+    {% if loop.index0 == max_number_of_items_displayed %}
+        {{ 'admin.field.association.too_many'|trans({'%count%': loop.length - max_number_of_items_displayed}) }}
+    {% elseif loop.index0 < max_number_of_items_displayed %}
+        <li>
+            {%- if key is not numeric -%}
+                {{ key }} = 
+            {%- endif -%}
+            {%- if translate_key -%}
+                {{- element|trans(domain: translation_domain) -}}
+            {%- else -%}
+                {{- element -}}
+            {%- endif -%}
+        </li>
+    {% endif %}
+{% else %}
+    {{ include('@EasyAdmin/label/empty.html.twig') }}
+{% endfor %}
+
+{{ field.value|length ? '</ul>' }}

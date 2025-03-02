@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Admin\Field\AssociationCollectionField;
 use App\Controller\Admin\NestedControllers\NestedFloorCrudController;
 use App\Entity\Venue;
 use App\Security\Voter\VenueVoter;
@@ -62,8 +63,16 @@ final class VenueCrudController extends AbstractCrudController
     {
         return [
             Field\TextField::new('name'),
-            Field\TextareaField::new('address'),
-            Field\CollectionField::new('floors')->useEntryCrudForm(NestedFloorCrudController::class),
+            AssociationCollectionField::new('floors', null, NestedFloorCrudController::class, FloorCrudController::class),
+            Field\TextField::new('address')->hideOnForm(),
+            Field\TextField::new('address1')->hideOnIndex(),
+            Field\TextField::new('address2')->hideOnIndex(),
+            Field\TextField::new('state')->hideOnIndex(),
+            Field\TextField::new('zipCode')->hideOnIndex(),
+            Field\TextField::new('city')->hideOnIndex(),
+            Field\TextField::new('country')->hideOnIndex(),
+            Field\TextField::new('latitude')->hideOnIndex(),
+            Field\TextField::new('longitude')->hideOnIndex(),
         ];
     }
 }

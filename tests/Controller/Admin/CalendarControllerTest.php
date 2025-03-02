@@ -18,7 +18,7 @@ final class CalendarControllerTest extends WebTestCase
         $client = self::createClient();
 
         $client->loginUser($this->getUser($username));
-        $client->request('GET', '/admin/calendar');
+        $client->request('GET', '/en/admin/calendar');
         self::assertResponseIsSuccessful();
         $links = $client->getCrawler()->filter('#main .btn-group a')->each(fn ($node) => $node->text());
         \array_pop($links); // Remove "Create new"

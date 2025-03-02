@@ -47,7 +47,6 @@ final class EventCrudControllerTest extends AbstractCrudTestCase
     {
         $this->runNewFormSubmit([
             'name' => 'Test event name',
-            'address' => 'CPC',
             'description' => 'Hello world',
             'startsAt' => '2055-01-01T00:00',
             'endsAt' => '2055-01-05T00:00',
@@ -59,7 +58,6 @@ final class EventCrudControllerTest extends AbstractCrudTestCase
     {
         $this->runNewFormSubmit([
             'name' => 'Test event name',
-            'address' => 'CPC',
             'description' => 'Hello world',
             'startsAt' => '2055-01-01T00:00',
             'endsAt' => '2055-01-05T00:00',
@@ -71,7 +69,6 @@ final class EventCrudControllerTest extends AbstractCrudTestCase
     {
         $this->runEditFormSubmit(EventFixture::getIdFromName('TDC 2025'), [
             'name' => 'TDC 2055',
-            'address' => 'CPC',
             'description' => 'Hello world',
             'startsAt' => '2055-01-01T00:00',
             'endsAt' => '2055-01-05T00:00',

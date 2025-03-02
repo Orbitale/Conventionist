@@ -4,5 +4,5 @@
 
 {{ 'registration.email.body'|trans({
     "%signedUrl%": signedUrl,
-    "%expiration%": expiresAtMessageKey|trans(expiresAtMessageData, 'VerifyEmailBundle', locale),
+    "%expiration%": expiration,
 }, locale: locale)|raw }}

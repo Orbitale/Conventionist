@@ -2,6 +2,8 @@
 
 namespace App\Controller\Admin;
 
+use App\Admin\Field\AssociationCollectionField;
+use App\Admin\Field\AssociationField;
 use App\Admin\Field\EquipmentField;
 use App\Entity\Activity;
 use App\Entity\User;
@@ -59,7 +61,9 @@ final class ActivityCrudController extends AbstractCrudController
         yield Field\TextField::new('name');
         yield Field\NumberField::new('maxNumberOfParticipants')->setRequired(false)->hideOnIndex();
         yield Field\TextEditorField::new('description')->setRequired(false)->hideOnIndex();
-        yield Field\AssociationField::new('creators')->setHelp('The users that are allowed to manage this activity. Note: you will always be included in this list, even if you remove yourself from it.');
-        yield EquipmentField::new('neededEquipment');
+        yield AssociationField::new('creators')->setHelp('The users that are allowed to manage this activity. Note: you will always be included in this list, even if you remove yourself from it.');
+        yield EquipmentField::new('neededEquipment')
+            ->setCustomOption('translateKey', true)
+            ->setTemplatePath('admin/fields/field.array.html.twig');
     }
 }

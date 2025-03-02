@@ -2,13 +2,13 @@
 
 {% form_theme resetForm '@EasyAdmin/symfony-form-themes/bootstrap_5_layout.html.twig' %}
 
-{% block title %}Reset your password{% endblock %}
+{% block title 'password_reset.form.title'|trans %}
 
 {% block body %}
-    <h1>Reset your password</h1>
+    <h1>{{ 'password_reset.form.title'|trans }}</h1>
 
     {{ form_start(resetForm) }}
         {{ form_row(resetForm.plainPassword) }}
-        <button class="btn btn-primary">Reset password</button>
+        <button class="btn btn-primary">{{ 'password_reset.form.submit'|trans }}</button>
     {{ form_end(resetForm) }}
 {% endblock %}

@@ -80,6 +80,15 @@ class TimeSlot implements HasCreators
             && $this->getEndsAt()->format('H') > $hour;
     }
 
+    public function addScheduledActivity(ScheduledActivity $param): void
+    {
+        if ($this->scheduledActivities->contains($param)) {
+            return;
+        }
+
+        $this->scheduledActivities->add($param);
+    }
+
     private function isOpenForPlanning(): bool
     {
         if (!$this->open) {
@@ -87,6 +96,14 @@ class TimeSlot implements HasCreators
         }
 
         return \array_any($this->scheduledActivities->toArray(), static fn (ScheduledActivity $activity) => $activity->isAccepted());
+    }
+
+    public function findScheduledActivityById(string $id): ?ScheduledActivity
+    {
+        return \array_find(
+            $this->scheduledActivities->toArray(),
+            static fn (ScheduledActivity $item) => $item->getId() === $id,
+        );
     }
 
     public function getCreators(): Collection
@@ -112,6 +129,7 @@ class TimeSlot implements HasCreators
     public function setBooth(Booth $booth): void
     {
         $this->booth = $booth;
+        $booth->addTimeSlot($this);
     }
 
     public function isOpen(): bool

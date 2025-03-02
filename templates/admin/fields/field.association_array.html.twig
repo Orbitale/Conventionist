@@ -1,0 +1,33 @@
+{% set max_number_of_items_displayed = field.customOptions.get('maxItems')|default(5) %}
+
+{{ field.value|length ? '<ul class="list-unstyled mb-0">' }}
+
+{% for element in field.value %}
+    {% if loop.index0 == max_number_of_items_displayed %}
+        {{ 'admin.field.association.too_many'|trans({'%count%': loop.length - max_number_of_items_displayed}) }}
+    {% elseif loop.index0 < max_number_of_items_displayed %}
+        {% set to_string_method = field.customOptions.get('entryToStringMethod') %}
+
+        {% if
+            field.customOption('editController')
+            and field.isDisplayedOn('edit')
+        %}
+            {% set url = ea_url()
+                .setController(field.customOption('editController'))
+                .setAction('edit')
+                .setEntityId(element.id)
+            %}
+            <li>
+                <a href="{{ url }}">
+                    {{ element|ea_as_string(element ? to_string_method : null) }}
+                </a>
+            </li>
+        {% else %}
+            <li>{{ element|ea_as_string(element ? to_string_method : null) }}</li>
+        {% endif %}
+    {% endif %}
+{% else %}
+    {{ include('@EasyAdmin/label/empty.html.twig') }}
+{% endfor %}
+
+{{ field.value|length ? '</ul>' }}

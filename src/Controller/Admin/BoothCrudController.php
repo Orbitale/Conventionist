@@ -4,8 +4,6 @@ namespace App\Controller\Admin;
 
 use App\Admin\Field\EquipmentField;
 use App\Entity\Booth;
-use App\Form\AssociativeArrayItemType;
-use App\Form\AssociativeArrayType;
 use App\Security\Voter\VenueVoter;
 use Doctrine\ORM\QueryBuilder;
 use EasyCorp\Bundle\EasyAdminBundle\Collection\FieldCollection;
@@ -17,7 +15,6 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Dto\EntityDto;
 use EasyCorp\Bundle\EasyAdminBundle\Dto\SearchDto;
 use EasyCorp\Bundle\EasyAdminBundle\Field;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
 
 final class BoothCrudController extends AbstractCrudController
 {
@@ -63,6 +60,8 @@ final class BoothCrudController extends AbstractCrudController
         yield Field\TextField::new('name', 'Booth name or number');
         yield Field\AssociationField::new('room')->setDisabled($pageName === Crud::PAGE_EDIT);
         yield Field\NumberField::new('maxNumberOfParticipants');
-        yield EquipmentField::new('availableEquipment');
+        yield EquipmentField::new('availableEquipment')
+            ->setCustomOption('translateKey', true)
+            ->setTemplatePath('admin/fields/field.array.html.twig');
     }
 }
