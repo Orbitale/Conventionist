@@ -16,11 +16,16 @@ help: ## Show this help message
 	@grep -E '(^[a-zA-Z_-]+:.*?##.*$$)|(^##)' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[32m%-18s\033[0m %s\n", $$1, $$2}' | sed -e 's/\[32m##/[33m/'
 .PHONY: help
 
-install: start vendor db test-db assets cs-install ## Install the project and start it
+install: docker start vendor db test-db assets cs-install ## Install the project and start it
 .PHONY: install
 
 restart: stop start ## Restart the project
 .PHONY: start
+
+docker:
+	@docker compose pull --include-deps
+	@docker compose build --force-rm --compress
+.PHONY: docker
 
 start: ## Start the project
 	@symfony server:start --daemon

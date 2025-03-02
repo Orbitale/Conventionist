@@ -2,16 +2,16 @@
 services:
 ###> doctrine/doctrine-bundle ###
   database:
-    image: mariadb:${MARIADB_VERSION:-11.4}
+    image: mariadb:11.4
     environment:
-      MARIADB_DATABASE: ${MARIADB_DATABASE:-app}
+      MARIADB_DATABASE: app
       # You should definitely change the password in production
-      MARIADB_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD:-app}
-      MARIADB_USER: ${MARIADB_USER:-root}
+      MARIADB_ROOT_PASSWORD: app
+      MARIADB_USER: root
     healthcheck:
-      test: ["CMD", "mariadb-admin", "ping", "-h", "127.0.0.1", "-p${MARIADB_ROOT_PASSWORD:-app}"]
-      timeout: 5s
-      retries: 5
+      test: ["CMD", "mariadb", "-h", "127.0.0.1", "-papp", "app", "-e", "SELECT 1"]
+      timeout: 10s
+      retries: 10
       start_period: 60s
     volumes:
       - database_data:/var/lib/mariadb:rw
