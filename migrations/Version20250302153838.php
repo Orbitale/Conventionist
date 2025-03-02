@@ -11,7 +11,6 @@ final class Version20250302153838 extends AbstractMigration
 {
     public function up(Schema $schema): void
     {
-        // this up() migration is auto-generated, please modify it to your needs
         $this->addSql('ALTER TABLE event ADD locale VARCHAR(255) DEFAULT NULL');
         $this->addSql('ALTER TABLE event ADD url VARCHAR(255) DEFAULT NULL');
         $this->addSql('ALTER TABLE event ADD contact_name VARCHAR(255) DEFAULT NULL');
