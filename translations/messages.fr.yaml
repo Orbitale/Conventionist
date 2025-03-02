@@ -56,7 +56,7 @@ forgot_password_text: Mot de passe oublié ?
 have_account_login: Vous avez déjà un compte ? <a href="%path%">Connectez-vous</a>.
 Hours: Heures
 ID: Id
-index.jumbotron.links.authenticated_cta: Créer un évènement
+index.jumbotron.links.authenticated_cta: Aller au tableau de bord
 index.jumbotron.message: 'L''organisateur de conventions et d''évènements aux petits oignons 🧅'
 index.events.upcoming: Évènements à venir
 Is Online Event: En ligne

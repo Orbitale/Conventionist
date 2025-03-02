@@ -9,7 +9,7 @@
             </p>
             <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
                 {% if app.user %}
-                    <a href="{{ path('admin_event_new') }}" class="btn btn-primary btn-lg px-4 gap-3">
+                    <a href="{{ path('admin') }}" class="btn btn-primary btn-lg px-4 gap-3">
                         {{ 'index.jumbotron.links.authenticated_cta'|trans }}
                     </a>
                 {% else %}
