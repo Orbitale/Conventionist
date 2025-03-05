@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9dfad48e9e8e505131971ab85a50b55a",
+    "content-hash": "8f20f899e2d38e1c6631161ee402befe",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -3574,16 +3574,16 @@
         },
         {
             "name": "symfony/flex",
-            "version": "v2.4.7",
+            "version": "v2.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/flex.git",
-                "reference": "92f4fba342161ff36072bd3b8e0b3c6c23160402"
+                "reference": "8ce1acd9842abe0e9b4c4a0bd3f259859516c018"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/flex/zipball/92f4fba342161ff36072bd3b8e0b3c6c23160402",
-                "reference": "92f4fba342161ff36072bd3b8e0b3c6c23160402",
+                "url": "https://api.github.com/repos/symfony/flex/zipball/8ce1acd9842abe0e9b4c4a0bd3f259859516c018",
+                "reference": "8ce1acd9842abe0e9b4c4a0bd3f259859516c018",
                 "shasum": ""
             },
             "require": {
@@ -3622,7 +3622,7 @@
             "description": "Composer plugin for Symfony",
             "support": {
                 "issues": "https://github.com/symfony/flex/issues",
-                "source": "https://github.com/symfony/flex/tree/v2.4.7"
+                "source": "https://github.com/symfony/flex/tree/v2.5.0"
             },
             "funding": [
                 {
@@ -3638,7 +3638,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-10-07T08:51:54+00:00"
+            "time": "2025-03-03T07:50:46+00:00"
         },
         {
             "name": "symfony/form",
@@ -7904,34 +7904,36 @@
     "packages-dev": [
         {
             "name": "dama/doctrine-test-bundle",
-            "version": "v8.2.2",
+            "version": "v8.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dmaicher/doctrine-test-bundle.git",
-                "reference": "eefe54fdf00d910f808efea9cfce9cc261064a0a"
+                "reference": "11846789ca2a86f6277316b42448f7fccb3965ff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dmaicher/doctrine-test-bundle/zipball/eefe54fdf00d910f808efea9cfce9cc261064a0a",
-                "reference": "eefe54fdf00d910f808efea9cfce9cc261064a0a",
+                "url": "https://api.github.com/repos/dmaicher/doctrine-test-bundle/zipball/11846789ca2a86f6277316b42448f7fccb3965ff",
+                "reference": "11846789ca2a86f6277316b42448f7fccb3965ff",
                 "shasum": ""
             },
             "require": {
                 "doctrine/dbal": "^3.3 || ^4.0",
                 "doctrine/doctrine-bundle": "^2.11.0",
-                "php": "^7.4 || ^8.0",
-                "psr/cache": "^1.0 || ^2.0 || ^3.0",
-                "symfony/cache": "^5.4 || ^6.3 || ^7.0",
-                "symfony/framework-bundle": "^5.4 || ^6.3 || ^7.0"
+                "php": ">= 8.1",
+                "psr/cache": "^2.0 || ^3.0",
+                "symfony/cache": "^6.4 || ^7.2",
+                "symfony/framework-bundle": "^6.4 || ^7.2"
+            },
+            "conflict": {
+                "phpunit/phpunit": "<10.0"
             },
             "require-dev": {
                 "behat/behat": "^3.0",
                 "friendsofphp/php-cs-fixer": "^3.27",
                 "phpstan/phpstan": "^2.0",
-                "phpunit/phpunit": "^8.0 || ^9.0 || ^10.0 || ^11.0",
-                "symfony/phpunit-bridge": "^7.2",
-                "symfony/process": "^5.4 || ^6.3 || ^7.0",
-                "symfony/yaml": "^5.4 || ^6.3 || ^7.0"
+                "phpunit/phpunit": "^10.0 || ^11.0 || ^12.0",
+                "symfony/process": "^6.4 || ^7.2",
+                "symfony/yaml": "^6.4 || ^7.2"
             },
             "type": "symfony-bundle",
             "extra": {
@@ -7965,9 +7967,9 @@
             ],
             "support": {
                 "issues": "https://github.com/dmaicher/doctrine-test-bundle/issues",
-                "source": "https://github.com/dmaicher/doctrine-test-bundle/tree/v8.2.2"
+                "source": "https://github.com/dmaicher/doctrine-test-bundle/tree/v8.3.0"
             },
-            "time": "2025-02-04T14:37:36+00:00"
+            "time": "2025-03-04T10:07:03+00:00"
         },
         {
             "name": "doctrine/data-fixtures",
@@ -8828,16 +8830,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "12.0.5",
+            "version": "12.0.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "0f177d7316ba155d36337c3811b11993b54dae32"
+                "reference": "a1c7e1e0466b6774de8edd72d91bc82400f7dfc0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/0f177d7316ba155d36337c3811b11993b54dae32",
-                "reference": "0f177d7316ba155d36337c3811b11993b54dae32",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/a1c7e1e0466b6774de8edd72d91bc82400f7dfc0",
+                "reference": "a1c7e1e0466b6774de8edd72d91bc82400f7dfc0",
                 "shasum": ""
             },
             "require": {
@@ -8851,7 +8853,7 @@
                 "phar-io/manifest": "^2.0.4",
                 "phar-io/version": "^3.2.1",
                 "php": ">=8.3",
-                "phpunit/php-code-coverage": "^12.0.3",
+                "phpunit/php-code-coverage": "^12.0.4",
                 "phpunit/php-file-iterator": "^6.0.0",
                 "phpunit/php-invoker": "^6.0.0",
                 "phpunit/php-text-template": "^5.0.0",
@@ -8905,7 +8907,7 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/phpunit/issues",
                 "security": "https://github.com/sebastianbergmann/phpunit/security/policy",
-                "source": "https://github.com/sebastianbergmann/phpunit/tree/12.0.5"
+                "source": "https://github.com/sebastianbergmann/phpunit/tree/12.0.6"
             },
             "funding": [
                 {
@@ -8921,7 +8923,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-02-25T06:13:04+00:00"
+            "time": "2025-03-05T07:38:55+00:00"
         },
         {
             "name": "pierstoval/smoke-testing",
