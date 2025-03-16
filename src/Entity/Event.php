@@ -38,12 +38,12 @@ class Event implements HasCreators
     #[Assert\NotNull()]
     private bool $isOnlineEvent = false;
 
-    #[ORM\Column(name: 'allow_activity_registration', type: Types::BOOLEAN, nullable: true)]
+    #[ORM\Column(name: 'allow_activity_registration', type: Types::BOOLEAN, nullable: true, options: ['default' => 1])]
     #[Assert\Type('bool')]
     #[Assert\NotNull()]
     private bool $allowActivityRegistration = true;
 
-    #[ORM\Column(name: 'allow_attendee_registration', type: Types::BOOLEAN, nullable: true)]
+    #[ORM\Column(name: 'allow_attendee_registration', type: Types::BOOLEAN, nullable: true, options: ['default' => 1])]
     #[Assert\Type('bool')]
     #[Assert\NotNull()]
     private bool $allowAttendeeRegistration = true;
