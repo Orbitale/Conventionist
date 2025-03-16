@@ -73,14 +73,24 @@ final class EventCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
+            Field\FormField::addColumn(6),
+            Field\FormField::addFieldset('General'),
             Field\TextField::new('name'),
-            Field\DateTimeField::new('startsAt'),
-            Field\DateTimeField::new('endsAt'),
             Field\TextEditorField::new('description')->setRequired(false)->hideOnIndex(),
             Field\AssociationField::new('venue')->setRequired(true),
             AssociationField::new('creators')
-                ->setHelp('The users that are allowed to manage this event. Note: you will always be included in this list, even if you remove yourself from it.'),
+                ->setHelp('admin.field.creators.help'),
             Field\BooleanField::new('isOnlineEvent')->renderAsSwitch(false),
+
+            Field\FormField::addColumn(6),
+            Field\FormField::addFieldset('Dates'),
+            Field\DateTimeField::new('startsAt'),
+            Field\DateTimeField::new('endsAt'),
+            Field\FormField::addFieldset('Registration'),
+            Field\BooleanField::new('allowActivityRegistration')->renderAsSwitch(false)
+                ->setHelp('admin.field.allow_activity_registration.help'),
+            Field\BooleanField::new('allowAttendeeRegistration')->renderAsSwitch(false)
+                ->setHelp('admin.field.allow_attendee_registration.help'),
         ];
     }
 }

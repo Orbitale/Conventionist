@@ -5,8 +5,13 @@ ACCEPTED: Accepted
 Activities: Activities
 Activity: Activity
 Address: Address
+Allow Activity Registration: Allow Activity Registration
+Allow Attendee Registration: Allow Attendee Registration
 admin.entities.users.password_help: Leave empty to generate a random password (recommended)
 admin.field.association.too_many: '{0}(… no more items)|{1}(… one more item)|[2,Inf](… %count% more items)'
+admin.field.creators.help: 'The users that are allowed to manage this object. Note: you will always be included in this list, even if you remove yourself from it.'
+admin.field.allow_activity_registration.help: Checking this box will allow the public to submit new activities for this event.
+admin.field.allow_attendee_registration.help: Checking this box will allow the public to register as attendees for this event's activities.
 admin.roles.new: Add new roles
 Administration: Administration
 apply_filters: Apply filters
@@ -31,6 +36,8 @@ Created At: Created At
 CREATED: Created
 Creators: Creators
 Dashboard: Dashboard
+dashboard.view.create_events: Create an event
+dashboard.view.create_events.text: Events are the core of Conventionist.<br>They can correspond to a workshop event, a convention, a salon, or whatever stack of activities you want to plan.<br>You can create an event, configure its venue, the time slots and the activities that will be proposed to the public.
 dashboard.view.manage_time_slot: Manage time slots
 dashboard.view.manage_time_slot.text: Time slots are periods of time during which activities can be scheduled.<br>When an event is set up, you can add slots, either directly in the administration or via the calendar, to open up availability for the public to propose activities.
 dashboard.view.manage_venues: Manage event venues
@@ -42,8 +49,12 @@ email_address: E-mail address
 Ends At: Ends at
 Event organizer: Event organizer
 Event Venues: Event Venues
+event.activity.register_as_attendee: Register to this activity
+event.activity.open_slot: Open time slot
+event.activity.register_as_animator: Propose an animation for this slot
 event.endsAt.colon: 'Ends at:'
 event.startsAt.colon: 'Starts at:'
+event.schedule: Schedule
 Event: Event
 Events: Events
 Floor name: Floor name

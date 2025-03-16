@@ -58,4 +58,34 @@ final class EventRepository extends ServiceEntityRepository
             ->setParameter('id', $eventId)
             ->getOneOrNullResult();
     }
+
+    public function findOneWithRelations(string $slug): ?Event
+    {
+        return $this->getEntityManager()->createQuery(<<<DQL
+            SELECT event,
+                venue,
+                floor,
+                room,
+                booth,
+                time_slot,
+                scheduled_activity,
+                activity
+            FROM {$this->getEntityName()} event
+            INNER JOIN event.venue venue
+            LEFT JOIN venue.floors floor
+            LEFT JOIN floor.rooms room
+            LEFT JOIN room.booths booth
+            LEFT JOIN booth.timeSlots time_slot
+            LEFT JOIN time_slot.scheduledActivities scheduled_activity
+            LEFT JOIN scheduled_activity.activity activity
+            WHERE event.slug = :slug
+            ORDER BY booth.name ASC,
+                room.name ASC,
+                floor.name ASC
+        DQL
+        )
+            ->setParameter('slug', $slug)
+            ->getOneOrNullResult();
+    }
+
 }

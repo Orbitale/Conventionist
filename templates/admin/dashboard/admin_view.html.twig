@@ -26,19 +26,27 @@
     <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
 
         {{ _self.focus(
+            'calendar',
+            'Events',
+            'dashboard.view.create_events.text',
+            path('admin_event_new'),
+            'dashboard.view.create_events'
+        ) }}
+
+        {{ _self.focus(
             'building-circle-arrow-right',
-            'dashboard.view.manage_venues',
+            'Venues',
             'dashboard.view.manage_venues.text',
             path('admin_time_slot_index'),
-            'Venues'
+            'dashboard.view.manage_venues'
         ) }}
 
         {{ _self.focus(
             'timeline',
-            'dashboard.view.manage_time_slot',
+            'Time Slots',
             'dashboard.view.manage_time_slot.text',
             path('admin_time_slot_index'),
-            'Time Slots'
+            'dashboard.view.manage_time_slot'
         ) }}
 
     </div>

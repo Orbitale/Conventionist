@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Tests\Controller;
+namespace App\Tests\Controller\Public;
 
-use App\Controller\RegistrationController;
+use App\Controller\Public\RegistrationController;
 use App\Repository\UserRepository;
 use App\Tests\CreateUser;
 use App\Tests\ProvidesLocales;

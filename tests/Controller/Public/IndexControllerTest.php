@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Controller;
+namespace App\Tests\Controller\Public;
 
 use App\Tests\GetUser;
 use App\Tests\ProvidesLocales;

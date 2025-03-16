@@ -28,9 +28,9 @@ docker:
 .PHONY: docker
 
 start: ## Start the project
-	@symfony server:start --daemon
-	@docker compose up --detach --wait
-	@-symfony local:run --daemon symfony console messenger:consume --all -vvv
+	symfony server:start --daemon
+	docker compose up --detach --wait
+	-symfony local:run --daemon symfony console messenger:consume --all -vvv
 .PHONY: start
 
 stop: ## Stop the project

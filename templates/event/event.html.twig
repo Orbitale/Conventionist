@@ -7,6 +7,68 @@
         <div class="col-lg-6 mx-auto">
             {{ event.description|nl2br }}
         </div>
+    </div>
 
+    <h2 class="text-center">{{ 'event.schedule'|trans }}</h2>
+    <div class="row">
+        {% for day in event.days %}
+            <div class="col">
+                <h3 class="text-center">
+                    {{ day.date|format_datetime('medium', 'none') }}
+                </h3>
+                {% for time_slot in event.daySlotsForPublicView(day) %}
+                    {% if time_slot.hasAcceptedActivity %}
+                        {% set scheduled_activity = time_slot.acceptedActivity %}
+
+                        {% set activity = scheduled_activity.activity %}
+                        <section class="activity card mb-3">
+                            <header class="card-header">
+                                <h4>
+                                    {{ activity.name }}
+                                    <small class="text-secondary float-end">
+                                        {{ scheduled_activity.startsAt|format_datetime('none', 'short') }}
+                                        - {{ scheduled_activity.endsAt|format_datetime('none', 'short') }}
+                                    </small>
+                                </h4>
+                            </header>
+                            <div class="card-body">
+                                {{ activity.description|nl2br }}
+                            </div>
+                            {% if event.allowsAttendeeRegistration %}
+                                <div class="card-footer">
+                                    <a href="#" class="btn btn-primary">
+                                        <i class="fa fa-arrow-right"></i>
+                                        {{ 'event.activity.register_as_attendee'|trans }}
+                                    </a>
+                                </div>
+                            {% endif %}
+                        </section>
+                    {% else %}
+                        <section class="activity card mb-3">
+                            <header class="card-header">
+                                <h4>
+                                    {{ 'event.activity.open_slot'|trans }}
+                                    <small class="text-secondary float-end">
+                                        {{ time_slot.startsAt|format_datetime('none', 'short') }}
+                                        - {{ time_slot.endsAt|format_datetime('none', 'short') }}
+                                    </small>
+                                </h4>
+                            </header>
+                            <div class="card-body">
+                                {{ activity.description|nl2br }}
+                            </div>
+                            {% if event.allowsActivityRegistration %}
+                                <div class="card-footer">
+                                    <a href="#" class="btn btn-primary">
+                                        <i class="fa fa-arrow-right"></i>
+                                        {{ 'event.activity.register_as_animator'|trans }}
+                                    </a>
+                                </div>
+                            {% endif %}
+                        </section>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        {% endfor %}
     </div>
 {% endblock %}

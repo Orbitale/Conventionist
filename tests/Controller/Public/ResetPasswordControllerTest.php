@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Tests\Controller;
+namespace App\Tests\Controller\Public;
 
-use App\Controller\AuthController;
-use App\Controller\ResetPasswordController;
+use App\Controller\Public\AuthController;
+use App\Controller\Public\ResetPasswordController;
 use App\Tests\ProvidesLocales;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;

@@ -37,6 +37,7 @@ class TimeSlot implements HasCreators
     #[ORM\Column(name: 'available_equipment', type: Types::JSON, nullable: false, options: ['default' => '[]'])]
     private array $availableEquipment = [];
 
+    /** @var Collection<ScheduledActivity> */
     #[ORM\OneToMany(targetEntity: ScheduledActivity::class, mappedBy: 'timeSlot')]
     private Collection $scheduledActivities;
 
@@ -89,6 +90,33 @@ class TimeSlot implements HasCreators
         $this->scheduledActivities->add($param);
     }
 
+    public function isDay(\DateTimeInterface $day): bool
+    {
+        return $this->startsAt->format('Y-m-d') === $day->format('Y-m-d');
+    }
+
+    public function hasAcceptedActivity(): bool
+    {
+        return \array_any($this->scheduledActivities->toArray(), static fn ($activity) => $activity->isAccepted());
+    }
+
+    public function getAcceptedActivity(): ScheduledActivity
+    {
+        foreach ($this->scheduledActivities as $activity) {
+            if ($activity->isAccepted()) {
+                return $activity;
+            }
+        }
+
+        throw new \RuntimeException('No accepted activity available.');
+    }
+
+    public function canBeShownToPublic(\DateTimeInterface $day): bool
+    {
+        return $this->isDay($day) && ($this->hasAcceptedActivity() || ($this->isOpen() && $this->event->allowsActivityRegistration()));
+    }
+
+
     private function isOpenForPlanning(): bool
     {
         if (!$this->open) {
@@ -104,6 +132,14 @@ class TimeSlot implements HasCreators
             $this->scheduledActivities->toArray(),
             static fn (ScheduledActivity $item) => $item->getId() === $id,
         );
+    }
+
+    /**
+     * @return Collection<ScheduledActivity>
+     */
+    public function getAcceptedScheduledActivities(): Collection
+    {
+        return $this->scheduledActivities->filter(static fn (ScheduledActivity $activity) => $activity->isAccepted());
     }
 
     public function getCreators(): Collection

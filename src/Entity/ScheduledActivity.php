@@ -92,6 +92,16 @@ class ScheduledActivity
         return $this->timeSlot->getEvent();
     }
 
+    public function getStartsAt(): \DateTimeImmutable
+    {
+        return $this->timeSlot->getStartsAt();
+    }
+
+    public function getEndsAt(): \DateTimeImmutable
+    {
+        return $this->timeSlot->getEndsAt();
+    }
+
     public function getState(): ScheduleActivityState
     {
         return $this->state;

@@ -1,6 +1,6 @@
 <?php
 
-use App\Controller\AuthController;
+use App\Controller\Public\AuthController;
 use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
 
 return static function (RoutingConfigurator $configurator) {

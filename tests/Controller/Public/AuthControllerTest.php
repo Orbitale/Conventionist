@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Tests\Controller;
+namespace App\Tests\Controller\Public;
 
-use App\Controller\Admin\DashboardController;
-use App\Controller\AuthController;
+use App\Controller\Public\AuthController;
 use App\Tests\GetUser;
 use App\Tests\ProvidesLocales;
 use PHPUnit\Framework\Attributes\DataProvider;

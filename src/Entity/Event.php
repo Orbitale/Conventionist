@@ -36,6 +36,16 @@ class Event implements HasCreators
     #[Assert\NotNull()]
     private bool $isOnlineEvent = false;
 
+    #[ORM\Column(name: 'allow_activity_registration', type: Types::BOOLEAN, nullable: true)]
+    #[Assert\Type('bool')]
+    #[Assert\NotNull()]
+    private bool $allowActivityRegistration = true;
+
+    #[ORM\Column(name: 'allow_attendee_registration', type: Types::BOOLEAN, nullable: true)]
+    #[Assert\Type('bool')]
+    #[Assert\NotNull()]
+    private bool $allowAttendeeRegistration = true;
+
     #[ORM\Column(name: "locale", type: "string", nullable: true)]
     #[Assert\Locale]
     private ?string $locale = null;
@@ -70,6 +80,32 @@ class Event implements HasCreators
     public function __toString(): string
     {
         return $this->name ?: '';
+    }
+
+    public function getDays(): array
+    {
+        $days = [
+            $this->startsAt->format('Y-m-d') => $this->startsAt,
+        ];
+
+        for ($i = 1; $i <= $this->startsAt->diff($this->endsAt)->days; $i++) {
+            $date = $this->startsAt->modify("+{$i} days");
+            $days[$date->format('Y-m-d')] = $date;
+        }
+
+        return $days;
+    }
+
+    /**
+     * @return array<ScheduledActivity>
+     */
+    public function getDaySlotsForPublicView(\DateTimeInterface $day): array
+    {
+        $slotsAtDay = \array_filter($this->getTimeSlots(), static fn (TimeSlot $slot): bool => $slot->canBeShownToPublic($day));
+
+        \usort($slotsAtDay, static fn (TimeSlot $a, TimeSlot $b) => $a->getStartsAt() <=> $b->getStartsAt());
+
+        return $slotsAtDay;
     }
 
     public function getScheduledActivityById(string $id): ScheduledActivity
@@ -172,6 +208,26 @@ class Event implements HasCreators
     public function setIsOnlineEvent(bool $isOnlineEvent): void
     {
         $this->isOnlineEvent = $isOnlineEvent;
+    }
+
+    public function allowsActivityRegistration(): bool
+    {
+        return $this->allowActivityRegistration;
+    }
+
+    public function setAllowActivityRegistration(bool $allowActivityRegistration): void
+    {
+        $this->allowActivityRegistration = $allowActivityRegistration;
+    }
+
+    public function allowsAttendeeRegistration(): bool
+    {
+        return $this->allowAttendeeRegistration;
+    }
+
+    public function setAllowAttendeeRegistration(bool $allowAttendeeRegistration): void
+    {
+        $this->allowAttendeeRegistration = $allowAttendeeRegistration;
     }
 
     public function getVenue(): Venue

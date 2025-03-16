@@ -5,8 +5,13 @@ ACCEPTED: Acceptée
 Activities: Activités
 Activity: Activité
 Address: Adresse
+Allow Activity Registration: Proposition d'activités
+Allow Attendee Registration: Inscriptions publiques aux activités
 admin.entities.users.password_help: Laissez vide pour générer un mot de passe aléatoire (recommended)
 admin.field.association.too_many: '{0}(… aucun autre élément)|{1}(… un autre élément)|[2,Inf](… %count% autres éléments)'
+admin.field.creators.help: 'Les utilisateurs autorisés à gérer cet objet. Remarque : vous serez toujours inclus dans cette liste, même si vous vous en retirez.'
+admin.field.allow_activity_registration.help: En cochant cette case, le public pourra soumettre de nouvelles activités pour cet événement.
+admin.field.allow_attendee_registration.help: En cochant cette case, le public pourra s'inscrire en tant que participant aux activités de cet événement.
 admin.roles.new: Ajouter des rôles
 Administration: Administration
 apply_filters: Appliquer les filtres
@@ -31,6 +36,8 @@ Created At: Créé(e) le
 CREATED: Créée
 Creators: 'Créateurs/créatrices'
 Dashboard: Tableau de bord
+dashboard.view.create_events: Créer un évènement
+dashboard.view.create_events.text: Les événements sont au cœur de Conventionist.<br>Ils peuvent correspondre à des ateliers, une convention, un salon ou tout autre ensemble d'activités que vous souhaitez planifier.<br>Vous pouvez créer un événement, configurer son lieu d'accueil, les plages horaires et les activités qui seront proposées au public.
 dashboard.view.manage_time_slot: Gérez les créneaux horaires
 dashboard.view.manage_time_slot.text: Les céneaux horaires sont des périodes de temps durant lesquelles des activités peuvent être programmées.<br>Lorsqu'un évènement est configuré, vous pouvez ajouter des créneaux, soit directement dans l'administration, soit par le biais du calendrier, pour ouvrir des disponibilités pour que le public proposent des activités.
 dashboard.view.manage_venues: Gérez les lieux d'accueil
@@ -42,8 +49,12 @@ email_address: Adresse e-mail
 Ends At: Date de fin
 Event organizer: 'Organisateur d''évènements'
 Event Venues: 'Lieux d''accueil'
+event.activity.register_as_attendee: S'inscrire à cette activité
+event.activity.open_slot: Créneau ouvert
+event.activity.register_as_animator: Proposer une animation pour ce créneau
 event.endsAt.colon: 'Fin :'
 event.startsAt.colon: 'Début :'
+event.schedule: Programme
 Event: Évènement
 Events: Évènements
 Floor name: 'Nom de l''étage'

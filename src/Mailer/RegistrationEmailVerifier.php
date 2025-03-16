@@ -2,7 +2,7 @@
 
 namespace App\Mailer;
 
-use App\Controller\RegistrationController;
+use App\Controller\Public\RegistrationController;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
