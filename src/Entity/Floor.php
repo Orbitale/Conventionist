@@ -65,19 +65,6 @@ class Floor implements HasNestedRelations, HasCreators
         return $json;
     }
 
-    /**
-     * @return array<TimeSlot>
-     */
-    public function getTimeSlots(): array
-    {
-        $slots = [];
-        foreach ($this->rooms as $room) {
-            $slots += $room->getTimeSlots();
-        }
-
-        return $slots;
-    }
-
     public function getCreators(): Collection
     {
         return $this->venue->getCreators();

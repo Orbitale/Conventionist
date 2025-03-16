@@ -51,7 +51,7 @@ Event organizer: Event organizer
 Event Venues: Event Venues
 event.activity.register_as_attendee: Register to this activity
 event.activity.open_slot: Open time slot
-event.activity.register_as_animator: Propose an animation for this slot
+event.activity.register_as_animator: Propose an animation
 event.endsAt.colon: 'Ends at:'
 event.startsAt.colon: 'Starts at:'
 event.schedule: Schedule

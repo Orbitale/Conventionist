@@ -64,19 +64,6 @@ class Room implements HasNestedRelations, HasCreators
         return $json;
     }
 
-    /**
-     * @return array<TimeSlot>
-     */
-    public function getTimeSlots(): array
-    {
-        $slots = [];
-        foreach ($this->booths as $booth) {
-            $slots += $booth->getTimeSlots()->toArray();
-        }
-
-        return $slots;
-    }
-
     public function getCreators(): Collection
     {
         return $this->floor->getCreators();

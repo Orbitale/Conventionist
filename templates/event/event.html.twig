@@ -1,5 +1,10 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}
+    {{ event.name }} - {{ parent() }}
+{% endblock %}
+
+
 {% block body %}
     <div class="px-4 py-5 my-5 text-center">
         <h1 class="display-5 fw-bold text-body-emphasis">{{ event.name }}</h1>
@@ -22,7 +27,7 @@
 
                         {% set activity = scheduled_activity.activity %}
                         <section class="activity card mb-3">
-                            <header class="card-header">
+                            <div class="card-body">
                                 <h4>
                                     {{ activity.name }}
                                     <small class="text-secondary float-end">
@@ -30,41 +35,36 @@
                                         - {{ scheduled_activity.endsAt|format_datetime('none', 'short') }}
                                     </small>
                                 </h4>
-                            </header>
-                            <div class="card-body">
                                 {{ activity.description|nl2br }}
+                                {% if event.allowsAttendeeRegistration %}
+                                    <div>
+                                        <a href="#" class="btn btn-link float-end">
+                                            <i class="fa fa-arrow-right"></i>
+                                            {{ 'event.activity.register_as_attendee'|trans }}
+                                        </a>
+                                    </div>
+                                {% endif %}
                             </div>
-                            {% if event.allowsAttendeeRegistration %}
-                                <div class="card-footer">
-                                    <a href="#" class="btn btn-primary">
-                                        <i class="fa fa-arrow-right"></i>
-                                        {{ 'event.activity.register_as_attendee'|trans }}
-                                    </a>
-                                </div>
-                            {% endif %}
                         </section>
                     {% else %}
                         <section class="activity card mb-3">
-                            <header class="card-header">
+                            <div class="card-body">
                                 <h4>
-                                    {{ 'event.activity.open_slot'|trans }}
                                     <small class="text-secondary float-end">
                                         {{ time_slot.startsAt|format_datetime('none', 'short') }}
                                         - {{ time_slot.endsAt|format_datetime('none', 'short') }}
                                     </small>
                                 </h4>
-                            </header>
-                            <div class="card-body">
-                                {{ activity.description|nl2br }}
+                                {{ 'event.activity.open_slot'|trans }}
+                                {% if event.allowsActivityRegistration %}
+                                    <div>
+                                        <a href="#" class="btn btn-link float-end">
+                                            <i class="fa fa-arrow-right"></i>
+                                            {{ 'event.activity.register_as_animator'|trans }}
+                                        </a>
+                                    </div>
+                                {% endif %}
                             </div>
-                            {% if event.allowsActivityRegistration %}
-                                <div class="card-footer">
-                                    <a href="#" class="btn btn-primary">
-                                        <i class="fa fa-arrow-right"></i>
-                                        {{ 'event.activity.register_as_animator'|trans }}
-                                    </a>
-                                </div>
-                            {% endif %}
                         </section>
                     {% endif %}
                 {% endfor %}

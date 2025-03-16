@@ -20,11 +20,11 @@ class TimeSlot implements HasCreators
     use Field\Timestampable;
     use TimestampableEntity;
 
-    #[ORM\ManyToOne(targetEntity: Event::class)]
+    #[ORM\ManyToOne(targetEntity: Event::class, inversedBy: 'timeSlots')]
     #[ORM\JoinColumn(name: 'event_id', nullable: false)]
     private Event $event;
 
-    #[ORM\ManyToOne(targetEntity: Booth::class, inversedBy: 'timeSlots')]
+    #[ORM\ManyToOne(targetEntity: Booth::class)]
     #[ORM\JoinColumn(nullable: false)]
     #[Assert\NotBlank]
     private Booth $booth;
@@ -165,7 +165,6 @@ class TimeSlot implements HasCreators
     public function setBooth(Booth $booth): void
     {
         $this->booth = $booth;
-        $booth->addTimeSlot($this);
     }
 
     public function isOpen(): bool

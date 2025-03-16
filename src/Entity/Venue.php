@@ -90,17 +90,4 @@ class Venue implements HasNestedRelations, HasCreators
     {
         return $this->floors->contains($floor);
     }
-
-    /**
-     * @return array<TimeSlot>
-     */
-    public function getTimeSlots(): array
-    {
-        $slots = [];
-        foreach ($this->floors as $floor) {
-            $slots += $floor->getTimeSlots();
-        }
-
-        return $slots;
-    }
 }

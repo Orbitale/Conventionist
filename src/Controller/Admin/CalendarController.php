@@ -7,6 +7,7 @@ use App\Entity\User;
 use App\Enum\ScheduleActivityState;
 use App\Repository\EventRepository;
 use App\Security\Voter\ScheduledActivityVoter;
+use Doctrine\Common\Collections\Collection;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Option\EA;
 use EasyCorp\Bundle\EasyAdminBundle\Provider\AdminContextProvider;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -108,11 +109,11 @@ final class CalendarController extends AbstractController
     }
 
     /**
-     * @param array<TimeSlot> $timeSlots
+     * @param Collection<TimeSlot> $timeSlots
      *
      * @return array<int>
      */
-    private function getHours(array $timeSlots): array
+    private function getHours(Collection $timeSlots): array
     {
         $hours = [];
 

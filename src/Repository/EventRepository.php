@@ -48,7 +48,7 @@ final class EventRepository extends ServiceEntityRepository
             LEFT JOIN venue.floors floor
             LEFT JOIN floor.rooms room
             LEFT JOIN room.booths booth
-            LEFT JOIN booth.timeSlots time_slot
+            LEFT JOIN event.timeSlots time_slot
             WHERE event.id = :id
             ORDER BY booth.name ASC,
                 room.name ASC,
@@ -75,7 +75,7 @@ final class EventRepository extends ServiceEntityRepository
             LEFT JOIN venue.floors floor
             LEFT JOIN floor.rooms room
             LEFT JOIN room.booths booth
-            LEFT JOIN booth.timeSlots time_slot
+            LEFT JOIN event.timeSlots time_slot
             LEFT JOIN time_slot.scheduledActivities scheduled_activity
             LEFT JOIN scheduled_activity.activity activity
             WHERE event.slug = :slug

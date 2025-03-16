@@ -27,13 +27,9 @@ class Booth implements HasCreators
     #[ORM\Column(name: 'available_equipment', type: Types::JSON, nullable: false, options: ['default' => '[]'])]
     private array $availableEquipment = [];
 
-    #[ORM\OneToMany(targetEntity: TimeSlot::class, mappedBy: 'booth')]
-    private Collection $timeSlots;
-
     public function __construct()
     {
         $this->generateId();
-        $this->timeSlots = new ArrayCollection();
     }
 
     public function __toString(): string
@@ -86,22 +82,5 @@ class Booth implements HasCreators
     public function setAvailableEquipment(array $availableEquipment): void
     {
         $this->availableEquipment = $availableEquipment;
-    }
-
-    /**
-     * @return Collection<TimeSlot>
-     */
-    public function getTimeSlots(): Collection
-    {
-        return $this->timeSlots;
-    }
-
-    public function addTimeSlot(TimeSlot $slot): void
-    {
-        if ($this->timeSlots->contains($slot)) {
-            return;
-        }
-
-        $this->timeSlots->add($slot);
     }
 }

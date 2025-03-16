@@ -51,7 +51,7 @@ Event organizer: 'Organisateur d''évènements'
 Event Venues: 'Lieux d''accueil'
 event.activity.register_as_attendee: S'inscrire à cette activité
 event.activity.open_slot: Créneau ouvert
-event.activity.register_as_animator: Proposer une animation pour ce créneau
+event.activity.register_as_animator: Proposer une animation
 event.endsAt.colon: 'Fin :'
 event.startsAt.colon: 'Début :'
 event.schedule: Programme

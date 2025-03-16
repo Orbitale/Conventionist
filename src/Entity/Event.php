@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Enum\ScheduleActivityState;
 use App\Repository\EventRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -70,11 +72,15 @@ class Event implements HasCreators
     #[Assert\Valid]
     private Venue $venue;
 
+    #[ORM\OneToMany(targetEntity: TimeSlot::class, mappedBy: 'event')]
+    private Collection $timeSlots;
+
     public function __construct()
     {
         $this->generateId();
         $this->generateCreators();
         $this->generateTimestamps();
+        $this->timeSlots = new ArrayCollection();
     }
 
     public function __toString(): string
@@ -101,7 +107,7 @@ class Event implements HasCreators
      */
     public function getDaySlotsForPublicView(\DateTimeInterface $day): array
     {
-        $slotsAtDay = \array_filter($this->getTimeSlots(), static fn (TimeSlot $slot): bool => $slot->canBeShownToPublic($day));
+        $slotsAtDay = \array_filter($this->timeSlots->toArray(), static fn (TimeSlot $slot): bool => $slot->canBeShownToPublic($day));
 
         \usort($slotsAtDay, static fn (TimeSlot $a, TimeSlot $b) => $a->getStartsAt() <=> $b->getStartsAt());
 
@@ -110,7 +116,7 @@ class Event implements HasCreators
 
     public function getScheduledActivityById(string $id): ScheduledActivity
     {
-        foreach ($this->getTimeSlots() as $slot) {
+        foreach ($this->timeSlots as $slot) {
             if ($activity = $slot->findScheduledActivityById($id)) {
                 return $activity;
             }
@@ -120,11 +126,11 @@ class Event implements HasCreators
     }
 
     /**
-     * @return array<TimeSlot>
+     * @return Collection<TimeSlot>
      */
-    public function getTimeSlots(): array
+    public function getTimeSlots(): Collection
     {
-        return $this->venue->getTimeSlots();
+        return $this->timeSlots;
     }
 
     public function getCalendarResourceJson(): array

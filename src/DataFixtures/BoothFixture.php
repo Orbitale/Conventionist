@@ -81,31 +81,6 @@ final class BoothFixture extends ArrayFixture implements ORMFixtureInterface, De
                 'maxNumberOfParticipants' => 6,
                 'room' => new Ref(Room::class, 'room-Hall jeux'),
             ],
-            '80b71287-1f87-4478-857d-d0c74d6950b0' => [
-                'name' => 'Hall jeux 06',
-                'maxNumberOfParticipants' => 6,
-                'room' => new Ref(Room::class, 'room-Hall jeux'),
-            ],
-            '9a866a49-ebbd-431a-89d9-e2140116949f' => [
-                'name' => 'Hall jeux 07',
-                'maxNumberOfParticipants' => 6,
-                'room' => new Ref(Room::class, 'room-Hall jeux'),
-            ],
-            '363bdda4-2255-4a6b-a6de-ecdeef5858aa' => [
-                'name' => 'Hall jeux 08',
-                'maxNumberOfParticipants' => 6,
-                'room' => new Ref(Room::class, 'room-Hall jeux'),
-            ],
-            'd35bed41-dfec-479c-bcd1-6fc8f92257b8' => [
-                'name' => 'Hall jeux 09',
-                'maxNumberOfParticipants' => 6,
-                'room' => new Ref(Room::class, 'room-Hall jeux'),
-            ],
-            '3aeb2407-c753-4ec5-acfb-e6f0caac14af' => [
-                'name' => 'Hall jeux 10',
-                'maxNumberOfParticipants' => 6,
-                'room' => new Ref(Room::class, 'room-Hall jeux'),
-            ],
             'c04a5f37-84e8-4dd6-9a87-f504ff79b0a8' => [
                 'name' => 'Custom Main hall table 1',
                 'maxNumberOfParticipants' => 6,

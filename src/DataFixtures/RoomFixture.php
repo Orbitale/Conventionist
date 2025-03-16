@@ -65,26 +65,6 @@ final class RoomFixture extends ArrayFixture implements ORMFixtureInterface, Dep
                 'name' => 'Custom Room 12',
                 'floor' => new Ref(Floor::class, 'floor-1st floor'),
             ],
-            '6a5defe2-f5a3-4b1f-b03e-a48685b1db2c' => [
-                'name' => 'Custom Room 13',
-                'floor' => new Ref(Floor::class, 'floor-1st floor'),
-            ],
-            '12c24ca4-07d5-4bc6-94df-1afe1739aa65' => [
-                'name' => 'Custom Room 20',
-                'floor' => new Ref(Floor::class, 'floor-2nd floor'),
-            ],
-            '098dda8b-9555-4fe4-9a67-4f3915364c66' => [
-                'name' => 'Custom Room 21',
-                'floor' => new Ref(Floor::class, 'floor-2nd floor'),
-            ],
-            'c025cf19-2abd-4ccd-9706-084e64a2607f' => [
-                'name' => 'Custom Room 22',
-                'floor' => new Ref(Floor::class, 'floor-2nd floor'),
-            ],
-            '45817c77-832e-4ecc-90ed-0e0f52b86c2d' => [
-                'name' => 'Custom Room 23',
-                'floor' => new Ref(Floor::class, 'floor-2nd floor'),
-            ],
         ];
     }
 
