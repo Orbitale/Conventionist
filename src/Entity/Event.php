@@ -216,7 +216,7 @@ class Event implements HasCreators
         $this->isOnlineEvent = $isOnlineEvent;
     }
 
-    public function allowsActivityRegistration(): bool
+    public function getAllowActivityRegistration(): bool
     {
         return $this->allowActivityRegistration;
     }
@@ -226,7 +226,7 @@ class Event implements HasCreators
         $this->allowActivityRegistration = $allowActivityRegistration;
     }
 
-    public function allowsAttendeeRegistration(): bool
+    public function getAllowAttendeeRegistration(): bool
     {
         return $this->allowAttendeeRegistration;
     }

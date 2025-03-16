@@ -36,7 +36,7 @@
                                     </small>
                                 </h4>
                                 {{ activity.description|nl2br }}
-                                {% if event.allowsAttendeeRegistration %}
+                                {% if event.allowAttendeeRegistration %}
                                     <div>
                                         <a href="#" class="btn btn-link float-end">
                                             <i class="fa fa-arrow-right"></i>
@@ -56,7 +56,7 @@
                                     </small>
                                 </h4>
                                 {{ 'event.activity.open_slot'|trans }}
-                                {% if event.allowsActivityRegistration %}
+                                {% if event.allowActivityRegistration %}
                                     <div>
                                         <a href="#" class="btn btn-link float-end">
                                             <i class="fa fa-arrow-right"></i>

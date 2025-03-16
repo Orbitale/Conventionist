@@ -113,7 +113,7 @@ class TimeSlot implements HasCreators
 
     public function canBeShownToPublic(\DateTimeInterface $day): bool
     {
-        return $this->isDay($day) && ($this->hasAcceptedActivity() || ($this->isOpen() && $this->event->allowsActivityRegistration()));
+        return $this->isDay($day) && ($this->hasAcceptedActivity() || ($this->isOpen() && $this->event->getAllowActivityRegistration()));
     }
 
 
