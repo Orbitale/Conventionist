@@ -103,16 +103,42 @@ class Event implements HasCreators
         return $days;
     }
 
-    /**
-     * @return array<ScheduledActivity>
-     */
-    public function getDaySlotsForPublicView(\DateTimeInterface $day): array
+    public function getFloorsForPublicView(\DateTimeInterface $day): array
     {
-        $slotsAtDay = \array_filter($this->timeSlots->toArray(), static fn (TimeSlot $slot): bool => $slot->canBeShownToPublic($day));
+        $slots = $this->getDaySlotsForPublicView($day);
 
-        \usort($slotsAtDay, static fn (TimeSlot $a, TimeSlot $b) => $a->getStartsAt() <=> $b->getStartsAt());
+        $floors = [];
 
-        return $slotsAtDay;
+        foreach ($slots as $slot) {
+            /** @var Floor $floor */
+            $floor = $slot->getBooth()->getRoom()?->getFloor();
+            $floors[$floor->getId()] = $floor;
+        }
+
+        return $floors;
+    }
+
+    public function getRoomsForPublicView(Floor $floor, \DateTimeInterface $day): array
+    {
+        $slots = \array_filter($this->getDaySlotsForPublicView($day), static fn (TimeSlot $slot) => $floor->isSameAs($slot->getBooth()->getRoom()?->getFloor()));
+
+        $rooms = [];
+
+        foreach ($slots as $slot) {
+            /** @var Room $room */
+            $room = $slot->getBooth()->getRoom();
+            $rooms[$room->getId()] = $room;
+        }
+
+        return $rooms;
+    }
+
+    public function getRoomSlotsForPublicView(Room $room, \DateTimeInterface $day): array
+    {
+        return \array_filter(
+            $this->getDaySlotsForPublicView($day),
+            static fn (TimeSlot $slot) => $slot->canBeShownToPublic($day) && $room->isSameAs($slot->getBooth()->getRoom())
+        );
     }
 
     public function getScheduledActivityById(string $id): ScheduledActivity
@@ -272,5 +298,17 @@ class Event implements HasCreators
         if (!$this->timeSlots->contains($slot)) {
             $this->timeSlots->add($slot);
         }
+    }
+
+    /**
+     * @return array<TimeSlot>
+     */
+    private function getDaySlotsForPublicView(\DateTimeInterface $day): array
+    {
+        $slotsAtDay = \array_filter($this->timeSlots->toArray(), static fn (TimeSlot $slot): bool => $slot->canBeShownToPublic($day));
+
+        \usort($slotsAtDay, static fn (TimeSlot $a, TimeSlot $b) => $a->getStartsAt() <=> $b->getStartsAt());
+
+        return $slotsAtDay;
     }
 }
