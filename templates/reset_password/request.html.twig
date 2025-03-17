@@ -5,7 +5,7 @@
 {% block page_title %}Reset your password{% endblock %}
 
 {% block body %}
-    {% for flash_error in app.flashes('reset_password_error') %}
+    {% for flash_error in app.flashes('danger') %}
         <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
     {% endfor %}
     <h1>{{ 'forgot_password.request.title'|trans }}</h1>
