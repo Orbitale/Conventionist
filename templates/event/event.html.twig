@@ -95,58 +95,6 @@
                         </div>
                     {% endfor %}
                 </div>
-
-                {#
-
-                {% for time_slot in event.daySlotsForPublicView(day) %}
-                    {% if time_slot.hasAcceptedActivity %}
-                        {% set scheduled_activity = time_slot.acceptedActivity %}
-
-                        {% set activity = scheduled_activity.activity %}
-                        <section class="activity card mb-3">
-                            <div class="card-body">
-                                <h4>
-                                    {{ activity.name }}
-                                    <small class="text-secondary float-end">
-                                        {{ scheduled_activity.startsAt|format_datetime('none', 'short') }}
-                                        - {{ scheduled_activity.endsAt|format_datetime('none', 'short') }}
-                                    </small>
-                                </h4>
-                                {{ activity.description|nl2br }}
-                                {% if event.allowAttendeeRegistration %}
-                                    <div>
-                                        <a href="#" class="btn btn-link float-end">
-                                            <i class="fa fa-arrow-right"></i>
-                                            {{ 'event.activity.register_as_attendee'|trans }}
-                                        </a>
-                                    </div>
-                                {% endif %}
-                            </div>
-                        </section>
-                    {% else %}
-                        <section class="activity card mb-3">
-                            <div class="card-body">
-                                <h4>
-                                    <small class="text-secondary float-end">
-                                        {{ time_slot.startsAt|format_datetime('none', 'short') }}
-                                        - {{ time_slot.endsAt|format_datetime('none', 'short') }}
-                                    </small>
-                                </h4>
-                                {{ 'event.activity.open_slot'|trans }}
-                                {% if event.allowActivityRegistration %}
-                                    <div>
-                                        <a href="#" class="btn btn-link float-end">
-                                            <i class="fa fa-arrow-right"></i>
-                                            {{ 'event.activity.register_as_animator'|trans }}
-                                        </a>
-                                    </div>
-                                {% endif %}
-                            </div>
-                        </section>
-                    {% endif %}
-                {% endfor %}
-
-                #}
             </div>
         {% endfor %}
     </div>
