@@ -33,8 +33,8 @@ final class EventControllerTest extends WebTestCase
         $activities = $crawler->filter('.activity');
         self::assertSame(8, $activities->count());
         $visitorActivity = $activities->eq(3);
-        self::assertSame('Visitor activity 04:00 - 05:00', $visitorActivity->filter('h4')->text());
+        self::assertSame('Visitor activity 04:00 - 05:00', $visitorActivity->filter('.activity-title')->text());
         $concertActivity = $activities->eq(5);
-        self::assertSame('Concert 03:00 - 07:00', $concertActivity->filter('h4')->text());
+        self::assertSame('Concert 03:00 - 07:00', $concertActivity->filter('.activity-title')->text());
     }
 }

@@ -37,7 +37,7 @@
                                                 {% set activity = scheduled_activity.activity %}
                                                 <section class="activity card border-success mb-3">
                                                     <div class="card-body">
-                                                        <h6>
+                                                        <h6 class="activity-title">
                                                             <span class="fw-bold">
                                                                 {{ activity.name }}
                                                             </span>
@@ -47,7 +47,7 @@
                                                             </small>
                                                         </h6>
                                                         {{ activity.description|nl2br }}
-                                                        {% set is_user_registered = is_user_registered_to_activity(app.user, scheduled_activity) %}
+                                                        {% set is_user_registered = app.user ? is_user_registered_to_activity(app.user, scheduled_activity) : false %}
                                                         {% if event.allowAttendeeRegistration and (not app.user or (app.user and not is_user_registered)) %}
                                                             <div>
                                                                 <a href="{{ path('register_to_activity', {id: scheduled_activity.id}) }}" class="btn btn-sm btn-link float-end">
