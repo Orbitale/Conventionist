@@ -117,13 +117,13 @@ class TimeSlot implements HasCreators
     }
 
 
-    private function isOpenForPlanning(): bool
+    public function isClosedForPlanning(): bool
     {
         if (!$this->open) {
             return false;
         }
 
-        return \array_any($this->scheduledActivities->toArray(), static fn (ScheduledActivity $activity) => $activity->isAccepted());
+        return $this->hasAcceptedActivity();
     }
 
     public function findScheduledActivityById(string $id): ?ScheduledActivity

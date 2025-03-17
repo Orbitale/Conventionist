@@ -82,6 +82,7 @@ final class ActivityAttendeeRegisterController extends AbstractController
                 $user->setEmail($attendee->email);
             }
 
+            $attendee->email = null;
             $attendee->setRegisteredBy($user);
 
             $this->em->persist($attendee);

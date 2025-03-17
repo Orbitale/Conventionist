@@ -32,8 +32,10 @@
                                         {% for time_slot in event.roomSlotsForPublicView(room, day) %}
 
                                             {% if time_slot.hasAcceptedActivity %}
-                                                {% set scheduled_activity = time_slot.acceptedActivity %}
 
+                                                {# with accepted activity #}
+
+                                                {% set scheduled_activity = time_slot.acceptedActivity %}
                                                 {% set activity = scheduled_activity.activity %}
                                                 <section class="activity card border-success mb-3">
                                                     <div class="card-body">
@@ -66,7 +68,10 @@
                                                         {% endif %}
                                                     </div>
                                                 </section>
+
                                             {% else %}
+
+                                                {# open time slot #}
                                                 <section class="activity card mb-3">
                                                     <div class="card-body">
                                                         <h6>
@@ -79,7 +84,7 @@
                                                         <em class="text-secondary">{{ 'event.activity.open_slot'|trans }}</em>
                                                         {% if event.allowActivityRegistration %}
                                                             <div>
-                                                                <a href="#" class="btn btn-sm btn-link float-end">
+                                                                <a href="{{ path('submit_activity_to_slot', {id: time_slot.id}) }}" class="btn btn-sm btn-link float-end">
                                                                     <i class="fa fa-arrow-right"></i>
                                                                     {{ 'event.activity.register_as_animator'|trans }}
                                                                 </a>
@@ -87,15 +92,26 @@
                                                         {% endif %}
                                                     </div>
                                                 </section>
+
                                             {% endif %}
+
                                         {% endfor %}
+                                        {# end for time_slot #}
+
                                     </div>
+
                                 {% endfor %}
+                                {# end for room #}
+
                             </div>
                         </div>
+
                     {% endfor %}
+                    {# end for floor #}
+
                 </div>
             </div>
         {% endfor %}
+        {# end for day #}
     </div>
 {% endblock %}

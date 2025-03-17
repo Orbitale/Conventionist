@@ -77,6 +77,7 @@ login.remember_me: Remember me
 login.username_or_email: Username or e-mail
 login: Log in
 Max Number Of Participants: Max Number Of Participants
+Max number of participants: Max Number Of Participants
 Name: Name
 nav.link.admin: Administration
 no_account_register: 'Don''t have an account? <a href="%path%">Register</a> instead.'
@@ -144,3 +145,11 @@ event.activity.register_as_attendee.form.email.help: You can also <a href="%logi
 event.activity.register_as_attendee.success: Registration complete!
 event.error.already_registered_to_activity: You have already registered for this activity!
 event.activity.you_are_registered: You are registered!
+event.error.cannot_submit_activity_to_slot: This slot is not open for planning.
+event.activity.submit_activity.selected_activity: My activities
+event.error.already_submitted_activity: You have already submitted this activity for this time slot.
+activity.form.equipment.help: You can specify here the list of equipment you might need during this activity. Note that there is no guarantee the venue will provide you with it.
+link.back_to_event: Back to the event
+event.activity.submit_activity.success: Your activity was submitted to the team!
+event.activity.submit_activity.submit_button: Submit
+event.submit_activity: Submit activity

@@ -2,7 +2,10 @@
 
 namespace App\Repository;
 
+use App\Entity\Activity;
 use App\Entity\ScheduledActivity;
+use App\Entity\TimeSlot;
+use App\Entity\User;
 use App\Enum\ScheduleActivityState;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -38,12 +41,28 @@ final class ScheduledActivityRepository extends ServiceEntityRepository
         return $this->getEntityManager()->createQuery(<<<DQL
             SELECT scheduled_activity
             FROM {$this->getEntityName()} scheduled_activity
-            WHERE scheduled_activity.id != :id
+            WHERE scheduled_activity.activity != :activity
             AND scheduled_activity.timeSlot = :time_slot
         DQL
         )
-            ->setParameter('id', $activity->getId())
+            ->setParameter('activity', $activity->getActivity())
             ->setParameter('time_slot', $activity->getTimeSlot())
             ->getResult();
+    }
+
+    public function hasSimilarForUser(User $user, Activity $activity, TimeSlot $slot): bool
+    {
+        return $this->getEntityManager()->createQuery(<<<DQL
+            SELECT count(scheduled_activity) as count
+            FROM {$this->getEntityName()} scheduled_activity
+            WHERE scheduled_activity.activity == :activity
+            AND scheduled_activity.timeSlot = :time_slot
+            AND scheduled_activity.submittedBy = :user
+        DQL
+        )
+            ->setParameter('user', $user)
+            ->setParameter('activity', $activity)
+            ->setParameter('time_slot', $slot)
+            ->getSingleScalarResult() > 0;
     }
 }

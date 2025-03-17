@@ -1,0 +1,100 @@
+{% extends 'base.html.twig' %}
+
+{% form_theme form 'event/form/event_registration_form_layout.html.twig' %}
+
+{% set event = time_slot.event %}
+
+{% block title %}
+    {{ event.name }} - {{ 'event.submit_activity'|trans }} - {{ parent() }}
+{% endblock %}
+
+{% block above_body %}
+    <div class="container">
+        <a href="{{ path('event', {slug: event.slug}) }}" class="btn btn-link">
+            <i class="fa fa-arrow-left"></i> 
+            {{ 'link.back_to_event'|trans }}
+        </a>
+    </div>
+{% endblock %}
+
+
+{% block body %}
+    <h1 class="display-5 fw-bold text-center">{{ 'event.submit_activity'|trans }}</h1>
+
+    <div class="row">
+        <div class="col-4">
+            <table class="table table-bordered">
+                <tbody>
+                <tr>
+                    <th class="col-6 text-end">{{ 'event.activity.register_as_attendee.event_name'|trans }}</th>
+                    <td class="col-6 text-start">{{ event.name }}</td>
+                </tr>
+                <tr>
+                    <th class="text-end">{{ 'Floor'|trans }}</th>
+                    <td class="text-start">{{ time_slot.booth.room.floor.name }}</td>
+                </tr>
+                <tr>
+                    <th class="text-end">{{ 'Room'|trans }}</th>
+                    <td class="text-start">{{ time_slot.booth.room.name }}</td>
+                </tr>
+                <tr>
+                    <th class="text-end">{{ 'Booth'|trans }}</th>
+                    <td class="text-start">{{ time_slot.booth.name }}</td>
+                </tr>
+                <tr>
+                    <th class="text-end">{{ 'Starts At'|trans }}</th>
+                    <td class="text-start">{{ time_slot.startsAt|format_datetime('none', 'short') }}</td>
+                </tr>
+                <tr>
+                    <th class="text-end">{{ 'Ends At'|trans }}</th>
+                    <td class="text-start">{{ time_slot.endsAt|format_datetime('none', 'short') }}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-8">
+            {{ form_start(form) }}
+                {{ form_errors(form) }}
+                {{ form_row(form.email) }}
+                {% if form['selectedActivity'] is defined and form['selectedActivity'].vars.choices is not empty %}
+                    <div class="accordion" id="activityFields">
+                        <div class="accordion-item">
+                            <div class="accordion-header">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#selectActivity" aria-expanded="true" aria-controls="selectActivity">
+                                    {{ 'event.activity.submit_activity.select_existing_activity'|trans }}
+                                </button>
+                            </div>
+                            <div id="selectActivity" class="accordion-collapse collapse" data-bs-parent="#activityFields">
+                                <div class="accordion-body">
+                                    {{ form_row(form['selectedActivity']) }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <div class="accordion-header">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#createActivity" aria-expanded="true" aria-controls="createActivity">
+                                    {{ 'event.activity.submit_activity.create_new_activity'|trans }}
+                                </button>
+                            </div>
+                            <div id="createActivity" class="accordion-collapse collapse" data-bs-parent="#activityFields">
+                                <div class="accordion-body">
+                                    {{ form_errors(form.newActivity) }}
+                                    {{ form_widget(form.newActivity) }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% else %}
+                    {{ form_errors(form.newActivity) }}
+                    {{ form_widget(form.newActivity) }}
+                {% endif %}
+
+                {{ form_rest(form) }}
+
+                <button type="submit" class="mt-3 btn btn-primary">
+                    {{ 'event.activity.submit_activity.submit_button'|trans }}
+                </button>
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}

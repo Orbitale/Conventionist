@@ -8,6 +8,16 @@
     {{ event.name }} - {{ 'event.activity_registration'|trans }} - {{ parent() }}
 {% endblock %}
 
+{% block above_body %}
+    <div class="container">
+        <a href="{{ path('event', {slug: event.slug}) }}" class="btn btn-link">
+            <i class="fa fa-arrow-left"></i> 
+            {{ 'link.back_to_event'|trans }}
+        </a>
+    </div>
+{% endblock %}
+
+
 {% block body %}
     <h1 class="display-5 fw-bold text-center">{{ 'event.activity_registration'|trans }}</h1>
 

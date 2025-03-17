@@ -77,6 +77,7 @@ login.remember_me: Se souvenir de moi
 login.username_or_email: 'Nom d''utilisateur ou adresse e-mail'
 login: Se connecter
 Max Number Of Participants: Nombre maximum de participants
+Max number of participants: Nombre maximum de participants
 Name: Nom
 nav.link.admin: Administration
 no_account_register: 'Vous n''avez pas de compte ? <a href="%path%">Créez un compte</a> à la place.'
@@ -144,3 +145,13 @@ event.activity.register_as_attendee.form.email.help: Vous pouvez également <a h
 event.activity.register_as_attendee.success: Inscription terminée !
 event.error.already_registered_to_activity: Vous avez déjà fait votre inscription pour cette activité !
 event.activity.you_are_registered: Vous avez fait votre inscription !
+event.error.cannot_submit_activity_to_slot: Ce créneau n'est pas ouvert aux inscriptions.
+event.activity.submit_activity.selected_activity: Mes activités
+event.error.already_submitted_activity: Vous avez déjà proposé cette activité à ce créneau.
+activity.form.equipment.help: Vous pouvez préciser ici la liste du matériel dont vous pourriez avoir besoin pour cette activité. Notez qu'il n'y a aucune garantie que le site vous le fournira.
+link.back_to_event: Retour à l'évènement
+event.activity.submit_activity.success: Votre proposition a été soumise à l'équipe !
+event.activity.submit_activity.submit_button: Envoyer
+event.submit_activity: Proposer une activité
+event.activity.submit_activity.select_existing_activity: Sélectionner une de mes activités.
+event.activity.submit_activity.create_new_activity: Créer une nouvelle activité.

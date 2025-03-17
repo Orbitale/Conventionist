@@ -72,9 +72,6 @@ final class RegisterAsActivityAttendeeType extends AbstractType
             'data_class' => Attendee::class,
             'enable_email' => true,
             'login_url' => '',
-            'attr' => [
-                'novalidate' => '1',
-            ],
         ]);
     }
 }
