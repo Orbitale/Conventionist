@@ -72,6 +72,7 @@ class Event implements HasCreators
     #[Assert\Valid]
     private Venue $venue;
 
+    /** @var Collection<TimeSlot> */
     #[ORM\OneToMany(targetEntity: TimeSlot::class, mappedBy: 'event')]
     private Collection $timeSlots;
 
@@ -264,5 +265,12 @@ class Event implements HasCreators
     public function setUrl(?string $url): void
     {
         $this->url = $url;
+    }
+
+    public function addTimeslot(TimeSlot $slot): void
+    {
+        if (!$this->timeSlots->contains($slot)) {
+            $this->timeSlots->add($slot);
+        }
     }
 }

@@ -155,6 +155,7 @@ class TimeSlot implements HasCreators
     public function setEvent(Event $event): void
     {
         $this->event = $event;
+        $this->event->addTimeslot($this);
     }
 
     public function getBooth(): Booth

@@ -7,7 +7,7 @@ use App\Tests\ProvidesLocales;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class EventControllerTest extends WebTestCase
+final class EventControllerTest extends WebTestCase
 {
     use ProvidesLocales;
 
@@ -31,8 +31,10 @@ class EventControllerTest extends WebTestCase
         $crawler = $client->request('GET', \str_replace('{slug}', $slug, EventController::PATHS[$locale]));
 
         $activities = $crawler->filter('.activity');
-        self::assertSame(1, $activities->count());
-        $activity = $activities->first();
-        self::assertSame('Visitor activity 04:00 - 05:00', $activity->filter('.card-header h4')->text());
+        self::assertSame(8, $activities->count());
+        $visitorActivity = $activities->eq(3);
+        self::assertSame('Visitor activity 04:00 - 05:00', $visitorActivity->filter('h4')->text());
+        $concertActivity = $activities->eq(5);
+        self::assertSame('Concert 03:00 - 07:00', $concertActivity->filter('h4')->text());
     }
 }
