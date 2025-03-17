@@ -134,3 +134,13 @@ ROLE_ADMIN: Admin
 equipment.name: Equipment
 equipment.quantity: Quantity
 Available Equipment: Available Equipment
+event.activity_registration: 'Register to activity'
+event.activity.register_as_attendee.event_name: Event
+event.activity.register_as_attendee.activity_name: Activity
+event.activity.register_as_attendee.submit: Submit registration
+event.activity.register_as_attendee.form.name: Name
+event.activity.register_as_attendee.form.numberOfAttendees: Number of attendees
+event.activity.register_as_attendee.form.email.help: You can also <a href="%login_url%">log in</a> to associate this registration to your account.
+event.activity.register_as_attendee.success: Registration complete!
+event.error.already_registered_to_activity: You have already registered for this activity!
+event.activity.you_are_registered: You are registered!

@@ -13,19 +13,26 @@ class Attendee
     use Field\Id;
 
     #[ORM\Column(name: 'name', type: Types::STRING, length: 255, nullable: false)]
-    #[Assert\NotBlank(message: 'Please enter a name')]
+    #[Assert\NotBlank()]
     private ?string $name = '';
 
     #[ORM\Column(name: 'number_of_attendees', type: Types::INTEGER, nullable: false)]
-    private int $numberOfAttendees = 0;
+    #[Assert\NotNull]
+    #[Assert\Type('int')]
+    private ?int $numberOfAttendees = 1;
 
-    #[ORM\ManyToOne]
+    #[ORM\ManyToOne(targetEntity: ScheduledActivity::class)]
     #[ORM\JoinColumn(name: 'scheduled_activity_id', referencedColumnName: 'id', nullable: false)]
     private ScheduledActivity $scheduledActivity;
 
-    #[ORM\ManyToOne]
+    #[ORM\ManyToOne(targetEntity: User::class, cascade: ['persist'])]
     #[ORM\JoinColumn(name: 'registered_by_id', referencedColumnName: 'id', nullable: false)]
     private User $registeredBy;
+
+    // Used by form
+    #[Assert\Email(mode: Assert\Email::VALIDATION_MODE_STRICT)]
+    #[Assert\NotBlank]
+    public ?string $email;
 
     public function __toString(): string
     {
@@ -70,5 +77,9 @@ class Attendee
     public function setRegisteredBy(User $registeredBy): void
     {
         $this->registeredBy = $registeredBy;
+        if (!$this->name) {
+            $this->name = $registeredBy->getUsername();
+            $this->email = $registeredBy->getEmail();
+        }
     }
 }

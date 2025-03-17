@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% form_theme form 'event/form/event_registration_form_layout.html.twig' %}
+
+{% set event = scheduled_activity.event %}
+
+{% block title %}
+    {{ event.name }} - {{ 'event.activity_registration'|trans }} - {{ parent() }}
+{% endblock %}
+
+{% block body %}
+    <h1 class="display-5 fw-bold text-center">{{ 'event.activity_registration'|trans }}</h1>
+
+    <div class="row">
+        <div class="col-4">
+            <table class="table table-bordered">
+                <tbody>
+                <tr>
+                    <th class="col-6 text-end">{{ 'event.activity.register_as_attendee.event_name'|trans }}</th>
+                    <td class="col-6 text-start">{{ event.name }}</td>
+                </tr>
+                <tr>
+                    <th class="text-end">{{ 'event.activity.register_as_attendee.activity_name'|trans }}</th>
+                    <td class="text-start">{{ scheduled_activity.activity.name }}</td>
+                </tr>
+                <tr>
+                    <th class="text-end">{{ 'Floor'|trans }}</th>
+                    <td class="text-start">{{ scheduled_activity.timeSlot.booth.room.floor.name }}</td>
+                </tr>
+                <tr>
+                    <th class="text-end">{{ 'Room'|trans }}</th>
+                    <td class="text-start">{{ scheduled_activity.timeSlot.booth.room.name }}</td>
+                </tr>
+                <tr>
+                    <th class="text-end">{{ 'Booth'|trans }}</th>
+                    <td class="text-start">{{ scheduled_activity.timeSlot.booth.name }}</td>
+                </tr>
+                <tr>
+                    <th class="text-end">{{ 'Starts At'|trans }}</th>
+                    <td class="text-start">{{ scheduled_activity.timeSlot.startsAt|format_datetime('none', 'short') }}</td>
+                </tr>
+                <tr>
+                    <th class="text-end">{{ 'Ends At'|trans }}</th>
+                    <td class="text-start">{{ scheduled_activity.timeSlot.endsAt|format_datetime('none', 'short') }}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-8">
+            {{ form_start(form) }}
+                {{ form_widget(form) }}
+                <button type="submit" class="btn btn-primary">
+                    {{ 'event.activity.register_as_attendee.submit'|trans }}
+                </button>
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}

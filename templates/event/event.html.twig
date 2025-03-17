@@ -4,7 +4,6 @@
     {{ event.name }} - {{ parent() }}
 {% endblock %}
 
-
 {% block body %}
     <div class="px-4 py-5 my-5 text-center">
         <h1 class="display-5 fw-bold text-body-emphasis">{{ event.name }}</h1>
@@ -39,19 +38,30 @@
                                                 <section class="activity card border-success mb-3">
                                                     <div class="card-body">
                                                         <h6>
-                                                            {{ activity.name }}
+                                                            <span class="fw-bold">
+                                                                {{ activity.name }}
+                                                            </span>
                                                             <small class="text-secondary float-end">
                                                                 {{ scheduled_activity.startsAt|format_datetime('none', 'short') }}
                                                                 - {{ scheduled_activity.endsAt|format_datetime('none', 'short') }}
                                                             </small>
                                                         </h6>
                                                         {{ activity.description|nl2br }}
-                                                        {% if event.allowAttendeeRegistration %}
+                                                        {% set is_user_registered = is_user_registered_to_activity(app.user, scheduled_activity) %}
+                                                        {% if event.allowAttendeeRegistration and (not app.user or (app.user and not is_user_registered)) %}
                                                             <div>
-                                                                <a href="#" class="btn btn-sm btn-link float-end">
+                                                                <a href="{{ path('register_to_activity', {id: scheduled_activity.id}) }}" class="btn btn-sm btn-link float-end">
                                                                     <i class="fa fa-arrow-right"></i>
                                                                     {{ 'event.activity.register_as_attendee'|trans }}
                                                                 </a>
+                                                            </div>
+                                                        {% endif %}
+                                                        {% if is_user_registered %}
+                                                            <div>
+                                                                <small class="text-success">
+                                                                    <i class="fa fa-check"></i>
+                                                                    {{ 'event.activity.you_are_registered'|trans }}
+                                                                </small>
                                                             </div>
                                                         {% endif %}
                                                     </div>

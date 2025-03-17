@@ -43,6 +43,11 @@ class ScheduledActivity
         return sprintf('%s (⏲ %s ➡ %s)', $this->activity, $this->timeSlot?->getStartsAt()->format('Y-m-d H:i:s'), $this->timeSlot?->getEndsAt()->format('Y-m-d H:i:s'));
     }
 
+    public function canBeRegisteredTo(): bool
+    {
+        return $this->isAccepted() && $this->getEvent()->getAllowAttendeeRegistration();
+    }
+
     public function accept(): void
     {
         if (!$this->canChangeState()) {

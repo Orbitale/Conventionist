@@ -42,8 +42,8 @@ final class ScheduledActivityRepository extends ServiceEntityRepository
             AND scheduled_activity.timeSlot = :time_slot
         DQL
         )
-                ->setParameter('id', $activity->getId())
-                ->setParameter('time_slot', $activity->getTimeSlot())
-                ->getResult();
+            ->setParameter('id', $activity->getId())
+            ->setParameter('time_slot', $activity->getTimeSlot())
+            ->getResult();
     }
 }
