@@ -34,8 +34,8 @@ class ScheduledActivity
     private TimeSlot $timeSlot;
 
     #[ORM\ManyToOne(targetEntity: User::class, cascade: ['persist'])]
-    #[ORM\JoinColumn(name: 'submitted_by', referencedColumnName: 'id', nullable: false)]
-    private User $submittedBy;
+    #[ORM\JoinColumn(name: 'submitted_by', referencedColumnName: 'id', nullable: true)]
+    private ?User $submittedBy;
 
     // Used by form
     #[Assert\Type(Activity::class)]
@@ -46,8 +46,8 @@ class ScheduledActivity
     public ?Activity $newActivity = null;
 
     // Used by form
-    #[Assert\Email(mode: Assert\Email::VALIDATION_MODE_STRICT)]
-    #[Assert\NotBlank]
+    #[Assert\Email(mode: Assert\Email::VALIDATION_MODE_STRICT, groups: ['submit_activity'])]
+    #[Assert\NotBlank(groups: ['submit_activity'])]
     public ?string $email;
 
     public function __construct()
@@ -164,14 +164,14 @@ class ScheduledActivity
         $timeSlot->addScheduledActivity($this);
     }
 
-    public function getSubmittedBy(): User
+    public function getSubmittedBy(): ?User
     {
         return $this->submittedBy;
     }
 
-    public function setSubmittedBy(User $user): void
+    public function setSubmittedBy(?User $user): void
     {
         $this->submittedBy = $user;
-        $this->email = $user->getEmail();
+        $this->email = $user?->getEmail();
     }
 }
