@@ -5,6 +5,7 @@ namespace App\Tests\Controller\Public;
 use App\Controller\Public\ActivityAttendeeRegisterController;
 use App\Controller\Public\EventController;
 use App\DataFixtures\ScheduledActivityFixture;
+use App\Entity\Attendee;
 use App\Enum\ScheduleActivityState;
 use App\Repository\AttendeeRepository;
 use App\Tests\TestUtils\Assertions\FlashMessageAssertions;
@@ -81,6 +82,15 @@ class ActivityAttendeeRegisterControllerTest extends WebTestCase
         self::assertResponseStatusCodeSame(200);
     }
 
+    public static function provideUsers(): iterable
+    {
+        foreach (self::provideLocales() as $locale => $_) {
+            yield $locale.' ash' => [$locale, 'ash'];
+            yield $locale.' admin' => [$locale, 'admin'];
+            yield $locale.' visitor' => [$locale, 'visitor'];
+        }
+    }
+
     #[DataProvider('provideUsers')]
     public function testAuthenticatedWorkingIndex(string $locale, string $username): void
     {
@@ -98,12 +108,43 @@ class ActivityAttendeeRegisterControllerTest extends WebTestCase
         self::assertResponseStatusCodeSame(200);
     }
 
-    public static function provideUsers(): iterable
+    #[DataProvider('provideUsers')]
+    public function testAuthenticatedSubmitSuccessfully(string $locale, string $username): void
     {
-        foreach (self::provideLocales() as $locale => $_) {
-            yield $locale.' ash' => [$locale, 'ash'];
-            yield $locale.' admin' => [$locale, 'admin'];
-            yield $locale.' visitor' => [$locale, 'visitor'];
-        }
+        $activityId = \key(ScheduledActivityFixture::filterData(static function (array $data) {
+            return $data['activity']->name === 'activity-Concert'
+                && $data['state'] === ScheduleActivityState::ACCEPTED
+                && $data['submittedBy']->name === 'user-visitor';
+        }));
+
+        $path = str_replace('{id}', $activityId, ActivityAttendeeRegisterController::PATHS[$locale]);
+
+        $client = static::createClient();
+        $user = $this->getUser($username);
+        $client->loginUser($user);
+
+        $client->request('GET', $path);
+        self::assertResponseStatusCodeSame(200);
+
+        $form = $client->getCrawler()->filter('form[name="register_as_activity_attendee"]')->form();
+        $client->submit($form, [
+            //'register_as_activity_attendee[email]' => '',
+            'register_as_activity_attendee[name]' => 'Somebody that I used to know',
+            'register_as_activity_attendee[numberOfAttendees]' => 5,
+        ]);
+
+        self::assertResponseRedirects(\str_replace('{slug}', 'tdc-2025', EventController::PATHS[$locale]));
+        self::assertSessionHasFlashMessage('success', 'event.activity.register_as_attendee.success');
+
+        /** @var null|Attendee $attendee */
+        $attendee = self::getContainer()->get(AttendeeRepository::class)->findOneBy([
+            'registeredBy' => $user,
+            'scheduledActivity' => $activityId,
+        ]);
+        self::assertNotNull($attendee);
+        self::assertTrue($attendee->getRegisteredBy()->isSameAs($user));
+        self::assertSame($activityId, $attendee->getScheduledActivity()->getId());
+        self::assertSame(5, $attendee->getNumberOfAttendees());
+        self::assertSame('Somebody that I used to know', $attendee->getName());
     }
 }

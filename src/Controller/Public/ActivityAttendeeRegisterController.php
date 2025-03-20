@@ -70,7 +70,6 @@ final class ActivityAttendeeRegisterController extends AbstractController
         ]);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-
             if (!$user) {
                 $user = $this->userRepository->findOneBy(['email' => $attendee->email]);
             }
