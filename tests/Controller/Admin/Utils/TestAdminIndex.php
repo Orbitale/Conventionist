@@ -3,7 +3,7 @@
 namespace App\Tests\Controller\Admin\Utils;
 
 use App\DataFixtures\Tools\Ref;
-use App\Tests\GetUser;
+use App\Tests\TestUtils\GetUser;
 use EasyCorp\Bundle\EasyAdminBundle\Test\AbstractCrudTestCase;
 
 trait TestAdminIndex

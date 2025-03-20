@@ -4,7 +4,7 @@ namespace App\Tests\Security;
 
 use App\Entity\User;
 use App\Security\UserChecker;
-use App\Tests\CreateUser;
+use App\Tests\TestUtils\CreateUser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\Security\Core\Exception\CustomUserMessageAccountStatusException;
 

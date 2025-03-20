@@ -2,8 +2,8 @@
 
 namespace App\Tests\Controller\Public;
 
-use App\Tests\GetUser;
-use App\Tests\ProvidesLocales;
+use App\Tests\TestUtils\GetUser;
+use App\Tests\TestUtils\ProvidesLocales;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 

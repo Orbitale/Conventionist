@@ -6,7 +6,7 @@ use App\Controller\Admin\DashboardController;
 use App\Controller\Admin\EventCrudController;
 use App\DataFixtures\EventFixture;
 use App\DataFixtures\VenueFixture;
-use App\Tests\GetUser;
+use App\Tests\TestUtils\GetUser;
 use EasyCorp\Bundle\EasyAdminBundle\Test\AbstractCrudTestCase;
 use EasyCorp\Bundle\EasyAdminBundle\Test\Trait\CrudTestFormAsserts;
 

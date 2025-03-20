@@ -8,7 +8,7 @@ use App\DataFixtures\BoothFixture;
 use App\DataFixtures\RoomFixture;
 use App\DataFixtures\Tools\Ref;
 use App\Entity\Room;
-use App\Tests\GetUser;
+use App\Tests\TestUtils\GetUser;
 use EasyCorp\Bundle\EasyAdminBundle\Test\AbstractCrudTestCase;
 use EasyCorp\Bundle\EasyAdminBundle\Test\Trait\CrudTestFormAsserts;
 

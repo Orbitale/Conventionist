@@ -2,6 +2,7 @@
 
 namespace App\Tests;
 
+use App\Tests\TestUtils\GetUser;
 use Pierstoval\SmokeTesting\SmokeTestStaticRoutes;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 

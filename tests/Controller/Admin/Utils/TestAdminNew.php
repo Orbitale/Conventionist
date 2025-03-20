@@ -2,7 +2,7 @@
 
 namespace App\Tests\Controller\Admin\Utils;
 
-use App\Tests\GetUser;
+use App\Tests\TestUtils\GetUser;
 use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Test\AbstractCrudTestCase;

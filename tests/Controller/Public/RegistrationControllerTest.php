@@ -4,8 +4,8 @@ namespace App\Tests\Controller\Public;
 
 use App\Controller\Public\RegistrationController;
 use App\Repository\UserRepository;
-use App\Tests\CreateUser;
-use App\Tests\ProvidesLocales;
+use App\Tests\TestUtils\CreateUser;
+use App\Tests\TestUtils\ProvidesLocales;
 use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
