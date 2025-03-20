@@ -6,8 +6,13 @@ use App\Locales;
 
 trait ProvidesLocales
 {
-    public static function provideLocales(): array
+    /**
+     * @return iterable<array{string}>
+     */
+    public static function provideLocales(): iterable
     {
-        return \array_map(static fn ($i) => [$i], Locales::LOCALES);
+        foreach (Locales::LOCALES as $locale) {
+            yield $locale => [$locale];
+        }
     }
 }
