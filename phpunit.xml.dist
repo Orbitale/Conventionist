@@ -27,9 +27,19 @@
         <include>
             <directory>src</directory>
         </include>
+        <exclude>
+            <directory suffix=".php">src/DataFixtures</directory>
+        </exclude>
     </source>
 
     <extensions>
         <bootstrap class="DAMA\DoctrineTestBundle\PHPUnit\PHPUnitExtension"/>
     </extensions>
+
+    <coverage>
+        <report>
+            <clover outputFile=".phpunit.cache/coverage.xml"/>
+            <html outputDirectory=".phpunit.cache/coverage/" lowUpperBound="50" highLowerBound="90"/>
+        </report>
+    </coverage>
 </phpunit>

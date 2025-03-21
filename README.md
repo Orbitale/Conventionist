@@ -1,3 +1,4 @@
+[![codecov](https://codecov.io/gh/Orbitale/Conventionist/graph/badge.svg?token=0WG71U7QJW)](https://codecov.io/gh/Orbitale/Conventionist)
 
 ## Development requirements 
 
