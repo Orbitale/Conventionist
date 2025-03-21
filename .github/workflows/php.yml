@@ -11,15 +11,6 @@ jobs:
         steps:
             - uses: actions/checkout@v1
 
-#            - name: "Set up Docker cache"
-#              id: integ-tests-cache
-#              uses: actions/cache@v4
-#              with:
-#                  path: /tmp/.cache-integ-tests
-#                  key: integ-tests-${{ hashFiles('**/Dockerfile*', '**/*.lock', '**/package-lock.json', '**/requirements.txt') }}
-#                  restore-keys: |
-#                      integ-tests-
-
             - name: Set up Docker Buildx
               uses: docker/setup-buildx-action@v3
 
@@ -46,3 +37,6 @@ jobs:
 
             - name: '🚀 Tests'
               run: make test
+
+            - name: '🚀 Coverage'
+              run: make coverage
