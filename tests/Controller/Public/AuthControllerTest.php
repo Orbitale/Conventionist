@@ -3,6 +3,7 @@
 namespace App\Tests\Controller\Public;
 
 use App\Controller\Public\AuthController;
+use App\Controller\Public\EventController;
 use App\Tests\TestUtils\GetUser;
 use App\Tests\TestUtils\ProvidesLocales;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -27,6 +28,19 @@ final class AuthControllerTest extends WebTestCase
         self::assertResponseRedirects('/'.$locale.'/admin');
         $crawler = $client->followRedirect();
         self::assertSame('Conventionist', $crawler->filter('#header-logo')->text());
+    }
+
+    #[DataProvider('provideLocales')]
+    public function testLoginWithRedirect(string $locale): void
+    {
+        $client = self::createClient();
+        $crawler = $client->request('GET', AuthController::LOGIN_PATHS[$locale].'?target='.EventController::PATHS[$locale]);
+        $form = $crawler->filter('.login-wrapper form')->form();
+        $client->submit($form, [
+            'username' => 'admin',
+            'password' => 'admin',
+        ]);
+        self::assertResponseRedirects(EventController::PATHS[$locale]);
     }
 
     #[DataProvider('provideLocales')]

@@ -5,6 +5,7 @@ namespace App\Tests\Controller\Public;
 use App\Controller\Public\ActivityAttendeeRegisterController;
 use App\Controller\Public\EventController;
 use App\DataFixtures\ScheduledActivityFixture;
+use App\DataFixtures\UserFixture;
 use App\Entity\Attendee;
 use App\Enum\ScheduleActivityState;
 use App\Repository\AttendeeRepository;
@@ -104,14 +105,19 @@ class ActivityAttendeeRegisterControllerTest extends WebTestCase
         $path = str_replace('{id}', $activityId, ActivityAttendeeRegisterController::PATHS[$locale]);
 
         $client = static::createClient();
-        $client->loginUser($this->getUser($username));
         $client->request('GET', $path);
         self::assertResponseStatusCodeSame(200);
 
         $link = $client->getCrawler()->filter('#register_as_activity_attendee a')->link();
         $client->click($link);
         self::assertResponseStatusCodeSame(200);
-        // TODO: proceed to login and check it redirects properly
+
+        $form = $client->getCrawler()->filter('form[method="post"]')->form();
+        $client->submit($form, [
+            'username' => $username,
+            'password' => $username,
+        ]);
+        self::assertResponseRedirects($path);
     }
 
     #[DataProvider('provideUsers')]
