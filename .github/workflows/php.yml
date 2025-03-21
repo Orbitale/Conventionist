@@ -40,3 +40,9 @@ jobs:
 
             - name: '🚀 Coverage'
               run: make coverage
+
+            - name: Upload coverage reports to Codecov
+              uses: codecov/codecov-action@v5
+              with:
+                  files: ./.phpunit.cache/coverage.xml
+                  token: ${{ secrets.CODECOV_TOKEN }}
