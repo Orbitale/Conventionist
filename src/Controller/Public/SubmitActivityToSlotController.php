@@ -7,7 +7,6 @@ use App\Entity\TimeSlot;
 use App\Entity\User;
 use App\Enum\ScheduleActivityState;
 use App\Form\SubmitActivityToSlotType;
-use App\Repository\ScheduledActivityRepository;
 use App\Repository\TimeSlotRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -25,7 +24,6 @@ final class SubmitActivityToSlotController extends AbstractController
 
     public function __construct(
         private readonly TimeSlotRepository $timeSlotRepository,
-        private readonly ScheduledActivityRepository $scheduledActivityRepository,
         private readonly UserRepository $userRepository,
         private readonly EntityManagerInterface $em,
     ) {

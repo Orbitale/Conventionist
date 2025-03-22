@@ -14,7 +14,7 @@
         <server name="APP_DEBUG" value="true" force="true" />
         <server name="SHELL_VERBOSITY" value="-1" />
         <server name="SYMFONY_PHPUNIT_REMOVE" value="" />
-        <server name="SYMFONY_PHPUNIT_VERSION" value="11.5.6" />
+        <server name="SYMFONY_PHPUNIT_VERSION" value="12.0.7" />
     </php>
 
     <testsuites>
@@ -35,11 +35,4 @@
     <extensions>
         <bootstrap class="DAMA\DoctrineTestBundle\PHPUnit\PHPUnitExtension"/>
     </extensions>
-
-    <coverage>
-        <report>
-            <clover outputFile=".phpunit.cache/coverage.xml"/>
-            <html outputDirectory=".phpunit.cache/coverage/" lowUpperBound="50" highLowerBound="90"/>
-        </report>
-    </coverage>
 </phpunit>

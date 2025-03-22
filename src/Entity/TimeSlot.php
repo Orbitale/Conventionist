@@ -119,7 +119,7 @@ class TimeSlot implements HasCreators
     public function isClosedForPlanning(): bool
     {
         if (!$this->open) {
-            return false;
+            return true;
         }
 
         return $this->hasAcceptedActivity();

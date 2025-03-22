@@ -27,7 +27,7 @@ final class ActivityAttendeeRegisterControllerTest extends WebTestCase
     {
         $path = str_replace('{id}', Uuid::v7()->toString(), ActivityAttendeeRegisterController::PATHS[$locale]);
 
-        $client = static::createClient();
+        $client = self::createClient();
         $client->request('GET', $path);
         self::assertResponseStatusCodeSame(404);
     }
@@ -43,7 +43,7 @@ final class ActivityAttendeeRegisterControllerTest extends WebTestCase
 
         $path = str_replace('{id}', $activityId, ActivityAttendeeRegisterController::PATHS[$locale]);
 
-        $client = static::createClient();
+        $client = self::createClient();
         $client->request('GET', $path);
         self::assertResponseRedirects(\str_replace('{slug}', 'tdc-2025', EventController::PATHS[$locale]));
         self::assertSessionHasFlashMessage('danger', 'event.error.cannot_register_to_activity');
@@ -60,7 +60,7 @@ final class ActivityAttendeeRegisterControllerTest extends WebTestCase
 
         $path = str_replace('{id}', $activityId, ActivityAttendeeRegisterController::PATHS[$locale]);
 
-        $client = static::createClient();
+        $client = self::createClient();
         $client->loginUser($this->getUser('visitor'));
         $client->request('GET', $path);
         self::assertResponseRedirects(\str_replace('{slug}', 'tdc-2025', EventController::PATHS[$locale]));
@@ -78,7 +78,7 @@ final class ActivityAttendeeRegisterControllerTest extends WebTestCase
 
         $path = str_replace('{id}', $activityId, ActivityAttendeeRegisterController::PATHS[$locale]);
 
-        $client = static::createClient();
+        $client = self::createClient();
         $client->request('GET', $path);
         self::assertResponseStatusCodeSame(200);
     }
@@ -103,7 +103,7 @@ final class ActivityAttendeeRegisterControllerTest extends WebTestCase
 
         $path = str_replace('{id}', $activityId, ActivityAttendeeRegisterController::PATHS[$locale]);
 
-        $client = static::createClient();
+        $client = self::createClient();
         $client->request('GET', $path);
         self::assertResponseStatusCodeSame(200);
 
@@ -130,7 +130,7 @@ final class ActivityAttendeeRegisterControllerTest extends WebTestCase
 
         $path = str_replace('{id}', $activityId, ActivityAttendeeRegisterController::PATHS[$locale]);
 
-        $client = static::createClient();
+        $client = self::createClient();
         $client->loginUser($this->getUser($username));
         $client->request('GET', $path);
         self::assertResponseStatusCodeSame(200);
@@ -147,7 +147,7 @@ final class ActivityAttendeeRegisterControllerTest extends WebTestCase
 
         $path = str_replace('{id}', $activityId, ActivityAttendeeRegisterController::PATHS[$locale]);
 
-        $client = static::createClient();
+        $client = self::createClient();
         $user = $this->getUser($username);
         $client->loginUser($user);
 
@@ -187,7 +187,7 @@ final class ActivityAttendeeRegisterControllerTest extends WebTestCase
 
         $path = str_replace('{id}', $activityId, ActivityAttendeeRegisterController::PATHS[$locale]);
 
-        $client = static::createClient();
+        $client = self::createClient();
 
         $client->request('GET', $path);
         self::assertResponseStatusCodeSame(200);
@@ -227,7 +227,7 @@ final class ActivityAttendeeRegisterControllerTest extends WebTestCase
 
         $path = str_replace('{id}', $activityId, ActivityAttendeeRegisterController::PATHS[$locale]);
 
-        $client = static::createClient();
+        $client = self::createClient();
 
         $client->request('GET', $path);
         self::assertResponseStatusCodeSame(200);
@@ -267,7 +267,7 @@ final class ActivityAttendeeRegisterControllerTest extends WebTestCase
 
         $path = str_replace('{id}', $activityId, ActivityAttendeeRegisterController::PATHS[$locale]);
 
-        $client = static::createClient();
+        $client = self::createClient();
 
         $client->request('GET', $path);
         self::assertResponseStatusCodeSame(200);
