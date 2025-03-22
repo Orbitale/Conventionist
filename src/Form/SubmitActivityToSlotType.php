@@ -3,18 +3,15 @@
 namespace App\Form;
 
 use App\Entity\Activity;
-use App\Entity\Attendee;
 use App\Entity\ScheduledActivity;
 use App\Entity\TimeSlot;
 use App\Entity\User;
 use App\Repository\ActivityRepository;
-use App\Repository\AttendeeRepository;
 use App\Repository\ScheduledActivityRepository;
 use App\Repository\UserRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Event\PostSubmitEvent;
-use Symfony\Component\Form\Event\PreSubmitEvent;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormError;
@@ -28,11 +25,12 @@ final class SubmitActivityToSlotType extends AbstractType
         private readonly UserRepository $userRepository,
         private readonly TranslatorInterface $translator,
         private readonly ScheduledActivityRepository $scheduledActivityRepository,
-    ) {}
+    ) {
+    }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        /** @var null|User $user */
+        /** @var User|null $user */
         $user = $options['user'];
         /** @var TimeSlot $timeSlot */
         $timeSlot = $options['time_slot'];
@@ -105,6 +103,5 @@ final class SubmitActivityToSlotType extends AbstractType
         ]);
         $resolver->setAllowedTypes('time_slot', [TimeSlot::class]);
         $resolver->setAllowedTypes('user', ['null', User::class]);
-
     }
 }

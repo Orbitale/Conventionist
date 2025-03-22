@@ -10,13 +10,7 @@ trait FlashMessageAssertions
     public static function assertSessionHasFlashMessage(string $messageType, string $message = ''): void
     {
         if (!\is_a(static::class, WebTestCase::class, true)) {
-            throw new \RuntimeException(
-                sprintf(
-                    'Trait "%s" can only be used in a test that extends "%s".',
-                    FlashMessageAssertions::class,
-                    WebTestCase::class,
-                )
-            );
+            throw new \RuntimeException(sprintf('Trait "%s" can only be used in a test that extends "%s".', FlashMessageAssertions::class, WebTestCase::class));
         }
 
         static::assertThat(self::getRequest(), new SessionHasFlashMessage($messageType, $message));
@@ -26,8 +20,6 @@ trait FlashMessageAssertions
      * This is a copy-paste of the `getRequest` method from the `BrowserKitAssertionsTrait` trait.
      *
      * @see \Symfony\Bundle\FrameworkBundle\Test\BrowserKitAssertionsTrait::getRequest
-     *
-     * @return Request
      */
     private static function getRequest(): Request
     {

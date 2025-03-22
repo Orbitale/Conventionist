@@ -12,7 +12,8 @@ final class ActivityExtension extends AbstractExtension
 {
     public function __construct(
         private readonly AttendeeRepository $attendeeRepository,
-    ) {}
+    ) {
+    }
 
     public function getFunctions(): array
     {

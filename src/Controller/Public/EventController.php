@@ -16,8 +16,8 @@ final class EventController extends AbstractController
 
     public function __construct(
         private readonly EventRepository $eventRepository,
-    )
-    {}
+    ) {
+    }
 
     #[Route(self::PATHS, name: 'event', methods: ['GET'])]
     public function __invoke(string $slug): Response

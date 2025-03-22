@@ -11,7 +11,7 @@ use App\Twig\Extension\ActivityExtension;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
-class ActivityExtensionTest extends KernelTestCase
+final class ActivityExtensionTest extends KernelTestCase
 {
     use GetUser;
 
@@ -46,8 +46,8 @@ class ActivityExtensionTest extends KernelTestCase
         }
 
         foreach (ScheduledActivityFixture::getStaticData() as $id => $data) {
-            yield 'ash'.' '.$id => ['ash', $id, false];
-            yield 'admin'.' '.$id => ['admin', $id, false];
+            yield 'ash '.$id => ['ash', $id, false];
+            yield 'admin '.$id => ['admin', $id, false];
         }
     }
 }

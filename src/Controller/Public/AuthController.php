@@ -25,7 +25,9 @@ final class AuthController extends AbstractController
         'en' => '/logout',
     ];
 
-    public function __construct(private readonly AuthenticationUtils $authenticationUtils) {}
+    public function __construct(private readonly AuthenticationUtils $authenticationUtils)
+    {
+    }
 
     #[Route(path: self::LOGIN_PATHS, name: self::LOGIN_ROUTE_NAME, methods: ['GET', 'POST'])]
     public function login(Request $request): Response

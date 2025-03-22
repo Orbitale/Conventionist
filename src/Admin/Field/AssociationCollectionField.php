@@ -7,7 +7,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FieldTrait;
 
-class AssociationCollectionField implements FieldInterface
+final class AssociationCollectionField implements FieldInterface
 {
     use FieldTrait;
 

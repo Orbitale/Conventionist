@@ -6,7 +6,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Contracts\Field\FieldInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField as BaseAssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FieldTrait;
 
-class AssociationField implements FieldInterface
+final class AssociationField implements FieldInterface
 {
     use FieldTrait;
 

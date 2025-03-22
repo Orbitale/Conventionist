@@ -18,12 +18,12 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 final class RegisterAsActivityAttendeeType extends AbstractType
 {
-
     public function __construct(
         private readonly AttendeeRepository $attendeeRepository,
         private readonly UserRepository $userRepository,
         private readonly TranslatorInterface $translator,
-    ) {}
+    ) {
+    }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {

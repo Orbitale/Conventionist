@@ -7,38 +7,38 @@ use Doctrine\ORM\Mapping as ORM;
 
 trait Address
 {
-    #[ORM\Column(name: "address1", type: Types::STRING, nullable: true)]
+    #[ORM\Column(name: 'address1', type: Types::STRING, nullable: true)]
     private ?string $address1 = null;
 
-    #[ORM\Column(name: "address2", type: Types::STRING, nullable: true)]
+    #[ORM\Column(name: 'address2', type: Types::STRING, nullable: true)]
     private ?string $address2 = null;
 
-    #[ORM\Column(name: "state", type: Types::STRING, nullable: true)]
+    #[ORM\Column(name: 'state', type: Types::STRING, nullable: true)]
     private ?string $state = null;
 
-    #[ORM\Column(name: "zip_code", type: Types::STRING, nullable: true)]
+    #[ORM\Column(name: 'zip_code', type: Types::STRING, nullable: true)]
     private ?string $zipCode = null;
 
-    #[ORM\Column(name: "city", type: Types::STRING, nullable: true)]
+    #[ORM\Column(name: 'city', type: Types::STRING, nullable: true)]
     private ?string $city = null;
 
-    #[ORM\Column(name: "country", type: Types::STRING, nullable: true)]
+    #[ORM\Column(name: 'country', type: Types::STRING, nullable: true)]
     private ?string $country = null;
 
-    #[ORM\Column(name: "latitude", type: Types::STRING, nullable: true)]
+    #[ORM\Column(name: 'latitude', type: Types::STRING, nullable: true)]
     private ?string $latitude = null;
 
-    #[ORM\Column(name: "longitude", type: Types::STRING, nullable: true)]
+    #[ORM\Column(name: 'longitude', type: Types::STRING, nullable: true)]
     private ?string $longitude = null;
 
     public function getAddress(): string
     {
         return $this->address1
-            . $this->address2
-            . $this->zipCode
-            . $this->city
-            . $this->state
-            . $this->country;
+            .$this->address2
+            .$this->zipCode
+            .$this->city
+            .$this->state
+            .$this->country;
     }
 
     public function getAddress1(): ?string

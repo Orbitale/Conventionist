@@ -27,12 +27,13 @@ final class ActivityAttendeeRegisterController extends AbstractController
         private readonly AttendeeRepository $attendeeRepository,
         private readonly UserRepository $userRepository,
         private readonly EntityManagerInterface $em,
-    ) {}
+    ) {
+    }
 
     #[Route(self::PATHS, name: 'register_to_activity', methods: ['GET', 'POST'])]
     public function __invoke(string $id, Request $request): Response
     {
-        /** @var null|ScheduledActivity $activity */
+        /** @var ScheduledActivity|null $activity */
         $activity = $this->scheduledActivityRepository->find($id);
 
         if (!$activity) {

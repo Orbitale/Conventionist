@@ -87,5 +87,4 @@ final class EventRepository extends ServiceEntityRepository
             ->setParameter('slug', $slug)
             ->getOneOrNullResult();
     }
-
 }

@@ -8,14 +8,14 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 trait GenericContact
 {
-    #[ORM\Column(name: "contact_name", type: Types::STRING, nullable: true)]
+    #[ORM\Column(name: 'contact_name', type: Types::STRING, nullable: true)]
     private ?string $contactName = null;
 
-    #[ORM\Column(name: "contact_email", type: Types::STRING, nullable: true)]
+    #[ORM\Column(name: 'contact_email', type: Types::STRING, nullable: true)]
     #[Assert\Email(mode: 'strict')]
     private ?string $contactEmail = null;
 
-    #[ORM\Column(name: "contact_phone", type: Types::STRING, nullable: true)]
+    #[ORM\Column(name: 'contact_phone', type: Types::STRING, nullable: true)]
     private ?string $contactPhone = null;
 
     public function getContactName(): ?string

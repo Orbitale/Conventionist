@@ -5,7 +5,6 @@ namespace App\Tests\Controller\Public;
 use App\Controller\Public\ActivityAttendeeRegisterController;
 use App\Controller\Public\EventController;
 use App\DataFixtures\ScheduledActivityFixture;
-use App\DataFixtures\UserFixture;
 use App\Entity\Attendee;
 use App\Enum\ScheduleActivityState;
 use App\Repository\AttendeeRepository;
@@ -17,7 +16,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\Uid\Uuid;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-class ActivityAttendeeRegisterControllerTest extends WebTestCase
+final class ActivityAttendeeRegisterControllerTest extends WebTestCase
 {
     use GetUser;
     use ProvidesLocales;
@@ -157,7 +156,7 @@ class ActivityAttendeeRegisterControllerTest extends WebTestCase
 
         $form = $client->getCrawler()->filter('form[name="register_as_activity_attendee"]')->form();
         $client->submit($form, [
-            //'register_as_activity_attendee[email]' => '',
+            // 'register_as_activity_attendee[email]' => '',
             'register_as_activity_attendee[name]' => 'Somebody that I used to know',
             'register_as_activity_attendee[numberOfAttendees]' => 5,
         ]);
@@ -165,7 +164,7 @@ class ActivityAttendeeRegisterControllerTest extends WebTestCase
         self::assertResponseRedirects(\str_replace('{slug}', 'tdc-2025', EventController::PATHS[$locale]));
         self::assertSessionHasFlashMessage('success', 'event.activity.register_as_attendee.success');
 
-        /** @var null|Attendee $attendee */
+        /** @var Attendee|null $attendee */
         $attendee = self::getContainer()->get(AttendeeRepository::class)->findOneBy([
             'registeredBy' => $user,
             'scheduledActivity' => $activityId,
@@ -205,7 +204,7 @@ class ActivityAttendeeRegisterControllerTest extends WebTestCase
 
         $user = $this->getUser('test@test.localhost');
 
-        /** @var null|Attendee $attendee */
+        /** @var Attendee|null $attendee */
         $attendee = self::getContainer()->get(AttendeeRepository::class)->findOneBy([
             'registeredBy' => $user,
             'scheduledActivity' => $activityId,
@@ -245,7 +244,7 @@ class ActivityAttendeeRegisterControllerTest extends WebTestCase
         self::assertResponseRedirects(\str_replace('{slug}', 'tdc-2025', EventController::PATHS[$locale]));
         self::assertSessionHasFlashMessage('success', 'event.activity.register_as_attendee.success');
 
-        /** @var null|Attendee $attendee */
+        /** @var Attendee|null $attendee */
         $attendee = self::getContainer()->get(AttendeeRepository::class)->findOneBy([
             'registeredBy' => $user,
             'scheduledActivity' => $activityId,

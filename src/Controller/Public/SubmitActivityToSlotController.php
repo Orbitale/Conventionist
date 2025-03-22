@@ -2,14 +2,11 @@
 
 namespace App\Controller\Public;
 
-use App\Entity\Attendee;
 use App\Entity\ScheduledActivity;
 use App\Entity\TimeSlot;
 use App\Entity\User;
 use App\Enum\ScheduleActivityState;
-use App\Form\RegisterAsActivityAttendeeType;
 use App\Form\SubmitActivityToSlotType;
-use App\Repository\AttendeeRepository;
 use App\Repository\ScheduledActivityRepository;
 use App\Repository\TimeSlotRepository;
 use App\Repository\UserRepository;
@@ -31,12 +28,13 @@ final class SubmitActivityToSlotController extends AbstractController
         private readonly ScheduledActivityRepository $scheduledActivityRepository,
         private readonly UserRepository $userRepository,
         private readonly EntityManagerInterface $em,
-    ) {}
+    ) {
+    }
 
     #[Route(self::PATHS, name: 'submit_activity_to_slot', methods: ['GET', 'POST'])]
     public function __invoke(string $id, Request $request): Response
     {
-        /** @var null|TimeSlot $slot */
+        /** @var TimeSlot|null $slot */
         $slot = $this->timeSlotRepository->find($id);
 
         if (!$slot) {

@@ -2,7 +2,6 @@
 
 namespace App\Controller\Admin;
 
-use App\Admin\Field\AssociationCollectionField;
 use App\Admin\Field\AssociationField;
 use App\Admin\Field\EquipmentField;
 use App\Entity\Activity;

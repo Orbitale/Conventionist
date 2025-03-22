@@ -65,7 +65,7 @@ class ScheduledActivity
     public function hasFormActivity(ExecutionContextInterface $context): void
     {
         if (!$this->newActivity && !$this->selectedActivity) {
-            $context->addViolation('scheduled_activity', );
+            $context->addViolation('scheduled_activity');
         }
     }
 

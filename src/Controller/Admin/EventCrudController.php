@@ -2,7 +2,6 @@
 
 namespace App\Controller\Admin;
 
-use App\Admin\Field\AssociationCollectionField;
 use App\Admin\Field\AssociationField;
 use App\Entity\Event;
 use App\Entity\User;

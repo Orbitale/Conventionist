@@ -7,7 +7,7 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Twig\TwigTest;
 
-class TypesExtensionTest extends KernelTestCase
+final class TypesExtensionTest extends KernelTestCase
 {
     #[DataProvider('provideData')]
     public function testBasicIntegration(mixed $input, bool $expectedResult): void

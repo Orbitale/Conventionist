@@ -116,7 +116,6 @@ class TimeSlot implements HasCreators
         return $this->isDay($day) && ($this->hasAcceptedActivity() || ($this->isOpen() && $this->event->getAllowActivityRegistration()));
     }
 
-
     public function isClosedForPlanning(): bool
     {
         if (!$this->open) {

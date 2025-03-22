@@ -48,11 +48,11 @@ class Event implements HasCreators
     #[Assert\NotNull()]
     private bool $allowAttendeeRegistration = true;
 
-    #[ORM\Column(name: "locale", type: "string", nullable: true)]
+    #[ORM\Column(name: 'locale', type: 'string', nullable: true)]
     #[Assert\Locale]
     private ?string $locale = null;
 
-    #[ORM\Column(name: "url", type: "string", nullable: true)]
+    #[ORM\Column(name: 'url', type: 'string', nullable: true)]
     private ?string $url = null;
 
     /**
@@ -95,7 +95,7 @@ class Event implements HasCreators
             $this->startsAt->format('Y-m-d') => $this->startsAt,
         ];
 
-        for ($i = 1; $i <= $this->startsAt->diff($this->endsAt)->days; $i++) {
+        for ($i = 1; $i <= $this->startsAt->diff($this->endsAt)->days; ++$i) {
             $date = $this->startsAt->modify("+{$i} days");
             $days[$date->format('Y-m-d')] = $date;
         }
