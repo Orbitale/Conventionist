@@ -66,6 +66,7 @@ final class SubmitActivityToSlotType extends AbstractType
             ->add('newActivity', ActivityType::class, [
                 'label' => false,
                 'show_equipment' => false,
+                'required' => false,
             ])
             ->addEventListener(FormEvents::POST_SUBMIT, function (PostSubmitEvent $event) use ($user, $timeSlot): void {
                 /** @var ScheduledActivity $scheduledActivity */

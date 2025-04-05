@@ -102,6 +102,11 @@ class ScheduledActivity
         return $this->state->getColor();
     }
 
+    public function isCreated(): bool
+    {
+        return $this->state === ScheduleActivityState::CREATED;
+    }
+
     public function isPendingReview(): bool
     {
         return $this->state === ScheduleActivityState::PENDING_REVIEW;
@@ -169,9 +174,13 @@ class ScheduledActivity
         return $this->submittedBy;
     }
 
-    public function setSubmittedBy(?User $user): void
+    public function setSubmittedBy(User $user): void
     {
         $this->submittedBy = $user;
-        $this->email = $user?->getEmail();
+        $this->email = $user->getEmail();
+
+        if ($user->isEmailConfirmed() && $this->isCreated()) {
+            $this->state = ScheduleActivityState::PENDING_REVIEW;
+        }
     }
 }

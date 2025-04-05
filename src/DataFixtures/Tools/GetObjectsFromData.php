@@ -8,6 +8,22 @@ trait GetObjectsFromData
 {
     abstract public static function getStaticData(): iterable;
 
+    public static function findByKeyAndValue(string $key, mixed $value): array
+    {
+        $data = \array_filter(
+            self::getStaticData(),
+            static fn (array $data) => $value instanceof Ref && $data[$key] instanceof Ref
+                ? $value->name === $data[$key]->name
+                : $data[$key] === $value
+        );
+
+        if (!\count($data)) {
+            throw new \RuntimeException(\sprintf('No fixture object with key "%s" and value "%s" in class "%s".', $key, $value, static::class));
+        }
+
+        return \array_values($data)[0];
+    }
+
     public static function filterByKeyAndValue(string $key, mixed $value): array
     {
         return \array_filter(

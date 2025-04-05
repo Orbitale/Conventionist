@@ -48,7 +48,7 @@ final class SubmitActivityToSlotController extends AbstractController
         $user = $this->getUser();
 
         $scheduledActivity = new ScheduledActivity();
-        $scheduledActivity->setState(ScheduleActivityState::PENDING_REVIEW);
+        $scheduledActivity->setState(ScheduleActivityState::CREATED);
         $scheduledActivity->setTimeSlot($slot);
         if ($user) {
             $scheduledActivity->setSubmittedBy($user);
@@ -71,6 +71,12 @@ final class SubmitActivityToSlotController extends AbstractController
                 $user->setUsername(\preg_replace('~@.*$~sUu', '', $scheduledActivity->email));
                 $user->setPassword(\bin2hex(\random_bytes(48)));
                 $user->setEmail($scheduledActivity->email);
+                $user->setLocale($request->getLocale());
+            }
+
+            if ($scheduledActivity->newActivity) {
+                $scheduledActivity->newActivity->addCreator($user);
+                $this->em->persist($scheduledActivity->newActivity);
             }
 
             $scheduledActivity->newActivity = null;

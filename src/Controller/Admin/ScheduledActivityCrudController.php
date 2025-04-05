@@ -153,9 +153,7 @@ final class ScheduledActivityCrudController extends AbstractCrudController
             return $qb;
         }
 
-        $qb->innerJoin('entity.activity', 'activity')
-            ->innerJoin('activity.creators', 'creators')
-            ->andWhere('creators IN (:creator)')
+        $qb->andWhere('entity.submittedBy = :creator')
             ->setParameter('creator', $this->getUser())
         ;
 

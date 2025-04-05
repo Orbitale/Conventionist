@@ -55,7 +55,7 @@ final class ScheduledActivityRepository extends ServiceEntityRepository
         return $this->getEntityManager()->createQuery(<<<DQL
             SELECT count(scheduled_activity) as count
             FROM {$this->getEntityName()} scheduled_activity
-            WHERE scheduled_activity.activity == :activity
+            WHERE scheduled_activity.activity = :activity
             AND scheduled_activity.timeSlot = :time_slot
             AND scheduled_activity.submittedBy = :user
         DQL

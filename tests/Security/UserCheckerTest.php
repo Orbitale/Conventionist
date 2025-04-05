@@ -27,7 +27,7 @@ final class UserCheckerTest extends WebTestCase
         try {
             $class = new UserChecker();
             $user = new User();
-            $user->setEmailConfirmed(true);
+            $user->setEmailConfirmed();
             $class->checkPostAuth($user);
             self::assertTrue(true);
         } catch (CustomUserMessageAccountStatusException) {

@@ -42,7 +42,7 @@ final class ScheduledActivityCrudControllerTest extends AbstractCrudTestCase
     {
         $data = \array_filter(
             ScheduledActivityFixture::getStaticData(),
-            static fn (array $data) => $data['activity']->name === 'activity-Visitor activity'
+            static fn (array $data) => $data['submittedBy']->name === 'user-visitor'
         );
 
         $this->runIndexPage($data, 'visitor');

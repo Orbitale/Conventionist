@@ -4,6 +4,8 @@ namespace App\Mailer;
 
 use App\Controller\Public\RegistrationController;
 use App\Entity\User;
+use App\Enum\ScheduleActivityState;
+use App\Repository\ScheduledActivityRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,6 +21,7 @@ final readonly class RegistrationEmailVerifier
         private MailerInterface $mailer,
         private EntityManagerInterface $entityManager,
         private TranslatorInterface $translator,
+        private ScheduledActivityRepository $scheduledActivityRepository,
         private string $emailSender,
     ) {
     }
@@ -56,7 +59,21 @@ final readonly class RegistrationEmailVerifier
         $this->verifyEmailHelper->validateEmailConfirmationFromRequest($request, $user->getId(), $user->getEmail());
 
         $user->setEmailConfirmed();
+        $this->updatePendingActivitiesState($user);
         $this->entityManager->persist($user);
         $this->entityManager->flush();
+    }
+
+    private function updatePendingActivitiesState(User $user): void
+    {
+        $activities = $this->scheduledActivityRepository->findBy([
+            'submittedBy' => $user,
+            'state' => ScheduleActivityState::CREATED,
+        ]);
+
+        foreach ($activities as $activity) {
+            $activity->setState(ScheduleActivityState::PENDING_REVIEW);
+            $this->entityManager->persist($activity);
+        }
     }
 }

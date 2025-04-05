@@ -22,7 +22,7 @@ final class ActivityFixture extends ArrayFixture implements ORMFixtureInterface,
                 'name' => 'Activité de jeu',
                 'description' => 'Lorem ipsum',
                 'maxNumberOfParticipants' => 5,
-                'creators' => new ArrayCollection(),
+                'creators' => [new Ref(User::class, 'user-visitor')],
             ],
             '6d443a40-6c42-4ced-bb1c-a285e415a768' => [
                 'name' => 'Visitor activity',
