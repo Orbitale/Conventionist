@@ -44,6 +44,14 @@ final class UserFixture extends ArrayFixture implements ORMFixtureInterface
                 'emailConfirmed' => new \DateTimeImmutable(),
                 'locale' => 'fr',
             ],
+            'c96ec3dc-00e1-4410-b8ac-acecf7ee02e7' => [
+                'username' => 'unvalidated',
+                'email' => 'unvalidated@test.localhost',
+                'password' => static fn () => self::$hasher->getPasswordHasher(User::class)->hash('unvalidated'),
+                'roles' => [],
+                'timezone' => 'Europe/Paris',
+                'locale' => 'fr',
+            ],
         ];
     }
 

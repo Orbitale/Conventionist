@@ -6,6 +6,7 @@ use App\Controller\Public\RegistrationController;
 use App\Entity\User;
 use App\Enum\ScheduleActivityState;
 use App\Repository\ScheduledActivityRepository;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,6 +20,7 @@ final readonly class RegistrationEmailVerifier
     public function __construct(
         private VerifyEmailHelperInterface $verifyEmailHelper,
         private MailerInterface $mailer,
+        private UserRepository $userRepository,
         private EntityManagerInterface $entityManager,
         private TranslatorInterface $translator,
         private ScheduledActivityRepository $scheduledActivityRepository,
@@ -56,6 +58,11 @@ final readonly class RegistrationEmailVerifier
 
     public function handleEmailConfirmation(Request $request, User $user): void
     {
+        $exists = $this->userRepository->find($user->getId());
+        if (!$exists) {
+            throw new \LogicException(\sprintf('Could not find user with id %s', $user->getId()));
+        }
+
         $this->verifyEmailHelper->validateEmailConfirmationFromRequest($request, $user->getId(), $user->getEmail());
 
         $user->setEmailConfirmed();

@@ -4,7 +4,6 @@ namespace App\Tests\Controller\Public;
 
 use App\Controller\Public\EventController;
 use App\Controller\Public\SubmitActivityToSlotController;
-use App\DataFixtures\ActivityFixture;
 use App\DataFixtures\ScheduledActivityFixture;
 use App\DataFixtures\TimeSlotFixture;
 use App\DataFixtures\Tools\Ref;
@@ -92,7 +91,6 @@ final class SubmitActivityToSlotControllerTest extends WebTestCase
         self::assertResponseStatusCodeSame(200);
         self::assertSelectorTextSame('.alert.alert-danger', self::getContainer()->get(TranslatorInterface::class)->trans('event.error.already_submitted_activity', locale: $locale));
     }
-
 
     #[DataProvider('provideLocales')]
     public function testSubmitAsInexistentUser(string $locale): void

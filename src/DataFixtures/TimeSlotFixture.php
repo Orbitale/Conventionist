@@ -101,6 +101,13 @@ final class TimeSlotFixture extends ArrayFixture implements ORMFixtureInterface,
                 'event' => new Ref(Event::class, 'event-TDC 2025'),
                 'open' => false,
             ],
+            'cf377cb5-31b4-421f-85b6-31c44086aef3' => [
+                'startsAt' => (new \DateTimeImmutable('+101 days'))->setTime(10, 0),
+                'endsAt' => (new \DateTimeImmutable('+101 days'))->setTime(11, 0),
+                'booth' => new Ref(Booth::class, 'booth-Hall jeux 01'),
+                'event' => new Ref(Event::class, 'event-TDC 2025'),
+                'open' => false,
+            ],
         ];
     }
 }
