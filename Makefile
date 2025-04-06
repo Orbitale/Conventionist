@@ -113,7 +113,7 @@ test: ## Run PHPUnit tests
 .PHONY: test
 
 coverage: ## Run PHPUnit tests, but with code coverage
-	@XDEBUG_MODE=coverage symfony php bin/phpunit --coverage-xml=.phpunit.cache/coverage.xml --coverage-html=.phpunit.cache/coverage/
+	@XDEBUG_MODE=coverage symfony php bin/phpunit --coverage-clover=.phpunit.cache/coverage.xml --coverage-html=.phpunit.cache/coverage/
 .PHONY: test
 
 test-db: ## Recreate automated testing database with default data
