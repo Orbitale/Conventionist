@@ -9,6 +9,7 @@ use App\DataFixtures\RoomFixture;
 use App\DataFixtures\Tools\Ref;
 use App\Entity\Room;
 use App\Tests\TestUtils\GetUser;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Test\AbstractCrudTestCase;
 use EasyCorp\Bundle\EasyAdminBundle\Test\Trait\CrudTestFormAsserts;
 
@@ -66,5 +67,16 @@ final class BoothCrudControllerTest extends AbstractCrudTestCase
         ];
 
         $this->runEditFormSubmit(BoothFixture::getIdFromName('Table face pôle JdR 1'), $newData);
+    }
+
+    public function testEditInPlace(): void
+    {
+        //https://127.0.0.1:8000
+        $id = BoothFixture::getIdFromName('Table face pôle JdR 1');
+        $url = $this->getCrudUrl('editInPlace', $id, ['_locale' => 'fr']);
+        $this->client->loginUser($this->getUser());
+        $this->client->request('POST', $url, content: \json_encode(['maxNumberOfParticipants' => 12], JSON_THROW_ON_ERROR));
+
+        self::assertTrue(true);
     }
 }

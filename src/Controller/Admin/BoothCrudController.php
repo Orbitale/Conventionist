@@ -3,7 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Admin\Field\EquipmentField;
-use App\Admin\Field\NumberField;
+use App\Admin\Field\EditInPlaceField;
 use App\Controller\Admin\Traits\EditInPlaceCrud;
 use App\Entity\Booth;
 use App\Security\Voter\VenueVoter;
@@ -64,7 +64,7 @@ final class BoothCrudController extends AbstractCrudController
     {
         yield Field\TextField::new('name', 'Booth name or number');
         yield Field\AssociationField::new('room')->setDisabled($pageName === Crud::PAGE_EDIT);
-        yield NumberField::new('maxNumberOfParticipants');
+        yield Field\NumberField::new('maxNumberOfParticipants');
         yield EquipmentField::new('availableEquipment')
             ->setCustomOption('translateKey', true)
             ->setTemplatePath('admin/fields/field.array.html.twig');

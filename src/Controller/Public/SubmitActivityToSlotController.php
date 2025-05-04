@@ -6,7 +6,7 @@ use App\Entity\ScheduledActivity;
 use App\Entity\TimeSlot;
 use App\Entity\User;
 use App\Enum\ScheduleActivityState;
-use App\Form\SubmitActivityToSlotType;
+use App\Form\Type\SubmitActivityToSlotType;
 use App\Repository\TimeSlotRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;

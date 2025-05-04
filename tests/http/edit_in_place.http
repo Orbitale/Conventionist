@@ -1,16 +1,10 @@
-# curl 'https://127.0.0.1:8000/fr/admin?crudAction=editInPlace&crudControllerFqcn=App%5CController%5CAdmin%5CBoothCrudController&entityId=16770e01-f7bc-43c6-926c-0b6cca46e397' -X POST -H 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:135.0) Gecko/20100101 Firefox/135.0' -H 'Accept: text/html' -H 'Accept-Language: en-US,en;q=0.5' -H 'Accept-Encoding: gzip, deflate, br, zstd' -H 'Referer: https://127.0.0.1:8000/fr/admin/booth' -H 'Content-Type: application/json' -H 'Origin: https://127.0.0.1:8000' -H 'DNT: 1' -H 'Sec-GPC: 1' -H 'Connection: keep-alive' -H 'Cookie: REMEMBERME=App.Entity.User%3AYWRtaW4~%3A1746270900%3AexQB34QDOj-vSy6lKMTbNoaT6afNVpqCnLf5FBbNby0~l0dYnzsfdb9S4xtpSIObExnrS7fO9Tuot9TFKiohe6o~; main_auth_profile_token=1ee9b4; PHPSESSID=8fcb589d527ef767737867db9d670f68' -H 'Sec-Fetch-Dest: empty' -H 'Sec-Fetch-Mode: cors' -H 'Sec-Fetch-Site: same-origin' -H 'Priority: u=0' -H 'TE: trailers' --data-raw '{"maxNumberOfParticipants":"6"}'
-POST https://127.0.0.1:8000/fr/admin?crudAction=editInPlace&
-    crudControllerFqcn=App%5CController%5CAdmin%5CBoothCrudController&
-    entityId=16770e01-f7bc-43c6-926c-0b6cca46e397
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:135.0) Gecko/20100101 Firefox/135.0
+POST https://127.0.0.1:8000/en/admin?crudAction=editInPlace&crudControllerFqcn=App%5CController%5CAdmin%5CBoothCrudController&entityId=16770e01-f7bc-43c6-926c-0b6cca46e397
 Accept: text/html
-Referer: https://127.0.0.1:8000/fr/admin/booth
+Referer: https://127.0.0.1:8000/en/admin/booth
 Origin: https://127.0.0.1:8000
-Cookie: REMEMBERME=App.Entity.User%3AYWRtaW4~%3A1746270900%3AexQB34QDOj-vSy6lKMTbNoaT6afNVpqCnLf5FBbNby0~l0dYnzsfdb9S4xtpSIObExnrS7fO9Tuot9TFKiohe6o~; main_auth_profile_token=1ee9b4; PHPSESSID=8fcb589d527ef767737867db9d670f68
+Cookie: REMEMBERME=App.Entity.User%3AYWRtaW4~%3A1746992742%3A-LM91Ey5UyZl2H-5IxNA8brEn9YY3djFksELbudgi4Q~l0dYnzsfdb9S4xtpSIObExnrS7fO9Tuot9TFKiohe6o~; main_auth_profile_token=528ae2; PHPSESSID=3b66f911354bef73b72b6a9b851ee796
 Content-Type: application/json
 
 {
     "maxNumberOfParticipants": "6"
 }
-
-###

@@ -3,7 +3,7 @@
     document.addEventListener('DOMContentLoaded', function() {
         enableConfirmElements();
 
-        enableeditInPlaceElements();
+        enableEditInPlaceElements();
     });
 
     function enableConfirmElements() {
@@ -27,7 +27,7 @@
         });
     }
 
-    function enableeditInPlaceElements() {
+    function enableEditInPlaceElements() {
         const toggle_attr = 'data-edit-in-place-toggle';
         const toggles = document.querySelectorAll('['+toggle_attr+']');
 
@@ -101,7 +101,15 @@
                     }
                     return [res, res.text()];
                 }).then((res, html) => {
-                    message('success', res, html);
+                    if (!res || !html) {
+                        console.error('Nothing returned !?');
+                        return;
+                    }
+                    console.info('Successful edit', {res, html});
+                    field_container.style.display = 'block';
+                    form_container.style.display = 'none';
+                    show_form = false;
+                    field_container.innerHTML = html;
                 });
             });
 
@@ -122,8 +130,12 @@
                     message_container.innerHTML = message;
                 }
 
-                console.error(message);
-                console.error(object);
+                if (type === 'error') {
+                    console.error(message);
+                    console.error(object);
+                } else {
+                    console.info(message, object);
+                }
             }
         });
     }

@@ -5,7 +5,7 @@ namespace App\Controller\Public;
 use App\Entity\Attendee;
 use App\Entity\ScheduledActivity;
 use App\Entity\User;
-use App\Form\RegisterAsActivityAttendeeType;
+use App\Form\Type\RegisterAsActivityAttendeeType;
 use App\Repository\AttendeeRepository;
 use App\Repository\ScheduledActivityRepository;
 use App\Repository\UserRepository;

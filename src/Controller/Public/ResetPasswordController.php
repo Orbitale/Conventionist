@@ -3,8 +3,8 @@
 namespace App\Controller\Public;
 
 use App\Entity\User;
-use App\Form\ChangePasswordFormType;
-use App\Form\ResetPasswordRequestFormType;
+use App\Form\Type\ChangePasswordFormType;
+use App\Form\Type\ResetPasswordRequestFormType;
 use App\Mailer\PasswordResetMailer;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

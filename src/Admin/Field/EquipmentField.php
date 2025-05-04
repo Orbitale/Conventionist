@@ -2,7 +2,7 @@
 
 namespace App\Admin\Field;
 
-use App\Form\AssociativeArrayType;
+use App\Form\Type\AssociativeArrayType;
 use EasyCorp\Bundle\EasyAdminBundle\Contracts\Field\FieldInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FieldTrait;
