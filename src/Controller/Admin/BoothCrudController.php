@@ -3,8 +3,6 @@
 namespace App\Controller\Admin;
 
 use App\Admin\Field\EquipmentField;
-use App\Admin\Field\EditInPlaceField;
-use App\Controller\Admin\Traits\EditInPlaceCrud;
 use App\Entity\Booth;
 use App\Security\Voter\VenueVoter;
 use Doctrine\ORM\QueryBuilder;
@@ -21,7 +19,6 @@ use EasyCorp\Bundle\EasyAdminBundle\Field;
 final class BoothCrudController extends AbstractCrudController
 {
     use GenericCrudMethods;
-    use EditInPlaceCrud;
 
     public static function getEntityFqcn(): string
     {
@@ -31,8 +28,6 @@ final class BoothCrudController extends AbstractCrudController
     public function configureActions(Actions $actions): Actions
     {
         $this->checkParent();
-
-        $this->addEditInPlaceAction($actions);
 
         $actions
             ->add(Crud::PAGE_INDEX, Action::DETAIL)
@@ -62,10 +57,11 @@ final class BoothCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
-        yield Field\TextField::new('name', 'Booth name or number');
+        yield Field\TextField::new('name', 'Booth name or number')->setEditInPlace(['index', 'detail']);
         yield Field\AssociationField::new('room')->setDisabled($pageName === Crud::PAGE_EDIT);
-        yield Field\NumberField::new('maxNumberOfParticipants');
+        yield Field\NumberField::new('maxNumberOfParticipants')->setEditInPlace(['index', 'detail']);
         yield EquipmentField::new('availableEquipment')
+            ->setEditInPlace(['index', 'detail'])
             ->setCustomOption('translateKey', true)
             ->setTemplatePath('admin/fields/field.array.html.twig');
     }

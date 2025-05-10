@@ -99,8 +99,8 @@ final class UsersCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         $id = TextField::new('id', 'ID')->setDisabled()->hideOnForm();
-        $username = TextField::new('username');
-        $email = TextField::new('email');
+        $username = TextField::new('username')->setEditInPlace(['index', 'detail']);
+        $email = TextField::new('email')->setEditInPlace(['index', 'detail']);
         $plainPassword = Field::new('formNewPassword')->setHelp('admin.entities.users.password_help');
         $newRoles = CollectionField::new('formNewRoles', 'admin.roles.new')->setEntryType(RoleType::class);
         $roles = ArrayField::new('roles')->setTemplatePath('admin/fields/field.roles.html.twig');
