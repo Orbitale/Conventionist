@@ -57,11 +57,10 @@ final class BoothCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
-        yield Field\TextField::new('name', 'Booth name or number')->setEditInPlace(['index', 'detail']);
-        yield Field\AssociationField::new('room')->setDisabled($pageName === Crud::PAGE_EDIT);
-        yield Field\NumberField::new('maxNumberOfParticipants')->setEditInPlace(['index', 'detail']);
+        yield Field\TextField::new('name', 'Booth name or number');
+        yield Field\AssociationField::new('room');
+        yield Field\NumberField::new('maxNumberOfParticipants');
         yield EquipmentField::new('availableEquipment')
-            ->setEditInPlace(['index', 'detail'])
             ->setCustomOption('translateKey', true)
             ->setTemplatePath('admin/fields/field.array.html.twig');
     }

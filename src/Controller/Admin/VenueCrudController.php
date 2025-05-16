@@ -62,17 +62,17 @@ final class VenueCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            Field\TextField::new('name')->setEditInPlace(['index', 'detail']),
+            Field\TextField::new('name'),
             AssociationCollectionField::new('floors', null, NestedFloorCrudController::class, FloorCrudController::class),
             Field\TextField::new('address')->hideOnForm()->hideOnDetail(),
-            Field\TextField::new('address1')->hideOnIndex()->setEditInPlace(['detail']),
-            Field\TextField::new('address2')->hideOnIndex()->setEditInPlace(['detail']),
-            Field\TextField::new('state')->hideOnIndex()->setEditInPlace(['detail']),
-            Field\TextField::new('zipCode')->hideOnIndex()->setEditInPlace(['detail']),
-            Field\TextField::new('city')->hideOnIndex()->setEditInPlace(['detail']),
-            Field\TextField::new('country')->hideOnIndex()->setEditInPlace(['detail']),
-            Field\TextField::new('latitude')->hideOnIndex()->setEditInPlace(['detail']),
-            Field\TextField::new('longitude')->hideOnIndex()->setEditInPlace(['detail']),
+            Field\TextField::new('address1')->hideOnIndex(),
+            Field\TextField::new('address2')->hideOnIndex(),
+            Field\TextField::new('state')->hideOnIndex(),
+            Field\TextField::new('zipCode')->hideOnIndex(),
+            Field\TextField::new('city')->hideOnIndex(),
+            Field\TextField::new('country')->hideOnIndex(),
+            Field\TextField::new('latitude')->hideOnIndex(),
+            Field\TextField::new('longitude')->hideOnIndex(),
         ];
     }
 }
