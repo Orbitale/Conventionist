@@ -74,7 +74,7 @@ final class EventCrudController extends AbstractCrudController
         return [
             Field\FormField::addColumn(6),
             Field\FormField::addFieldset('General'),
-            Field\TextField::new('name')->setEditInPlace(['index', 'detail']),
+            Field\TextField::new('name'),
             Field\TextEditorField::new('description')->setRequired(false)->hideOnIndex(),
             Field\AssociationField::new('venue')->setRequired(true),
             AssociationField::new('creators')
