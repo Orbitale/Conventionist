@@ -10,11 +10,22 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Sylius\Component\Resource\Model\ResourceInterface;
+use Sylius\Resource\Metadata as Sylius;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
 
+#[Sylius\AsResource(
+    operations: [
+        new Sylius\Index(path: '/event/index', template: ''),
+        new Sylius\Show(path: '/event/show/{id}', template: ''),
+        new Sylius\Create(path: '/event/create/{id}', template: ''),
+        new Sylius\Update(path: '/event/update/{id}', template: ''),
+        new Sylius\Delete(path: '/event/delete/{id}', template: ''),
+    ],
+)]
 #[ORM\Entity(repositoryClass: EventRepository::class)]
-class Event implements HasCreators
+class Event implements HasCreators, ResourceInterface
 {
     use Field\Id { Field\Id::__construct as private generateId; }
     use Field\Creators { Field\Creators::__construct as generateCreators; }

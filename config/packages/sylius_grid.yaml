@@ -1,0 +1,16 @@
+sylius_grid:
+    grids:
+        app_admin_event:
+            driver:
+                name: doctrine/orm
+                options:
+                    class: App\Entity\Event
+            fields:
+                name:
+                    type: string
+                    label: app.ui.name
+                published:
+                    type: twig
+                    label: app.ui.published
+                    options:
+                        template: '@SyliusBootstrapAdminUi/shared/grid/field/boolean.html.twig' # This will be a checkbox field

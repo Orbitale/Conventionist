@@ -1,4 +1,7 @@
 {
+    "babdev/pagerfanta-bundle": {
+        "version": "v4.5.0"
+    },
     "dama/doctrine-test-bundle": {
         "version": "8.2",
         "recipe": {
@@ -10,6 +13,15 @@
         "files": [
             "config/packages/dama_doctrine_test_bundle.yaml"
         ]
+    },
+    "doctrine/annotations": {
+        "version": "2.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "1.10",
+            "ref": "64d8583af5ea57b7afa4aba4b159907f3a148b05"
+        }
     },
     "doctrine/doctrine-bundle": {
         "version": "2.13",
@@ -86,6 +98,23 @@
         },
         "files": [
             "config/packages/stof_doctrine_extensions.yaml"
+        ]
+    },
+    "sylius/grid-bundle": {
+        "version": "v1.13.1"
+    },
+    "sylius/resource-bundle": {
+        "version": "1.13",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "main",
+            "version": "1.12",
+            "ref": "cde8dd6145be3135af63787aa5c5858c3f289c7a"
+        },
+        "files": [
+            "config/packages/sylius_resource.yaml",
+            "config/routes/sylius_resource.yaml",
+            "src/Entity/.gitignore"
         ]
     },
     "symfony/asset-mapper": {

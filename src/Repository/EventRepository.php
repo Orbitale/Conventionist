@@ -6,12 +6,21 @@ use App\Entity\Event;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Sylius\Bundle\ResourceBundle\Doctrine\ORM\ResourceRepositoryTrait;
+use Sylius\Resource\Doctrine\Persistence\RepositoryInterface;
 
 /**
  * @extends ServiceEntityRepository<Event>
+ *
+ * @method Event|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Event|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Event[]    findAll()
+ * @method Event[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-final class EventRepository extends ServiceEntityRepository
+final class EventRepository extends ServiceEntityRepository implements RepositoryInterface
 {
+    use ResourceRepositoryTrait;
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Event::class);

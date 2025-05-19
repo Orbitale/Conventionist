@@ -24,9 +24,9 @@ trait Id
 
     public function isSameAs(?object $object): bool
     {
-        $class = \get_class($this);
+        $className = \get_class($this);
 
-        if (!$object || !$object instanceof $class) {
+        if (!$object || !$object instanceof $className) {
             return false;
         }
 
