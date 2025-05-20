@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "cab4f5cf0c9b89bd3f909797756aa0b6",
+    "content-hash": "5b34b71c9aa76a87638721ccb0733371",
     "packages": [
         {
             "name": "babdev/pagerfanta-bundle",
@@ -2110,6 +2110,50 @@
             "time": "2024-11-30T19:18:10+00:00"
         },
         {
+            "name": "pagerfanta/twig",
+            "version": "v4.7.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Pagerfanta/twig.git",
+                "reference": "f3eb17928c61fe6f72abc822825e1006afae6257"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Pagerfanta/twig/zipball/f3eb17928c61fe6f72abc822825e1006afae6257",
+                "reference": "f3eb17928c61fe6f72abc822825e1006afae6257",
+                "shasum": ""
+            },
+            "require": {
+                "pagerfanta/core": "^3.7 || ^4.0",
+                "php": "^8.1",
+                "twig/twig": "^2.13 || ^3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^10.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Pagerfanta\\Twig\\": "./"
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Twig integration for Pagerfanta",
+            "keywords": [
+                "pagerfanta"
+            ],
+            "support": {
+                "source": "https://github.com/Pagerfanta/twig/tree/v4.7.1"
+            },
+            "time": "2024-12-13T15:11:13+00:00"
+        },
+        {
             "name": "phpstan/phpdoc-parser",
             "version": "2.1.0",
             "source": {
@@ -2657,6 +2701,76 @@
             "time": "2025-05-06T12:56:57+00:00"
         },
         {
+            "name": "sylius/bootstrap-admin-ui",
+            "version": "v0.8.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Sylius/BootstrapAdminUi.git",
+                "reference": "978bd8d7b4595ab1dc88b3e32504b8e2c3cdb4ee"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Sylius/BootstrapAdminUi/zipball/978bd8d7b4595ab1dc88b3e32504b8e2c3cdb4ee",
+                "reference": "978bd8d7b4595ab1dc88b3e32504b8e2c3cdb4ee",
+                "shasum": ""
+            },
+            "require": {
+                "pagerfanta/twig": "^4.6",
+                "php": "^8.1",
+                "sylius/admin-ui": "^0.8.1",
+                "sylius/grid-bundle": "^1.13",
+                "sylius/resource-bundle": "^1.11",
+                "sylius/twig-extra": "^0.8.1",
+                "sylius/twig-hooks": "^0.8.1",
+                "symfony/asset": "^6.4 || ^7.0",
+                "symfony/http-client": "^6.4 || ^7.0",
+                "symfony/http-kernel": "^6.4 || ^7.0",
+                "symfony/security-bundle": "^6.4 || ^7.0",
+                "symfony/ux-autocomplete": "^2.17",
+                "symfony/ux-icons": "^2.20",
+                "symfony/ux-live-component": "^2.17"
+            },
+            "require-dev": {
+                "doctrine/doctrine-bundle": "^2.12",
+                "doctrine/orm": "^2.0",
+                "phpunit/phpunit": "^9.6",
+                "symfony/browser-kit": "^6.4 || ^7.0",
+                "symfony/console": "^6.4 || ^7.0",
+                "symfony/css-selector": "^6.4 || ^7.0",
+                "symfony/dotenv": "^6.4 || ^7.0",
+                "symfony/framework-bundle": "^6.4 || ^7.0",
+                "symfony/runtime": "^6.4 || ^7.0",
+                "symfony/yaml": "^6.4 || ^7.0"
+            },
+            "type": "library",
+            "extra": {
+                "symfony": {
+                    "require": "7.1.*"
+                },
+                "branch-alias": {
+                    "dev-main": "0.8-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Sylius\\BootstrapAdminUi\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "description": "Build your Bootstrap admin panels with Sylius and Symfony UX",
+            "support": {
+                "issues": "https://github.com/Sylius/BootstrapAdminUi/issues",
+                "source": "https://github.com/Sylius/BootstrapAdminUi/tree/v0.8.1"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/sylius",
+                    "type": "github"
+                }
+            ],
+            "time": "2025-05-06T12:56:57+00:00"
+        },
+        {
             "name": "sylius/grid-bundle",
             "version": "v1.13.1",
             "source": {
@@ -2982,6 +3096,81 @@
             "time": "2025-03-12T07:17:15+00:00"
         },
         {
+            "name": "sylius/twig-extra",
+            "version": "v0.8.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Sylius/TwigExtra.git",
+                "reference": "666dfa5940b6b990263339e69a9ee70869f177c9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Sylius/TwigExtra/zipball/666dfa5940b6b990263339e69a9ee70869f177c9",
+                "reference": "666dfa5940b6b990263339e69a9ee70869f177c9",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.1",
+                "symfony/http-kernel": "^6.4 || ^7.0",
+                "symfony/twig-bundle": "^6.4 || ^7.0",
+                "symfony/ux-twig-component": "^2.17"
+            },
+            "conflict": {
+                "sylius/ui-bundle": "<2.0"
+            },
+            "require-dev": {
+                "matthiasnoback/symfony-dependency-injection-test": "^5.1",
+                "phpunit/phpunit": "^9.6",
+                "symfony/browser-kit": "^6.4 || ^7.0",
+                "symfony/console": "^6.4 || ^7.0",
+                "symfony/css-selector": "^6.4 || ^7.0",
+                "symfony/dotenv": "^6.4 || ^7.0",
+                "symfony/framework-bundle": "^6.4 || ^7.0",
+                "symfony/runtime": "^6.4 || ^7.0",
+                "symfony/yaml": "^6.4 || ^7.0"
+            },
+            "type": "library",
+            "extra": {
+                "symfony": {
+                    "require": "7.1.*"
+                },
+                "branch-alias": {
+                    "dev-main": "0.8-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Sylius\\TwigExtra\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Sylius project",
+                    "homepage": "https://sylius.com"
+                },
+                {
+                    "name": "Community contributions",
+                    "homepage": "https://github.com/Sylius/Stack/contributors"
+                }
+            ],
+            "description": "Additional Twig extensions for your Symfony projects",
+            "support": {
+                "issues": "https://github.com/Sylius/TwigExtra/issues",
+                "source": "https://github.com/Sylius/TwigExtra/tree/v0.8.1"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/sylius",
+                    "type": "github"
+                }
+            ],
+            "time": "2025-04-25T07:44:53+00:00"
+        },
+        {
             "name": "sylius/twig-hooks",
             "version": "v0.8.1",
             "source": {
@@ -3056,6 +3245,64 @@
             "description": "Composable Twig layouts",
             "support": {
                 "source": "https://github.com/Sylius/TwigHooks/tree/v0.8.1"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/sylius",
+                    "type": "github"
+                }
+            ],
+            "time": "2025-04-25T07:44:53+00:00"
+        },
+        {
+            "name": "sylius/ui-translations",
+            "version": "v0.8.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Sylius/UiTranslations.git",
+                "reference": "bf7d37b85e9aa7f30fe6e01f07569403c1d514ca"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Sylius/UiTranslations/zipball/bf7d37b85e9aa7f30fe6e01f07569403c1d514ca",
+                "reference": "bf7d37b85e9aa7f30fe6e01f07569403c1d514ca",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.1",
+                "symfony/translation": "^6.4 || ^7.0",
+                "symfony/yaml": "^6.4 || ^7.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^9.6",
+                "symfony/browser-kit": "^6.4 || ^7.0",
+                "symfony/console": "^6.4 || ^7.0",
+                "symfony/css-selector": "^6.4 || ^7.0",
+                "symfony/dotenv": "^6.4 || ^7.0",
+                "symfony/framework-bundle": "^6.4 || ^7.0",
+                "symfony/http-kernel": "^6.4 || ^7.0",
+                "symfony/twig-bundle": "^6.4 || ^7.0",
+                "twig/twig": "^2.15 || ^3.0"
+            },
+            "type": "library",
+            "extra": {
+                "symfony": {
+                    "require": "7.1.*"
+                },
+                "branch-alias": {
+                    "dev-main": "0.8-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Sylius\\UiTranslations\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "description": "Basic UI translations",
+            "support": {
+                "issues": "https://github.com/Sylius/UiTranslations/issues",
+                "source": "https://github.com/Sylius/UiTranslations/tree/v0.8.1"
             },
             "funding": [
                 {
@@ -8056,6 +8303,185 @@
                 }
             ],
             "time": "2024-09-25T14:21:43+00:00"
+        },
+        {
+            "name": "symfony/ux-autocomplete",
+            "version": "v2.25.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/ux-autocomplete.git",
+                "reference": "62f11dd9fd70bdc22c04db9530819471a5aca349"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/ux-autocomplete/zipball/62f11dd9fd70bdc22c04db9530819471a5aca349",
+                "reference": "62f11dd9fd70bdc22c04db9530819471a5aca349",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.1",
+                "symfony/dependency-injection": "^6.3|^7.0",
+                "symfony/deprecation-contracts": "^2.5|^3",
+                "symfony/http-foundation": "^6.3|^7.0",
+                "symfony/http-kernel": "^6.3|^7.0",
+                "symfony/property-access": "^6.3|^7.0"
+            },
+            "conflict": {
+                "doctrine/orm": "2.9.0 || 2.9.1"
+            },
+            "require-dev": {
+                "doctrine/collections": "^1.6.8|^2.0",
+                "doctrine/doctrine-bundle": "^2.4.3",
+                "doctrine/orm": "^2.9.4|^3.0",
+                "fakerphp/faker": "^1.22",
+                "mtdowling/jmespath.php": "^2.6",
+                "symfony/form": "^6.3|^7.0",
+                "symfony/framework-bundle": "^6.3|^7.0",
+                "symfony/maker-bundle": "^1.40",
+                "symfony/options-resolver": "^6.3|^7.0",
+                "symfony/phpunit-bridge": "^6.3|^7.0",
+                "symfony/process": "^6.3|^7.0",
+                "symfony/security-bundle": "^6.3|^7.0",
+                "symfony/twig-bundle": "^6.3|^7.0",
+                "symfony/uid": "^6.3|^7.0",
+                "twig/twig": "^2.14.7|^3.0.4",
+                "zenstruck/browser": "^1.1",
+                "zenstruck/foundry": "1.37.*"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "thanks": {
+                    "url": "https://github.com/symfony/ux",
+                    "name": "symfony/ux"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\UX\\Autocomplete\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "JavaScript Autocomplete functionality for Symfony",
+            "homepage": "https://symfony.com",
+            "keywords": [
+                "symfony-ux"
+            ],
+            "support": {
+                "source": "https://github.com/symfony/ux-autocomplete/tree/v2.25.1"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2025-05-19T07:20:25+00:00"
+        },
+        {
+            "name": "symfony/ux-icons",
+            "version": "v2.25.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/ux-icons.git",
+                "reference": "430b2753aa55a46baa001055bf7976b62bc96942"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/ux-icons/zipball/430b2753aa55a46baa001055bf7976b62bc96942",
+                "reference": "430b2753aa55a46baa001055bf7976b62bc96942",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.1",
+                "symfony/framework-bundle": "^6.4|^7.0",
+                "symfony/twig-bundle": "^6.4|^7.0"
+            },
+            "conflict": {
+                "symfony/flex": "<1.13",
+                "symfony/ux-twig-component": "<2.21"
+            },
+            "require-dev": {
+                "psr/log": "^2|^3",
+                "symfony/asset-mapper": "^6.4|^7.0",
+                "symfony/console": "^6.4|^7.0",
+                "symfony/http-client": "6.4|^7.0",
+                "symfony/phpunit-bridge": "^6.3|^7.0",
+                "symfony/ux-twig-component": "^2.14",
+                "zenstruck/console-test": "^1.5"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "thanks": {
+                    "url": "https://github.com/symfony/ux",
+                    "name": "symfony/ux"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\UX\\Icons\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Kevin Bond",
+                    "email": "kevinbond@gmail.com"
+                },
+                {
+                    "name": "Simon André",
+                    "email": "smn.andre@gmail.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Renders local and remote SVG icons in your Twig templates.",
+            "homepage": "https://symfony.com",
+            "keywords": [
+                "icons",
+                "svg",
+                "symfony-ux",
+                "twig"
+            ],
+            "support": {
+                "source": "https://github.com/symfony/ux-icons/tree/v2.25.0"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2025-04-07T13:54:07+00:00"
         },
         {
             "name": "symfony/ux-live-component",

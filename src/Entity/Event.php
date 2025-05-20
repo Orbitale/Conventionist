@@ -25,6 +25,7 @@ use Symfony\Component\Validator\Constraints as Assert;
         new Sylius\Update(),
         new Sylius\Show(),
         new Sylius\Delete(),
+        new Sylius\BulkDelete(),
     ],
 )]
 #[ORM\Entity(repositoryClass: EventRepository::class)]
