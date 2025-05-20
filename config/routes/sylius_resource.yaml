@@ -1,13 +1,13 @@
 sylius_crud_routes:
     resource: 'sylius.routing.loader.crud_routes_attributes'
-    prefix: /{_locale}/sylius_crud_routes/
+    prefix: /{_locale}/sylius_crud_routes
     defaults:
         _locale: '%locale%'
     type: service
 
 sylius_routes:
     resource: 'sylius.routing.loader.routes_attributes'
-    prefix: /{_locale}/sylius_routes/
+    prefix: /{_locale}/sylius_routes
     defaults:
         _locale: '%locale%'
     type: service

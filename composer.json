@@ -15,6 +15,7 @@
         "pagerfanta/doctrine-orm-adapter": "^4.7",
         "phpstan/phpdoc-parser": "^2.1",
         "stof/doctrine-extensions-bundle": "^1.14",
+        "sylius/admin-ui": "^0.8.1",
         "sylius/grid-bundle": "^1.13",
         "sylius/resource-bundle": "1.13.*@dev",
         "symfony/asset": "7.2.*",

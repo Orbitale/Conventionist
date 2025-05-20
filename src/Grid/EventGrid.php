@@ -26,7 +26,12 @@ final class EventGrid extends AbstractGrid implements ResourceAwareGridInterface
 
     public static function getName(): string
     {
-        return 'app_event';
+        return 'admin_event';
+    }
+
+    public function getResourceClass(): string
+    {
+        return Event::class;
     }
 
     public function buildGrid(GridBuilderInterface $gridBuilder): void
@@ -123,10 +128,5 @@ final class EventGrid extends AbstractGrid implements ResourceAwareGridInterface
                 )
             )
         ;
-    }
-
-    public function getResourceClass(): string
-    {
-        return Event::class;
     }
 }

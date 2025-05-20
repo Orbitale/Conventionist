@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Enum\ScheduleActivityState;
+use App\Grid\EventGrid;
 use App\Repository\EventRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -16,12 +17,14 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[Sylius\AsResource(
+    routePrefix: 'sylius',
+    templatesDir: '@SyliusAdminUi/crud', // This directory contains the generic template for your list
     operations: [
-        new Sylius\Index(path: '/event/index', template: ''),
-        new Sylius\Show(path: '/event/show/{id}', template: ''),
-        new Sylius\Create(path: '/event/create/{id}', template: ''),
-        new Sylius\Update(path: '/event/update/{id}', template: ''),
-        new Sylius\Delete(path: '/event/delete/{id}', template: ''),
+        new Sylius\Index(grid: EventGrid::class),
+        new Sylius\Create(),
+        new Sylius\Update(),
+        new Sylius\Show(),
+        new Sylius\Delete(),
     ],
 )]
 #[ORM\Entity(repositoryClass: EventRepository::class)]
