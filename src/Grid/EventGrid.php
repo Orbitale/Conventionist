@@ -26,7 +26,7 @@ final class EventGrid extends AbstractGrid implements ResourceAwareGridInterface
 
     public static function getName(): string
     {
-        return 'admin_event';
+        return 'event';
     }
 
     public function getResourceClass(): string
@@ -36,6 +36,7 @@ final class EventGrid extends AbstractGrid implements ResourceAwareGridInterface
 
     public function buildGrid(GridBuilderInterface $gridBuilder): void
     {
+        dump($gridBuilder);
         $gridBuilder
             // see https://github.com/Sylius/SyliusGridBundle/blob/master/docs/field_types.md
             ->addField(
@@ -48,68 +49,6 @@ final class EventGrid extends AbstractGrid implements ResourceAwareGridInterface
                     ->setLabel('Slug')
                     ->setSortable(true)
             )
-            // ->addField(
-            //    TwigField::create('isOnlineEvent', 'path/to/field/template.html.twig')
-            //        ->setLabel('IsOnlineEvent')
-            // )
-            // ->addField(
-            //    TwigField::create('allowActivityRegistration', 'path/to/field/template.html.twig')
-            //        ->setLabel('AllowActivityRegistration')
-            // )
-            // ->addField(
-            //    TwigField::create('allowAttendeeRegistration', 'path/to/field/template.html.twig')
-            //        ->setLabel('AllowAttendeeRegistration')
-            // )
-            ->addField(
-                StringField::create('locale')
-                    ->setLabel('Locale')
-                    ->setSortable(true)
-            )
-            ->addField(
-                StringField::create('url')
-                    ->setLabel('Url')
-                    ->setSortable(true)
-            )
-            ->addField(
-                StringField::create('description')
-                    ->setLabel('Description')
-                    ->setSortable(true)
-            )
-            ->addField(
-                StringField::create('contactName')
-                    ->setLabel('ContactName')
-                    ->setSortable(true)
-            )
-            ->addField(
-                StringField::create('contactEmail')
-                    ->setLabel('ContactEmail')
-                    ->setSortable(true)
-            )
-            ->addField(
-                StringField::create('contactPhone')
-                    ->setLabel('ContactPhone')
-                    ->setSortable(true)
-            )
-            ->addField(
-                DateTimeField::create('startsAt')
-                    ->setLabel('StartsAt')
-            )
-            ->addField(
-                DateTimeField::create('endsAt')
-                    ->setLabel('EndsAt')
-            )
-            // ->addField(
-            //    TwigField::create('published', 'path/to/field/template.html.twig')
-            //        ->setLabel('Published')
-            // )
-            ->addField(
-                DateTimeField::create('createdAt')
-                    ->setLabel('CreatedAt')
-            )
-            ->addField(
-                DateTimeField::create('updatedAt')
-                    ->setLabel('UpdatedAt')
-            )
             ->addActionGroup(
                 MainActionGroup::create(
                     CreateAction::create(),
@@ -117,7 +56,7 @@ final class EventGrid extends AbstractGrid implements ResourceAwareGridInterface
             )
             ->addActionGroup(
                 ItemActionGroup::create(
-                    // ShowAction::create(),
+                // ShowAction::create(),
                     UpdateAction::create(),
                     DeleteAction::create()
                 )

@@ -17,8 +17,8 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[Sylius\AsResource(
-    routePrefix: 'sylius',
-    templatesDir: '@SyliusAdminUi/crud', // This directory contains the generic template for your list
+    templatesDir: '@SyliusAdminUi/crud',
+    routePrefix: 'sylius', // This directory contains the generic template for your list
     operations: [
         new Sylius\Index(grid: EventGrid::class),
         new Sylius\Create(),
