@@ -62,6 +62,12 @@ final class ScheduledActivityFixture extends ArrayFixture implements ORMFixtureI
                 'state' => ScheduleActivityState::CREATED,
                 'submittedBy' => new Ref(User::class, 'user-unvalidated'),
             ],
+            '377f90c8-6ad3-4110-9c3a-595c8ea5e7a3' => [
+                'activity' => new Ref(Activity::class, 'activity-Visitor activity'),
+                'timeSlot' => new Ref(TimeSlot::class, 'timeslot-8291aaea-7ea5-42f3-89f8-2a85257bac02'),
+                'state' => ScheduleActivityState::CREATED,
+                'submittedBy' => new Ref(User::class, 'user-unvalidated'),
+            ],
         ];
     }
 

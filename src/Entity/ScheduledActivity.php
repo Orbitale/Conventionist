@@ -71,7 +71,7 @@ class ScheduledActivity
 
     public function canBeRegisteredTo(): bool
     {
-        return $this->isAccepted() && $this->getEvent()->getAllowAttendeeRegistration();
+        return $this->isAccepted() && $this->getEvent()->getAllowAttendeeRegistration() && $this->timeSlot->getBooth()->getAllowAttendeeRegistration();
     }
 
     public function accept(): void

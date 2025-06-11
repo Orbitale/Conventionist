@@ -50,6 +50,23 @@ final class ActivityAttendeeRegisterControllerTest extends WebTestCase
     }
 
     #[DataProvider('provideLocales')]
+    public function testCannotRegisterActivityForUnregisterableBooth(string $locale): void
+    {
+        $activityId = \key(ScheduledActivityFixture::filterData(static function (array $data) {
+            return $data['activity']->name === 'activity-Activité de jeu'
+                && $data['state'] === ScheduleActivityState::CREATED
+                && $data['submittedBy']->name === 'user-admin';
+        }));
+
+        $path = str_replace('{id}', $activityId, ActivityAttendeeRegisterController::PATHS[$locale]);
+
+        $client = self::createClient();
+        $client->request('GET', $path);
+        self::assertResponseRedirects(\str_replace('{slug}', 'tdc-2025', EventController::PATHS[$locale]));
+        self::assertSessionHasFlashMessage('danger', 'event.error.cannot_register_to_activity');
+    }
+
+    #[DataProvider('provideLocales')]
     public function testAlreadyRegisteredToActivity(string $locale): void
     {
         $activityId = \key(ScheduledActivityFixture::filterData(static function (array $data) {
