@@ -63,5 +63,8 @@ final class BoothCrudController extends AbstractCrudController
         yield EquipmentField::new('availableEquipment')
             ->setCustomOption('translateKey', true)
             ->setTemplatePath('admin/fields/field.array.html.twig');
+        yield Field\BooleanField::new('allowAttendeeRegistration')
+            ->renderAsSwitch(false)
+            ->setHelp('admin.field.allow_attendee_registration.help');
     }
 }

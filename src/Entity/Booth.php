@@ -26,6 +26,11 @@ class Booth implements HasCreators
     #[ORM\Column(name: 'available_equipment', type: Types::JSON, nullable: false, options: ['default' => '[]'])]
     private array $availableEquipment = [];
 
+    #[ORM\Column(name: 'allow_attendee_registration', type: Types::BOOLEAN, nullable: false, options: ['default' => 1])]
+    #[Assert\Type('bool')]
+    #[Assert\NotNull()]
+    private bool $allowAttendeeRegistration = true;
+
     public function __construct()
     {
         $this->generateId();
@@ -81,5 +86,15 @@ class Booth implements HasCreators
     public function setAvailableEquipment(array $availableEquipment): void
     {
         $this->availableEquipment = $availableEquipment;
+    }
+
+    public function getAllowAttendeeRegistration(): bool
+    {
+        return $this->allowAttendeeRegistration;
+    }
+
+    public function setAllowAttendeeRegistration(bool $allowAttendeeRegistration): void
+    {
+        $this->allowAttendeeRegistration = $allowAttendeeRegistration;
     }
 }
