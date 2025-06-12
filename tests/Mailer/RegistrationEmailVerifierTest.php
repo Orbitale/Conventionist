@@ -3,6 +3,7 @@
 namespace App\Tests\Mailer;
 
 use App\Controller\Public\RegistrationController;
+use App\Entity\ScheduledActivity;
 use App\Entity\User;
 use App\Enum\ScheduleActivityState;
 use App\Mailer\RegistrationEmailVerifier;
@@ -102,7 +103,11 @@ final class RegistrationEmailVerifierTest extends KernelTestCase
         $user = $this->getUser('unvalidated');
         self::assertFalse($user->isEmailConfirmed());
         $activities = $scheduledActivityRepository->findBy(['submittedBy' => $user]);
-        self::assertCount(1, $activities);
+        self::assertCount(2, $activities, 'Wrong number of activities found');
+        self::assertSame(
+            ['377f90c8-6ad3-4110-9c3a-595c8ea5e7a3', 'f3aeb57e-ea18-46f8-8221-8972c627cf49'],
+            \array_map(static fn (ScheduledActivity $activity) => $activity->getId(), $activities),
+        );
         self::assertSame(ScheduleActivityState::CREATED, $activities[0]?->getState());
 
         $signatureComponents = $verifyEmailHelper->generateSignature(RegistrationController::VERIFY_EMAIL_ROUTE_NAME, $user->getId(), $user->getEmail());
@@ -120,7 +125,11 @@ final class RegistrationEmailVerifierTest extends KernelTestCase
 
         self::assertTrue($user->isEmailConfirmed());
         $activities = $scheduledActivityRepository->findBy(['submittedBy' => $user]);
-        self::assertCount(1, $activities);
+        self::assertCount(2, $activities);
+        self::assertSame(
+            ['377f90c8-6ad3-4110-9c3a-595c8ea5e7a3', 'f3aeb57e-ea18-46f8-8221-8972c627cf49'],
+            \array_map(static fn (ScheduledActivity $activity) => $activity->getId(), $activities),
+        );
         self::assertSame(ScheduleActivityState::PENDING_REVIEW, $activities[0]?->getState());
     }
 }

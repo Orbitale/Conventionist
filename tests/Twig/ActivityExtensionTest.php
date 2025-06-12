@@ -27,6 +27,7 @@ final class ActivityExtensionTest extends KernelTestCase
         $user = $this->getUser($username);
         /** @var ScheduledActivity $activity */
         $activity = self::getContainer()->get(ScheduledActivityRepository::class)->find($activityId);
+        self::assertNotNull($activity, \sprintf("Activity with id \"%s\" was not found in database.", $activityId));
 
         $result = $extension->isUserRegisteredToActivity($user, $activity);
 
