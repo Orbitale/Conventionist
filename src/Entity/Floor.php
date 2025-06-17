@@ -39,6 +39,17 @@ class Floor implements HasNestedRelations, HasCreators
         return $this->venue?->__toString().' - '.$this->name;
     }
 
+    public function clone(Venue $fromVenue): self
+    {
+        $clone = clone $this;
+        $clone->generateId();
+        $clone->venue = $fromVenue;
+
+        $clone->rooms = new ArrayCollection($clone->rooms->map(fn (Room $room) => $room->clone($clone))->toArray());
+
+        return $clone;
+    }
+
     public function refreshNestedRelations(): void
     {
         foreach ($this->rooms as $room) {

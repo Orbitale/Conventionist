@@ -5,6 +5,7 @@ ACCEPTED: Accepted
 Activities: Activities
 Activity: Activity
 Address: Address
+
 Allow Activity Registration: Allow Activity Registration
 Allow Attendee Registration: Allow Attendee Registration
 admin.entities.users.password_help: Leave empty to generate a random password (recommended)
@@ -153,3 +154,6 @@ link.back_to_event: Back to the event
 event.activity.submit_activity.success: Your activity was submitted to the team!
 event.activity.submit_activity.submit_button: Submit
 event.submit_activity: Submit activity
+venue.copy.confirm: Do you really want to copy this venue?
+venue.copy.suffix: ' - Copy'
+Copy: Copy

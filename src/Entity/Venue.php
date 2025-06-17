@@ -42,6 +42,21 @@ class Venue implements HasNestedRelations, HasCreators
         return $this->name ?: '';
     }
 
+    public function clone(): self
+    {
+        $clone = clone $this;
+
+        $clone->generateId();
+
+        $clone->floors = new ArrayCollection($clone->floors->map(fn (Floor $floor) => $floor->clone($clone))->toArray());
+
+        $clone->creators = new ArrayCollection($clone->creators->toArray());
+        $clone->createdAt = clone $clone->createdAt;
+        $clone->updatedAt = clone $clone->updatedAt;
+
+        return $clone;
+    }
+
     public function refreshNestedRelations(): void
     {
         foreach ($this->floors as $floor) {

@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\BoothRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
@@ -39,6 +40,15 @@ class Booth implements HasCreators
     public function __toString(): string
     {
         return $this->room?->__toString().' - '.$this->name;
+    }
+
+    public function clone(Room $fromRoom): self
+    {
+        $clone = clone $this;
+        $clone->generateId();
+        $clone->room = $fromRoom;
+
+        return $clone;
     }
 
     public function getCalendarResourceJson(): array
