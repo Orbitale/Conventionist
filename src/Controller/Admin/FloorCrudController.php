@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Admin\Field\AssociationCollectionField;
 use App\Controller\Admin\NestedControllers\NestedRoomCrudController;
 use App\Entity\Floor;
+use App\Repository\VenueRepository;
 use App\Security\Voter\VenueVoter;
 use Doctrine\ORM\QueryBuilder;
 use EasyCorp\Bundle\EasyAdminBundle\Collection\FieldCollection;
@@ -12,10 +13,12 @@ use EasyCorp\Bundle\EasyAdminBundle\Collection\FilterCollection;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Dto\EntityDto;
 use EasyCorp\Bundle\EasyAdminBundle\Dto\SearchDto;
 use EasyCorp\Bundle\EasyAdminBundle\Field;
+use EasyCorp\Bundle\EasyAdminBundle\Filter\EntityFilter;
 
 final class FloorCrudController extends AbstractCrudController
 {
@@ -24,6 +27,29 @@ final class FloorCrudController extends AbstractCrudController
     public static function getEntityFqcn(): string
     {
         return Floor::class;
+    }
+
+    public function configureFilters(Filters $filters): Filters
+    {
+        return $filters->add(EntityFilter::new('venue')
+        ->setFormTypeOption('value_type_options', [
+            'query_builder' => function (VenueRepository $repository) {
+                $qb = $repository->createQueryBuilder('entity');
+
+                $qb->leftJoin('entity.floors', 'floors')->addSelect('floors');
+
+                if ($this->isGranted('ROLE_ADMIN')) {
+                    return $qb;
+                }
+
+                $qb->innerJoin('entity.creators', 'creators')
+                    ->addSelect('creators')
+                    ->andWhere('creators IN (:creator)')
+                    ->setParameter('creator', $this->getUser())
+                ;
+                return $qb;
+            },
+        ]));
     }
 
     public function configureActions(Actions $actions): Actions
@@ -37,10 +63,8 @@ final class FloorCrudController extends AbstractCrudController
         return $actions;
     }
 
-    public function createIndexQueryBuilder(SearchDto $searchDto, EntityDto $entityDto, FieldCollection $fields, FilterCollection $filters): QueryBuilder
+    public function updateSelectionQueryBuilder(QueryBuilder $qb): QueryBuilder
     {
-        $qb = parent::createIndexQueryBuilder($searchDto, $entityDto, $fields, $filters);
-
         $qb
             ->innerJoin('entity.venue', 'venue')
             ->addSelect('venue')
@@ -58,6 +82,11 @@ final class FloorCrudController extends AbstractCrudController
         ;
 
         return $qb;
+    }
+
+    public function createIndexQueryBuilder(SearchDto $searchDto, EntityDto $entityDto, FieldCollection $fields, FilterCollection $filters): QueryBuilder
+    {
+        return $this->updateSelectionQueryBuilder(parent::createIndexQueryBuilder($searchDto, $entityDto, $fields, $filters));
     }
 
     public function configureFields(string $pageName): iterable
