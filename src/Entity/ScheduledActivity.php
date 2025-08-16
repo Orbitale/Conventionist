@@ -58,7 +58,7 @@ class ScheduledActivity
 
     public function __toString(): string
     {
-        return sprintf('%s (⏲ %s ➡ %s)', $this->activity, $this->timeSlot?->getStartsAt()->format('Y-m-d H:i:s'), $this->timeSlot?->getEndsAt()->format('Y-m-d H:i:s'));
+        return \sprintf('%s (⏲ %s ➡ %s)', $this->activity, $this->timeSlot?->getStartsAt()->format('Y-m-d H:i:s'), $this->timeSlot?->getEndsAt()->format('Y-m-d H:i:s'));
     }
 
     #[Assert\Callback(groups: ['submit_activity'])]

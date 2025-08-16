@@ -198,6 +198,10 @@ final class Version20250319080855 extends AbstractMigration
                 contact_phone VARCHAR(255) DEFAULT NULL,
                 created_at DATETIME NOT NULL,
                 updated_at DATETIME NOT NULL,
+                map_image_data VARCHAR(255) DEFAULT NULL,
+                map_width INT DEFAULT NULL,
+                map_height INT DEFAULT NULL,
+                map_mime_type VARCHAR(255) DEFAULT NULL,
                 PRIMARY KEY(id)
             ) DEFAULT CHARACTER SET utf8mb4
         ');
@@ -250,38 +254,5 @@ final class Version20250319080855 extends AbstractMigration
 
     public function down(Schema $schema): void
     {
-        $this->addSql('ALTER TABLE activity_user DROP FOREIGN KEY FK_8E570DDB81C06096');
-        $this->addSql('ALTER TABLE activity_user DROP FOREIGN KEY FK_8E570DDBA76ED395');
-        $this->addSql('ALTER TABLE attendee DROP FOREIGN KEY FK_1150D56733E31936');
-        $this->addSql('ALTER TABLE attendee DROP FOREIGN KEY FK_1150D56727E92E18');
-        $this->addSql('ALTER TABLE `booth` DROP FOREIGN KEY FK_D24EDE054177093');
-        $this->addSql('ALTER TABLE event DROP FOREIGN KEY FK_3BAE0AA740A73EBA');
-        $this->addSql('ALTER TABLE event_user DROP FOREIGN KEY FK_92589AE271F7E88B');
-        $this->addSql('ALTER TABLE event_user DROP FOREIGN KEY FK_92589AE2A76ED395');
-        $this->addSql('ALTER TABLE floor DROP FOREIGN KEY FK_BE45D62E40A73EBA');
-        $this->addSql('ALTER TABLE reset_password_request DROP FOREIGN KEY FK_7CE748AA76ED395');
-        $this->addSql('ALTER TABLE room DROP FOREIGN KEY FK_729F519B854679E2');
-        $this->addSql('ALTER TABLE scheduled_activities DROP FOREIGN KEY FK_2B83275C81C06096');
-        $this->addSql('ALTER TABLE scheduled_activities DROP FOREIGN KEY FK_2B83275CD62B0FA');
-        $this->addSql('ALTER TABLE scheduled_activities DROP FOREIGN KEY FK_2B83275C641EE842');
-        $this->addSql('ALTER TABLE time_slot DROP FOREIGN KEY FK_1B3294A71F7E88B');
-        $this->addSql('ALTER TABLE time_slot DROP FOREIGN KEY FK_1B3294A18707CED');
-        $this->addSql('ALTER TABLE venue_user DROP FOREIGN KEY FK_3BB5DBE140A73EBA');
-        $this->addSql('ALTER TABLE venue_user DROP FOREIGN KEY FK_3BB5DBE1A76ED395');
-        $this->addSql('DROP TABLE activities');
-        $this->addSql('DROP TABLE activity_user');
-        $this->addSql('DROP TABLE attendee');
-        $this->addSql('DROP TABLE `booth`');
-        $this->addSql('DROP TABLE event');
-        $this->addSql('DROP TABLE event_user');
-        $this->addSql('DROP TABLE floor');
-        $this->addSql('DROP TABLE reset_password_request');
-        $this->addSql('DROP TABLE room');
-        $this->addSql('DROP TABLE scheduled_activities');
-        $this->addSql('DROP TABLE time_slot');
-        $this->addSql('DROP TABLE `user`');
-        $this->addSql('DROP TABLE venue');
-        $this->addSql('DROP TABLE venue_user');
-        $this->addSql('DROP TABLE messenger_messages');
     }
 }

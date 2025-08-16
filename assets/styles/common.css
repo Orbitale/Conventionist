@@ -1,0 +1,13 @@
+
+/*
+ * Map disposition
+ */
+
+#map_disposition {
+    position: relative;
+    border: 2px solid #ddd;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin: 20px auto;
+}

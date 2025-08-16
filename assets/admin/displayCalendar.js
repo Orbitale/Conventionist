@@ -1,19 +1,49 @@
+/**
+ * @param {string}  eventCalendarConfig.elements.eventModalElementId
+ * @param {string}  eventCalendarConfig.elements.eventModalElementNewSlotId
+ * @param {string}  eventCalendarConfig.elements.calendarElementId
+ * @param {string}  eventCalendarConfig.locale
+ * @param {string}  eventCalendarConfig.timezone
+ * @param {boolean} eventCalendarConfig.allowSelection
+ * @param {Object}  eventCalendarConfig.data
+ * @param {Array<{
+ *     end: string|Date,
+ *     start: string|Date,
+ *     color: string|null|undefined,
+ *     extendedProps: Object,
+ *     id: string,
+ *     resourceId: string,
+ *     title: string|null|undefined,
+ * }>}   eventCalendarConfig.data.events
+ * @param {Array}   eventCalendarConfig.data.resources
+ * @param {Object}  eventCalendarConfig.event
+ * @param {string}  eventCalendarConfig.event.startsAt
+ * @param {string}  eventCalendarConfig.event.endsAt
+ * @param {string}  eventCalendarConfig.translations.unconfigured_timeslot
+ */
+export default function displayCalendar(eventCalendarConfig) {
+    "use strict";
 
-<script defer>
     /** @var {HTMLElement} eventModalElement */
-    const eventModalElement = document.getElementById('event_modal');
+    const eventModalElement = document.getElementById(eventCalendarConfig.elements.eventModalElementId);
     const eventModal = new bootstrap.Modal(eventModalElement);
 
     /** @var {HTMLElement} calendarElement */
-    const calendarElement = document.getElementById('admin_event_calendar');
+    const calendarElement = document.getElementById(eventCalendarConfig.elements.calendarElementId);
 
     if (!calendarElement) {
         throw new Error('No calendar element.');
     }
 
-    const newSlotContainer = eventModalElement.querySelector('#new_slot');
+    const newSlotContainer = eventModalElement.querySelector('#'+eventCalendarConfig.elements.eventModalElementNewSlotId);
 
     let currentTimeSlot;
+
+    const dateFormatter = new Intl.DateTimeFormat(eventCalendarConfig.locale, {
+        dateStyle: 'medium',
+        timeStyle: 'short',
+        timeZone: eventCalendarConfig.timezone
+    });
 
     function resetModalContents () {
         eventModalElement.querySelector('#event_modal_label').style.display = 'none';
@@ -32,41 +62,49 @@
         calendarElement.style.width = getComputedStyle(calendarElement.parentElement).width.replace('px', '') - 25 + 'px'
     }
 
-    const events = {{ json_schedules|json_encode|raw }};
+    const events = [...eventCalendarConfig.data.events].map(event => {
+        if (typeof event.start === 'string') {
+            event.start = new Date(Date.parse(event.start));
+        }
+        if (typeof event.end === 'string') {
+            event.end = new Date(Date.parse(event.end));
+        }
+        return event;
+    });
 
     window.addEventListener('resize', resizeCalendar);
 
-    const ec = new EventCalendar(calendarElement, {
+    const ec = EventCalendar.create(calendarElement, {
         initialView: 'resourceTimelineDay',
         view: 'resourceTimelineDay',
         height: 'auto',
-        locale: '{{ app.user.locale|replace({'_': '-'}) }}',
+        locale: eventCalendarConfig.locale,
         eventTimeFormat: {
             timeStyle: 'short',
-            timeZone: '{{ app.user.timezone }}'
+            timeZone: eventCalendarConfig.timezone
         },
         slotLabelFormat: {
             timeStyle: 'short',
-            timeZone: '{{ app.user.timezone }}'
+            timeZone: eventCalendarConfig.timezone
         },
         nowIndicator: false,
-        selectable: {{ is_granted('CAN_CREATE_TIME_SLOTS_FOR_EVENT', {event: event}) ? 'true' : 'false' }},
+        selectable: eventCalendarConfig.allowSelection,
         editable: false,
         eventStartEditable: false,
         eventDurationEditable: false,
         eventResizableFromStart: false,
         pointer: true,
         flexibleSlotTimeLimits: false,
-        resources: {{ json_resources|json_encode|raw }},
+        resources: eventCalendarConfig.data.resources,
         eventSources: [{events: () => events}],
-        date: '{{ event.startsAt|date('Y-m-d H:i:s') }}',
+        date: eventCalendarConfig.event.startsAt,
         highlightedDates: [
-            '{{ event.startsAt|date('Y-m-d H:i:s') }}',
-            '{{ event.endsAt|date('Y-m-d H:i:s') }}'
+            eventCalendarConfig.event.startsAt,
+            eventCalendarConfig.event.endsAt,
         ],
         validRange: {
-            start: '{{ event.startsAt|date('Y-m-d H:i:s') }}',
-            end: '{{ event.endsAt|date('Y-m-d H:i:s') }}',
+            start: eventCalendarConfig.event.startsAt,
+            end: eventCalendarConfig.event.endsAt,
         },
         headerToolbar: {
             start: 'title',
@@ -88,7 +126,7 @@
                 start: info.start,
                 end: info.end,
                 resourceIds: [info.resource.id],
-                title: "⚠ {{ 'calendar.modal.unconfigured_timeslot'|trans|raw }}",
+                title: "⚠ "+eventCalendarConfig.translations.unconfigured_timeslot,
                 extendedProps: {
                     type: 'empty_slot'
                 },
@@ -119,8 +157,8 @@
             resetModalContents();
 
             eventModalElement.querySelector('#event_title').innerHTML = info.event.title;
-            eventModalElement.querySelector('#event_start').innerHTML = info.event.start;
-            eventModalElement.querySelector('#event_end').innerHTML = info.event.end;
+            eventModalElement.querySelector('#event_start').innerHTML = dateFormatter.format(info.event.start);
+            eventModalElement.querySelector('#event_end').innerHTML = dateFormatter.format(info.event.end);
 
             if (info.event.extendedProps?.type === 'activity') {
                 eventModalElement.querySelector('#event_modal_label').style.display = 'block';
@@ -161,4 +199,4 @@
         ec.removeEventById(currentTimeSlot.id);
     });
 
-</script>
+}

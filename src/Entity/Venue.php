@@ -11,13 +11,14 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: VenueRepository::class)]
-class Venue implements HasNestedRelations, HasCreators
+class Venue implements HasNestedRelations, HasCreators, HasMapImage
 {
     use Field\Id { Field\Id::__construct as private generateId; }
     use Field\Creators { Field\Creators::__construct as generateCreators; }
     use Field\Address;
     use Field\GenericContact;
     use Field\Timestampable;
+    use Field\MapImage;
     use TimestampableEntity;
 
     #[ORM\Column(name: 'name', type: Types::STRING, length: 255, nullable: false)]

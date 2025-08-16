@@ -11,6 +11,13 @@
         <div class="col-lg-6 mx-auto">
             {{ event.description|nl2br }}
         </div>
+
+        {% if event.venue.mapImage|length > 0 %}
+            <div class="mt-4">
+                <h6><i class="fas fa-map-marked-alt"></i> Venue Map</h6>
+                {{ include('maps/map.html.twig', {entity_instance: event.venue}, with_context = false) }}
+            </div>
+        {% endif %}
     </div>
 
     <h2 class="text-center">{{ 'event.schedule'|trans }}</h2>

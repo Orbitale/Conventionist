@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Admin\Field\EquipmentField;
 use App\Entity\Booth;
+use App\Admin\Field as CustomFields;
 use App\Security\Voter\VenueVoter;
 use Doctrine\ORM\QueryBuilder;
 use EasyCorp\Bundle\EasyAdminBundle\Collection\FieldCollection;

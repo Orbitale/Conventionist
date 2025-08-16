@@ -14,6 +14,7 @@ services:
         autowire: true      # Automatically injects dependencies in your services.
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
         bind:
+            string $publicDir: '%kernel.project_dir%/public/'
             string $emailSender: '%env(EMAIL_SENDER)%'
             array $locales: '%locales%'
 

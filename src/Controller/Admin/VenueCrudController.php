@@ -2,7 +2,7 @@
 
 namespace App\Controller\Admin;
 
-use App\Admin\Field\AssociationCollectionField;
+use App\Admin\Field as CustomFields;
 use App\Controller\Admin\NestedControllers\NestedFloorCrudController;
 use App\Entity\Venue;
 use App\Security\Voter\VenueVoter;
@@ -106,19 +106,22 @@ final class VenueCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
-        return [
-            Field\TextField::new('name'),
-            AssociationCollectionField::new('floors', null, NestedFloorCrudController::class, FloorCrudController::class),
-            Field\TextField::new('address')->hideOnForm()->hideOnDetail(),
-            Field\TextField::new('address1')->hideOnIndex(),
-            Field\TextField::new('address2')->hideOnIndex(),
-            Field\TextField::new('state')->hideOnIndex(),
-            Field\TextField::new('zipCode')->hideOnIndex(),
-            Field\TextField::new('city')->hideOnIndex(),
-            Field\TextField::new('country')->hideOnIndex(),
-            Field\TextField::new('latitude')->hideOnIndex(),
-            Field\TextField::new('longitude')->hideOnIndex(),
-            Field\DateTimeField::new('createdAt')->hideOnForm(),
-        ];
+        yield Field\FormField::addColumn(6, 'Basic information')->hideOnDetail();
+        yield Field\TextField::new('name');
+        yield CustomFields\AssociationCollectionField::new('floors', null, NestedFloorCrudController::class, FloorCrudController::class);
+        yield Field\TextField::new('address')->hideOnForm()->hideOnDetail();
+        yield Field\TextField::new('address1')->hideOnIndex();
+        yield Field\TextField::new('address2')->hideOnIndex();
+        yield Field\TextField::new('state')->hideOnIndex();
+        yield Field\TextField::new('zipCode')->hideOnIndex();
+        yield Field\TextField::new('city')->hideOnIndex();
+        yield Field\TextField::new('country')->hideOnIndex();
+        yield Field\TextField::new('latitude')->hideOnIndex();
+        yield Field\TextField::new('longitude')->hideOnIndex();
+        yield Field\DateTimeField::new('createdAt')->hideOnForm();
+        yield Field\FormField::addColumn(6, '')->hideOnDetail();
+        yield CustomFields\MapImageField::new('mapImage', 'Map or plan');
+        yield Field\NumberField::new('mapWidth', 'Map width')->onlyOnDetail();
+        yield Field\NumberField::new('mapHeight', 'Map height')->onlyOnDetail();
     }
 }

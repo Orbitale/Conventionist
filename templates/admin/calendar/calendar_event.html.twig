@@ -10,6 +10,7 @@
 {% block head_stylesheets %}
     {{ parent() }}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@event-calendar/build@3.8.0/event-calendar.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@event-calendar/build@4.6.0/dist/event-calendar.min.js"></script>
 {% endblock %}
 
 {% block main %}
@@ -39,10 +40,30 @@
 
 {% block body_javascript %}
     {{ parent() }}
-    <script src="https://cdn.jsdelivr.net/npm/@event-calendar/build@3.10.0/event-calendar.min.js"></script>
-    {{ include('admin/calendar/event/js_script.html.twig', {
-        json_schedules: json_schedules,
-        json_resources: json_resources,
-        event: event,
-    }, with_context=false) }}
+    <script type="module">
+        import displayCalendar from '{{ asset('admin/displayCalendar.js') }}';
+
+        displayCalendar({
+            elements: {
+                eventModalElementId: 'event_modal',
+                eventModalElementNewSlotId: 'new_slot',
+                calendarElementId: 'admin_event_calendar',
+            },
+            locale: '{{ app.user.locale|replace({'_': '-'}) }}',
+            timezone: '{{ app.request.query.get('tz')|default(app.user.timezone) }}',
+            allowSelection: {{ is_granted('CAN_CREATE_TIME_SLOTS_FOR_EVENT', {event: event}) ? 'true' : 'false' }},
+            data: {
+                events: {{ json_schedules|json_encode|raw }},
+                resources: {{ json_resources|json_encode|raw }}
+            },
+            event: {
+                startsAt: '{{ event.startsAt|date('Y-m-d H:i:s') }}',
+                endsAt: '{{ event.endsAt|date('Y-m-d H:i:s') }}',
+            },
+            translations: {
+                unconfigured_timeslot: '{{ 'calendar.modal.unconfigured_timeslot'|trans|escape('js') }}',
+            }
+        });
+
+    </script>
 {% endblock %}

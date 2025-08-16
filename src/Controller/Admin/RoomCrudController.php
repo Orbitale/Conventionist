@@ -2,7 +2,7 @@
 
 namespace App\Controller\Admin;
 
-use App\Admin\Field\AssociationCollectionField;
+use App\Admin\Field as CustomFields;
 use App\Controller\Admin\NestedControllers\NestedBoothCrudController;
 use App\Entity\Room;
 use App\Security\Voter\VenueVoter;
@@ -57,10 +57,8 @@ final class RoomCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
-        return [
-            Field\TextField::new('name', 'Room name'),
-            Field\AssociationField::new('floor')->setDisabled($pageName === Crud::PAGE_EDIT),
-            AssociationCollectionField::new('booths', null, NestedBoothCrudController::class, BoothCrudController::class),
-        ];
+        yield Field\TextField::new('name', 'Room name');
+        yield Field\AssociationField::new('floor')->setDisabled($pageName === Crud::PAGE_EDIT);
+        yield CustomFields\AssociationCollectionField::new('booths', null, NestedBoothCrudController::class, BoothCrudController::class);
     }
 }

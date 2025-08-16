@@ -1,0 +1,13 @@
+{% use '@EasyAdmin/symfony-form-themes/bootstrap_5_layout.html.twig' %}
+
+{% block map_image_row %}
+    {{ block('form_label') }}
+    {{ block('ea_fileupload_widget') }}
+    {{ block('form_help') }}
+
+    {% set image = ea_vars.entity.instance.mapImage|default(null) %}
+    {% if image %}
+        <h4>{{ 'map.current_image'|trans }}</h4>
+        <img src="{{ image }}" alt="{{ form.vars.label }}" style="max-width: 100%; max-height: 800px;">
+    {% endif %}
+{% endblock %}

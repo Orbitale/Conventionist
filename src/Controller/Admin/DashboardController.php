@@ -42,6 +42,7 @@ final class DashboardController extends AbstractDashboardController
     {
         return parent::configureAssets()
             ->addCssFile('styles/admin.css')
+            ->addCssFile('styles/common.css')
             ->addAssetMapperEntry('admin')
         ;
     }
