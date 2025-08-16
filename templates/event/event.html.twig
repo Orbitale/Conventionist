@@ -11,6 +11,23 @@
         <div class="col-lg-6 mx-auto">
             {{ event.description|nl2br }}
         </div>
+        
+        {% if event.venue.floors|length > 0 %}
+            <div class="mt-4">
+                <h6><i class="fas fa-map-marked-alt"></i> Venue Maps</h6>
+                <div class="btn-group" role="group">
+                    {% for floor in event.venue.floors %}
+                        {% if floor.hasMap %}
+                            <a href="{{ path('public_venue_map', {floorId: floor.id}) }}" 
+                               class="btn btn-outline-primary btn-sm" 
+                               target="_blank">
+                                <i class="fas fa-map"></i> {{ floor.name }}
+                            </a>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
     </div>
 
     <h2 class="text-center">{{ 'event.schedule'|trans }}</h2>

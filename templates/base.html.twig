@@ -88,11 +88,11 @@
                                     <li>
                                         {% if locale == app.request.locale %}
                                             <span class="dropdown-item active">
-                                                {{ locale|trans }}
+                                                {{ ('locale.'~locale)|trans }}
                                             </span>
                                         {% else %}
                                             <a class="dropdown-item" href="{{ path(app.current_route, app.current_route_parameters|merge({'_locale': locale})) }}">
-                                                {{ locale|trans }}
+                                                {{ ('locale.'~locale)|trans }}
                                             </a>
                                         {% endif %}
                                     </li>

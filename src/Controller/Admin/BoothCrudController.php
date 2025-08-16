@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Admin\Field\EquipmentField;
 use App\Entity\Booth;
+use App\Admin\Field as CustomFields;
 use App\Security\Voter\VenueVoter;
 use Doctrine\ORM\QueryBuilder;
 use EasyCorp\Bundle\EasyAdminBundle\Collection\FieldCollection;
@@ -57,6 +58,7 @@ final class BoothCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
+        yield Field\FormField::addColumn(6, 'Basic information');
         yield Field\TextField::new('name', 'Booth name or number');
         yield Field\AssociationField::new('room');
         yield Field\NumberField::new('maxNumberOfParticipants');
@@ -66,5 +68,9 @@ final class BoothCrudController extends AbstractCrudController
         yield Field\BooleanField::new('allowAttendeeRegistration')
             ->renderAsSwitch(false)
             ->setHelp('admin.field.allow_attendee_registration.help');
+        yield Field\FormField::addColumn(6, '');
+        yield CustomFields\MapImageField::new('mapImage', 'Map or plan');
+        yield Field\NumberField::new('mapWidth', 'Map width')->hideOnForm()->hideOnIndex();
+        yield Field\NumberField::new('mapHeight', 'Map height')->hideOnForm()->hideOnIndex();
     }
 }

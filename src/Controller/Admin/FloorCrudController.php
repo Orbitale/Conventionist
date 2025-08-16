@@ -2,7 +2,7 @@
 
 namespace App\Controller\Admin;
 
-use App\Admin\Field\AssociationCollectionField;
+use App\Admin\Field as CustomFields;
 use App\Controller\Admin\NestedControllers\NestedRoomCrudController;
 use App\Entity\Floor;
 use App\Repository\VenueRepository;
@@ -91,10 +91,13 @@ final class FloorCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
-        return [
-            Field\TextField::new('name', 'Floor name'),
-            Field\AssociationField::new('venue')->setDisabled($pageName === Crud::PAGE_EDIT),
-            AssociationCollectionField::new('rooms', null, NestedRoomCrudController::class, RoomCrudController::class),
-        ];
+        yield Field\FormField::addColumn(6, 'Basic information');
+        yield Field\TextField::new('name', 'Floor name');
+        yield Field\AssociationField::new('venue')->setDisabled($pageName === Crud::PAGE_EDIT);
+        yield CustomFields\AssociationCollectionField::new('rooms', null, NestedRoomCrudController::class, RoomCrudController::class);
+        yield Field\FormField::addColumn(6, '');
+        yield CustomFields\MapImageField::new('mapImage', 'Map or plan');
+        yield Field\NumberField::new('mapWidth', 'Map width')->hideOnForm()->hideOnIndex();
+        yield Field\NumberField::new('mapHeight', 'Map height')->hideOnForm()->hideOnIndex();
     }
 }

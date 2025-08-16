@@ -1,108 +1,152 @@
-'Choose an event:': 'Choose an event:'
-'Event:': 'Event:'
-'Filters:': 'Filters:'
 ACCEPTED: Accepted
 Activities: Activities
+activity.form.equipment.help: 'You can specify here the list of equipment you might need during this activity. Note that there is no guarantee the venue will provide you with it.'
 Activity: Activity
+Address1: 'Address (line 1)'
+Address2: 'Address (line 2)'
 Address: Address
-
-Allow Activity Registration: Allow Activity Registration
-Allow Attendee Registration: Allow Attendee Registration
-admin.entities.users.password_help: Leave empty to generate a random password (recommended)
+admin.entities.users.password_help: 'Leave empty to generate a random password (recommended)'
+admin.field.allow_activity_registration.help: 'Checking this box will allow the public to submit new activities for this event.'
+admin.field.allow_attendee_registration.help: "Checking this box will allow the public to register as attendees for this event's activities."
 admin.field.association.too_many: '{0}(… no more items)|{1}(… one more item)|[2,Inf](… %count% more items)'
 admin.field.creators.help: 'The users that are allowed to manage this object. Note: you will always be included in this list, even if you remove yourself from it.'
-admin.field.allow_activity_registration.help: Checking this box will allow the public to submit new activities for this event.
-admin.field.allow_attendee_registration.help: Checking this box will allow the public to register as attendees for this event's activities.
-admin.roles.new: Add new roles
+admin.roles.new: 'Add new roles'
 Administration: Administration
-apply_filters: Apply filters
-Back to website: Back to website
-Booth name or number: Booth name or number
+'Allow Activity Registration': 'Allow Activity Registration'
+'Allow Attendee Registration': 'Allow Attendee Registration'
+apply_filters: 'Apply filters'
+'Available Equipment': 'Available Equipment'
+'Back to website': 'Back to website'
+'Booth name or number': 'Booth name or number'
+'Booth name': 'Booth name'
 Booth: Booth
 Booths: Booths
-button.create_new: Create new
-calendar.modal.add_schedule_to_timeslot: Schedule an activity
+button.create_new: 'Create new'
+calendar.modal.add_schedule_to_timeslot: 'Schedule an activity'
 calendar.modal.add_timeslot.confirm: 'Save this time slot?'
-calendar.modal.add_timeslot: Add a new timeslot
-calendar.modal.choose_an_event: Please choose an event in the list above
+calendar.modal.add_timeslot: 'Add a new timeslot'
+calendar.modal.choose_an_event: 'Please choose an event in the list above'
 calendar.modal.delete_timeslot.confirm: 'Remove this time slot?'
 calendar.modal.empty_slot_add: 'This slot is currently empty. Do you want to schedule a specific activity to it?'
-calendar.modal.no_timeslot_configured: No time slot configured in this room.
-calendar.modal.no_upcoming_event: No upcoming event to check
+calendar.modal.no_timeslot_configured: 'No time slot configured in this room.'
+calendar.modal.no_upcoming_event: 'No upcoming event to check'
 calendar.modal.unconfigured_timeslot: 'Time slot is not yet saved!'
 Calendar: Calendar
+'Choose an event:': 'Choose an event:'
+City: City
 Close: Close
-Convention organisation: Convention organisation
-Created At: Created At
+'Convention organisation': 'Convention organisation'
+Copy: Copy
+Country: Country
+'Created At': 'Created At'
 CREATED: Created
 Creators: Creators
-Dashboard: Dashboard
-dashboard.view.create_events: Create an event
-dashboard.view.create_events.text: Events are the core of Conventionist.<br>They can correspond to a workshop event, a convention, a salon, or whatever stack of activities you want to plan.<br>You can create an event, configure its venue, the time slots and the activities that will be proposed to the public.
-dashboard.view.manage_time_slot: Manage time slots
-dashboard.view.manage_time_slot.text: Time slots are periods of time during which activities can be scheduled.<br>When an event is set up, you can add slots, either directly in the administration or via the calendar, to open up availability for the public to propose activities.
-dashboard.view.manage_venues: Manage event venues
+dashboard.view.create_events.text: 'Events are the core of Conventionist.<br>They can correspond to a workshop event, a convention, a salon, or whatever stack of activities you want to plan.<br>You can create an event, configure its venue, the time slots and the activities that will be proposed to the public.'
+dashboard.view.create_events: 'Create an event'
+dashboard.view.manage_time_slot.text: 'Time slots are periods of time during which activities can be scheduled.<br>When an event is set up, you can add slots, either directly in the administration or via the calendar, to open up availability for the public to propose activities.'
+dashboard.view.manage_time_slot: 'Manage time slots'
 dashboard.view.manage_venues.text: 'Venues are the places where events take place. Each venue is organised into 3 levels: the floors (or reception areas), the rooms (or tents, sub-areas) and the stands or specific activity areas.'
+dashboard.view.manage_venues: 'Manage event venues'
+Dashboard: Dashboard
+Description: Description
 Edit: Edit
-Email Confirmed: Email Confirmed
+'Email Confirmed': 'Email Confirmed'
 Email: Email
-email_address: E-mail address
-Ends At: Ends at
-Event organizer: Event organizer
-Event Venues: Event Venues
-event.activity.register_as_attendee: Register to this activity
-event.activity.open_slot: Open time slot
-event.activity.register_as_animator: Propose an animation
+email_address: 'E-mail address'
+'Ends At': 'Ends at'
+equipment.name: Equipment
+equipment.quantity: Quantity
+'Event organizer': 'Event organizer'
+'Event Venues': 'Event Venues'
+event.activity.open_slot: 'Open time slot'
+event.activity.register_as_animator: 'Propose an animation'
+event.activity.register_as_attendee.activity_name: Activity
+event.activity.register_as_attendee.event_name: Event
+event.activity.register_as_attendee.form.email.help: 'You can also <a href="%login_url%">log in</a> to associate this registration to your account.'
+event.activity.register_as_attendee.form.name: Name
+event.activity.register_as_attendee.form.numberOfAttendees: 'Number of attendees'
+event.activity.register_as_attendee.submit: 'Submit registration'
+event.activity.register_as_attendee.success: 'Registration complete!'
+event.activity.register_as_attendee: 'Register to this activity'
+event.activity.submit_activity.create_new_activity: __event.activity.submit_activity.create_new_activity
+event.activity.submit_activity.select_existing_activity: __event.activity.submit_activity.select_existing_activity
+event.activity.submit_activity.selected_activity: 'My activities'
+event.activity.submit_activity.submit_button: Submit
+event.activity.submit_activity.success: 'Your activity was submitted to the team!'
+event.activity.you_are_registered: 'You are registered!'
+event.activity_registration: 'Register to activity'
 event.endsAt.colon: 'Ends at:'
-event.startsAt.colon: 'Starts at:'
+event.error.already_registered_to_activity: 'You have already registered for this activity!'
+event.error.already_submitted_activity: 'You have already submitted this activity for this time slot.'
+event.error.cannot_submit_activity_to_slot: 'This slot is not open for planning.'
 event.schedule: Schedule
+event.startsAt.colon: 'Starts at:'
+event.submit_activity: 'Submit activity'
 Event: Event
+'Event:': 'Event:'
 Events: Events
-Floor name: Floor name
+fieldset.dates: Dates
+fieldset.general: General
+fieldset.registration: Registration
+'Filters:': 'Filters:'
+'Floor name': 'Floor name'
 Floor: Floor
 Floors: Floors
-forgot_password.request.email: Please enter your e-mail
-forgot_password.request.help: Enter your e-mail address, and we will send you a link to reset your password.
-forgot_password.request.title: Reset your password
+forgot_password.request.email: 'Please enter your e-mail'
+forgot_password.request.help: 'Enter your e-mail address, and we will send you a link to reset your password.'
+forgot_password.request.title: 'Reset your password'
 forgot_password_text: 'Forgot your password?'
 have_account_login: 'Already have an account? <a href="%path%">Login</a> instead.'
 Hours: Hours
 ID: ID
-index.jumbotron.links.authenticated_cta: Go to dashboard
-index.jumbotron.message: The perfect organiser of conventions and events
-index.events.upcoming: Upcoming events
-Is Online Event: Is online event
-link.back_home: Go back to homepage
-login.password: Your password
-login.remember_me: Remember me
-login.username_or_email: Username or e-mail
-login: Log in
-Max Number Of Participants: Max Number Of Participants
-Max number of participants: Max Number Of Participants
+index.events.upcoming: 'Upcoming events'
+index.jumbotron.links.authenticated_cta: 'Go to dashboard'
+index.jumbotron.message: 'The perfect organiser of conventions and events'
+'Is Online Event': 'Is online event'
+Latitude: Latitude
+link.back_home: 'Go back to homepage'
+link.back_to_event: 'Back to the event'
+locale.en: English
+locale.fr: Français
+login.password: 'Your password'
+login.remember_me: 'Remember me'
+login.username_or_email: 'Username or e-mail'
+login: 'Log in'
+Longitude: Longitude
+'Map or plan': 'Map / plan'
+map.shapes.disc: Disc
+map.shapes.square: Square
+map.shapes.triangle: Triangle
+map.edit_drawing.save_success: 'Drawing memorized!'
+map.edit_drawing.save_button_reminder: "Do not forget to click on the \"💾\" button when you have finished your drawing, else it will not be taken into account."
+'Max Number Of Participants': 'Max Number Of Participants'
+'Max number of participants': 'Max Number Of Participants'
 Name: Name
 nav.link.admin: Administration
 no_account_register: 'Don''t have an account? <a href="%path%">Register</a> instead.'
-password_reset.email.title: 'Hi! Please reset your password'
 password_reset.email.body: "<p>To reset your password, please visit the following link:</p>\n<a href=\"%signedUrl%\">%signedUrl%</a>\n<p>This link will expire in %expiration%.</p>\n<p>Cheers!</p>"
-password_reset.form.title: Reset your password
-password_reset.form.submit: Reset password
-password_reset.submit: Send reset password request
+password_reset.email.title: 'Hi! Please reset your password'
+password_reset.form.submit: 'Reset password'
+password_reset.form.title: 'Reset your password'
+password_reset.submit: 'Send reset password request'
 password_reset.success: 'If an account matching your e-mail exists, then an email was just sent that contains a link that you can use to reset your password. This link will expire in %expires_in%.<br>If you don''t receive an e-mail please check your spam folder or <a href="%path%">try again</a>.'
-PENDING_REVIEW: Pending review
-register: Create an account
+PENDING_REVIEW: 'Pending review'
+register: 'Create an account'
 registration.email.body: '<p>Please confirm your e-mail address by clicking the following link:<br><br><a href="%signedUrl%">Confirm my e-mail</a>. This link will expire in %expiration%.</p><p>Cheers!</p>'
 registration.email.title: 'Hi! Please confirm your e-mail'
 registration.locale.label: Language
-registration.password.error.blank: Please enter a password
+registration.password.error.blank: 'Please enter a password'
 registration.password.error.min_chars: 'Your password should be at least {{ limit }} characters'
-registration.password: Enter a password
-registration.roles.help: You can always update this later if you need.
-registration.roles.label: Roles you want in the application
+registration.password: 'Enter a password'
+registration.roles.help: 'You can always update this later if you need.'
+registration.roles.label: 'Roles you want in the application'
 registration.username: Username
 REJECTED: Rejected
 Remove: Remove
+ROLE_ADMIN: Admin
+ROLE_USER: User
 Roles: Roles
-Room name: Room name
+'Room name': 'Room name'
 Room: Room
 Rooms: Rooms
 Save: Save
@@ -110,50 +154,27 @@ schedule.list.confirm_accept: 'Accept this schedule?'
 schedule.list.confirm_accept_short: Accept
 schedule.list.confirm_reject: 'Reject this schedule?'
 schedule.list.confirm_reject_short: Reject
-Scheduled Activities: Scheduled Activities
-scheduled_activity.state.accepted: Accepted and scheduled
-scheduled_activity.state.created: Freshly created, not yet submitted for review
-scheduled_activity.state.pending_review: Pending review
+'Scheduled Activities': 'Scheduled Activities'
+scheduled_activity.state.accepted: 'Accepted and scheduled'
+scheduled_activity.state.created: 'Freshly created, not yet submitted for review'
+scheduled_activity.state.pending_review: 'Pending review'
 scheduled_activity.state.rejected: Rejected
-ScheduledActivity: Scheduled Activity
-Starts At: Starts at
+ScheduledActivity: 'Scheduled Activity'
+'Starts At': 'Starts at'
 State: State
 Submit: Submit
-Time Slot: Time Slot
-Time Slots: Time Slots
-TimeSlot: Time Slot
-Updated At: Updated At
+'Time Slot': 'Time Slot'
+'Time Slots': 'Time Slots'
+TimeSlot: 'Time Slot'
+'Updated At': 'Updated At'
 User: User
 Username: Username
 Users: Users
-Venue configurations: Venue configurations
-Venue manager: Venue manager
+'Venue configurations': 'Venue configurations'
+'Venue manager': 'Venue manager'
+venue.copy.confirm: 'Do you really want to copy this venue?'
+venue.copy.suffix: ' - Copy'
 Venue: Venue
 Venues: Venues
 Visitor: Visitor
-ROLE_USER: User
-ROLE_ADMIN: Admin
-equipment.name: Equipment
-equipment.quantity: Quantity
-Available Equipment: Available Equipment
-event.activity_registration: 'Register to activity'
-event.activity.register_as_attendee.event_name: Event
-event.activity.register_as_attendee.activity_name: Activity
-event.activity.register_as_attendee.submit: Submit registration
-event.activity.register_as_attendee.form.name: Name
-event.activity.register_as_attendee.form.numberOfAttendees: Number of attendees
-event.activity.register_as_attendee.form.email.help: You can also <a href="%login_url%">log in</a> to associate this registration to your account.
-event.activity.register_as_attendee.success: Registration complete!
-event.error.already_registered_to_activity: You have already registered for this activity!
-event.activity.you_are_registered: You are registered!
-event.error.cannot_submit_activity_to_slot: This slot is not open for planning.
-event.activity.submit_activity.selected_activity: My activities
-event.error.already_submitted_activity: You have already submitted this activity for this time slot.
-activity.form.equipment.help: You can specify here the list of equipment you might need during this activity. Note that there is no guarantee the venue will provide you with it.
-link.back_to_event: Back to the event
-event.activity.submit_activity.success: Your activity was submitted to the team!
-event.activity.submit_activity.submit_button: Submit
-event.submit_activity: Submit activity
-venue.copy.confirm: Do you really want to copy this venue?
-venue.copy.suffix: ' - Copy'
-Copy: Copy
+'Zip Code': 'Zip Code'

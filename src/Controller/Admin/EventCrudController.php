@@ -73,7 +73,7 @@ final class EventCrudController extends AbstractCrudController
     {
         return [
             Field\FormField::addColumn(6),
-            Field\FormField::addFieldset('General'),
+            Field\FormField::addFieldset('fieldset.general'),
             Field\TextField::new('name'),
             Field\TextEditorField::new('description')->setRequired(false)->hideOnIndex(),
             Field\AssociationField::new('venue')->setRequired(true),
@@ -82,10 +82,10 @@ final class EventCrudController extends AbstractCrudController
             Field\BooleanField::new('isOnlineEvent')->renderAsSwitch(false),
 
             Field\FormField::addColumn(6),
-            Field\FormField::addFieldset('Dates'),
+            Field\FormField::addFieldset('fieldset.dates'),
             Field\DateTimeField::new('startsAt'),
             Field\DateTimeField::new('endsAt'),
-            Field\FormField::addFieldset('Registration'),
+            Field\FormField::addFieldset('fieldset.registration'),
             Field\BooleanField::new('allowActivityRegistration')->renderAsSwitch(false)
                 ->setHelp('admin.field.allow_activity_registration.help'),
             Field\BooleanField::new('allowAttendeeRegistration')->renderAsSwitch(false)

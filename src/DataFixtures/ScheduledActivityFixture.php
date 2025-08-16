@@ -28,13 +28,13 @@ final class ScheduledActivityFixture extends ArrayFixture implements ORMFixtureI
             ],
             '449c8f33-1dc8-44d6-a9f3-d90aa2e06740' => [
                 'activity' => new Ref(Activity::class, 'activity-Activité de jeu'),
-                'timeSlot' => new Ref(TimeSlot::class, 'timeslot-11cca5a1-57f5-408c-bb2d-27cd0631fc5c'),
+                'timeSlot' => new Ref(TimeSlot::class, 'timeslot-28b98eb2-4fef-4587-9749-25af666c25e0'),
                 'state' => ScheduleActivityState::PENDING_REVIEW,
                 'submittedBy' => new Ref(User::class, 'user-admin'),
             ],
             '6a6ab381-d2ab-4d54-9c70-c4beb58b5dce' => [
                 'activity' => new Ref(Activity::class, 'activity-Visitor activity'),
-                'timeSlot' => new Ref(TimeSlot::class, 'timeslot-11cca5a1-57f5-408c-bb2d-27cd0631fc5c'),
+                'timeSlot' => new Ref(TimeSlot::class, 'timeslot-28b98eb2-4fef-4587-9749-25af666c25e0'),
                 'state' => ScheduleActivityState::PENDING_REVIEW,
                 'submittedBy' => new Ref(User::class, 'user-visitor'),
             ],

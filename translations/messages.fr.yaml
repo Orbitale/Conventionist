@@ -1,107 +1,153 @@
-'Choose an event:': 'Choisissez un évènement :'
-'Event:': 'Évènement :'
-'Filters:': 'Filtres :'
 ACCEPTED: Acceptée
 Activities: Activités
+activity.form.equipment.help: "Vous pouvez préciser ici la liste du matériel dont vous pourriez avoir besoin pour cette activité. Notez qu'il n'y a aucune garantie que le site vous le fournira."
 Activity: Activité
+Address1: Adresse
+Address2: "Complément d'adresse"
 Address: Adresse
-Allow Activity Registration: Proposition d'activités
-Allow Attendee Registration: Inscriptions publiques aux activités
-admin.entities.users.password_help: Laissez vide pour générer un mot de passe aléatoire (recommended)
+admin.entities.users.password_help: 'Laissez vide pour générer un mot de passe aléatoire (recommended)'
+admin.field.allow_activity_registration.help: 'En cochant cette case, le public pourra soumettre de nouvelles activités pour cet événement.'
+admin.field.allow_attendee_registration.help: "En cochant cette case, le public pourra s'inscrire en tant que participant aux activités de cet événement."
 admin.field.association.too_many: '{0}(… aucun autre élément)|{1}(… un autre élément)|[2,Inf](… %count% autres éléments)'
-admin.field.creators.help: 'Les utilisateurs autorisés à gérer cet objet. Remarque : vous serez toujours inclus dans cette liste, même si vous vous en retirez.'
-admin.field.allow_activity_registration.help: En cochant cette case, le public pourra soumettre de nouvelles activités pour cet événement.
-admin.field.allow_attendee_registration.help: En cochant cette case, le public pourra s'inscrire en tant que participant aux activités de cet événement.
-admin.roles.new: Ajouter des rôles
+admin.field.creators.help: "Les utilisateurs autorisés à gérer cet objet. Remarque : vous serez toujours inclus dans cette liste, même si vous vous en retirez."
+admin.roles.new: 'Ajouter des rôles'
 Administration: Administration
-apply_filters: Appliquer les filtres
-Back to website: Retour au site
-Booth name or number: Nom ou numéro du stand
+'Allow Activity Registration': "Proposition d'activités"
+'Allow Attendee Registration': 'Inscriptions publiques aux activités'
+apply_filters: 'Appliquer les filtres'
+'Available Equipment': 'Matériel disponible'
+'Back to website': 'Retour au site'
+'Booth name or number': 'Nom ou numéro du stand'
+'Booth name': 'Nom du stand'
 Booth: Stand
 Booths: Stands
 button.create_new: Créer
-calendar.modal.add_schedule_to_timeslot: Programmer une activité
-calendar.modal.add_timeslot.confirm: 'Sauvegarder ce créneau horaire ?'
-calendar.modal.add_timeslot: Ajouter un nouveau créneau horaire
-calendar.modal.choose_an_event: Choisissez un évènement dans la liste ci-dessus
-calendar.modal.delete_timeslot.confirm: 'Supprimer ce créneau horaire ?'
-calendar.modal.empty_slot_add: 'Ce créneau est actuellement vide. Voulez-vous y programmer une activité ?'
-calendar.modal.no_timeslot_configured: Aucun créneau horaire nest configuré pour cette salle.
-calendar.modal.no_upcoming_event: Aucun événement à venir
-calendar.modal.unconfigured_timeslot: 'Ce créneau n''est pas encore sauvegardé !'
+calendar.modal.add_schedule_to_timeslot: 'Programmer une activité'
+calendar.modal.add_timeslot.confirm: "Sauvegarder ce créneau horaire ?"
+calendar.modal.add_timeslot: 'Ajouter un nouveau créneau horaire'
+calendar.modal.choose_an_event: 'Choisissez un évènement dans la liste ci-dessus'
+calendar.modal.delete_timeslot.confirm: "Supprimer ce créneau horaire ?"
+calendar.modal.empty_slot_add: "Ce créneau est actuellement vide. Voulez-vous y programmer une activité ?"
+calendar.modal.no_timeslot_configured: 'Aucun créneau horaire nest configuré pour cette salle.'
+calendar.modal.no_upcoming_event: 'Aucun événement à venir'
+calendar.modal.unconfigured_timeslot: "Ce créneau n'est pas encore sauvegardé !"
 Calendar: Calendrier
+'Choose an event:': "Choisissez un évènement :"
+City: Ville
 Close: Fermer
-Convention organisation: Organisation de convention
-Created At: Créé(e) le
+'Convention organisation': 'Organisation de convention'
+Copy: Copier
+Country: Pays
+'Created At': 'Créé(e) le'
 CREATED: Créée
-Creators: 'Créateurs/créatrices'
-Dashboard: Tableau de bord
-dashboard.view.create_events: Créer un évènement
-dashboard.view.create_events.text: Les événements sont au cœur de Conventionist.<br>Ils peuvent correspondre à des ateliers, une convention, un salon ou tout autre ensemble d'activités que vous souhaitez planifier.<br>Vous pouvez créer un événement, configurer son lieu d'accueil, les plages horaires et les activités qui seront proposées au public.
-dashboard.view.manage_time_slot: Gérez les créneaux horaires
-dashboard.view.manage_time_slot.text: Les céneaux horaires sont des périodes de temps durant lesquelles des activités peuvent être programmées.<br>Lorsqu'un évènement est configuré, vous pouvez ajouter des créneaux, soit directement dans l'administration, soit par le biais du calendrier, pour ouvrir des disponibilités pour que le public proposent des activités.
-dashboard.view.manage_venues: Gérez les lieux d'accueil
-dashboard.view.manage_venues.text: 'Les lieux d''accueil sont les endroits où se déroulent les évènements. Chaque lieu est organisé en 3 niveaux : les étages (ou les espaces d''accueil), les salles (ou tentes, sous-espaces) et les stands ou lieux précis d''activité.'
+Creators: Créateurs/créatrices
+dashboard.view.create_events.text: "Les événements sont au cœur de Conventionist.<br>Ils peuvent correspondre à des ateliers, une convention, un salon ou tout autre ensemble d'activités que vous souhaitez planifier.<br>Vous pouvez créer un événement, configurer son lieu d'accueil, les plages horaires et les activités qui seront proposées au public."
+dashboard.view.create_events: 'Créer un évènement'
+dashboard.view.manage_time_slot.text: "Les céneaux horaires sont des périodes de temps durant lesquelles des activités peuvent être programmées.<br>Lorsqu'un évènement est configuré, vous pouvez ajouter des créneaux, soit directement dans l'administration, soit par le biais du calendrier, pour ouvrir des disponibilités pour que le public proposent des activités."
+dashboard.view.manage_time_slot: 'Gérez les créneaux horaires'
+dashboard.view.manage_venues.text: "Les lieux d'accueil sont les endroits où se déroulent les évènements. Chaque lieu est organisé en 3 niveaux : les étages (ou les espaces d'accueil), les salles (ou tentes, sous-espaces) et les stands ou lieux précis d'activité."
+dashboard.view.manage_venues: "Gérez les lieux d'accueil"
+Dashboard: 'Tableau de bord'
+Description: Description
 Edit: Modifier
-Email Confirmed: E-mail confirmé
-Email: Adresse e-mail
-email_address: Adresse e-mail
-Ends At: Date de fin
-Event organizer: 'Organisateur d''évènements'
-Event Venues: 'Lieux d''accueil'
-event.activity.register_as_attendee: S'inscrire à cette activité
-event.activity.open_slot: Créneau ouvert
-event.activity.register_as_animator: Proposer une animation
-event.endsAt.colon: 'Fin :'
-event.startsAt.colon: 'Début :'
+'Email Confirmed': 'E-mail confirmé'
+Email: 'Adresse e-mail'
+email_address: 'Adresse e-mail'
+'Ends At': 'Date de fin'
+equipment.name: Matériel
+equipment.quantity: Quantité
+'Event organizer': "Organisateur d'évènements"
+'Event Venues': "Lieux d'accueil"
+event.activity.open_slot: 'Créneau ouvert'
+event.activity.register_as_animator: 'Proposer une animation'
+event.activity.register_as_attendee.activity_name: Activité
+event.activity.register_as_attendee.event_name: Évènement
+event.activity.register_as_attendee.form.email.help: 'Vous pouvez également <a href="%login_url%">vous connecter</a> pour associer cette inscription à votre compte.'
+event.activity.register_as_attendee.form.name: Nom
+event.activity.register_as_attendee.form.numberOfAttendees: 'Nombre de personnes'
+event.activity.register_as_attendee.submit: "Je m'inscris"
+event.activity.register_as_attendee.success: "Inscription terminée !"
+event.activity.register_as_attendee: "S'inscrire à cette activité"
+event.activity.submit_activity.create_new_activity: 'Créer une nouvelle activité.'
+event.activity.submit_activity.select_existing_activity: 'Sélectionner une de mes activités.'
+event.activity.submit_activity.selected_activity: 'Mes activités'
+event.activity.submit_activity.submit_button: Envoyer
+event.activity.submit_activity.success: "Votre proposition a été soumise à l'équipe !"
+event.activity.you_are_registered: "Vous avez fait votre inscription !"
+event.activity_registration: 'Inscription à une activité'
+event.endsAt.colon: "Fin :"
+event.error.already_registered_to_activity: "Vous avez déjà fait votre inscription pour cette activité !"
+event.error.already_submitted_activity: 'Vous avez déjà proposé cette activité à ce créneau.'
+event.error.cannot_submit_activity_to_slot: "Ce créneau n'est pas ouvert aux inscriptions."
 event.schedule: Programme
+event.startsAt.colon: "Début :"
+event.submit_activity: 'Proposer une activité'
 Event: Évènement
+'Event:': "Évènement :"
 Events: Évènements
-Floor name: 'Nom de l''étage'
+fieldset.dates: Dates
+fieldset.general: Général
+fieldset.registration: Inscriptions
+'Filters:': "Filtres :"
+'Floor name': "Nom de l'étage"
 Floor: Étage
 Floors: Étages
-forgot_password.request.email: Veuillez entrer une adresse e-mail
-forgot_password.request.help: Entrez votre adresse e-mail et nous vous enverrons un lien pour réinitialiser votre mot de passe.
-forgot_password.request.title: Réinitialiser votre mot de passe
-forgot_password_text: Mot de passe oublié ?
-have_account_login: Vous avez déjà un compte ? <a href="%path%">Connectez-vous</a>.
+forgot_password.request.email: 'Veuillez entrer une adresse e-mail'
+forgot_password.request.help: 'Entrez votre adresse e-mail et nous vous enverrons un lien pour réinitialiser votre mot de passe.'
+forgot_password.request.title: 'Réinitialiser votre mot de passe'
+forgot_password_text: "Mot de passe oublié ?"
+have_account_login: "Vous avez déjà un compte ? <a href=\"%path%\">Connectez-vous</a>."
 Hours: Heures
 ID: Id
-index.jumbotron.links.authenticated_cta: Aller au tableau de bord
-index.jumbotron.message: 'L''organisateur de conventions et d''évènements aux petits oignons 🧅'
-index.events.upcoming: Évènements à venir
-Is Online Event: En ligne
-link.back_home: 'Retour à l''accueil'
-login.password: Votre mot de passe
-login.remember_me: Se souvenir de moi
-login.username_or_email: 'Nom d''utilisateur ou adresse e-mail'
-login: Se connecter
-Max Number Of Participants: Nombre maximum de participants
-Max number of participants: Nombre maximum de participants
+index.events.upcoming: 'Évènements à venir'
+index.jumbotron.links.authenticated_cta: 'Aller au tableau de bord'
+index.jumbotron.message: "L'organisateur de conventions et d'évènements aux petits oignons 🧅"
+'Is Online Event': 'En ligne'
+Latitude: Latitude
+link.back_home: "Retour à l'accueil"
+link.back_to_event: "Retour à l'évènement"
+locale.en: English
+locale.fr: Français
+login.password: 'Votre mot de passe'
+login.remember_me: 'Se souvenir de moi'
+login.username_or_email: "Nom d'utilisateur ou adresse e-mail"
+login: 'Se connecter'
+Longitude: Longitude
+'Map or plan': 'Image / plan'
+map_image.form.help: Préférez des images au format PNG si vous avez besoin de transparence, afin que l'arrangement favorise une superposition idéale
+map.shapes.disc: Disque
+map.shapes.square: Carré
+map.shapes.triangle: Triangle
+map.edit_drawing.save_success: 'Dessin mémorisé !'
+map.edit_drawing.save_button_reminder: "N'oubliez pas de cliquer sur le bouton \"💾\" une fois votre dessin terminé, sinon il ne sera pas pris en compte."
+'Max Number Of Participants': 'Nombre maximum de participants'
+'Max number of participants': 'Nombre maximum de participants'
 Name: Nom
 nav.link.admin: Administration
-no_account_register: 'Vous n''avez pas de compte ? <a href="%path%">Créez un compte</a> à la place.'
-password_reset.email.title: 'Veuillez réinitialiser votre mot de passe'
+no_account_register: "Vous n'avez pas de compte ? <a href=\"%path%\">Créez un compte</a> à la place."
 password_reset.email.body: "<p>Pour réinitialiser votre mot de passe, veuillez cliquer sur le lien suivant :</p>\n<a href=\"%signedUrl%\">%signedUrl%</a>\n<p>Ce lien expire dans %expiration%.</p>\n<p>À bientôt !</p>"
-password_reset.form.title: Réinitialiser votre mot de passe
+password_reset.email.title: 'Veuillez réinitialiser votre mot de passe'
 password_reset.form.submit: Réinitialiser
-password_reset.submit: Demander à réinitialiser le mot de passe
+password_reset.form.title: 'Réinitialiser votre mot de passe'
+password_reset.submit: 'Demander à réinitialiser le mot de passe'
 password_reset.success: 'Si un compte existe avec cette adresse, un e-mail lui sera envoyé, contenant un lien sur lequel vous pouvez cliquer pour réinitialiser votre mot de passe. Ce lien expirera dans %expires_in%.<br>Si vous n''avez pas reçu d''e-mail, vérifiez le dossier des spams, ou <a href="%path%">réessayez</a>.'
-PENDING_REVIEW: En attente de validation
-register: Créer un compte
-registration.email.body: '<p>Veuillez confirmer votre adresse e-mail en cliquant sur le lien suivant :<br><br><a href="%signedUrl%">Confirmer mon adresse e-mail</a>. Ce lien expire dans %expiration%.</p><p>À bientôt !</p>'
+PENDING_REVIEW: 'En attente de validation'
+register: 'Créer un compte'
+registration.email.body: "<p>Veuillez confirmer votre adresse e-mail en cliquant sur le lien suivant :<br><br><a href=\"%signedUrl%\">Confirmer mon adresse e-mail</a>. Ce lien expire dans %expiration%.</p><p>À bientôt !</p>"
 registration.email.title: 'Bonjour, veuillez confirmer votre adresse e-mail'
 registration.locale.label: Langue
-registration.password.error.blank: Veuillez entrer un mot de passe
+registration.password.error.blank: 'Veuillez entrer un mot de passe'
 registration.password.error.min_chars: 'Votre mot de passe doit contenir au moins {{ limit }} caractères'
-registration.password: Entrez un mot de passe
-registration.roles.help: Vous pouvez changer ces paramètres plus tard si besoin.
-registration.roles.label: Les fonctionnalités auxquelles vous voulez accéder.
-registration.username: 'Nom d''utilisateur'
+registration.password: 'Entrez un mot de passe'
+registration.roles.help: 'Vous pouvez changer ces paramètres plus tard si besoin.'
+registration.roles.label: 'Les fonctionnalités auxquelles vous voulez accéder.'
+registration.username: "Nom d'utilisateur"
 REJECTED: Rejetée
 Remove: Supprimer
+ROLE_ADMIN: Administrateur
+ROLE_USER: Utilisateur
 Roles: Rôles
-Room name: Nom de la salle
+'Room name': 'Nom de la salle'
 Room: Salle
 Rooms: Salles
 Save: Sauvegarder
@@ -109,52 +155,27 @@ schedule.list.confirm_accept: 'Accepter ce programme?'
 schedule.list.confirm_accept_short: Accepter
 schedule.list.confirm_reject: 'Rejeter ce programme?'
 schedule.list.confirm_reject_short: Rejeter
-Scheduled Activities: Programmation
-scheduled_activity.state.accepted: Accepté et programmé
+'Scheduled Activities': Programmation
+scheduled_activity.state.accepted: 'Accepté et programmé'
 scheduled_activity.state.created: 'Fraîchement créé, pas encore soumis à validation'
-scheduled_activity.state.pending_review: En attente de validation
+scheduled_activity.state.pending_review: 'En attente de validation'
 scheduled_activity.state.rejected: Rejetée
-ScheduledActivity: Activité programmée
-Starts At: Date de début
+ScheduledActivity: 'Activité programmée'
+'Starts At': 'Date de début'
 State: État
 Submit: Envoyer
-Time Slot: Créneau horaire
-Time Slots: Créneaux horaires
-TimeSlot: Créneau horaire
-Updated At: Mis(e) à jour le
-User: 'Utilisateur/utilisatrice'
-Username: 'Nom'
-Users: 'Utilisateurs/utilisatrices'
-Venue configurations: 'Configuration des lieux d''accueil'
-Venue manager: 'Gestionnaire de lieux d''accueils'
-Venue: 'Lieu d''accueil'
-Venues: 'Lieux d''accueil'
-Visitor: Visiteur
-ROLE_USER: Utilisateur
-ROLE_ADMIN: Administrateur
-equipment.name: Matériel
-equipment.quantity: Quantité
-Available Equipment: Matériel disponible
-event.activity_registration: 'Inscription à une activité'
-event.activity.register_as_attendee.event_name: Évènement
-event.activity.register_as_attendee.activity_name: Activité
-event.activity.register_as_attendee.submit: Je m'inscris
-event.activity.register_as_attendee.form.name: Nom
-event.activity.register_as_attendee.form.numberOfAttendees: Nombre de personnes
-event.activity.register_as_attendee.form.email.help: Vous pouvez également <a href="%login_url%">vous connecter</a> pour associer cette inscription à votre compte.
-event.activity.register_as_attendee.success: Inscription terminée !
-event.error.already_registered_to_activity: Vous avez déjà fait votre inscription pour cette activité !
-event.activity.you_are_registered: Vous avez fait votre inscription !
-event.error.cannot_submit_activity_to_slot: Ce créneau n'est pas ouvert aux inscriptions.
-event.activity.submit_activity.selected_activity: Mes activités
-event.error.already_submitted_activity: Vous avez déjà proposé cette activité à ce créneau.
-activity.form.equipment.help: Vous pouvez préciser ici la liste du matériel dont vous pourriez avoir besoin pour cette activité. Notez qu'il n'y a aucune garantie que le site vous le fournira.
-link.back_to_event: Retour à l'évènement
-event.activity.submit_activity.success: Votre proposition a été soumise à l'équipe !
-event.activity.submit_activity.submit_button: Envoyer
-event.submit_activity: Proposer une activité
-event.activity.submit_activity.select_existing_activity: Sélectionner une de mes activités.
-event.activity.submit_activity.create_new_activity: Créer une nouvelle activité.
-venue.copy.confirm: Voulez-vous vraiment copier ce lieu d'accueil ?
+'Time Slot': 'Créneau horaire'
+'Time Slots': 'Créneaux horaires'
+TimeSlot: 'Créneau horaire'
+'Updated At': 'Mis(e) à jour le'
+User: Utilisateur/utilisatrice
+Username: Nom
+Users: Utilisateurs/utilisatrices
+'Venue configurations': "Configuration des lieux d'accueil"
+'Venue manager': "Gestionnaire de lieux d'accueils"
+venue.copy.confirm: "Voulez-vous vraiment copier ce lieu d'accueil ?"
 venue.copy.suffix: ' - Copie'
-Copy: Copier
+Venue: "Lieu d'accueil"
+Venues: "Lieux d'accueil"
+Visitor: Visiteur
+'Zip Code': 'Code postal'

@@ -11,10 +11,12 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: BoothRepository::class)]
 #[ORM\Table(name: '`booth`')]
-class Booth implements HasCreators
+class Booth implements HasCreators, HasMapImage
 {
     use Field\Id { Field\Id::__construct as private generateId; }
     use Field\Name;
+    use Field\MapImage;
+    use Field\Position;
 
     #[ORM\Column(nullable: true)]
     #[Assert\Type('int')]
@@ -106,5 +108,35 @@ class Booth implements HasCreators
     public function setAllowAttendeeRegistration(bool $allowAttendeeRegistration): void
     {
         $this->allowAttendeeRegistration = $allowAttendeeRegistration;
+    }
+
+    public function getWidth(): ?int
+    {
+        return $this->width;
+    }
+
+    public function setWidth(?int $width): void
+    {
+        $this->width = $width;
+    }
+
+    public function getHeight(): ?int
+    {
+        return $this->height;
+    }
+
+    public function setHeight(?int $height): void
+    {
+        $this->height = $height;
+    }
+
+    public function getColor(): ?string
+    {
+        return $this->color;
+    }
+
+    public function setColor(?string $color): void
+    {
+        $this->color = $color;
     }
 }

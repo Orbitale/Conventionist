@@ -10,9 +10,11 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: RoomRepository::class)]
-class Room implements HasNestedRelations, HasCreators
+class Room implements HasNestedRelations, HasCreators, HasMapImage
 {
     use Field\Id { __construct as generateId; }
+    use Field\MapImage;
+    use Field\Position;
 
     #[ORM\Column(name: 'name', type: Types::STRING, length: 255, nullable: false)]
     #[Assert\NotBlank(message: 'Please enter a name')]
