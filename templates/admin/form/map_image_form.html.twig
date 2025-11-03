@@ -4,8 +4,21 @@
     {{ block('form_label') }}
     {{ block('ea_fileupload_widget') }}
     {{ block('form_help') }}
+
+    {% if ea_vars.field.getCustomOption('default_pointers') %}
+        <div>
+            <h4>{{ 'map.suggest_default_pointers'|trans }}</h4>
+            {% for default_pointer in constant('App\\Admin\\Field\\MapImageField::DEFAULT_POINTERS') %}
+                <span class="pointer-image-container" data-image-name="{{ default_pointer }}" data-image-src="{{ asset('images/map_pointers/pointer_'~default_pointer~'.png') }}">
+                    <img src="{{ asset('images/map_pointers/pointer_'~default_pointer~'.png') }}" alt="{{ default_pointer }}" class="pointer-image">
+                </span>
+            {% endfor %}
+        </div>
+    {% endif %}
+
     {% set image = ea_vars.entity.instance.mapImage|default(null) %}
     {% if image %}
+        <h4>{{ 'map.current_image'|trans }}</h4>
         <img src="{{ image }}" alt="{{ form.vars.label }}">
     {% endif %}
 {% endblock %}

@@ -13,6 +13,8 @@ class MapImageField implements FieldInterface
 {
     use FieldTrait;
 
+    public const array DEFAULT_POINTERS = ["pink", "blue", "red", "green", "black", "orange", "saddlebrown"];
+
     public const array IMAGES_TYPES = [
         'image/jpeg',
         'image/png',
@@ -21,7 +23,7 @@ class MapImageField implements FieldInterface
 
     public const string PATH_FROM_PUBLIC_DIR = '/uploads/maps';
 
-    public static function new(string $propertyName, ?string $label = null): FieldInterface|ImageField
+    public static function new(string $propertyName, ?string $label = null, bool $withDefaultPointers = false): FieldInterface|ImageField
     {
         return ImageField::new('mapImage', 'Map or plan')
             ->setUploadDir('/public/'.self::PATH_FROM_PUBLIC_DIR)
@@ -29,6 +31,7 @@ class MapImageField implements FieldInterface
             ->setFormTypeOption('block_prefix', 'map_image')
             ->addFormTheme('admin/form/map_image_form.html.twig')
             ->setUploadedFileNamePattern(fn (UploadedFile $file) => self::PATH_FROM_PUBLIC_DIR.'/'.\basename($file->getClientOriginalPath(), $file->getClientOriginalExtension()).uniqid('', true).'.'.$file->getClientOriginalExtension())
+            ->setCustomOption('default_pointers', $withDefaultPointers)
             ->setFileConstraints(new Image(
                 maxSize: '5M',
                 mimeTypes: self::IMAGES_TYPES,

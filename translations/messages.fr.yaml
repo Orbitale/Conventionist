@@ -120,6 +120,8 @@ map.shapes.square: Carré
 map.shapes.triangle: Triangle
 map.edit_drawing.save_success: 'Dessin mémorisé !'
 map.edit_drawing.save_button_reminder: "N'oubliez pas de cliquer sur le bouton \"💾\" une fois votre dessin terminé, sinon il ne sera pas pris en compte."
+map.suggest_default_pointers: 'Vous pouvez également utiliser ces pointeurs prédéfinis :'
+map.current_image: 'Image actuelle :'
 'Max Number Of Participants': 'Nombre maximum de participants'
 'Max number of participants': 'Nombre maximum de participants'
 Name: Nom

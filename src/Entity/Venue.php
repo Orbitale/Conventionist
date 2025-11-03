@@ -66,6 +66,16 @@ class Venue implements HasNestedRelations, HasCreators, HasMapImage
         }
     }
 
+    public function getChildren(): array
+    {
+        return $this->floors->toArray();
+    }
+
+    public function getChildrenClass(): ?string
+    {
+        return Floor::class;
+    }
+
     public function getName(): string
     {
         return $this->name;

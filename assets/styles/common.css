@@ -1,0 +1,73 @@
+
+/*
+ * Map disposition
+ */
+
+#map_disposition {
+    position: relative;
+    border: 2px solid #ddd;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin: 20px 0;
+}
+
+#map_disposition .child-image {
+    position: absolute;
+    background-size: cover;
+    background-position: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+#map_disposition > .child-image {
+    z-index: 10;
+}
+
+#map_disposition .child-image.dragging {
+    opacity: 0.7;
+    z-index: 100;
+}
+
+#map_disposition .child-label {
+    display: none;
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    right: 0;
+    background: rgba(0, 123, 255, 0.8);
+    color: white;
+    padding: 2px 5px;
+    font-size: 11px;
+    text-align: center;
+    pointer-events: none;
+}
+#map_disposition .child-image:hover .child-label {
+    display: block;
+}
+
+#map_disposition .save-disposition-btn {
+    margin: 20px 0;
+}
+
+#map_disposition .coordinates-info {
+    display: none;
+    font-size: 10px;
+    color: #666;
+    position: absolute;
+    top: -20px;
+    left: 0;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 2px 5px;
+    border-radius: 3px;
+    pointer-events: none;
+}
+
+#map_disposition.edit-mode .child-image {
+    cursor: move;
+}
+#map_disposition.edit-mode .child-image:hover {
+    border-color: #0056b3;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+#map_disposition.edit-mode .child-image:hover .coordinates-info {
+    display: block;
+}

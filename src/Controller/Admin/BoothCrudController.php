@@ -69,8 +69,8 @@ final class BoothCrudController extends AbstractCrudController
             ->renderAsSwitch(false)
             ->setHelp('admin.field.allow_attendee_registration.help');
         yield Field\FormField::addColumn(6, '');
-        yield CustomFields\MapImageField::new('mapImage', 'Map or plan');
-        yield Field\NumberField::new('mapWidth', 'Map width')->hideOnForm()->hideOnIndex();
-        yield Field\NumberField::new('mapHeight', 'Map height')->hideOnForm()->hideOnIndex();
+        yield CustomFields\MapImageField::new('mapImage', 'Map or plan', withDefaultPointers: true);
+        yield Field\NumberField::new('mapWidth', 'Map width')->onlyOnDetail();
+        yield Field\NumberField::new('mapHeight', 'Map height')->onlyOnDetail();
     }
 }

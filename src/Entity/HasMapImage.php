@@ -2,9 +2,6 @@
 
 namespace App\Entity;
 
-use App\Validator\ValidateMapImage;
-
-#[ValidateMapImage]
 interface HasMapImage
 {
     public function hasMapData(): bool;
@@ -24,4 +21,12 @@ interface HasMapImage
     public function getMapMimeType(): ?string;
 
     public function setMapMimeType(?string $mapMimeType): void;
+
+    /**
+     * @return array<HasMapImage>
+     */
+    public function getChildren(): array;
+
+    /** @return null|class-string<HasMapImage> */
+    public function getChildrenClass(): ?string;
 }

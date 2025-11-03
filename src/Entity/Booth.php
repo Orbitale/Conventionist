@@ -11,7 +11,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: BoothRepository::class)]
 #[ORM\Table(name: '`booth`')]
-class Booth implements HasCreators, HasMapImage
+class Booth implements HasCreators, HasMapImage, HasPosition
 {
     use Field\Id { Field\Id::__construct as private generateId; }
     use Field\Name;
@@ -62,6 +62,16 @@ class Booth implements HasCreators, HasMapImage
                 'slot_type' => 'booth',
             ],
         ];
+    }
+
+    public function getChildren(): array
+    {
+        return [];
+    }
+
+    public function getChildrenClass(): ?string
+    {
+        return null;
     }
 
     public function getCreators(): Collection

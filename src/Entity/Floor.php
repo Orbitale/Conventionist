@@ -10,10 +10,11 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: FloorRepository::class)]
-class Floor implements HasNestedRelations, HasCreators, HasMapImage
+class Floor implements HasNestedRelations, HasCreators, HasMapImage, HasPosition
 {
     use Field\Id { __construct as generateId; }
     use Field\MapImage;
+    use Field\Position;
 
     #[ORM\Column(name: 'name', type: Types::STRING, length: 255, nullable: false)]
     #[Assert\NotBlank(message: 'Please enter a name')]
@@ -75,6 +76,16 @@ class Floor implements HasNestedRelations, HasCreators, HasMapImage
         }
 
         return $json;
+    }
+
+    public function getChildren(): array
+    {
+        return $this->rooms->toArray();
+    }
+
+    public function getChildrenClass(): ?string
+    {
+        return Room::class;
     }
 
     public function getCreators(): Collection

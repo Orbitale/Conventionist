@@ -57,13 +57,14 @@ final class RoomCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
-        yield Field\FormField::addColumn(6, 'Basic information');
+        yield Field\FormField::addColumn(6, 'Basic information')->hideOnDetail();
         yield Field\TextField::new('name', 'Room name');
         yield Field\AssociationField::new('floor')->setDisabled($pageName === Crud::PAGE_EDIT);
         yield CustomFields\AssociationCollectionField::new('booths', null, NestedBoothCrudController::class, BoothCrudController::class);
-        yield Field\FormField::addColumn(6, '');
+        yield Field\FormField::addColumn(6, '')->hideOnDetail();
         yield CustomFields\MapImageField::new('mapImage', 'Map or plan');
-        yield Field\NumberField::new('mapWidth', 'Map width')->hideOnForm()->hideOnIndex();
-        yield Field\NumberField::new('mapHeight', 'Map height')->hideOnForm()->hideOnIndex();
+        yield Field\NumberField::new('mapWidth', 'Map width')->onlyOnDetail();
+        yield Field\NumberField::new('mapHeight', 'Map height')->onlyOnDetail();
+        yield CustomFields\PlanDispositionField::newForEntity('room')->onlyOnDetail();
     }
 }

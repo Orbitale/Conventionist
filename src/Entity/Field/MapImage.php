@@ -3,7 +3,6 @@
 namespace App\Entity\Field;
 
 use App\Entity\Room;
-use App\Validator\ValidateMapImage;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 

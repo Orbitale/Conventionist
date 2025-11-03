@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: RoomRepository::class)]
-class Room implements HasNestedRelations, HasCreators, HasMapImage
+class Room implements HasNestedRelations, HasCreators, HasMapImage, HasPosition
 {
     use Field\Id { __construct as generateId; }
     use Field\MapImage;
@@ -50,6 +50,16 @@ class Room implements HasNestedRelations, HasCreators, HasMapImage
         $clone->booths = new ArrayCollection($clone->booths->map(fn (Booth $booth) => $booth->clone($clone))->toArray());
 
         return $clone;
+    }
+
+    public function getChildren(): array
+    {
+        return $this->booths->toArray();
+    }
+
+    public function getChildrenClass(): ?string
+    {
+        return Booth::class;
     }
 
     public function refreshNestedRelations(): void

@@ -119,6 +119,8 @@ map.shapes.square: Square
 map.shapes.triangle: Triangle
 map.edit_drawing.save_success: 'Drawing memorized!'
 map.edit_drawing.save_button_reminder: "Do not forget to click on the \"💾\" button when you have finished your drawing, else it will not be taken into account."
+map.suggest_default_pointers: 'You can also use one of the pre-defined pointers:'
+map.current_image: 'Current image:'
 'Max Number Of Participants': 'Max Number Of Participants'
 'Max number of participants': 'Max Number Of Participants'
 Name: Name

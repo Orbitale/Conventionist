@@ -1,0 +1,41 @@
+{% set show_container = show_container|default(true) %}
+{% set show_coordinates = show_coordinates|default(false) %}
+{% set show_children = show_children|default(false) %}
+{% set edit_mode = edit_mode|default(false) %}
+
+{% if show_container %}
+<div id="map_disposition"
+     {{ edit_mode ? 'class="edit-mode"' }}
+     style="
+         width: {{ entity_instance.mapWidth }}px;
+         height: {{ entity_instance.mapHeight }}px;
+         background-image: url('{{ entity_instance.mapImage }}');
+     "
+>
+{% endif %}
+
+{% for child in entity_instance.children|filter(child => child.mapImage is not empty) %}
+    <div class="child-image"
+         data-child-id="{{ child.id }}"
+         data-child-name="{{ child.name }}"
+         style="left: {{ child.xPosition }}px;
+                 top: {{ child.yPosition }}px;
+                 width: {{ child.mapWidth }}px;
+                 height: {{ child.mapHeight }}px;
+                 background-image: url('{{ child.mapImage }}');">
+        {% if show_coordinates %}
+            <div class="coordinates-info">
+                X: <span class="coord-x">{{ child.xPosition }}</span>,
+                Y: <span class="coord-y">{{ child.yPosition }}</span>
+            </div>
+        {% endif %}
+        <div class="child-label">{{ child.name }}</div>
+    </div>
+    {% if show_children and child.children is not empty %}
+        {{ include(_self, {entity_instance: child, show_container: false, show_coordinates: show_coordinates}, with_context=false) }}
+    {% endif %}
+{% endfor %}
+
+{% if show_container %}
+</div>
+{% endif %}

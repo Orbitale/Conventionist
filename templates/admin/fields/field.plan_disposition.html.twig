@@ -1,0 +1,174 @@
+{#
+Custom field template for arranging child plans on the map.
+This field is virtual and only displays on the detail page.
+#}
+{% set entity_name = field.customOptions.get('entity_name') %}
+
+{% set entity_instance = ea.entity.instance %}
+
+{% if not entity_instance.mapImage %}
+    <div class="alert alert-warning">
+        No map image available. Please upload a map first.
+    </div>
+{% else %}
+
+    {{ include('maps/map.html.twig', {entity_instance: entity_instance, edit_mode: true}) }}
+{#    <div id="map_disposition"#}
+{#         class="edit-mode"#}
+{#         style="width: {{ entity_instance.mapWidth }}px;#}
+{#             height: {{ entity_instance.mapHeight }}px;#}
+{#             background-image: url('{{ entity_instance.mapImage }}');#}
+{#         "#}
+{#    >#}
+{#        {% for child in entity_instance.children %}#}
+{#            {% if child.mapImage %}#}
+{#                <div class="child-image"#}
+{#                     data-child-id="{{ child.id }}"#}
+{#                     data-child-name="{{ child.name }}"#}
+{#                     style="left: {{ child.xPosition }}px;#}
+{#                            top: {{ child.yPosition }}px;#}
+{#                            width: {{ child.mapWidth }}px;#}
+{#                            height: {{ child.mapHeight }}px;#}
+{#                            background-image: url('{{ child.mapImage }}');">#}
+{#                    <div class="coordinates-info">#}
+{#                        X: <span class="coord-x">{{ child.xPosition }}</span>,#}
+{#                        Y: <span class="coord-y">{{ child.yPosition }}</span>#}
+{#                    </div>#}
+{#                    <div class="child-label">{{ child.name }}</div>#}
+{#                </div>#}
+{#            {% endif %}#}
+{#        {% endfor %}#}
+{#    </div>#}
+
+    <button type="button" class="btn btn-primary save-disposition-btn" onclick="saveDisposition()">
+        Save Plan Disposition
+    </button>
+
+    <div id="disposition-status" class="alert" style=""></div>
+
+    <script>
+        (function() {
+            // Make child images draggable
+            const container = document.getElementById('map_disposition');
+            const childImages = container.querySelectorAll('.child-image');
+
+            let draggedElement = null;
+            let offsetX = 0;
+            let offsetY = 0;
+
+            childImages.forEach(childImage => {
+                childImage.addEventListener('mousedown', startDrag);
+            });
+
+            function startDrag(e) {
+                draggedElement = e.currentTarget;
+                draggedElement.classList.add('dragging');
+
+                // Calculate offset from mouse position to element's top-left corner
+                const rect = draggedElement.getBoundingClientRect();
+                offsetX = e.clientX - rect.left;
+                offsetY = e.clientY - rect.top;
+
+                document.addEventListener('mousemove', drag);
+                document.addEventListener('mouseup', stopDrag);
+
+                e.preventDefault();
+            }
+
+            function drag(e) {
+                if (!draggedElement) return;
+
+                const containerRect = container.getBoundingClientRect();
+
+                // Calculate new position relative to container (bitmap coordinates: 0,0 = top-left)
+                let newX = e.clientX - containerRect.left - offsetX;
+                let newY = e.clientY - containerRect.top - offsetY;
+
+                // Constrain within container bounds
+                const childWidth = draggedElement.offsetWidth;
+                const childHeight = draggedElement.offsetHeight;
+
+                newX = Math.max(0, Math.min(newX, container.offsetWidth - childWidth));
+                newY = Math.max(0, Math.min(newY, container.offsetHeight - childHeight));
+
+                // Update position
+                draggedElement.style.left = newX + 'px';
+                draggedElement.style.top = newY + 'px';
+
+                // Update coordinate display
+                const coordX = draggedElement.querySelector('.coord-x');
+                const coordY = draggedElement.querySelector('.coord-y');
+                if (coordX) coordX.textContent = Math.round(newX);
+                if (coordY) coordY.textContent = Math.round(newY);
+            }
+
+            function stopDrag(e) {
+                if (draggedElement) {
+                    draggedElement.classList.remove('dragging');
+                    draggedElement = null;
+                }
+                document.removeEventListener('mousemove', drag);
+                document.removeEventListener('mouseup', stopDrag);
+            }
+        })();
+
+        // Function to save the disposition of all childs
+        window.saveDisposition = function() {
+            const container = document.getElementById('map_disposition');
+            const childImages = container.querySelectorAll('.child-image');
+            const positions = [];
+
+            childImages.forEach(childImage => {
+                const childId = childImage.getAttribute('data-child-id');
+                const childName = childImage.getAttribute('data-child-name');
+
+                // Get current position from computed style
+                const x = parseInt(childImage.style.left) || 0;
+                const y = parseInt(childImage.style.top) || 0;
+
+                positions.push({
+                    id: childId,
+                    name: childName,
+                    x: x,
+                    y: y
+                });
+            });
+
+            // Send AJAX request to save positions
+            const url = "{{ path('admin_map_save_disposition', {entity: entity_name, id: entity_instance.id}) }}";
+
+            const statusDiv = document.getElementById('disposition-status');
+            statusDiv.style.display = 'block';
+            statusDiv.className = 'alert alert-info';
+            statusDiv.textContent = 'Saving positions...';
+
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ positions: positions })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    statusDiv.className = 'alert alert-success';
+                    statusDiv.textContent = 'Positions saved successfully!';
+                    setTimeout(() => {
+                        statusDiv.style.display = 'none';
+                    }, 3000);
+                } else {
+                    statusDiv.className = 'alert alert-danger';
+                    statusDiv.textContent = 'Error: ' + (data.error || 'Failed to save positions');
+                }
+            })
+            .catch(error => {
+                console.error('Error saving positions:', error);
+                statusDiv.className = 'alert alert-danger';
+                statusDiv.textContent = 'Error: Failed to save positions. Check console for details.';
+            });
+
+            return false;
+        };
+    </script>
+{% endif %}

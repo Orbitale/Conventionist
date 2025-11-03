@@ -55,10 +55,10 @@ final class Version20250319080855 extends AbstractMigration
                 id VARCHAR(36) NOT NULL,
                 name VARCHAR(255) NOT NULL,
                 allow_attendee_registration TINYINT(1) DEFAULT 1 NOT NULL,
-                map_image_data LONGBLOB DEFAULT NULL,
+                map_image_data VARCHAR(255) DEFAULT NULL,
                 map_width INT DEFAULT NULL,
                 map_height INT DEFAULT NULL,
-                map_mime_type VARCHAR(36) DEFAULT NULL,
+                map_mime_type VARCHAR(255) DEFAULT NULL,
                 x_position INT DEFAULT 0 NOT NULL,
                 y_position INT DEFAULT 0 NOT NULL,
                 room_id VARCHAR(36) NOT NULL,
@@ -106,11 +106,13 @@ final class Version20250319080855 extends AbstractMigration
             CREATE TABLE floor (
                 name VARCHAR(255) NOT NULL,
                 id VARCHAR(36) NOT NULL,
-                map_image_data LONGBLOB DEFAULT NULL,
+                map_image_data VARCHAR(255) DEFAULT NULL,
                 map_width INT DEFAULT NULL,
                 map_height INT DEFAULT NULL,
-                map_mime_type VARCHAR(36) DEFAULT NULL,
+                map_mime_type VARCHAR(255) DEFAULT NULL,
                 venue_id VARCHAR(36) NOT NULL,
+                x_position INT DEFAULT 0 NOT NULL,
+                y_position INT DEFAULT 0 NOT NULL,
                 INDEX IDX_BE45D62E40A73EBA (venue_id),
                 PRIMARY KEY(id)
             ) DEFAULT CHARACTER SET utf8mb4
@@ -133,10 +135,10 @@ final class Version20250319080855 extends AbstractMigration
             CREATE TABLE room (
                 name VARCHAR(255) NOT NULL,
                 id VARCHAR(36) NOT NULL,
-                map_image_data LONGBLOB DEFAULT NULL,
+                map_image_data VARCHAR(255) DEFAULT NULL,
                 map_width INT DEFAULT NULL,
                 map_height INT DEFAULT NULL,
-                map_mime_type VARCHAR(36) DEFAULT NULL,
+                map_mime_type VARCHAR(255) DEFAULT NULL,
                 x_position INT DEFAULT 0 NOT NULL,
                 y_position INT DEFAULT 0 NOT NULL,
                 floor_id VARCHAR(36) NOT NULL,
@@ -214,10 +216,10 @@ final class Version20250319080855 extends AbstractMigration
                 contact_phone VARCHAR(255) DEFAULT NULL,
                 created_at DATETIME NOT NULL,
                 updated_at DATETIME NOT NULL,
-                map_image_data LONGBLOB DEFAULT NULL,
+                map_image_data VARCHAR(255) DEFAULT NULL,
                 map_width INT DEFAULT NULL,
                 map_height INT DEFAULT NULL,
-                map_mime_type VARCHAR(36) DEFAULT NULL,
+                map_mime_type VARCHAR(255) DEFAULT NULL,
                 PRIMARY KEY(id)
             ) DEFAULT CHARACTER SET utf8mb4
         ');
