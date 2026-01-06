@@ -58,12 +58,13 @@ final class BoothCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
-        yield Field\TextField::new('name', 'Booth name or number');
-        yield Field\AssociationField::new('room');
-        yield Field\NumberField::new('maxNumberOfParticipants');
+        yield Field\TextField::new('name', 'Booth name or number')->setEditInPlace([Action::INDEX, Action::DETAIL]);
+        yield Field\AssociationField::new('room')->setEditInPlace([Action::INDEX, Action::DETAIL]);
+        yield Field\NumberField::new('maxNumberOfParticipants')->setEditInPlace([Action::INDEX, Action::DETAIL]);
         yield EquipmentField::new('availableEquipment')
             ->setCustomOption('translateKey', true)
-            ->setTemplatePath('admin/fields/field.array.html.twig');
+            ->setTemplatePath('admin/fields/field.array.html.twig')
+            ->setEditInPlace([Action::INDEX, Action::DETAIL]);
         yield Field\BooleanField::new('allowAttendeeRegistration')
             ->renderAsSwitch(false)
             ->setHelp('admin.field.allow_attendee_registration.help');

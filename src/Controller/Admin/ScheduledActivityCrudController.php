@@ -165,7 +165,7 @@ final class ScheduledActivityCrudController extends AbstractCrudController
         $request = $this->requestStack->getCurrentRequest();
 
         yield Field\ChoiceField::new('state')->setDisabled()->hideWhenCreating();
-        yield Field\AssociationField::new('activity')->setRequired(true);
+        yield Field\AssociationField::new('activity')->setRequired(true)->setEditInPlace([Action::INDEX, Action::DETAIL]);
         yield Field\AssociationField::new('timeSlot')->setRequired(true)->setDisabled($request?->query->has('slot_id') ?: false);
     }
 }

@@ -57,8 +57,8 @@ final class RoomCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
-        yield Field\TextField::new('name', 'Room name');
+        yield Field\TextField::new('name', 'Room name')->setEditInPlace([Action::INDEX, Action::DETAIL]);
         yield Field\AssociationField::new('floor')->setDisabled($pageName === Crud::PAGE_EDIT);
-        yield CustomFields\AssociationCollectionField::new('booths', null, NestedBoothCrudController::class, BoothCrudController::class);
+        yield CustomFields\AssociationCollectionField::new('booths', null, NestedBoothCrudController::class, BoothCrudController::class)->setEditInPlace([Action::INDEX, Action::DETAIL]);
     }
 }

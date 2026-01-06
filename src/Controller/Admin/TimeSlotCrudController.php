@@ -8,6 +8,7 @@ use App\Repository\BoothRepository;
 use App\Repository\EventRepository;
 use App\Repository\TimeSlotRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field;
 use Symfony\Component\HttpFoundation\Request;
@@ -81,12 +82,12 @@ final class TimeSlotCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
-        yield Field\AssociationField::new('event')->setRequired(true);
-        yield Field\AssociationField::new('booth')->setRequired(true);
-        yield Field\DateTimeField::new('startsAt')->setTimezone('UTC');
-        yield Field\DateTimeField::new('endsAt')->setTimezone('UTC');
+        yield Field\AssociationField::new('event')->setRequired(true)->setEditInPlace([Action::INDEX, Action::DETAIL]);
+        yield Field\AssociationField::new('booth')->setRequired(true)->setEditInPlace([Action::INDEX, Action::DETAIL]);
+        yield Field\DateTimeField::new('startsAt')->setTimezone('UTC')->setEditInPlace([Action::INDEX, Action::DETAIL]);
+        yield Field\DateTimeField::new('endsAt')->setTimezone('UTC')->setEditInPlace([Action::INDEX, Action::DETAIL]);
         yield EquipmentField::new('availableEquipment')
             ->setCustomOption('translateKey', true)
-            ->setTemplatePath('admin/fields/field.array.html.twig');
+            ->setTemplatePath('admin/fields/field.array.html.twig')->setEditInPlace([Action::INDEX, Action::DETAIL]);
     }
 }

@@ -107,21 +107,21 @@ final class VenueCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         yield Field\FormField::addColumn(6, 'Basic information')->hideOnDetail();
-        yield Field\TextField::new('name');
+        yield Field\TextField::new('name')->setEditInPlace([Action::INDEX, Action::DETAIL]);
         yield CustomFields\AssociationCollectionField::new('floors', null, NestedFloorCrudController::class, FloorCrudController::class);
-        yield Field\TextField::new('address')->hideOnForm()->hideOnDetail();
-        yield Field\TextField::new('address1')->hideOnIndex();
-        yield Field\TextField::new('address2')->hideOnIndex();
-        yield Field\TextField::new('state')->hideOnIndex();
-        yield Field\TextField::new('zipCode')->hideOnIndex();
-        yield Field\TextField::new('city')->hideOnIndex();
-        yield Field\TextField::new('country')->hideOnIndex();
-        yield Field\TextField::new('latitude')->hideOnIndex();
-        yield Field\TextField::new('longitude')->hideOnIndex();
-        yield Field\DateTimeField::new('createdAt')->hideOnForm();
-        yield Field\FormField::addColumn(6, '')->hideOnDetail();
+        yield Field\TextField::new('address')->hideOnForm()->hideOnDetail()->setEditInPlace(Action::DETAIL);
+        yield Field\TextField::new('address1')->hideOnIndex()->setEditInPlace(Action::DETAIL);
+        yield Field\TextField::new('address2')->hideOnIndex()->setEditInPlace(Action::DETAIL);
+        yield Field\TextField::new('state')->hideOnIndex()->setEditInPlace(Action::DETAIL);
+        yield Field\TextField::new('zipCode')->hideOnIndex()->setEditInPlace(Action::DETAIL);
+        yield Field\TextField::new('city')->hideOnIndex()->setEditInPlace(Action::DETAIL);
+        yield Field\TextField::new('country')->hideOnIndex()->setEditInPlace(Action::DETAIL);
+        yield Field\TextField::new('latitude')->hideOnIndex()->setEditInPlace(Action::DETAIL);
+        yield Field\TextField::new('longitude')->hideOnIndex()->setEditInPlace(Action::DETAIL);
+        yield Field\DateTimeField::new('createdAt')->hideOnForm()->setEditInPlace(Action::DETAIL);
+        yield Field\FormField::addColumn(6, '')->hideOnDetail()->setEditInPlace(Action::DETAIL);
         yield CustomFields\MapImageField::new('mapImage', 'Map or plan');
-        yield Field\NumberField::new('mapWidth', 'Map width')->onlyOnDetail();
-        yield Field\NumberField::new('mapHeight', 'Map height')->onlyOnDetail();
+        yield Field\NumberField::new('mapWidth', 'Map width')->onlyOnDetail()->setEditInPlace(Action::DETAIL);
+        yield Field\NumberField::new('mapHeight', 'Map height')->onlyOnDetail()->setEditInPlace(Action::DETAIL);
     }
 }

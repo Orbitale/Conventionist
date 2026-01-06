@@ -10,6 +10,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;
 use EasyCorp\Bundle\EasyAdminBundle\Collection\FieldCollection;
 use EasyCorp\Bundle\EasyAdminBundle\Collection\FilterCollection;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Dto\EntityDto;
 use EasyCorp\Bundle\EasyAdminBundle\Dto\SearchDto;
@@ -57,12 +58,13 @@ final class ActivityCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
-        yield Field\TextField::new('name');
-        yield Field\NumberField::new('maxNumberOfParticipants')->setRequired(false)->hideOnIndex();
-        yield Field\TextEditorField::new('description')->setRequired(false)->hideOnIndex();
-        yield AssociationField::new('creators')->setHelp('The users that are allowed to manage this activity. Note: you will always be included in this list, even if you remove yourself from it.');
+        yield Field\TextField::new('name')->setEditInPlace([Action::INDEX, Action::DETAIL]);
+        yield Field\NumberField::new('maxNumberOfParticipants')->setRequired(false)->hideOnIndex()->setEditInPlace([Action::INDEX, Action::DETAIL]);
+        yield Field\TextEditorField::new('description')->setRequired(false)->hideOnIndex()->setEditInPlace([Action::INDEX, Action::DETAIL]);
+        yield AssociationField::new('creators')->setHelp('The users that are allowed to manage this activity. Note: you will always be included in this list, even if you remove yourself from it.')->setEditInPlace([Action::INDEX, Action::DETAIL]);
         yield EquipmentField::new('neededEquipment')
             ->setCustomOption('translateKey', true)
-            ->setTemplatePath('admin/fields/field.array.html.twig');
+            ->setTemplatePath('admin/fields/field.array.html.twig')
+            ->setEditInPlace([Action::INDEX, Action::DETAIL]);
     }
 }

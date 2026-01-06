@@ -74,11 +74,10 @@ final class EventCrudController extends AbstractCrudController
         return [
             Field\FormField::addColumn(6),
             Field\FormField::addFieldset('fieldset.general'),
-            Field\TextField::new('name'),
-            Field\TextEditorField::new('description')->setRequired(false)->hideOnIndex(),
-            Field\AssociationField::new('venue')->setRequired(true),
-            AssociationField::new('creators')
-                ->setHelp('admin.field.creators.help'),
+            Field\TextField::new('name')->setEditInPlace([Action::INDEX, Action::DETAIL]),
+            Field\TextEditorField::new('description')->setRequired(false)->hideOnIndex()->setEditInPlace([Action::INDEX, Action::DETAIL]),
+            Field\AssociationField::new('venue')->setRequired(true)->setEditInPlace([Action::INDEX, Action::DETAIL]),
+            AssociationField::new('creators')->setHelp('admin.field.creators.help')->setEditInPlace([Action::INDEX, Action::DETAIL]),
             Field\BooleanField::new('isOnlineEvent')->renderAsSwitch(false),
 
             Field\FormField::addColumn(6),
@@ -86,10 +85,8 @@ final class EventCrudController extends AbstractCrudController
             Field\DateTimeField::new('startsAt'),
             Field\DateTimeField::new('endsAt'),
             Field\FormField::addFieldset('fieldset.registration'),
-            Field\BooleanField::new('allowActivityRegistration')->renderAsSwitch(false)
-                ->setHelp('admin.field.allow_activity_registration.help'),
-            Field\BooleanField::new('allowAttendeeRegistration')->renderAsSwitch(false)
-                ->setHelp('admin.field.allow_attendee_registration.help'),
+            Field\BooleanField::new('allowActivityRegistration')->renderAsSwitch(false)->setHelp('admin.field.allow_activity_registration.help'),
+            Field\BooleanField::new('allowAttendeeRegistration')->renderAsSwitch(false)->setHelp('admin.field.allow_attendee_registration.help'),
         ];
     }
 }
