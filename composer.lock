@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "12786cc732c946ca91ea37aeaf5a7693",
+    "content-hash": "678dc8d851d57d543f7c63816aa542ab",
     "packages": [
         {
             "name": "composer/semver",
@@ -1197,17 +1197,11 @@
         },
         {
             "name": "easycorp/easyadmin-bundle",
-            "version": "v5.0.2",
+            "version": "dev-edit-in-place",
             "source": {
                 "type": "git",
-                "url": "https://github.com/EasyCorp/EasyAdminBundle.git",
-                "reference": "75a421266c93e268849fcc9e97da47038fa09519"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/EasyCorp/EasyAdminBundle/zipball/75a421266c93e268849fcc9e97da47038fa09519",
-                "reference": "75a421266c93e268849fcc9e97da47038fa09519",
-                "shasum": ""
+                "url": "git@github.com:Pierstoval/EasyAdminBundle.git",
+                "reference": "6d9117b8a3abdeaaf78e7d877b29e9e2d8304c66"
             },
             "require": {
                 "doctrine/dbal": "^3.10|^4.4",
@@ -1228,6 +1222,7 @@
                 "symfony/http-foundation": "^6.4.33|^7.0|^8.0",
                 "symfony/http-kernel": "^6.4.33|^7.0|^8.0",
                 "symfony/intl": "^6.4.32|^7.0|^8.0",
+                "symfony/polyfill-php84": "^1.29",
                 "symfony/property-access": "^6.4.32|^7.0|^8.0",
                 "symfony/security-bundle": "^6.4.32|^7.0|^8.0",
                 "symfony/string": "^6.4.30|^7.0|^8.0",
@@ -1273,7 +1268,19 @@
                     "EasyCorp\\Bundle\\EasyAdminBundle\\": "src/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "autoload-dev": {
+                "psr-4": {
+                    "EasyCorp\\Bundle\\EasyAdminBundle\\Tests\\Unit\\": "tests/Unit/",
+                    "EasyCorp\\Bundle\\EasyAdminBundle\\Tests\\Functional\\": "tests/Functional/",
+                    "EasyCorp\\Bundle\\EasyAdminBundle\\Tests\\Functional\\Apps\\DefaultApp\\": "tests/Functional/Apps/DefaultApp/src/",
+                    "EasyCorp\\Bundle\\EasyAdminBundle\\Tests\\Functional\\Apps\\UglyUrlsApp\\": "tests/Functional/Apps/UglyUrlsApp/src/",
+                    "EasyCorp\\Bundle\\EasyAdminBundle\\Tests\\Functional\\Apps\\SecuredApp\\": "tests/Functional/Apps/SecuredApp/src/",
+                    "EasyCorp\\Bundle\\EasyAdminBundle\\Tests\\Functional\\Apps\\AdminRouteApp\\": "tests/Functional/Apps/AdminRouteApp/src/",
+                    "EasyCorp\\Bundle\\EasyAdminBundle\\Tests\\Functional\\Apps\\CustomizationApp\\": "tests/Functional/Apps/CustomizationApp/src/",
+                    "EasyCorp\\Bundle\\EasyAdminBundle\\Tests\\TestUtils\\": "tests/TestUtils/",
+                    "EasyCorp\\Bundle\\EasyAdminBundle\\Tests\\": "tests/"
+                }
+            },
             "license": [
                 "MIT"
             ],
@@ -1290,17 +1297,7 @@
                 "backend",
                 "generator"
             ],
-            "support": {
-                "issues": "https://github.com/EasyCorp/EasyAdminBundle/issues",
-                "source": "https://github.com/EasyCorp/EasyAdminBundle/tree/v5.0.2"
-            },
-            "funding": [
-                {
-                    "url": "https://github.com/javiereguiluz",
-                    "type": "github"
-                }
-            ],
-            "time": "2026-03-08T19:34:29+00:00"
+            "time": "2026-03-11T10:53:47+00:00"
         },
         {
             "name": "egulias/email-validator",
@@ -10870,7 +10867,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {},
+    "stability-flags": {
+        "easycorp/easyadmin-bundle": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
