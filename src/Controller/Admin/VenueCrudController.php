@@ -23,6 +23,9 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
+/**
+ * @extends AbstractCrudController<Venue>
+ */
 final class VenueCrudController extends AbstractCrudController
 {
     use GenericCrudMethods {configureCrud as baseConfigureCrud;}

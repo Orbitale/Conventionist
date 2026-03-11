@@ -7,6 +7,9 @@ use App\Entity\Room;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field;
 
+/**
+ * @extends AbstractCrudController<Room>
+ */
 final class NestedRoomCrudController extends AbstractCrudController
 {
     use DisableAllActions;

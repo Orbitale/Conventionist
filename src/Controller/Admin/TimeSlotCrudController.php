@@ -17,6 +17,9 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
+/**
+ * @extends AbstractCrudController<TimeSlot>
+ */
 final class TimeSlotCrudController extends AbstractCrudController
 {
     use GenericCrudMethods;

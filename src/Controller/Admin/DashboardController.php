@@ -53,21 +53,21 @@ final class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-table-columns');
 
         yield MenuItem::section('Convention organisation');
-        yield MenuItem::linkToCrud('Events', 'fas fa-calendar-days', Entity\Event::class);
+        yield MenuItem::linkTo(EventCrudController::class, 'Events', 'fas fa-calendar-days');
         yield MenuItem::linkToRoute('Calendar', 'fas fa-timeline', 'admin_calendar');
 
         yield MenuItem::section('Venue configurations');
-        yield MenuItem::linkToCrud('Event Venues', 'fas fa-map-pin', Entity\Venue::class);
-        yield MenuItem::linkToCrud('Floors', 'fas fa-layer-group', Entity\Floor::class)->setController(FloorCrudController::class);
-        yield MenuItem::linkToCrud('Rooms', 'fas fa-person-shelter', Entity\Room::class)->setController(RoomCrudController::class);
-        yield MenuItem::linkToCrud('Booths', 'fas fa-person-booth', Entity\Booth::class)->setController(BoothCrudController::class);
+        yield MenuItem::linkTo(VenueCrudController::class, 'Event Venues', 'fas fa-map-pin');
+        yield MenuItem::linkTo(FloorCrudController::class, 'Floors', 'fas fa-layer-group');
+        yield MenuItem::linkTo(RoomCrudController::class, 'Rooms', 'fas fa-person-shelter');
+        yield MenuItem::linkTo(BoothCrudController::class, 'Booths', 'fas fa-person-booth');
 
         yield MenuItem::section('Activities');
-        yield MenuItem::linkToCrud('Activities', 'fas fa-dice-d20', Entity\Activity::class);
-        yield MenuItem::linkToCrud('Time Slots', 'fas fa-bars-staggered', Entity\TimeSlot::class);
-        yield MenuItem::linkToCrud('Scheduled Activities', 'fas fa-diagram-predecessor', Entity\ScheduledActivity::class);
+        yield MenuItem::linkTo(ActivityCrudController::class, 'Activities', 'fas fa-dice-d20');
+        yield MenuItem::linkTo(TimeSlotCrudController::class, 'Time Slots', 'fas fa-bars-staggered');
+        yield MenuItem::linkTo(ScheduledActivityCrudController::class, 'Scheduled Activities', 'fas fa-diagram-predecessor');
 
         yield MenuItem::section('Administration')->setPermission('ROLE_ADMIN');
-        yield MenuItem::linkToCrud('Users', 'fas fa-user', Entity\User::class)->setPermission('ROLE_ADMIN');
+        yield MenuItem::linkTo(UsersCrudController::class, 'Users', 'fas fa-user')->setPermission('ROLE_ADMIN');
     }
 }

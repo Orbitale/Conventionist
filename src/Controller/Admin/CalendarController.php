@@ -8,13 +8,11 @@ use App\Enum\ScheduleActivityState;
 use App\Repository\EventRepository;
 use App\Security\Voter\ScheduledActivityVoter;
 use Doctrine\Common\Collections\Collection;
-use EasyCorp\Bundle\EasyAdminBundle\Config\Option\EA;
-use EasyCorp\Bundle\EasyAdminBundle\Provider\AdminContextProvider;
+use EasyCorp\Bundle\EasyAdminBundle\Attribute\AdminRoute;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
-use Symfony\Component\Routing\Attribute\Route;
 
 /**
  * @see DashboardController::calendar
@@ -23,15 +21,12 @@ final class CalendarController extends AbstractController
 {
     public function __construct(
         private readonly EventRepository $eventRepository,
-        private readonly AdminContextProvider $adminContextProvider,
     ) {
     }
 
-    #[Route('/{_locale}/admin/calendar', name: 'admin_calendar', requirements: ['_locale' => '%locales_regex%'], defaults: [EA::DASHBOARD_CONTROLLER_FQCN => DashboardController::class], methods: ['GET'])]
+    #[AdminRoute('/calendar', name: 'calendar')]
     public function calendarIndex(): Response
     {
-        $this->adminContextProvider->getContext();
-
         $user = $this->isGranted('ROLE_ADMIN') ? null : $this->getUser();
         $events = $this->eventRepository->findUpcoming($user);
 
@@ -40,7 +35,7 @@ final class CalendarController extends AbstractController
         ]);
     }
 
-    #[Route('/{_locale}/admin/calendar/{event_id}', name: 'admin_calendar_event', requirements: ['_locale' => '%locales_regex%'], defaults: [EA::DASHBOARD_CONTROLLER_FQCN => DashboardController::class])]
+    #[AdminRoute('/calendar/{event_id}', name: 'calendar_event')]
     public function viewCalendar(Request $request, string $event_id): Response
     {
         $currentUser = $this->getUser();

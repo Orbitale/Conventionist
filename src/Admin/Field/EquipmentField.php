@@ -7,12 +7,13 @@ use EasyCorp\Bundle\EasyAdminBundle\Contracts\Field\FieldInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FieldTrait;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Contracts\Translation\TranslatableInterface;
 
 final class EquipmentField implements FieldInterface
 {
     use FieldTrait;
 
-    public static function new(string $propertyName, $label = null): CollectionField
+    public static function new(string $propertyName, TranslatableInterface|string|bool|null $label = null): CollectionField
     {
         return CollectionField::new($propertyName, $label)
             ->setFormType(AssociativeArrayType::class)

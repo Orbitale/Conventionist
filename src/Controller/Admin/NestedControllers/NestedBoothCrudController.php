@@ -8,6 +8,9 @@ use App\Entity\Booth;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field;
 
+/**
+ * @extends AbstractCrudController<Booth>
+ */
 final class NestedBoothCrudController extends AbstractCrudController
 {
     use DisableAllActions;

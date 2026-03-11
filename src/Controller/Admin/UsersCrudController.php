@@ -23,6 +23,9 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Uid\Uuid;
 use SymfonyCasts\Bundle\ResetPassword\ResetPasswordHelperInterface;
 
+/**
+ * @extends AbstractCrudController<User>
+ */
 final class UsersCrudController extends AbstractCrudController
 {
     use GenericCrudMethods;

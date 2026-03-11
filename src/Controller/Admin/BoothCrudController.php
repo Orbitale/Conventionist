@@ -4,7 +4,6 @@ namespace App\Controller\Admin;
 
 use App\Admin\Field\EquipmentField;
 use App\Entity\Booth;
-use App\Admin\Field as CustomFields;
 use App\Security\Voter\VenueVoter;
 use Doctrine\ORM\QueryBuilder;
 use EasyCorp\Bundle\EasyAdminBundle\Collection\FieldCollection;
@@ -17,6 +16,9 @@ use EasyCorp\Bundle\EasyAdminBundle\Dto\EntityDto;
 use EasyCorp\Bundle\EasyAdminBundle\Dto\SearchDto;
 use EasyCorp\Bundle\EasyAdminBundle\Field;
 
+/**
+ * @extends AbstractCrudController<Booth>
+ */
 final class BoothCrudController extends AbstractCrudController
 {
     use GenericCrudMethods;

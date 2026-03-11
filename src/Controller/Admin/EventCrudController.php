@@ -18,6 +18,9 @@ use EasyCorp\Bundle\EasyAdminBundle\Dto\EntityDto;
 use EasyCorp\Bundle\EasyAdminBundle\Dto\SearchDto;
 use EasyCorp\Bundle\EasyAdminBundle\Field;
 
+/**
+ * @extends AbstractCrudController<Event>
+ */
 final class EventCrudController extends AbstractCrudController
 {
     use GenericCrudMethods;

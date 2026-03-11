@@ -20,6 +20,9 @@ use EasyCorp\Bundle\EasyAdminBundle\Dto\SearchDto;
 use EasyCorp\Bundle\EasyAdminBundle\Field;
 use EasyCorp\Bundle\EasyAdminBundle\Filter\EntityFilter;
 
+/**
+ * @extends AbstractCrudController<Floor>
+ */
 final class FloorCrudController extends AbstractCrudController
 {
     use GenericCrudMethods;

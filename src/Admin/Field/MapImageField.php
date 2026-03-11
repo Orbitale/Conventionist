@@ -8,6 +8,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\FieldTrait;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints\Image;
+use Symfony\Contracts\Translation\TranslatableInterface;
 
 final class MapImageField implements FieldInterface
 {
@@ -21,7 +22,7 @@ final class MapImageField implements FieldInterface
 
     public const string PATH_FROM_PUBLIC_DIR = '/uploads/maps';
 
-    public static function new(string $propertyName, ?string $label = null, bool $withDefaultPointers = false): FieldInterface|ImageField
+    public static function new(string $propertyName, TranslatableInterface|string|bool|null $label = null): FieldInterface|ImageField
     {
         return ImageField::new('mapImage', 'Map or plan')
             ->setUploadDir('/public/'.self::PATH_FROM_PUBLIC_DIR)
