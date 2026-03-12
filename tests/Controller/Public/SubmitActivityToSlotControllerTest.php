@@ -68,7 +68,7 @@ final class SubmitActivityToSlotControllerTest extends WebTestCase
     public function testSubmitWithExistingActivity(string $locale): void
     {
         $username = 'visitor';
-        $slotId = '11cca5a1-57f5-408c-bb2d-27cd0631fc5c';
+        $slotId = '28b98eb2-4fef-4587-9749-25af666c25e0';
         $activityId = '6d443a40-6c42-4ced-bb1c-a285e415a768';
 
         $path = str_replace('{id}', $slotId, SubmitActivityToSlotController::PATHS[$locale]);

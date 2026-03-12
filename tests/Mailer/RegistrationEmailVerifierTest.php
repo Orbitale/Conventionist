@@ -39,10 +39,10 @@ final class RegistrationEmailVerifierTest extends KernelTestCase
         $service = new RegistrationEmailVerifier(
             $verifyHelperMock = $this->createMock(VerifyEmailHelperInterface::class),
             $mailerMock = $this->createMock(MailerInterface::class),
-            new UserRepository($this->createMock(ManagerRegistry::class)),
-            $this->createMock(EntityManagerInterface::class),
+            new UserRepository($this->createStub(ManagerRegistry::class)),
+            $this->createStub(EntityManagerInterface::class),
             $translatorMock = $this->createMock(TranslatorInterface::class),
-            new ScheduledActivityRepository($this->createMock(ManagerRegistry::class)),
+            new ScheduledActivityRepository($this->createStub(ManagerRegistry::class)),
             $senderEmail = 'sender@test.localhost',
         );
 
@@ -51,7 +51,7 @@ final class RegistrationEmailVerifierTest extends KernelTestCase
             ->method('generateSignature')
             ->willReturn(new VerifyEmailSignatureComponents($date = new \DateTimeImmutable(), 'signed_uri', $date->getTimestamp()));
 
-        $translatorMock->method('trans')->willReturnArgument(0);
+        $translatorMock->expects($this->exactly(2))->method('trans')->willReturnArgument(0);
 
         $actualEmail = null;
 

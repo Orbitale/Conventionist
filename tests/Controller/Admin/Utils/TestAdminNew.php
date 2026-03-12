@@ -40,7 +40,7 @@ trait TestAdminNew
         $flashText = $crawler->filter('#flash-messages')?->text();
         self::assertNotEmpty($flashText, 'There are apparently no flash message confirming object creation.');
         self::assertStringStartsWith('Successfully created ', $flashText);
-        self::assertStringEndsWith(\sprintf('%s"!', $newData['name']), $flashText);
+        self::assertStringEndsWith(\sprintf('%s"!', $newData['name'] ?? ''), $flashText);
 
         $search = [];
         foreach ($fieldsToMatch as $key) {
