@@ -17,7 +17,32 @@ final class EventRepository extends ServiceEntityRepository
         parent::__construct($registry, Event::class);
     }
 
-    public function findUpcoming(?User $user)
+    /**
+     * @param User|null $user
+     *
+     * @return iterable<Event>
+     */
+    public function findForUser(?User $user): iterable
+    {
+        $qb = $this->createQueryBuilder('event');
+
+        if ($user) {
+            $qb->innerJoin('event.creators', 'creators')
+                ->addSelect('creators')
+                ->andWhere('creators IN (:creator)')
+                ->setParameter('creator', $user)
+            ;
+        }
+
+        return $qb->getQuery()->getResult();
+    }
+
+    /**
+     * @param User|null $user
+     *
+     * @return iterable<Event>
+     */
+    public function findUpcoming(?User $user): iterable
     {
         $qb = $this->createQueryBuilder('event')
             ->where('event.startsAt >= :start')
@@ -34,7 +59,7 @@ final class EventRepository extends ServiceEntityRepository
         return $qb->getQuery()->getResult();
     }
 
-    public function findForCalendar(string $eventId): ?Event
+    public function findOneForCalendar(string $eventId): ?Event
     {
         return $this->getEntityManager()->createQuery(<<<DQL
             SELECT event,

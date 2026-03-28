@@ -2,8 +2,8 @@
 
 namespace App\Tests\Controller\Admin;
 
+use App\Controller\Admin\Crud\ScheduledActivityCrudController;
 use App\Controller\Admin\DashboardController;
-use App\Controller\Admin\ScheduledActivityCrudController;
 use App\DataFixtures\ActivityFixture;
 use App\DataFixtures\ScheduledActivityFixture;
 use App\Tests\TestUtils\GetUser;

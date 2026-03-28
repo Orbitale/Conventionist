@@ -2,8 +2,8 @@
 
 namespace App\Tests\Controller\Admin;
 
+use App\Controller\Admin\Crud\RoomCrudController;
 use App\Controller\Admin\DashboardController;
-use App\Controller\Admin\RoomCrudController;
 use App\DataFixtures\FloorFixture;
 use App\DataFixtures\RoomFixture;
 use App\Tests\TestUtils\GetUser;

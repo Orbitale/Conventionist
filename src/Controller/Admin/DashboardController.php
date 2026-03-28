@@ -2,7 +2,7 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity;
+use App\Controller\Admin\Crud as CrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Attribute\AdminDashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Assets;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
@@ -53,21 +53,21 @@ final class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-table-columns');
 
         yield MenuItem::section('Convention organisation');
-        yield MenuItem::linkTo(EventCrudController::class, 'Events', 'fas fa-calendar-days');
+        yield MenuItem::linkTo(CrudController\EventCrudController::class, 'Events', 'fas fa-calendar-days');
         yield MenuItem::linkToRoute('Calendar', 'fas fa-timeline', 'admin_calendar');
 
         yield MenuItem::section('Venue configurations');
-        yield MenuItem::linkTo(VenueCrudController::class, 'Event Venues', 'fas fa-map-pin');
-        yield MenuItem::linkTo(FloorCrudController::class, 'Floors', 'fas fa-layer-group');
-        yield MenuItem::linkTo(RoomCrudController::class, 'Rooms', 'fas fa-person-shelter');
-        yield MenuItem::linkTo(BoothCrudController::class, 'Booths', 'fas fa-person-booth');
+        yield MenuItem::linkTo(CrudController\VenueCrudController::class, 'Event Venues', 'fas fa-map-pin');
+        yield MenuItem::linkTo(CrudController\FloorCrudController::class, 'Floors', 'fas fa-layer-group');
+        yield MenuItem::linkTo(CrudController\RoomCrudController::class, 'Rooms', 'fas fa-person-shelter');
+        yield MenuItem::linkTo(CrudController\BoothCrudController::class, 'Booths', 'fas fa-person-booth');
 
         yield MenuItem::section('Activities');
-        yield MenuItem::linkTo(ActivityCrudController::class, 'Activities', 'fas fa-dice-d20');
-        yield MenuItem::linkTo(TimeSlotCrudController::class, 'Time Slots', 'fas fa-bars-staggered');
-        yield MenuItem::linkTo(ScheduledActivityCrudController::class, 'Scheduled Activities', 'fas fa-diagram-predecessor');
+        yield MenuItem::linkTo(CrudController\ActivityCrudController::class, 'Activities', 'fas fa-dice-d20');
+        yield MenuItem::linkTo(CrudController\TimeSlotCrudController::class, 'Time Slots', 'fas fa-bars-staggered');
+        yield MenuItem::linkTo(CrudController\ScheduledActivityCrudController::class, 'Scheduled Activities', 'fas fa-diagram-predecessor');
 
         yield MenuItem::section('Administration')->setPermission('ROLE_ADMIN');
-        yield MenuItem::linkTo(UsersCrudController::class, 'Users', 'fas fa-user')->setPermission('ROLE_ADMIN');
+        yield MenuItem::linkTo(CrudController\UsersCrudController::class, 'Users', 'fas fa-user')->setPermission('ROLE_ADMIN');
     }
 }

@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Controller\Admin;
+namespace App\Controller\Admin\Crud;
 
 use App\Admin\Field\AssociationField;
 use App\Admin\Field\EquipmentField;
+use App\Controller\Admin\Traits\GenericCrudMethods;
 use App\Entity\Activity;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;

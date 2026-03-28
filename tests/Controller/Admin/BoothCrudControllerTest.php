@@ -2,14 +2,13 @@
 
 namespace App\Tests\Controller\Admin;
 
-use App\Controller\Admin\BoothCrudController;
+use App\Controller\Admin\Crud\BoothCrudController;
 use App\Controller\Admin\DashboardController;
 use App\DataFixtures\BoothFixture;
 use App\DataFixtures\RoomFixture;
 use App\DataFixtures\Tools\Ref;
 use App\Entity\Room;
 use App\Tests\TestUtils\GetUser;
-use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Test\AbstractCrudTestCase;
 use EasyCorp\Bundle\EasyAdminBundle\Test\Trait\CrudTestFormAsserts;
 

@@ -2,7 +2,7 @@
 
 namespace App\Tests\Controller\Admin;
 
-use App\Controller\Admin\ActivityCrudController;
+use App\Controller\Admin\Crud\ActivityCrudController;
 use App\Controller\Admin\DashboardController;
 use App\DataFixtures\ActivityFixture;
 use App\DataFixtures\Tools\Ref;

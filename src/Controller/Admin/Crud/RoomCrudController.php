@@ -1,9 +1,11 @@
 <?php
 
-namespace App\Controller\Admin;
+namespace App\Controller\Admin\Crud;
 
-use App\Admin\Field\EquipmentField;
-use App\Entity\Booth;
+use App\Admin\Field as CustomFields;
+use App\Controller\Admin\NestedControllers\NestedBoothCrudController;
+use App\Controller\Admin\Traits\GenericCrudMethods;
+use App\Entity\Room;
 use App\Security\Voter\VenueVoter;
 use Doctrine\ORM\QueryBuilder;
 use EasyCorp\Bundle\EasyAdminBundle\Collection\FieldCollection;
@@ -17,15 +19,15 @@ use EasyCorp\Bundle\EasyAdminBundle\Dto\SearchDto;
 use EasyCorp\Bundle\EasyAdminBundle\Field;
 
 /**
- * @extends AbstractCrudController<Booth>
+ * @extends AbstractCrudController<Room>
  */
-final class BoothCrudController extends AbstractCrudController
+final class RoomCrudController extends AbstractCrudController
 {
     use GenericCrudMethods;
 
     public static function getEntityFqcn(): string
     {
-        return Booth::class;
+        return Room::class;
     }
 
     public function configureActions(Actions $actions): Actions
@@ -47,8 +49,7 @@ final class BoothCrudController extends AbstractCrudController
             return $qb;
         }
 
-        $qb->innerJoin('entity.room', 'room')
-            ->innerJoin('room.floor', 'floor')
+        $qb->innerJoin('entity.floor', 'floor')
             ->innerJoin('floor.venue', 'venue')
             ->innerJoin('venue.creators', 'creators')
             ->andWhere('creators IN (:creator)')
@@ -60,14 +61,8 @@ final class BoothCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
-        yield Field\TextField::new('name', 'Booth name or number');
-        yield Field\AssociationField::new('room');
-        yield Field\NumberField::new('maxNumberOfParticipants');
-        yield EquipmentField::new('availableEquipment')
-            ->setCustomOption('translateKey', true)
-            ->setTemplatePath('admin/fields/field.array.html.twig');
-        yield Field\BooleanField::new('allowAttendeeRegistration')
-            ->renderAsSwitch(false)
-            ->setHelp('admin.field.allow_attendee_registration.help');
+        yield Field\TextField::new('name', 'Room name');
+        yield Field\AssociationField::new('floor')->setDisabled($pageName === Crud::PAGE_EDIT);
+        yield CustomFields\AssociationCollectionField::new('booths', null, NestedBoothCrudController::class, BoothCrudController::class);
     }
 }

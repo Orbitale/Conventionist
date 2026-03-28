@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Controller\Admin;
+namespace App\Controller\Admin\Crud;
 
 use App\Admin\Field as CustomFields;
 use App\Controller\Admin\NestedControllers\NestedRoomCrudController;
+use App\Controller\Admin\Traits\GenericCrudMethods;
 use App\Entity\Floor;
 use App\Repository\VenueRepository;
 use App\Security\Voter\VenueVoter;
@@ -50,6 +51,7 @@ final class FloorCrudController extends AbstractCrudController
                     ->andWhere('creators IN (:creator)')
                     ->setParameter('creator', $this->getUser())
                 ;
+
                 return $qb;
             },
         ]));

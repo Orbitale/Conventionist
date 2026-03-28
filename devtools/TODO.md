@@ -1,0 +1,6 @@
+- When accepting an activity for a time slot, reject grey activities too
+- Handle equipment views with "needed equipment" on one side, and "provided equipment" on another side
+- Allow users to propose an activity without a time slot
+- Add an admin view to assign an unplanned activity to a specific time slot
+- Allow changing the time slot for an activity
+  - If an activity is already accepted for this time slot, it must be rejected

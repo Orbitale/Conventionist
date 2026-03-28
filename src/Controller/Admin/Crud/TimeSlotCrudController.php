@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Controller\Admin;
+namespace App\Controller\Admin\Crud;
 
 use App\Admin\Field\EquipmentField;
+use App\Controller\Admin\Traits\GenericCrudMethods;
 use App\Entity\TimeSlot;
 use App\Repository\BoothRepository;
 use App\Repository\EventRepository;

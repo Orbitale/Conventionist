@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Controller\Admin;
+namespace App\Controller\Admin\Crud;
 
+use App\Controller\Admin\Traits\GenericCrudMethods;
 use App\Entity\Attendee;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 

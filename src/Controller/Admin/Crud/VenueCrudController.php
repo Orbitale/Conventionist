@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Controller\Admin;
+namespace App\Controller\Admin\Crud;
 
 use App\Admin\Field as CustomFields;
 use App\Controller\Admin\NestedControllers\NestedFloorCrudController;
+use App\Controller\Admin\Traits\GenericCrudMethods;
 use App\Entity\Venue;
 use App\Security\Voter\VenueVoter;
 use Doctrine\ORM\QueryBuilder;
@@ -28,11 +29,12 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  */
 final class VenueCrudController extends AbstractCrudController
 {
-    use GenericCrudMethods {configureCrud as baseConfigureCrud;}
+    use GenericCrudMethods {configureCrud as baseConfigureCrud; }
 
     public function __construct(
         private readonly TranslatorInterface $translator,
-    ) {}
+    ) {
+    }
 
     public static function getEntityFqcn(): string
     {

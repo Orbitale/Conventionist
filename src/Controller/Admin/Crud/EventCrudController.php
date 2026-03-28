@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Controller\Admin;
+namespace App\Controller\Admin\Crud;
 
 use App\Admin\Field\AssociationField;
+use App\Controller\Admin\Traits\GenericCrudMethods;
 use App\Entity\Event;
 use App\Entity\User;
 use App\Security\Voter\EventVoter;

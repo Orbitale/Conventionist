@@ -14,9 +14,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
-/**
- * @see DashboardController::calendar
- */
 final class CalendarController extends AbstractController
 {
     public function __construct(
@@ -45,7 +42,7 @@ final class CalendarController extends AbstractController
 
         $isAdmin = $this->isGranted('ROLE_ADMIN');
 
-        $event = $this->eventRepository->findForCalendar($event_id);
+        $event = $this->eventRepository->findOneForCalendar($event_id);
 
         if (!$event || (!$isAdmin && !$currentUser->isOwnerOf($event))) {
             $this->addFlash('warning', 'Event not found.');

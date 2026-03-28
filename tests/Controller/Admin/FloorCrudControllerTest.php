@@ -2,8 +2,8 @@
 
 namespace App\Tests\Controller\Admin;
 
+use App\Controller\Admin\Crud\FloorCrudController;
 use App\Controller\Admin\DashboardController;
-use App\Controller\Admin\FloorCrudController;
 use App\DataFixtures\FloorFixture;
 use App\DataFixtures\Tools\Ref;
 use App\DataFixtures\VenueFixture;

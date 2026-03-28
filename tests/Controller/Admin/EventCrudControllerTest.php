@@ -2,8 +2,8 @@
 
 namespace App\Tests\Controller\Admin;
 
+use App\Controller\Admin\Crud\EventCrudController;
 use App\Controller\Admin\DashboardController;
-use App\Controller\Admin\EventCrudController;
 use App\DataFixtures\EventFixture;
 use App\DataFixtures\VenueFixture;
 use App\Tests\TestUtils\GetUser;
