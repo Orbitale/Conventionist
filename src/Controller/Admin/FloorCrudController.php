@@ -50,6 +50,7 @@ final class FloorCrudController extends AbstractCrudController
                     ->andWhere('creators IN (:creator)')
                     ->setParameter('creator', $this->getUser())
                 ;
+
                 return $qb;
             },
         ]));

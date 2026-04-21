@@ -24,10 +24,13 @@ class TimeSlot implements HasCreators
     #[ORM\JoinColumn(name: 'event_id', nullable: false)]
     private Event $event;
 
-    #[ORM\ManyToOne(targetEntity: Booth::class)]
+    #[ORM\ManyToOne(targetEntity: Room::class)]
     #[ORM\JoinColumn(nullable: false)]
-    #[Assert\NotBlank]
-    private Booth $booth;
+    private Room $room;
+
+    #[ORM\ManyToOne(targetEntity: Booth::class)]
+    #[ORM\JoinColumn(nullable: true)]
+    private ?Booth $booth = null;
 
     #[ORM\Column(name: 'is_open', type: Types::BOOLEAN, nullable: false, options: ['default' => 1])]
     #[Assert\Type('bool')]
@@ -40,10 +43,6 @@ class TimeSlot implements HasCreators
     /** @var Collection<ScheduledActivity> */
     #[ORM\OneToMany(targetEntity: ScheduledActivity::class, mappedBy: 'timeSlot')]
     private Collection $scheduledActivities;
-
-    #[ORM\ManyToOne(inversedBy: 'timeSlots')]
-    #[ORM\JoinColumn(nullable: false)]
-    private Room $room;
 
     public function __construct()
     {
@@ -162,12 +161,12 @@ class TimeSlot implements HasCreators
         $this->event->addTimeslot($this);
     }
 
-    public function getBooth(): Booth
+    public function getBooth(): ?Booth
     {
         return $this->booth;
     }
 
-    public function setBooth(Booth $booth): void
+    public function setBooth(?Booth $booth): void
     {
         $this->booth = $booth;
     }
@@ -205,10 +204,8 @@ class TimeSlot implements HasCreators
         return $this->room;
     }
 
-    public function setRoom(Room $Room): static
+    public function setRoom(Room $Room): void
     {
         $this->room = $Room;
-
-        return $this;
     }
 }

@@ -78,7 +78,7 @@ trait MapImage
             'width' => $this->mapWidth,
             'height' => $this->mapHeight,
             'mimeType' => $this->mapMimeType,
-            'rooms' => array_map(static fn(Room $room) => $room->getMapJson(), $this->rooms->toArray()),
+            'rooms' => array_map(static fn (Room $room) => $room->getMapJson(), $this->rooms->toArray()),
         ];
     }
 }

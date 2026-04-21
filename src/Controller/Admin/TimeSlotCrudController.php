@@ -49,13 +49,14 @@ final class TimeSlotCrudController extends AbstractCrudController
         $booth = $request->request->get('booth_id');
         $room = $request->request->get('room_id');
         $event = $request->request->get('event_id');
-        if($booth && $room) {
-            if($room != $booth->get('room_id')) {
+
+        $booth = $this->boothRepository->find($booth);
+        if ($booth && $room) {
+            if ($room !== $booth->getRoom()->getId()) {
                 throw new BadRequestHttpException('Parameters don\'t match.');
             }
-        }
-        else if($booth) {
-            $room = $this->boothRepository->find($booth)->getRoom()->getId();
+        } elseif ($booth) {
+            $room = $booth->getRoom()->getId();
         }
 
         if (!$start || !$end || !$room || !$event) {
@@ -68,7 +69,7 @@ final class TimeSlotCrudController extends AbstractCrudController
             $start = null;
             $end = null;
         }
-        $booth = $this->boothRepository->find($booth);
+
         $room = $this->roomRepository->find($room);
         $event = $this->eventRepository->find($event);
         if (!$start || !$end || !$room || !$event) {
@@ -97,7 +98,7 @@ final class TimeSlotCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         yield Field\AssociationField::new('event')->setRequired(true);
-        yield Field\AssociationField::new('booth')->setRequired(true);
+        yield Field\AssociationField::new('booth')->setRequired(false);
         yield Field\AssociationField::new('room')->setRequired(true);
         yield Field\DateTimeField::new('startsAt')->setTimezone('UTC');
         yield Field\DateTimeField::new('endsAt')->setTimezone('UTC');

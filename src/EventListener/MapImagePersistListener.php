@@ -35,7 +35,7 @@ final readonly class MapImagePersistListener implements EventSubscriberInterface
             return;
         }
 
-        $imagePath = \rtrim($this->publicDir, '/') . '/' . \ltrim($entity->getMapImage(), '/');
+        $imagePath = \rtrim($this->publicDir, '/').'/'.\ltrim($entity->getMapImage(), '/');
         if (!file_exists($imagePath)) {
             throw new \RuntimeException('Cannot load image: file does not exist.');
         }

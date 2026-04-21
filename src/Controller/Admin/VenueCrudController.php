@@ -28,11 +28,12 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  */
 final class VenueCrudController extends AbstractCrudController
 {
-    use GenericCrudMethods {configureCrud as baseConfigureCrud;}
+    use GenericCrudMethods {configureCrud as baseConfigureCrud; }
 
     public function __construct(
         private readonly TranslatorInterface $translator,
-    ) {}
+    ) {
+    }
 
     public static function getEntityFqcn(): string
     {
