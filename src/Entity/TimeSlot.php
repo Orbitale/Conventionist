@@ -41,6 +41,10 @@ class TimeSlot implements HasCreators
     #[ORM\OneToMany(targetEntity: ScheduledActivity::class, mappedBy: 'timeSlot')]
     private Collection $scheduledActivities;
 
+    #[ORM\ManyToOne(inversedBy: 'timeSlots')]
+    #[ORM\JoinColumn(nullable: false)]
+    private Room $room;
+
     public function __construct()
     {
         $this->generateId();
@@ -48,7 +52,7 @@ class TimeSlot implements HasCreators
         $this->scheduledActivities = new ArrayCollection();
     }
 
-    public static function create(Event $event, Booth $booth, \DateTimeImmutable $startsAt, \DateTimeImmutable $endsAt): self
+    public static function create(Event $event, Booth $booth, Room $room, \DateTimeImmutable $startsAt, \DateTimeImmutable $endsAt): self
     {
         $item = new self();
 
@@ -56,6 +60,7 @@ class TimeSlot implements HasCreators
         $item->endsAt = $endsAt;
         $item->event = $event;
         $item->booth = $booth;
+        $item->room = $room;
 
         return $item;
     }
@@ -193,5 +198,17 @@ class TimeSlot implements HasCreators
     public function getScheduledActivities(): Collection
     {
         return $this->scheduledActivities;
+    }
+
+    public function getRoom(): Room
+    {
+        return $this->room;
+    }
+
+    public function setRoom(Room $Room): static
+    {
+        $this->room = $Room;
+
+        return $this;
     }
 }

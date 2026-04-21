@@ -28,10 +28,17 @@ class Room implements HasNestedRelations, HasCreators
     #[Assert\Valid]
     private Collection $booths;
 
+    /**
+     * @var Collection<int, TimeSlot>
+     */
+    #[ORM\OneToMany(targetEntity: TimeSlot::class, mappedBy: 'Room')]
+    private Collection $timeSlots;
+
     public function __construct()
     {
         $this->generateId();
         $this->booths = new ArrayCollection();
+        $this->timeSlots = new ArrayCollection();
     }
 
     public function __toString(): string
@@ -130,5 +137,35 @@ class Room implements HasNestedRelations, HasCreators
     public function hasBooth(Booth $booth): bool
     {
         return $this->booths->contains($booth);
+    }
+
+    /**
+     * @return Collection<int, TimeSlot>
+     */
+    public function getTimeSlots(): Collection
+    {
+        return $this->timeSlots;
+    }
+
+    public function addTimeSlot(TimeSlot $timeSlot): static
+    {
+        if (!$this->timeSlots->contains($timeSlot)) {
+            $this->timeSlots->add($timeSlot);
+            $timeSlot->setRoom($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTimeSlot(TimeSlot $timeSlot): static
+    {
+        if ($this->timeSlots->removeElement($timeSlot)) {
+            // set the owning side to null (unless already changed)
+            if ($timeSlot->getRoom() === $this) {
+                $timeSlot->setRoom(null);
+            }
+        }
+
+        return $this;
     }
 }
