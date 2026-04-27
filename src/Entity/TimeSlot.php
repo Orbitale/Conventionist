@@ -24,9 +24,9 @@ class TimeSlot implements HasCreators
     #[ORM\JoinColumn(name: 'event_id', nullable: false)]
     private Event $event;
 
-    #[ORM\ManyToOne(targetEntity: Room::class)]
-    #[ORM\JoinColumn(nullable: false)]
-    private Room $room;
+//   #[ORM\ManyToOne(targetEntity: Room::class)]
+//   #[ORM\JoinColumn(nullable: false)]
+//   private Room $room;
 
     #[ORM\ManyToOne(targetEntity: Booth::class)]
     #[ORM\JoinColumn(nullable: true)]
