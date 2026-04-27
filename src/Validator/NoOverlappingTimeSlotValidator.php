@@ -34,5 +34,15 @@ final class NoOverlappingTimeSlotValidator extends ConstraintValidator
             ;
             $this->context->buildViolation('')->atPath('endsAt')->addViolation();
         }
+
+        if ($value->getBooth()) {
+            if ($value->getRoom() !== $value->getBooth()->getRoom()) {
+                $this->context
+                    ->buildViolation($constraint->boothDontBelongToRoom)
+                    ->setParameter('{{ room }}', $value->getBooth()->getRoom()->getName())
+                    ->atPath('room')
+                    ->addViolation();
+            }
+        }
     }
 }
