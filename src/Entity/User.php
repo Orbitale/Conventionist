@@ -49,6 +49,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(name: 'locale', type: 'string', nullable: false, options: ['default' => 'fr'])]
     private string $locale = 'fr';
 
+    #[ORM\Column(name: 'birth_date', type: 'date_immutable', nullable: true)]
+    private ?\DateTimeImmutable $birthDate = null;
+
+    #[ORM\Column(name: 'privacy_accepted_at', type: 'datetime_immutable', nullable: true)]
+    private ?\DateTimeImmutable $privacyAcceptedAt = null;
+
+    #[ORM\Column(name: 'theme_preference', type: 'string', length: 16, nullable: true)]
+    #[Assert\Choice(choices: ['light', 'dark'], message: 'Theme preference must be light or dark.')]
+    private ?string $themePreference = null;
+
     /** Used in forms, mostly, because, you know, DTOs in EasyAdmin are super annoying to do. */
     public array $formNewRoles = [];
     public ?string $formNewPassword = '';
@@ -178,5 +188,49 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setLocale(string $locale): void
     {
         $this->locale = $locale;
+    }
+
+    public function getBirthDate(): ?\DateTimeImmutable
+    {
+        return $this->birthDate;
+    }
+
+    public function setBirthDate(?\DateTimeImmutable $birthDate): void
+    {
+        $this->birthDate = $birthDate;
+    }
+
+    public function getAge(?\DateTimeImmutable $at = null): ?int
+    {
+        if ($this->birthDate === null) {
+            return null;
+        }
+
+        return ($at ?? new \DateTimeImmutable())->diff($this->birthDate)->y;
+    }
+
+    public function getPrivacyAcceptedAt(): ?\DateTimeImmutable
+    {
+        return $this->privacyAcceptedAt;
+    }
+
+    public function setPrivacyAcceptedAt(?\DateTimeImmutable $privacyAcceptedAt): void
+    {
+        $this->privacyAcceptedAt = $privacyAcceptedAt;
+    }
+
+    public function hasAcceptedPrivacy(): bool
+    {
+        return $this->privacyAcceptedAt !== null;
+    }
+
+    public function getThemePreference(): ?string
+    {
+        return $this->themePreference;
+    }
+
+    public function setThemePreference(?string $themePreference): void
+    {
+        $this->themePreference = $themePreference;
     }
 }

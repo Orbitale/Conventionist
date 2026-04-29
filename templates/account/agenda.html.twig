@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'My Agenda'|trans }}{% endblock %}
+
+{% block body %}
+    <div class="d-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0">{{ 'My Agenda'|trans }}</h1>
+        <form method="get" class="d-flex gap-2 align-items-center">
+            <label class="small text-muted mb-0" for="from">{{ 'From'|trans }}</label>
+            <input type="date" id="from" name="from" class="form-control form-control-sm"
+                   value="{{ from|date('Y-m-d') }}">
+            <label class="small text-muted mb-0" for="to">{{ 'To'|trans }}</label>
+            <input type="date" id="to" name="to" class="form-control form-control-sm"
+                   value="{{ to|date('Y-m-d') }}">
+            <button type="submit" class="btn btn-sm btn-primary">{{ 'Apply'|trans }}</button>
+        </form>
+    </div>
+
+    {% if days is empty %}
+        <p class="text-muted">{{ 'No upcoming sessions in this range.'|trans }}</p>
+    {% else %}
+        {% for day, sessions in days %}
+            <section class="mb-4">
+                <h2 class="h6 text-uppercase text-muted mb-2">
+                    {{ day|date('l, F j, Y') }}
+                </h2>
+                <ul class="list-group">
+                    {% for session in sessions %}
+                        <li class="list-group-item">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <div>
+                                    <div class="fw-semibold">
+                                        {{ session.activity ? session.activity.name : '—' }}
+                                    </div>
+                                    <div class="text-muted small">
+                                        {{ session.startsAt|date('H:i') }} — {{ session.endsAt|date('H:i') }}
+                                        · {{ session.event.name }}
+                                    </div>
+                                </div>
+                                {% if app.user and session.submittedBy and session.submittedBy.userIdentifier == app.user.userIdentifier %}
+                                    <span class="badge bg-info">{{ 'GM'|trans }}</span>
+                                {% else %}
+                                    <span class="badge bg-secondary">{{ 'Attendee'|trans }}</span>
+                                {% endif %}
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </section>
+        {% endfor %}
+    {% endif %}
+{% endblock %}

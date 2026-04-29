@@ -8,6 +8,10 @@ enum ScheduleActivityState: string
     case PENDING_REVIEW = 'pending_review';
     case REJECTED = 'rejected';
     case ACCEPTED = 'accepted';
+    case WAITLIST_OPEN = 'waitlist_open';
+    case REGISTRATION_CLOSED = 'registration_closed';
+    case AWAITING_GM = 'awaiting_gm';
+    case CANCELLED_NO_GM = 'cancelled_no_gm';
 
     public function getColor(): string
     {
@@ -21,6 +25,10 @@ enum ScheduleActivityState: string
             self::PENDING_REVIEW => 'warning text-white',
             self::REJECTED => 'danger',
             self::ACCEPTED => 'success',
+            self::WAITLIST_OPEN => 'info text-white',
+            self::REGISTRATION_CLOSED => 'dark text-white',
+            self::AWAITING_GM => 'warning text-white',
+            self::CANCELLED_NO_GM => 'danger',
         };
     }
 
@@ -31,6 +39,10 @@ enum ScheduleActivityState: string
             self::PENDING_REVIEW => '#ffc107',
             self::REJECTED => '#dc3545',
             self::ACCEPTED => '#198754',
+            self::WAITLIST_OPEN => '#0dcaf0',
+            self::REGISTRATION_CLOSED => '#212529',
+            self::AWAITING_GM => '#fd7e14',
+            self::CANCELLED_NO_GM => '#b02a37',
         };
     }
 }

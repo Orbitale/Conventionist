@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'notifications.title'|trans({}, 'messages') }}{% endblock %}
+
+{% block body %}
+    <div class="d-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0">
+            {{ 'Notifications'|trans }}
+            {% if unread_count > 0 %}
+                <span class="badge bg-primary">{{ unread_count }}</span>
+            {% endif %}
+        </h1>
+
+        {% if unread_count > 0 %}
+            <form method="post" action="{{ path('notifications_read_all') }}">
+                <button type="submit" class="btn btn-outline-primary btn-sm">
+                    <i class="fa fa-check-double"></i>
+                    {{ 'Mark all as read'|trans }}
+                </button>
+            </form>
+        {% endif %}
+    </div>
+
+    {% if notifications is empty %}
+        <p class="text-muted">{{ 'No notifications.'|trans }}</p>
+    {% else %}
+        <ul class="list-group notifications-list">
+            {% for notification in notifications %}
+                {{ include('notification/_item.html.twig', { notification: notification }) }}
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endblock %}

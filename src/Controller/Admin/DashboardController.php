@@ -67,7 +67,24 @@ final class DashboardController extends AbstractDashboardController
         yield MenuItem::linkTo(TimeSlotCrudController::class, 'Time Slots', 'fas fa-bars-staggered');
         yield MenuItem::linkTo(ScheduledActivityCrudController::class, 'Scheduled Activities', 'fas fa-diagram-predecessor');
 
+        yield MenuItem::section('Organizations');
+        yield MenuItem::linkTo(OrganizationCrudController::class, 'Organizations', 'fas fa-building');
+        yield MenuItem::linkTo(UserGroupCrudController::class, 'User Groups', 'fas fa-users');
+        yield MenuItem::linkTo(UserGroupMembershipCrudController::class, 'Group Memberships', 'fas fa-user-group');
+        yield MenuItem::linkTo(UserExhibitionRoleCrudController::class, 'Exhibition Roles', 'fas fa-user-tag');
+
+        yield MenuItem::section('Game catalog');
+        yield MenuItem::linkTo(GameCrudController::class, 'Games', 'fas fa-dice');
+        yield MenuItem::linkTo(GameCategoryCrudController::class, 'Game Categories', 'fas fa-tags');
+        yield MenuItem::linkTo(GameThemeCrudController::class, 'Game Themes', 'fas fa-palette');
+        yield MenuItem::linkTo(SafetyToolCrudController::class, 'Safety Tools', 'fas fa-shield-heart');
+
+        yield MenuItem::section('Attendance');
+        yield MenuItem::linkTo(EventRegistrationCrudController::class, 'Event Registrations', 'fas fa-ticket');
+        yield MenuItem::linkTo(EventRequestCrudController::class, 'Event Requests', 'fas fa-hand-paper');
+
         yield MenuItem::section('Administration')->setPermission('ROLE_ADMIN');
         yield MenuItem::linkTo(UsersCrudController::class, 'Users', 'fas fa-user')->setPermission('ROLE_ADMIN');
+        yield MenuItem::linkTo(NotificationCrudController::class, 'Notifications', 'fas fa-bell')->setPermission('ROLE_ADMIN');
     }
 }

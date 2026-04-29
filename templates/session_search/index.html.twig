@@ -1,0 +1,125 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'session_search.title'|trans }} - {{ parent() }}{% endblock %}
+
+{% block body %}
+    <h1 class="h2 mb-4">{{ 'session_search.heading'|trans }}</h1>
+
+    <form method="get" class="card mb-4">
+        <div class="card-body">
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <label class="form-label" for="f-q">{{ 'session_search.filter.q'|trans }}</label>
+                    <input type="text" class="form-control" id="f-q" name="q" value="{{ filters.q ?? '' }}">
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label" for="f-event">{{ 'session_search.filter.event'|trans }}</label>
+                    <input type="text" class="form-control" id="f-event" name="event" value="{{ filters.event ?? '' }}" placeholder="{{ 'session_search.filter.event_id'|trans }}">
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label" for="f-game">{{ 'session_search.filter.game'|trans }}</label>
+                    <input type="text" class="form-control" id="f-game" name="game" value="{{ filters.game ?? '' }}" placeholder="{{ 'session_search.filter.game_id'|trans }}">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label" for="f-category">{{ 'session_search.filter.category'|trans }}</label>
+                    <input type="text" class="form-control" id="f-category" name="category" value="{{ filters.category ?? '' }}">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label" for="f-theme">{{ 'session_search.filter.theme'|trans }}</label>
+                    <input type="text" class="form-control" id="f-theme" name="theme" value="{{ filters.theme ?? '' }}">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label" for="f-state">{{ 'session_search.filter.state'|trans }}</label>
+                    <select class="form-select" id="f-state" name="state">
+                        <option value="">{{ 'session_search.filter.any'|trans }}</option>
+                        {% for state in states %}
+                            <option value="{{ state.value }}"{% if filters.state == state.value %} selected{% endif %}>{{ state.value }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label" for="f-seats">{{ 'session_search.filter.seats'|trans }}</label>
+                    <select class="form-select" id="f-seats" name="seats">
+                        <option value="">{{ 'session_search.filter.any'|trans }}</option>
+                        <option value="any"{% if filters.seats == 'any' %} selected{% endif %}>{{ 'session_search.filter.seats_any'|trans }}</option>
+                        <option value="available"{% if filters.seats == 'available' %} selected{% endif %}>{{ 'session_search.filter.seats_available'|trans }}</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label" for="f-from">{{ 'session_search.filter.from'|trans }}</label>
+                    <input type="date" class="form-control" id="f-from" name="from" value="{{ filters.from ?? '' }}">
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label" for="f-to">{{ 'session_search.filter.to'|trans }}</label>
+                    <input type="date" class="form-control" id="f-to" name="to" value="{{ filters.to ?? '' }}">
+                </div>
+            </div>
+            <div class="mt-3 d-flex gap-2">
+                <button type="submit" class="btn btn-primary">{{ 'session_search.filter.submit'|trans }}</button>
+                <a href="{{ path('session_search', {_locale: app.request.locale}) }}" class="btn btn-outline-secondary">{{ 'session_search.filter.reset'|trans }}</a>
+            </div>
+        </div>
+    </form>
+
+    <p class="text-muted">{{ 'session_search.total'|trans({'%count%': total}) }}</p>
+
+    {% if items is empty %}
+        <div class="alert alert-info">{{ 'session_search.empty'|trans }}</div>
+    {% else %}
+        <div class="list-group mb-4">
+            {% for session in items %}
+                {% set game = session.game %}
+                {% set event = session.event %}
+                {% set capacity = session.capacity %}
+                <div class="list-group-item d-flex flex-column flex-md-row gap-3 justify-content-between">
+                    <div>
+                        <h3 class="h5 mb-1">
+                            {{ game ? game.title : session.activity.name }}
+                        </h3>
+                        <p class="mb-1 text-muted">
+                            <i class="fa fa-calendar-days"></i>
+                            <a href="{{ path('event', {slug: event.slug}) }}">{{ event.name }}</a>
+                        </p>
+                        <small class="text-muted">
+                            {{ session.startsAt|format_datetime('medium', 'short') }}
+                             &mdash;
+                            {{ session.endsAt|format_datetime('none', 'short') }}
+                        </small>
+                    </div>
+                    <div class="text-md-end">
+                        <span class="badge bg-{{ session.stateCssClass }}">{{ session.state.value }}</span>
+                        <div class="mt-1 small text-muted">
+                            {% if capacity is null %}
+                                {{ 'session_search.capacity.uncapped'|trans }}
+                            {% else %}
+                                {{ 'session_search.capacity.max'|trans({'%count%': capacity}) }}
+                            {% endif %}
+                            {% if session.waitlistEnabled %}
+                                &middot; {{ 'session_search.capacity.waitlist'|trans }}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        {% if total_pages > 1 %}
+            {% set qs = filters|filter(v => v is not null and v != '') %}
+            <nav>
+                <ul class="pagination">
+                    {% if page > 1 %}
+                        <li class="page-item">
+                            <a class="page-link" href="{{ path('session_search', qs|merge({_locale: app.request.locale, page: page - 1})) }}">&laquo;</a>
+                        </li>
+                    {% endif %}
+                    <li class="page-item disabled"><span class="page-link">{{ page }} / {{ total_pages }}</span></li>
+                    {% if page < total_pages %}
+                        <li class="page-item">
+                            <a class="page-link" href="{{ path('session_search', qs|merge({_locale: app.request.locale, page: page + 1})) }}">&raquo;</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </nav>
+        {% endif %}
+    {% endif %}
+{% endblock %}

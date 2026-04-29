@@ -5,6 +5,9 @@ namespace App\Entity;
 use App\Enum\ScheduleActivityState;
 use App\Repository\ScheduledActivityRepository;
 use App\Validator\NoOverlappingSchedules;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -50,10 +53,35 @@ class ScheduledActivity
     #[Assert\NotBlank(groups: ['submit_activity'])]
     public ?string $email;
 
+    #[ORM\Column(name: 'capacity', type: Types::INTEGER, nullable: true)]
+    #[Assert\PositiveOrZero]
+    private ?int $capacity = null;
+
+    #[ORM\Column(name: 'waitlist_enabled', type: Types::BOOLEAN, nullable: false, options: ['default' => 0])]
+    private bool $waitlistEnabled = false;
+
+    #[ORM\Column(name: 'gm_checked_in_at', type: Types::DATETIME_IMMUTABLE, nullable: true)]
+    private ?\DateTimeImmutable $gmCheckedInAt = null;
+
+    #[ORM\Column(name: 'grace_deadline_at', type: Types::DATETIME_IMMUTABLE, nullable: true)]
+    private ?\DateTimeImmutable $graceDeadlineAt = null;
+
+    #[ORM\ManyToOne(targetEntity: Game::class)]
+    #[ORM\JoinColumn(name: 'game_id', referencedColumnName: 'id', nullable: true)]
+    private ?Game $game = null;
+
+    /** @var Collection<int, SafetyTool> */
+    #[ORM\ManyToMany(targetEntity: SafetyTool::class)]
+    #[ORM\JoinTable(name: 'scheduled_activity_safety_tool')]
+    #[ORM\JoinColumn(name: 'scheduled_activity_id', referencedColumnName: 'id', onDelete: 'CASCADE')]
+    #[ORM\InverseJoinColumn(name: 'safety_tool_id', referencedColumnName: 'id', onDelete: 'CASCADE')]
+    private Collection $safetyTools;
+
     public function __construct()
     {
         $this->generateId();
         $this->generateTimestamps();
+        $this->safetyTools = new ArrayCollection();
     }
 
     public function __toString(): string
@@ -182,5 +210,91 @@ class ScheduledActivity
         if ($user->isEmailConfirmed() && $this->isCreated()) {
             $this->state = ScheduleActivityState::PENDING_REVIEW;
         }
+    }
+
+    public function getCapacity(): ?int
+    {
+        return $this->capacity;
+    }
+
+    public function setCapacity(?int $capacity): void
+    {
+        $this->capacity = $capacity;
+    }
+
+    public function isWaitlistEnabled(): bool
+    {
+        return $this->waitlistEnabled;
+    }
+
+    public function setWaitlistEnabled(bool $waitlistEnabled): void
+    {
+        $this->waitlistEnabled = $waitlistEnabled;
+    }
+
+    public function getGmCheckedInAt(): ?\DateTimeImmutable
+    {
+        return $this->gmCheckedInAt;
+    }
+
+    public function setGmCheckedInAt(?\DateTimeImmutable $gmCheckedInAt): void
+    {
+        $this->gmCheckedInAt = $gmCheckedInAt;
+    }
+
+    public function getGraceDeadlineAt(): ?\DateTimeImmutable
+    {
+        return $this->graceDeadlineAt;
+    }
+
+    public function setGraceDeadlineAt(?\DateTimeImmutable $graceDeadlineAt): void
+    {
+        $this->graceDeadlineAt = $graceDeadlineAt;
+    }
+
+    public function getGame(): ?Game
+    {
+        return $this->game;
+    }
+
+    public function setGame(?Game $game): void
+    {
+        $this->game = $game;
+    }
+
+    /**
+     * @return Collection<int, SafetyTool>
+     */
+    public function getSafetyTools(): Collection
+    {
+        return $this->safetyTools;
+    }
+
+    public function addSafetyTool(SafetyTool $tool): void
+    {
+        if (!$this->safetyTools->contains($tool)) {
+            $this->safetyTools->add($tool);
+        }
+    }
+
+    public function removeSafetyTool(SafetyTool $tool): void
+    {
+        $this->safetyTools->removeElement($tool);
+    }
+
+    public function hasGmCheckedIn(): bool
+    {
+        return null !== $this->gmCheckedInAt;
+    }
+
+    public function isPastGraceDeadline(?\DateTimeImmutable $at = null): bool
+    {
+        if (null === $this->graceDeadlineAt) {
+            return false;
+        }
+
+        $at = $at ?? new \DateTimeImmutable();
+
+        return $at > $this->graceDeadlineAt;
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Enum\EventVisibility;
 use App\Enum\ScheduleActivityState;
 use App\Repository\EventRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -75,6 +76,33 @@ class Event implements HasCreators
     /** @var Collection<TimeSlot> */
     #[ORM\OneToMany(targetEntity: TimeSlot::class, mappedBy: 'event')]
     private Collection $timeSlots;
+
+    #[ORM\Column(name: 'visibility', type: Types::STRING, length: 32, enumType: EventVisibility::class, nullable: false, options: ['default' => 'draft'])]
+    private EventVisibility $visibility = EventVisibility::DRAFT;
+
+    #[ORM\Column(name: 'registration_opens_at', type: Types::DATETIME_IMMUTABLE, nullable: true)]
+    private ?\DateTimeImmutable $registrationOpensAt = null;
+
+    #[ORM\Column(name: 'registration_closes_at', type: Types::DATETIME_IMMUTABLE, nullable: true)]
+    private ?\DateTimeImmutable $registrationClosesAt = null;
+
+    #[ORM\Column(name: 'capacity', type: Types::INTEGER, nullable: true)]
+    #[Assert\PositiveOrZero]
+    private ?int $capacity = null;
+
+    #[ORM\Column(name: 'waitlist_enabled', type: Types::BOOLEAN, nullable: false, options: ['default' => 0])]
+    private bool $waitlistEnabled = false;
+
+    #[ORM\Column(name: 'website', type: Types::STRING, length: 255, nullable: true)]
+    #[Assert\Url(requireTld: true)]
+    private ?string $website = null;
+
+    #[ORM\Column(name: 'cover_image_path', type: Types::STRING, length: 255, nullable: true)]
+    private ?string $coverImagePath = null;
+
+    #[ORM\ManyToOne(targetEntity: Organization::class)]
+    #[ORM\JoinColumn(name: 'organization_id', referencedColumnName: 'id', nullable: true)]
+    private ?Organization $organization = null;
 
     public function __construct()
     {
@@ -303,6 +331,101 @@ class Event implements HasCreators
     /**
      * @return array<TimeSlot>
      */
+    public function getVisibility(): EventVisibility
+    {
+        return $this->visibility;
+    }
+
+    public function setVisibility(EventVisibility $visibility): void
+    {
+        $this->visibility = $visibility;
+    }
+
+    public function getRegistrationOpensAt(): ?\DateTimeImmutable
+    {
+        return $this->registrationOpensAt;
+    }
+
+    public function setRegistrationOpensAt(?\DateTimeImmutable $registrationOpensAt): void
+    {
+        $this->registrationOpensAt = $registrationOpensAt;
+    }
+
+    public function getRegistrationClosesAt(): ?\DateTimeImmutable
+    {
+        return $this->registrationClosesAt;
+    }
+
+    public function setRegistrationClosesAt(?\DateTimeImmutable $registrationClosesAt): void
+    {
+        $this->registrationClosesAt = $registrationClosesAt;
+    }
+
+    public function getCapacity(): ?int
+    {
+        return $this->capacity;
+    }
+
+    public function setCapacity(?int $capacity): void
+    {
+        $this->capacity = $capacity;
+    }
+
+    public function isWaitlistEnabled(): bool
+    {
+        return $this->waitlistEnabled;
+    }
+
+    public function setWaitlistEnabled(bool $waitlistEnabled): void
+    {
+        $this->waitlistEnabled = $waitlistEnabled;
+    }
+
+    public function getWebsite(): ?string
+    {
+        return $this->website;
+    }
+
+    public function setWebsite(?string $website): void
+    {
+        $this->website = $website;
+    }
+
+    public function getCoverImagePath(): ?string
+    {
+        return $this->coverImagePath;
+    }
+
+    public function setCoverImagePath(?string $coverImagePath): void
+    {
+        $this->coverImagePath = $coverImagePath;
+    }
+
+    public function getOrganization(): ?Organization
+    {
+        return $this->organization;
+    }
+
+    public function setOrganization(?Organization $organization): void
+    {
+        $this->organization = $organization;
+    }
+
+    public function isRegistrationOpen(?\DateTimeImmutable $at = null): bool
+    {
+        $at = $at ?? new \DateTimeImmutable();
+
+        if (null !== $this->registrationOpensAt && $at < $this->registrationOpensAt) {
+            return false;
+        }
+
+        if (null !== $this->registrationClosesAt && $at > $this->registrationClosesAt) {
+            return false;
+        }
+
+        return true;
+    }
+
     private function getDaySlotsForPublicView(\DateTimeInterface $day): array
     {
         $slotsAtDay = \array_filter($this->timeSlots->toArray(), static fn (TimeSlot $slot): bool => $slot->canBeShownToPublic($day));

@@ -1,0 +1,28 @@
+<li class="list-group-item notification {{ notification.read ? 'notification-read opacity-75' : 'notification-unread' }}">
+    <div class="d-flex w-100 gap-3 align-items-start">
+        <i class="fa {{ notification.level.icon }} text-{{ notification.level.cssClass }} fa-lg mt-1"></i>
+        <div class="flex-grow-1">
+            <div class="d-flex justify-content-between">
+                <h5 class="mb-1 notification-title">
+                    {% if notification.link %}
+                        <a href="{{ notification.link }}">{{ notification.title }}</a>
+                    {% else %}
+                        {{ notification.title }}
+                    {% endif %}
+                </h5>
+                <small class="text-muted">{{ notification.createdAt|format_datetime('medium', 'short') }}</small>
+            </div>
+            <p class="mb-1 notification-body">{{ notification.body|nl2br }}</p>
+            <small class="text-muted">
+                <span class="badge bg-secondary">{{ notification.type.label|trans }}</span>
+            </small>
+        </div>
+        {% if not notification.read %}
+            <form method="post" action="{{ path('notifications_read', { id: notification.id }) }}">
+                <button type="submit" class="btn btn-sm btn-outline-secondary" title="{{ 'Mark as read'|trans }}">
+                    <i class="fa fa-check"></i>
+                </button>
+            </form>
+        {% endif %}
+    </div>
+</li>
