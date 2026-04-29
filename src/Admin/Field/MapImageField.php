@@ -2,7 +2,6 @@
 
 namespace App\Admin\Field;
 
-use App\Form\Type\MapImageType;
 use EasyCorp\Bundle\EasyAdminBundle\Contracts\Field\FieldInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FieldTrait;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;

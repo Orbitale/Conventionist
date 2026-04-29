@@ -6,6 +6,7 @@ use App\Admin\Field\EquipmentField;
 use App\Entity\TimeSlot;
 use App\Repository\BoothRepository;
 use App\Repository\EventRepository;
+use App\Repository\RoomRepository;
 use App\Repository\TimeSlotRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
@@ -28,6 +29,7 @@ final class TimeSlotCrudController extends AbstractCrudController
         private readonly EntityManagerInterface $em,
         private readonly EventRepository $eventRepository,
         private readonly BoothRepository $boothRepository,
+        private readonly RoomRepository $roomRepository,
         private readonly TimeSlotRepository $scheduledActivityRepository,
         private readonly TranslatorInterface $translator,
         private readonly CsrfTokenManagerInterface $csrfTokenManager,
@@ -45,9 +47,19 @@ final class TimeSlotCrudController extends AbstractCrudController
         $start = $request->request->get('start');
         $end = $request->request->get('end');
         $booth = $request->request->get('booth_id');
+        $room = $request->request->get('room_id');
         $event = $request->request->get('event_id');
 
-        if (!$start || !$end || !$booth || !$event) {
+        $booth = $this->boothRepository->find($booth);
+        if ($booth && $room) {
+            if ($room !== $booth->getRoom()->getId()) {
+                throw new BadRequestHttpException('Parameters don\'t match.');
+            }
+        } elseif ($booth) {
+            $room = $booth->getRoom()->getId();
+        }
+
+        if (!$start || !$end || !$room || !$event) {
             throw new BadRequestHttpException('Missing required parameters.');
         }
         try {
@@ -57,13 +69,14 @@ final class TimeSlotCrudController extends AbstractCrudController
             $start = null;
             $end = null;
         }
-        $booth = $this->boothRepository->find($booth);
+
+        $room = $this->roomRepository->find($room);
         $event = $this->eventRepository->find($event);
-        if (!$start || !$end || !$booth || !$event) {
+        if (!$start || !$end || !$room || !$event) {
             throw new BadRequestHttpException('Missing required parameters.');
         }
 
-        $newSlot = TimeSlot::create($event, $booth, $start, $end);
+        $newSlot = TimeSlot::create($event, $booth, $room, $start, $end);
         $this->em->persist($newSlot);
         $this->em->flush();
 
@@ -85,7 +98,8 @@ final class TimeSlotCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         yield Field\AssociationField::new('event')->setRequired(true);
-        yield Field\AssociationField::new('booth')->setRequired(true);
+        yield Field\AssociationField::new('booth')->setRequired(false);
+        yield Field\AssociationField::new('room')->setRequired(true);
         yield Field\DateTimeField::new('startsAt')->setTimezone('UTC');
         yield Field\DateTimeField::new('endsAt')->setTimezone('UTC');
         yield EquipmentField::new('availableEquipment')

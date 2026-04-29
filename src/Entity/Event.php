@@ -184,12 +184,16 @@ class Event implements HasCreators
                 if (!\in_array($scheduledActivity->getState(), $states)) {
                     continue;
                 }
+                $ressource = $slot->getRoom()->getId();
+                if ($slot->getBooth()) {
+                    $ressource = $slot->getBooth()->getId();
+                }
                 $json[] = [
                     'id' => $scheduledActivity->getId(),
                     'title' => $scheduledActivity->getActivity()?->getName(),
                     'start' => $slot->getStartsAt(),
                     'end' => $slot->getEndsAt(),
-                    'resourceId' => $slot->getBooth()->getId(),
+                    'resourceId' => $ressource,
                     'extendedProps' => [
                         'type' => 'activity',
                         'description' => $scheduledActivity->getActivity()?->getDescription(),
@@ -198,12 +202,16 @@ class Event implements HasCreators
                 ];
             }
             if (!$activities->count()) {
+                $ressource = $slot->getRoom()->getId();
+                if ($slot->getBooth()) {
+                    $ressource = $slot->getBooth()->getId();
+                }
                 $json[] = [
                     'id' => $slot->getId(),
                     'title' => '',
                     'start' => $slot->getStartsAt(),
                     'end' => $slot->getEndsAt(),
-                    'resourceId' => $slot->getBooth()->getId(),
+                    'resourceId' => $ressource,
                     'extendedProps' => ['type' => 'empty_slot'],
                     'color' => '#000',
                 ];

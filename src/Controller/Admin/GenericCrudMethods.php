@@ -88,7 +88,7 @@ trait GenericCrudMethods
         return $builder
             ->addEventListener(FormEvents::SUBMIT, function (FormEvent $event): void {
                 $entity = $event->getForm()->getData();
-                if (!($entity instanceof HasNestedRelations)) {
+                if (!$entity instanceof HasNestedRelations) {
                     throw new \RuntimeException(\sprintf('Invalid usage of "%s". It must be associated with an entity instance that implements "%s".', static::class, HasNestedRelations::class));
                 }
                 $entity->refreshNestedRelations();
@@ -98,7 +98,7 @@ trait GenericCrudMethods
 
     private function checkParent(): void
     {
-        if (!($this instanceof AbstractCrudController)) {
+        if (!$this instanceof AbstractCrudController) {
             throw new \RuntimeException(\sprintf('Invalid usage of "%s". It must extend "%s".', static::class, AbstractCrudController::class));
         }
     }

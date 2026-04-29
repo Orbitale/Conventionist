@@ -28,10 +28,17 @@ class Room implements HasNestedRelations, HasCreators
     #[Assert\Valid]
     private Collection $booths;
 
+    /**
+     * @var Collection<int, TimeSlot>
+     */
+    #[ORM\OneToMany(targetEntity: TimeSlot::class, mappedBy: 'Room')]
+    private Collection $timeSlots;
+
     public function __construct()
     {
         $this->generateId();
         $this->booths = new ArrayCollection();
+        $this->timeSlots = new ArrayCollection();
     }
 
     public function __toString(): string

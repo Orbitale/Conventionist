@@ -24,10 +24,13 @@ class TimeSlot implements HasCreators
     #[ORM\JoinColumn(name: 'event_id', nullable: false)]
     private Event $event;
 
+  #[ORM\ManyToOne(targetEntity: Room::class)]
+  #[ORM\JoinColumn(nullable: false)]
+  private Room $room;
+
     #[ORM\ManyToOne(targetEntity: Booth::class)]
-    #[ORM\JoinColumn(nullable: false)]
-    #[Assert\NotBlank]
-    private Booth $booth;
+    #[ORM\JoinColumn(nullable: true)]
+    private ?Booth $booth = null;
 
     #[ORM\Column(name: 'is_open', type: Types::BOOLEAN, nullable: false, options: ['default' => 1])]
     #[Assert\Type('bool')]
@@ -48,7 +51,7 @@ class TimeSlot implements HasCreators
         $this->scheduledActivities = new ArrayCollection();
     }
 
-    public static function create(Event $event, Booth $booth, \DateTimeImmutable $startsAt, \DateTimeImmutable $endsAt): self
+    public static function create(Event $event, Booth $booth, Room $room, \DateTimeImmutable $startsAt, \DateTimeImmutable $endsAt): self
     {
         $item = new self();
 
@@ -56,6 +59,7 @@ class TimeSlot implements HasCreators
         $item->endsAt = $endsAt;
         $item->event = $event;
         $item->booth = $booth;
+        $item->room = $room;
 
         return $item;
     }
@@ -157,12 +161,12 @@ class TimeSlot implements HasCreators
         $this->event->addTimeslot($this);
     }
 
-    public function getBooth(): Booth
+    public function getBooth(): ?Booth
     {
         return $this->booth;
     }
 
-    public function setBooth(Booth $booth): void
+    public function setBooth(?Booth $booth): void
     {
         $this->booth = $booth;
     }
@@ -193,5 +197,15 @@ class TimeSlot implements HasCreators
     public function getScheduledActivities(): Collection
     {
         return $this->scheduledActivities;
+    }
+
+    public function getRoom(): Room
+    {
+        return $this->room;
+    }
+
+    public function setRoom(Room $Room): void
+    {
+        $this->room = $Room;
     }
 }
